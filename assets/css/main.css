@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CCNA Blueprint - Hoja de Estilos Principal (v3.0 - Solución Integral)
+   CCNA Blueprint - Hoja de Estilos Principal (v4.0 - Solución Definitiva)
    ========================================================================== */
 
 /* # VARIABLES DE COLOR */
@@ -11,7 +11,7 @@
   --brand-primary: #0d6efd;
   --brand-hover: #0b5ed7;
   --border-color: #dee2e6;
-  --shadow-color: rgba(0, 0, 0, 0.075);
+  --shadow-color: rgba(0, 0, 0, 0.05);
 }
 
 body.dark-mode {
@@ -21,7 +21,7 @@ body.dark-mode {
   --text-secondary: #adb5bd;
   --brand-primary: #3b82f6;
   --brand-hover: #60a5fa;
-  --border-color: #495057;
+  --border-color: #343a40;
   --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -35,8 +35,9 @@ body {
 /* # COMPONENTES */
 
 /* --- Barra de Navegación --- */
+/* Al quitar 'bg-light' del HTML, esta regla ahora tiene control total. */
 .navbar {
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-secondary) !important;
   border-bottom: 1px solid var(--border-color);
   box-shadow: 0 2px 4px var(--shadow-color);
   transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
@@ -53,13 +54,14 @@ body {
   color: var(--brand-primary);
 }
 
-/* [SOLUCIÓN NAVBAR TEMA OSCURO] */
+/* Anulamos cualquier estilo residual de Bootstrap para los enlaces activos/enfocados en modo oscuro */
 body.dark-mode .navbar.navbar-light .navbar-nav .nav-link.active,
 body.dark-mode .navbar.navbar-light .navbar-nav .show > .nav-link,
 body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
     background-color: transparent !important;
     color: var(--brand-primary) !important;
 }
+
 
 /* --- Sección Principal (Hero) --- */
 .hero-section {
@@ -68,17 +70,9 @@ body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
   background-position: center center;
   padding: 100px 0;
 }
-.hero-section h1, .hero-section p {
-  color: #ffffff;
-}
-.hero-section .btn-primary {
-  background-color: var(--brand-primary);
-  border-color: var(--brand-primary);
-}
-.hero-section .btn-primary:hover {
-  background-color: var(--brand-hover);
-  border-color: var(--brand-hover);
-}
+.hero-section h1, .hero-section p { color: #ffffff; }
+.hero-section .btn-primary { background-color: var(--brand-primary); border-color: var(--brand-primary); }
+.hero-section .btn-primary:hover { background-color: var(--brand-hover); border-color: var(--brand-hover); }
 
 /* --- Tarjetas y otros elementos --- */
 .card {
@@ -87,98 +81,33 @@ body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
   box-shadow: 0 0.125rem 0.25rem var(--shadow-color);
   transition: all 0.2s ease-in-out;
 }
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0.5rem 1rem var(--shadow-color);
-}
+.card:hover { transform: translateY(-5px); box-shadow: 0 0.5rem 1rem var(--shadow-color); }
 .feature-icon {
   width: 60px; height: 60px; border-radius: 50%; display: inline-flex;
   align-items: center; justify-content: center; font-size: 1.5rem;
   background-color: var(--brand-primary); color: #ffffff;
 }
-.bg-light-subtle {
-  background-color: var(--bg-secondary);
-}
-body.dark-mode .bg-light-subtle {
-  background-color: #161616;
-}
-.text-muted {
-  color: #6c757d !important;
-}
-body.dark-mode .text-muted {
-  color: #adb5bd !important;
-}
+.bg-light-subtle { background-color: var(--bg-secondary); }
+body.dark-mode .bg-light-subtle { background-color: #161616; }
+.text-muted { color: #6c757d !important; }
+body.dark-mode .text-muted { color: #adb5bd !important; }
 
 /* --- Footer --- */
-footer.bg-dark {
-  background-color: #212529 !important;
-  color: #adb5bd;
-}
-footer.bg-dark a {
-  color: #ffffff; text-decoration: underline;
-}
+footer.bg-dark { background-color: #212529 !important; color: #adb5bd; }
+footer.bg-dark a { color: #ffffff; text-decoration: underline; }
 
-/* --- [NUEVO] Interruptor de Tema (Theme Toggle Switch) --- */
-.theme-switch-wrapper {
-  display: flex;
-  align-items: center;
-}
-.theme-switch {
-  display: inline-block;
-  height: 24px;
-  position: relative;
-  width: 50px;
-}
-.theme-switch input {
-  display: none;
-}
-.slider {
-  background-color: #ccc;
-  bottom: 0;
-  cursor: pointer;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transition: .4s;
-}
-.slider:before {
-  background-color: #fff;
-  bottom: 4px;
-  content: "";
-  height: 16px;
-  left: 4px;
-  position: absolute;
-  transition: .4s;
-  width: 16px;
-}
-/* Estilos para el modo oscuro (interruptor activado) */
-input:checked + .slider {
-  background-color: var(--brand-primary);
-}
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-.slider.round {
-  border-radius: 34px;
-}
-.slider.round:before {
-  border-radius: 50%;
-}
-/* Iconos dentro del interruptor */
+/* --- Interruptor de Tema (Theme Toggle Switch) --- */
+.theme-switch-wrapper { display: flex; align-items: center; }
+.theme-switch { display: inline-block; height: 24px; position: relative; width: 50px; }
+.theme-switch input { display: none; }
+.slider { background-color: #ccc; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; }
+.slider:before { background-color: #fff; bottom: 4px; content: ""; height: 16px; left: 4px; position: absolute; transition: .4s; width: 16px; }
+input:checked + .slider { background-color: var(--brand-primary); }
+input:checked + .slider:before { transform: translateX(26px); }
+.slider.round { border-radius: 34px; }
+.slider.round:before { border-radius: 50%; }
 .slider:after {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-  content: '\f185'; /* Icono de sol */
-  color: #333;
-  position: absolute;
-  right: 6px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 12px;
+  font-family: "Font Awesome 6 Free"; font-weight: 900; content: '\f185'; color: #333;
+  position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 12px;
 }
-input:checked + .slider:after {
-  content: '\f186'; /* Icono de luna */
-  color: white;
-  left: 6px;
-}
+input:checked + .slider:after { content: '\f186'; color: white; left: 6px; }
