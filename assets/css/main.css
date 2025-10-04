@@ -1,26 +1,22 @@
 /* ======================= Paleta de Colores y Variables ======================= */
 :root {
-    /* --- CAMBIO AQUÍ: Se ha cambiado el fondo claro a un gris muy sutil --- */
     /* Modo Claro */
     --primary-color-light: #007bff;
     --accent-color-light: #17a2b8;
     --background-color-light: #f8f9fa; /* Gris muy claro en lugar de blanco puro */
-    --text-color-light: #212529; /* Texto casi negro para máximo contraste */
+    --text-color-light: #212529;
     --muted-text-color-light: #6c757d;
-    --card-bg-light: #ffffff; /* Las tarjetas se quedan blancas para resaltar */
+    --card-bg-light: #ffffff;
     --card-border-light: #dee2e6;
 
     /* Modo Oscuro */
     --primary-color-dark: #66b3ff;
     --accent-color-dark: #00bcd4;
-    --background-color-dark: #121212; /* Un negro más profundo para mejor contraste */
-    --text-color-dark: #e9ecef; /* Un blanco ligeramente más suave */
+    --background-color-dark: #121212;
+    --text-color-dark: #e9ecef;
     --muted-text-color-dark: #adb5bd;
-    --card-bg-dark: #1e1e1e; /* Un gris oscuro para las tarjetas */
+    --card-bg-dark: #1e1e1e;
     --card-border-dark: #495057;
-
-    --success-color: #28a745;
-    --danger-color: #dc3545;
 }
 
 
@@ -34,19 +30,15 @@ body {
 
 /* Navbar */
 .navbar {
-    background-color: var(--card-bg-light); /* Fondo blanco para la barra de navegación */
+    background-color: var(--card-bg-light);
     border-bottom: 1px solid var(--card-border-light);
     box-shadow: 0 2px 4px rgba(0,0,0,.04);
 }
-.navbar-brand, .navbar-nav .nav-link {
-    color: var(--text-color-light) !important;
-}
+.navbar-brand, .navbar-nav .nav-link { color: var(--text-color-light) !important; }
 .navbar-brand .fas { color: var(--primary-color-light); }
-.navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
-    color: var(--primary-color-light) !important;
-}
+.navbar-nav .nav-link.active, .navbar-nav .nav-link:hover { color: var(--primary-color-light) !important; }
 
-/* --- CAMBIO AQUÍ: Reglas más específicas para el texto del Hero --- */
+/* --- CORRECCIÓN APLICADA AQUÍ --- */
 /* Hero Section */
 .hero-section {
     background: linear-gradient(rgba(28, 35, 51, 0.75), rgba(28, 35, 51, 0.75)), url('https://images.unsplash.com/photo-1526374965328-5f61d4dc18c5?q=80&w=2070&auto=format&fit=crop');
@@ -92,15 +84,14 @@ body {
     color: var(--muted-text-color-light) !important;
 }
 
-
 /* Footer */
-footer a {
-    text-decoration: underline;
-    color: var(--text-color-dark) !important;
-}
 footer {
     background-color: #212529 !important;
     color: #ced4da;
+}
+footer a {
+    text-decoration: underline;
+    color: #ffffff !important;
 }
 
 /* ======================= Estilos para el Tema Oscuro ======================= */
@@ -115,14 +106,10 @@ body.dark-mode .navbar {
     box-shadow: none;
 }
 body.dark-mode .navbar-brand,
-body.dark-mode .navbar-nav .nav-link {
-    color: var(--text-color-dark) !important;
-}
+body.dark-mode .navbar-nav .nav-link { color: var(--text-color-dark) !important; }
 body.dark-mode .navbar-brand .fas { color: var(--primary-color-dark); }
 body.dark-mode .navbar-nav .nav-link.active,
-body.dark-mode .navbar-nav .nav-link:hover {
-    color: var(--primary-color-dark) !important;
-}
+body.dark-mode .navbar-nav .nav-link:hover { color: var(--primary-color-dark) !important; }
 
 body.dark-mode .hero-section .btn-primary {
     background-color: var(--primary-color-dark);
@@ -138,24 +125,17 @@ body.dark-mode .card {
     background-color: var(--card-bg-dark);
     border: 1px solid var(--card-border-dark);
 }
-
-body.dark-mode .card:hover {
-    border-color: var(--primary-color-dark);
-}
+body.dark-mode .card:hover { border-color: var(--primary-color-dark); }
 
 body.dark-mode .feature-icon {
     background-color: var(--primary-color-dark);
     color: #121212;
 }
 
-body.dark-mode .text-muted {
-    color: var(--muted-text-color-dark) !important;
-}
+body.dark-mode .text-muted { color: var(--muted-text-color-dark) !important; }
 
 body.dark-mode footer {
     background-color: #000000 !important;
     color: var(--muted-text-color-dark);
 }
-body.dark-mode footer a {
-    color: var(--primary-color-dark) !important;
-}
+body.dark-mode footer a { color: var(--primary-color-dark) !important; }
