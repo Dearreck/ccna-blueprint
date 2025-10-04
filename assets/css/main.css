@@ -114,6 +114,16 @@ input:checked + .slider:before { transform: translateX(26px); }
 }
 input:checked + .slider:after { content: '\f186'; color: white; left: 6px; }
 
+/* --- [CORRECCIÓN] Icono de Menú Hamburguesa en Tema Oscuro --- */
+/*
+ * El icono por defecto es un SVG oscuro definido por la clase .navbar-light.
+ * Aquí lo reemplazamos por un SVG con un trazo de color claro
+ * cuando el tema oscuro (.dark-mode) está activo.
+*/
+body.dark-mode .navbar-light .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(233, 236, 239, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
 /* --- [NUEVO] Estilos para Menú Hamburguesa (Móvil) ---
 /*
  * Cambiamos la posición del menú desplegable para que flote
