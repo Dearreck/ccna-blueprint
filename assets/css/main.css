@@ -162,3 +162,23 @@ footer.bg-dark a {
 footer.bg-dark a:hover {
   color: #e9ecef;
 }
+
+/*
+ * Corrección para la Navbar en Tema Oscuro:
+ * Anulamos el fondo blanco que Bootstrap aplica por defecto a los enlaces
+ * activos (.active) o cuando un menú desplegable está abierto (.show).
+*/
+body.dark-mode .navbar.navbar-light .navbar-nav .nav-link.active,
+body.dark-mode .navbar.navbar-light .navbar-nav .show > .nav-link {
+  background-color: transparent;
+  color: var(--text-primary); /* Mantiene el color del texto primario del tema oscuro */
+}
+
+/*
+ * Y nos aseguramos de que el enlace activo y el hover resalten
+ * con el color de la marca, pero sin fondo.
+*/
+body.dark-mode .navbar.navbar-light .navbar-nav .nav-link.active,
+body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:hover {
+    color: var(--brand-primary);
+}
