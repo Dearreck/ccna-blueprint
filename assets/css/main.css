@@ -1,20 +1,13 @@
 /* ==========================================================================
-   CCNA Blueprint - Hoja de Estilos Principal (Reconstrucción v2.1 - Final)
+   CCNA Blueprint - Hoja de Estilos Principal (v3.0 - Solución Integral)
    ========================================================================== */
 
-/* -------------------------------------------------------------------------- */
-/* # DEFINICIÓN DE VARIABLES DE COLOR (PALETA) */
-/* -------------------------------------------------------------------------- */
-
+/* # VARIABLES DE COLOR */
 :root {
-  /* TEMA CLARO (Default) */
   --bg-primary: #f8f9fa;
   --bg-secondary: #ffffff;
   --text-primary: #212529;
   --text-secondary: #495057;
-  --text-muted: #6c757d;
-  --text-on-dark: #ffffff;
-  --text-on-brand: #ffffff;
   --brand-primary: #0d6efd;
   --brand-hover: #0b5ed7;
   --border-color: #dee2e6;
@@ -22,41 +15,24 @@
 }
 
 body.dark-mode {
-  /* TEMA OSCURO (Sobrescribe las variables) */
   --bg-primary: #121212;
   --bg-secondary: #1e1e1e;
   --text-primary: #e9ecef;
   --text-secondary: #adb5bd;
-  --text-muted: #6c757d;
   --brand-primary: #3b82f6;
   --brand-hover: #60a5fa;
   --border-color: #495057;
   --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
-/* -------------------------------------------------------------------------- */
-/* # ESTILOS GLOBALES Y BASE */
-/* -------------------------------------------------------------------------- */
-
+/* # ESTILOS GLOBALES */
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
-a {
-  color: var(--brand-primary);
-  text-decoration: none;
-}
-a:hover {
-  color: var(--brand-hover);
-  text-decoration: underline;
-}
-
-/* -------------------------------------------------------------------------- */
-/* # ESTILOS POR COMPONENTE */
-/* -------------------------------------------------------------------------- */
+/* # COMPONENTES */
 
 /* --- Barra de Navegación --- */
 .navbar {
@@ -77,44 +53,34 @@ a:hover {
   color: var(--brand-primary);
 }
 
-/* --- [INICIA LA CORRECCIÓN DEFINITIVA] --- */
-/*
- * Anulamos el fondo que Bootstrap aplica a los enlaces de la navbar
- * en los estados .active, .show (dropdown abierto) y :focus
- * cuando el tema oscuro está activo. Usamos !important para garantizar
- * que nuestro estilo gane la batalla de especificidad contra Bootstrap.
-*/
+/* [SOLUCIÓN NAVBAR TEMA OSCURO] */
 body.dark-mode .navbar.navbar-light .navbar-nav .nav-link.active,
 body.dark-mode .navbar.navbar-light .navbar-nav .show > .nav-link,
 body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
     background-color: transparent !important;
     color: var(--brand-primary) !important;
 }
-/* --- [FINALIZA LA CORRECCIÓN DEFINITIVA] --- */
-
 
 /* --- Sección Principal (Hero) --- */
 .hero-section {
-  background: linear-gradient(rgba(28, 35, 51, 0.7), rgba(28, 35, 51, 0.7)), url('https://images.unsplash.com/photo-1526374965328-5f61d4dc18c5?q=80&w=2070&auto-format&fit=crop');
+  background: linear-gradient(rgba(28, 35, 51, 0.7), rgba(28, 35, 51, 0.7)), url('https://images.unsplash.com/photo-1526374965328-5f61d4dc18c5?q=80&w=2070&auto=format&fit=crop');
   background-size: cover;
   background-position: center center;
   padding: 100px 0;
-  color: var(--text-on-dark);
 }
-.hero-section h1, .hero-section .lead {
-  color: var(--text-on-dark);
+.hero-section h1, .hero-section p {
+  color: #ffffff;
 }
 .hero-section .btn-primary {
   background-color: var(--brand-primary);
   border-color: var(--brand-primary);
-  color: var(--text-on-brand);
 }
 .hero-section .btn-primary:hover {
   background-color: var(--brand-hover);
   border-color: var(--brand-hover);
 }
 
-/* --- Tarjetas de Herramientas --- */
+/* --- Tarjetas y otros elementos --- */
 .card {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
@@ -125,36 +91,94 @@ body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
   transform: translateY(-5px);
   box-shadow: 0 0.5rem 1rem var(--shadow-color);
 }
-.card-title {
-  color: var(--text-primary);
-}
-.card-text {
-  color: var(--text-secondary);
-}
-
-/* --- Íconos de las tarjetas --- */
 .feature-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  background-color: var(--brand-primary);
-  color: var(--text-on-brand);
-  transition: background-color 0.2s ease-in-out;
+  width: 60px; height: 60px; border-radius: 50%; display: inline-flex;
+  align-items: center; justify-content: center; font-size: 1.5rem;
+  background-color: var(--brand-primary); color: #ffffff;
+}
+.bg-light-subtle {
+  background-color: var(--bg-secondary);
+}
+body.dark-mode .bg-light-subtle {
+  background-color: #161616;
+}
+.text-muted {
+  color: #6c757d !important;
+}
+body.dark-mode .text-muted {
+  color: #adb5bd !important;
 }
 
-/* --- Pie de Página (Footer) --- */
+/* --- Footer --- */
 footer.bg-dark {
   background-color: #212529 !important;
   color: #adb5bd;
 }
 footer.bg-dark a {
-  color: #ffffff;
-  text-decoration: underline;
+  color: #ffffff; text-decoration: underline;
 }
-footer.bg-dark a:hover {
-  color: #e9ecef;
+
+/* --- [NUEVO] Interruptor de Tema (Theme Toggle Switch) --- */
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+}
+.theme-switch {
+  display: inline-block;
+  height: 24px;
+  position: relative;
+  width: 50px;
+}
+.theme-switch input {
+  display: none;
+}
+.slider {
+  background-color: #ccc;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .4s;
+}
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 16px;
+  left: 4px;
+  position: absolute;
+  transition: .4s;
+  width: 16px;
+}
+/* Estilos para el modo oscuro (interruptor activado) */
+input:checked + .slider {
+  background-color: var(--brand-primary);
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+/* Iconos dentro del interruptor */
+.slider:after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: '\f185'; /* Icono de sol */
+  color: #333;
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+}
+input:checked + .slider:after {
+  content: '\f186'; /* Icono de luna */
+  color: white;
+  left: 6px;
 }
