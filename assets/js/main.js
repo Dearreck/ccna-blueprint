@@ -1,21 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const themeToggler = document.getElementById('theme-toggler');
-    const currentTheme = localStorage.getItem('theme');
+    // Seleccionamos el nuevo checkbox del interruptor
+    const themeSwitch = document.getElementById('theme-switch-checkbox');
 
-    // Aplicar el tema guardado al cargar la página
-    if (currentTheme) {
-        document.body.classList.add(currentTheme);
-    }
-
-    themeToggler.addEventListener('click', () => {
-        // Alternar la clase 'dark-mode'
-        document.body.classList.toggle('dark-mode');
-
-        // Guardar la preferencia en localStorage
-        let theme = 'light'; // Por defecto
-        if (document.body.classList.contains('dark-mode')) {
-            theme = 'dark-mode';
+    // Función para aplicar el tema
+    const applyTheme = (theme) => {
+        if (theme === 'dark-mode') {
+            document.body.classList.add('dark-mode');
+            themeSwitch.checked = true; // Sincroniza el estado visual del toggle
+        } else {
+            document.body.classList.remove('dark-mode');
+            themeSwitch.checked = false; // Sincroniza el estado visual del toggle
         }
-        localStorage.setItem('theme', theme);
+    };
+
+    // Al cargar la página, comprobamos el tema guardado en localStorage
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
+
+    // Añadimos el listener para cuando se haga clic en el interruptor
+    themeSwitch.addEventListener('change', () => {
+        let newTheme;
+        if (themeSwitch.checked) {
+            newTheme = 'dark-mode';
+        } else {
+            newTheme = 'light';
+        }
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('theme', newTheme);
     });
 });
