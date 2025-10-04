@@ -1,53 +1,38 @@
 /* ==========================================================================
-   CCNA Blueprint - Hoja de Estilos Principal (Reconstrucción v2.0)
+   CCNA Blueprint - Hoja de Estilos Principal (Reconstrucción v2.1 - Final)
    ========================================================================== */
 
 /* -------------------------------------------------------------------------- */
 /* # DEFINICIÓN DE VARIABLES DE COLOR (PALETA) */
 /* -------------------------------------------------------------------------- */
 
-/* Las variables definidas aquí en :root son para el TEMA CLARO por defecto. */
 :root {
-  /* Colores de Fondo */
-  --bg-primary: #f8f9fa; /* Fondo principal de la página (gris muy sutil) */
-  --bg-secondary: #ffffff; /* Fondo para elementos flotantes como tarjetas y navbar */
-
-  /* Colores de Texto */
-  --text-primary: #212529; /* Texto principal (casi negro) */
-  --text-secondary: #495057; /* Texto secundario, más suave */
-  --text-muted: #6c757d; /* Texto con menor énfasis */
-  --text-on-dark: #ffffff; /* Texto que siempre va sobre fondos oscuros (ej. Hero) */
-  --text-on-brand: #ffffff; /* Texto que va sobre botones o elementos de marca */
-
-  /* Colores de Marca (Brand) */
-  --brand-primary: #0d6efd; /* Azul principal de Bootstrap */
-  --brand-hover: #0b5ed7; /* Azul más oscuro para interacciones */
-
-  /* Otros */
-  --border-color: #dee2e6; /* Color para bordes sutiles */
-  --shadow-color: rgba(0, 0, 0, 0.075); /* Sombra para elementos */
+  /* TEMA CLARO (Default) */
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #ffffff;
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-muted: #6c757d;
+  --text-on-dark: #ffffff;
+  --text-on-brand: #ffffff;
+  --brand-primary: #0d6efd;
+  --brand-hover: #0b5ed7;
+  --border-color: #dee2e6;
+  --shadow-color: rgba(0, 0, 0, 0.075);
 }
 
-/* El tema oscuro simplemente sobrescribe las variables anteriores. */
 body.dark-mode {
-  /* Colores de Fondo */
-  --bg-primary: #121212; /* Negro casi puro, estándar en diseño oscuro */
-  --bg-secondary: #1e1e1e; /* Gris oscuro para tarjetas y navbar */
-
-  /* Colores de Texto */
-  --text-primary: #e9ecef; /* Blanco suave para reducir fatiga visual */
-  --text-secondary: #adb5bd; /* Gris claro */
+  /* TEMA OSCURO (Sobrescribe las variables) */
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --text-primary: #e9ecef;
+  --text-secondary: #adb5bd;
   --text-muted: #6c757d;
-
-  /* Colores de Marca (Brand) */
-  --brand-primary: #3b82f6; /* Azul más brillante para resaltar en fondos oscuros */
-  --brand-hover: #60a5fa; /* Azul aún más claro para interacciones */
-
-  /* Otros */
+  --brand-primary: #3b82f6;
+  --brand-hover: #60a5fa;
   --border-color: #495057;
   --shadow-color: rgba(0, 0, 0, 0.2);
 }
-
 
 /* -------------------------------------------------------------------------- */
 /* # ESTILOS GLOBALES Y BASE */
@@ -69,20 +54,17 @@ a:hover {
   text-decoration: underline;
 }
 
-
 /* -------------------------------------------------------------------------- */
 /* # ESTILOS POR COMPONENTE */
 /* -------------------------------------------------------------------------- */
 
 /* --- Barra de Navegación --- */
-/* Asume que el HTML tiene: <nav class="navbar navbar-expand-lg navbar-light bg-light"> */
 .navbar {
   background-color: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
   box-shadow: 0 2px 4px var(--shadow-color);
   transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
-/* Estilos para texto y logo en navbar-light */
 .navbar.navbar-light .navbar-brand,
 .navbar.navbar-light .navbar-nav .nav-link {
   color: var(--text-secondary);
@@ -90,11 +72,26 @@ a:hover {
 .navbar.navbar-light .navbar-brand .fas {
   color: var(--brand-primary);
 }
-/* Hover y estado activo */
 .navbar.navbar-light .navbar-nav .nav-link:hover,
 .navbar.navbar-light .navbar-nav .nav-link.active {
   color: var(--brand-primary);
 }
+
+/* --- [INICIA LA CORRECCIÓN DEFINITIVA] --- */
+/*
+ * Anulamos el fondo que Bootstrap aplica a los enlaces de la navbar
+ * en los estados .active, .show (dropdown abierto) y :focus
+ * cuando el tema oscuro está activo. Usamos !important para garantizar
+ * que nuestro estilo gane la batalla de especificidad contra Bootstrap.
+*/
+body.dark-mode .navbar.navbar-light .navbar-nav .nav-link.active,
+body.dark-mode .navbar.navbar-light .navbar-nav .show > .nav-link,
+body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
+    background-color: transparent !important;
+    color: var(--brand-primary) !important;
+}
+/* --- [FINALIZA LA CORRECCIÓN DEFINITIVA] --- */
+
 
 /* --- Sección Principal (Hero) --- */
 .hero-section {
@@ -102,10 +99,10 @@ a:hover {
   background-size: cover;
   background-position: center center;
   padding: 100px 0;
-  color: var(--text-on-dark); /* Texto siempre blanco */
+  color: var(--text-on-dark);
 }
 .hero-section h1, .hero-section .lead {
-  color: var(--text-on-dark); /* Asegura que el color se aplique correctamente */
+  color: var(--text-on-dark);
 }
 .hero-section .btn-primary {
   background-color: var(--brand-primary);
@@ -150,7 +147,6 @@ a:hover {
 }
 
 /* --- Pie de Página (Footer) --- */
-/* El footer tendrá un diseño consistente (oscuro) en ambos temas. */
 footer.bg-dark {
   background-color: #212529 !important;
   color: #adb5bd;
@@ -161,24 +157,4 @@ footer.bg-dark a {
 }
 footer.bg-dark a:hover {
   color: #e9ecef;
-}
-
-/*
- * Corrección para la Navbar en Tema Oscuro:
- * Anulamos el fondo blanco que Bootstrap aplica por defecto a los enlaces
- * activos (.active) o cuando un menú desplegable está abierto (.show).
-*/
-body.dark-mode .navbar.navbar-light .navbar-nav .nav-link.active,
-body.dark-mode .navbar.navbar-light .navbar-nav .show > .nav-link {
-  background-color: transparent;
-  color: var(--text-primary); /* Mantiene el color del texto primario del tema oscuro */
-}
-
-/*
- * Y nos aseguramos de que el enlace activo y el hover resalten
- * con el color de la marca, pero sin fondo.
-*/
-body.dark-mode .navbar.navbar-light .navbar-nav .nav-link.active,
-body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:hover {
-    color: var(--brand-primary);
 }
