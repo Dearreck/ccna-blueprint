@@ -126,25 +126,17 @@ body.dark-mode .navbar-light .navbar-toggler-icon {
 
 /* --- [CORRECCIÓN DEFINITIVA] Posicionamiento del Submenú en Escritorio --- */
 
-/* Se aplica solo en pantallas grandes (el punto de ruptura de Bootstrap) */
 @media (min-width: 992px) {
-  /*
-   * 1. [LA PIEZA CLAVE] Forzamos al elemento <li> que contiene el submenú
-   * a ser el "ancla" o contexto de posicionamiento.
-  */
   .navbar-nav .nav-item.dropdown {
     position: relative;
   }
-
-  /*
-   * 2. Ahora que el submenú tiene un ancla, esta regla lo alineará
-   * correctamente con el borde derecho de "Herramientas".
-  */
   .navbar-nav .dropdown-menu {
     right: 0;
     left: auto;
   }
 }
+
+
 /* --- [NUEVO] Estilos para Menú Hamburguesa (Móvil) ---
 /*
  * Cambiamos la posición del menú desplegable para que flote
