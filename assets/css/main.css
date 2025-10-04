@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CCNA Blueprint - Hoja de Estilos Principal (v4.0 - Solución Definitiva)
+   CCNA Blueprint - Hoja de Estilos Principal (v4.1 - Pulido Final)
    ========================================================================== */
 
 /* # VARIABLES DE COLOR */
@@ -35,7 +35,6 @@ body {
 /* # COMPONENTES */
 
 /* --- Barra de Navegación --- */
-/* Al quitar 'bg-light' del HTML, esta regla ahora tiene control total. */
 .navbar {
   background-color: var(--bg-secondary) !important;
   border-bottom: 1px solid var(--border-color);
@@ -53,8 +52,6 @@ body {
 .navbar.navbar-light .navbar-nav .nav-link.active {
   color: var(--brand-primary);
 }
-
-/* Anulamos cualquier estilo residual de Bootstrap para los enlaces activos/enfocados en modo oscuro */
 body.dark-mode .navbar.navbar-light .navbar-nav .nav-link.active,
 body.dark-mode .navbar.navbar-light .navbar-nav .show > .nav-link,
 body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
@@ -62,10 +59,9 @@ body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
     color: var(--brand-primary) !important;
 }
 
-
 /* --- Sección Principal (Hero) --- */
 .hero-section {
-  background: linear-gradient(rgba(28, 35, 51, 0.7), rgba(28, 35, 51, 0.7)), url('https://images.unsplash.com/photo-1526374965328-5f61d4dc18c5?q=80&w=2070&auto=format&fit=crop');
+  background: linear-gradient(rgba(28, 35, 51, 0.7), rgba(28, 35, 51, 0.7)), url('https://images.unsplash.com/photo-1526374965328-5f61d4dc18c5?q=80&w=2070&auto-format&fit=crop');
   background-size: cover;
   background-position: center center;
   padding: 100px 0;
@@ -80,6 +76,8 @@ body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
   border: 1px solid var(--border-color);
   box-shadow: 0 0.125rem 0.25rem var(--shadow-color);
   transition: all 0.2s ease-in-out;
+  /* [CORRECCIÓN 1] Aseguramos que el texto dentro de la tarjeta herede el color correcto del tema */
+  color: var(--text-secondary);
 }
 .card:hover { transform: translateY(-5px); box-shadow: 0 0.5rem 1rem var(--shadow-color); }
 .feature-icon {
@@ -87,8 +85,12 @@ body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
   align-items: center; justify-content: center; font-size: 1.5rem;
   background-color: var(--brand-primary); color: #ffffff;
 }
-.bg-light-subtle { background-color: var(--bg-secondary); }
-body.dark-mode .bg-light-subtle { background-color: #161616; }
+
+/* [CORRECCIÓN 2] Forzamos el cambio de color en la clase de Bootstrap */
+.bg-light-subtle {
+    background-color: var(--bg-secondary) !important;
+}
+
 .text-muted { color: #6c757d !important; }
 body.dark-mode .text-muted { color: #adb5bd !important; }
 
