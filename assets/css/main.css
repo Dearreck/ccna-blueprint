@@ -113,3 +113,25 @@ input:checked + .slider:before { transform: translateX(26px); }
   position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 12px;
 }
 input:checked + .slider:after { content: '\f186'; color: white; left: 6px; }
+
+/* --- [NUEVO] Estilos para Menú Hamburguesa (Móvil) ---
+/*
+ * Cambiamos la posición del menú desplegable para que flote
+ * sobre el contenido en lugar de empujarlo hacia abajo.
+ * Esto se aplica solo en vistas de móvil (cuando el menú hamburguesa es visible).
+*/
+@media (max-width: 991.98px) {
+  .navbar-collapse.show,
+  .navbar-collapse.collapsing {
+    position: absolute;
+    top: 100%; /* Se posiciona justo debajo de la barra de nav */
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: var(--bg-secondary); /* Usa el color de fondo del tema */
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 8px 10px var(--shadow-color); /* Una sombra más pronunciada */
+    padding: 1rem 1.5rem; /* Añade espacio interno */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  }
+}
