@@ -1,141 +1,82 @@
 /* ======================= Paleta de Colores y Variables ======================= */
 :root {
+    /* --- CAMBIO AQUÍ: Se ha cambiado el fondo claro a un gris muy sutil --- */
     /* Modo Claro */
-    --primary-color-light: #007bff; /* Azul brillante, más estándar de Bootstrap */
-    --accent-color-light: #17a2b8; /* Azul verdoso para contrastar */
-    --background-color-light: #ffffff;
-    --text-color-light: #343a40; /* Gris oscuro para el texto */
-    --muted-text-color-light: #6c757d; /* Gris medio para texto secundario */
-    --card-bg-light: #ffffff;
-    --card-border-light: #e9ecef;
+    --primary-color-light: #007bff;
+    --accent-color-light: #17a2b8;
+    --background-color-light: #f8f9fa; /* Gris muy claro en lugar de blanco puro */
+    --text-color-light: #212529; /* Texto casi negro para máximo contraste */
+    --muted-text-color-light: #6c757d;
+    --card-bg-light: #ffffff; /* Las tarjetas se quedan blancas para resaltar */
+    --card-border-light: #dee2e6;
 
     /* Modo Oscuro */
-    --primary-color-dark: #66b3ff; /* Azul más claro para elementos interactivos */
-    --accent-color-dark: #00bcd4; /* Cian brillante */
-    --background-color-dark: #212529; /* Gris muy oscuro, casi negro */
-    --text-color-dark: #f8f9fa; /* Blanco brillante para el texto */
-    --muted-text-color-dark: #adb5bd; /* Gris claro para texto secundario */
-    --card-bg-dark: #2a3447; /* Gris azulado oscuro para tarjetas */
+    --primary-color-dark: #66b3ff;
+    --accent-color-dark: #00bcd4;
+    --background-color-dark: #121212; /* Un negro más profundo para mejor contraste */
+    --text-color-dark: #e9ecef; /* Un blanco ligeramente más suave */
+    --muted-text-color-dark: #adb5bd;
+    --card-bg-dark: #1e1e1e; /* Un gris oscuro para las tarjetas */
     --card-border-dark: #495057;
 
-    /* Colores generales que pueden ser iguales o variantes */
     --success-color: #28a745;
     --danger-color: #dc3545;
 }
 
-/* ======================= Estilos para el Tema Claro (por defecto) ======================= */
+
+/* ======================= Estilos Generales y Componentes ======================= */
 body {
     background-color: var(--background-color-light);
     color: var(--text-color-light);
-    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
-}
-
-a {
-    color: var(--primary-color-light);
-}
-
-a:hover {
-    color: var(--primary-color-light);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
 /* Navbar */
 .navbar {
-    background-color: var(--background-color-light) !important; /* Fuerza el color de fondo */
+    background-color: var(--card-bg-light); /* Fondo blanco para la barra de navegación */
     border-bottom: 1px solid var(--card-border-light);
+    box-shadow: 0 2px 4px rgba(0,0,0,.04);
 }
-
 .navbar-brand, .navbar-nav .nav-link {
     color: var(--text-color-light) !important;
 }
-
-.navbar-nav .nav-link.active,
-.navbar-nav .nav-link:hover {
+.navbar-brand .fas { color: var(--primary-color-light); }
+.navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
     color: var(--primary-color-light) !important;
 }
 
-.navbar-brand .fas {
-    color: var(--primary-color-light);
-}
-
-/* Hero Section (fondo oscuro, texto claro) */
+/* --- CAMBIO AQUÍ: Reglas más específicas para el texto del Hero --- */
+/* Hero Section */
 .hero-section {
-    background: linear-gradient(rgba(33, 37, 41, 0.85), rgba(33, 37, 41, 0.85)), url('https://images.unsplash.com/photo-1526374965328-5f61d4dc18c5?q=80&w=2070&auto=format&fit=crop');
+    background: linear-gradient(rgba(28, 35, 51, 0.75), rgba(28, 35, 51, 0.75)), url('https://images.unsplash.com/photo-1526374965328-5f61d4dc18c5?q=80&w=2070&auto=format&fit=crop');
     background-size: cover;
     background-position: center center;
     padding: 100px 0;
-    color: var(--text-color-dark); /* Texto claro sobre fondo oscuro */
 }
-
+/* Forzamos el color del texto a blanco brillante para asegurar legibilidad */
+.hero-section h1, .hero-section .lead {
+    color: #ffffff !important;
+}
 .hero-section .btn-primary {
     background-color: var(--primary-color-light);
     border-color: var(--primary-color-light);
 }
-
 .hero-section .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+    background-color: #0069d9;
+    border-color: #0062cc;
 }
-
-
-/* Herramientas Esenciales Section (fondo claro, texto oscuro) */
-section:not(.hero-section) {
-    background-color: var(--background-color-light);
-    color: var(--text-color-light);
-}
-
-.bg-light { /* Para la sección "Qué es CCNA" */
-    background-color: var(--light-bg) !important; /* Usa la variable light-bg si la definiste, o un color específico */
-}
-
-/* Títulos y Párrafos */
-h1, h2, h3, h4, h5, h6 {
-    color: var(--text-color-light);
-}
-
-.lead, p {
-    color: var(--text-color-light);
-}
-
-.text-muted {
-    color: var(--muted-text-color-light) !important;
-}
-
-/* Botones */
-.btn-primary {
-    background-color: var(--primary-color-light);
-    border-color: var(--primary-color-light);
-    color: white; /* Asegura que el texto del botón sea blanco */
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
-.btn-outline-secondary {
-    color: var(--muted-text-color-light);
-    border-color: var(--muted-text-color-light);
-}
-
-.btn-outline-secondary:hover {
-    background-color: var(--muted-text-color-light);
-    color: var(--background-color-light);
-}
-
 
 /* Tarjetas (Herramientas) */
 .card {
     background-color: var(--card-bg-light);
     border: 1px solid var(--card-border-light);
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
-
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
 }
-
 .feature-icon {
     width: 60px;
     height: 60px;
@@ -147,11 +88,19 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--primary-color-light);
     color: white;
 }
+.text-muted {
+    color: var(--muted-text-color-light) !important;
+}
+
 
 /* Footer */
+footer a {
+    text-decoration: underline;
+    color: var(--text-color-dark) !important;
+}
 footer {
-    background-color: var(--background-color-dark) !important; /* Fondo oscuro fijo para el footer */
-    color: var(--text-color-dark);
+    background-color: #212529 !important;
+    color: #ced4da;
 }
 
 /* ======================= Estilos para el Tema Oscuro ======================= */
@@ -161,107 +110,52 @@ body.dark-mode {
 }
 
 body.dark-mode .navbar {
-    background-color: var(--background-color-dark) !important;
+    background-color: var(--card-bg-dark);
     border-bottom-color: var(--card-border-dark);
+    box-shadow: none;
 }
-
 body.dark-mode .navbar-brand,
 body.dark-mode .navbar-nav .nav-link {
     color: var(--text-color-dark) !important;
 }
-
+body.dark-mode .navbar-brand .fas { color: var(--primary-color-dark); }
 body.dark-mode .navbar-nav .nav-link.active,
 body.dark-mode .navbar-nav .nav-link:hover {
     color: var(--primary-color-dark) !important;
 }
 
-body.dark-mode .navbar-brand .fas {
-    color: var(--primary-color-dark);
-}
-
-body.dark-mode .hero-section {
-     background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1526374965328-5f61d4dc18c5?q=80&w=2070&auto=format&fit=crop');
-    background-size: cover;
-    background-position: center center;
-    color: var(--text-color-dark);
-}
-
 body.dark-mode .hero-section .btn-primary {
     background-color: var(--primary-color-dark);
     border-color: var(--primary-color-dark);
+    color: #121212;
 }
-
 body.dark-mode .hero-section .btn-primary:hover {
-    background-color: #3399ff; /* Un poco más oscuro al pasar el mouse */
-    border-color: #3399ff;
+    background-color: #80c1ff;
+    border-color: #80c1ff;
 }
 
-body.dark-mode section:not(.hero-section) {
-    background-color: var(--background-color-dark);
-    color: var(--text-color-dark);
+body.dark-mode .card {
+    background-color: var(--card-bg-dark);
+    border: 1px solid var(--card-border-dark);
 }
 
-body.dark-mode .bg-light { /* Para la sección "Qué es CCNA" */
-    background-color: var(--background-color-dark) !important;
+body.dark-mode .card:hover {
+    border-color: var(--primary-color-dark);
 }
 
-body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode h5, body.dark-mode h6 {
-    color: var(--text-color-dark);
-}
-
-body.dark-mode .lead, body.dark-mode p {
-    color: var(--text-color-dark);
+body.dark-mode .feature-icon {
+    background-color: var(--primary-color-dark);
+    color: #121212;
 }
 
 body.dark-mode .text-muted {
     color: var(--muted-text-color-dark) !important;
 }
 
-body.dark-mode .btn-primary {
-    background-color: var(--primary-color-dark);
-    border-color: var(--primary-color-dark);
-    color: var(--background-color-dark); /* Texto oscuro para que resalte en botón claro */
-}
-
-body.dark-mode .btn-primary:hover {
-    background-color: #3399ff;
-    border-color: #3399ff;
-}
-
-body.dark-mode .btn-outline-secondary {
-    color: var(--muted-text-color-dark);
-    border-color: var(--muted-text-color-dark);
-}
-
-body.dark-mode .btn-outline-secondary:hover {
-    background-color: var(--muted-text-color-dark);
-    color: var(--background-color-dark);
-}
-
-body.dark-mode .card {
-    background-color: var(--card-bg-dark);
-    border: 1px solid var(--card-border-dark);
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
-}
-
-body.dark-mode .card:hover {
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3) !important;
-}
-
-body.dark-mode .feature-icon {
-    background-color: var(--primary-color-dark);
-    color: var(--background-color-dark); /* Icono oscuro sobre fondo claro */
-}
-
 body.dark-mode footer {
-    background-color: var(--background-color-dark) !important;
-    color: var(--text-color-dark);
+    background-color: #000000 !important;
+    color: var(--muted-text-color-dark);
 }
-
-body.dark-mode a {
-    color: var(--primary-color-dark);
-}
-
-body.dark-mode a:hover {
-    color: var(--primary-color-dark);
+body.dark-mode footer a {
+    color: var(--primary-color-dark) !important;
 }
