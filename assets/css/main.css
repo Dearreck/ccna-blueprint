@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CCNA Blueprint - Hoja de Estilos Principal (v4.1 - Pulido Final)
+   CCNA Blueprint - Hoja de Estilos Principal (v4.2 - Corrección Final de Tema)
    ========================================================================== */
 
 /* # VARIABLES DE COLOR */
@@ -14,21 +14,8 @@
   --shadow-color: rgba(0, 0, 0, 0.05);
 }
 
-body {
-  /* ... tus estilos existentes ... */
-  /* Ocultamos el body por defecto para evitar el flash de componentes */
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-/* Cuando el body esté listo, lo mostraremos con una suave transición */
-body.loaded {
-  visibility: visible;
-  opacity: 1;
-}
-
-body.dark-mode {
+/* [CORRECCIÓN] Las variables del tema oscuro ahora se aplican al <html> */
+html.dark-mode {
   --bg-primary: #121212;
   --bg-secondary: #1e1e1e;
   --text-primary: #e9ecef;
@@ -39,26 +26,26 @@ body.dark-mode {
   --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
-/* # ESTILOS GLOBALES */
+/* # ESTILOS GLOBALES Y ANTI-FLASH */
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-}
-
-body {
-  /* Aseguramos que el body ocupe al menos toda la altura de la pantalla */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+body.loaded {
+  visibility: visible;
+  opacity: 1;
 }
 
 main {
-  /* El contenido principal crecerá para ocupar el espacio disponible */
   flex-grow: 1;
 }
-
-/* En la página de la herramienta, centramos verticalmente el contenido */
 main.tool-page-main {
     display: flex;
     align-items: center;
@@ -78,16 +65,15 @@ main.tool-page-main {
 .navbar.navbar-light .navbar-nav .nav-link {
   color: var(--text-secondary);
 }
-.navbar.navbar-light .navbar-brand .fas {
-  color: var(--brand-primary);
-}
+.navbar.navbar-light .navbar-brand .fas { color: var(--brand-primary); }
 .navbar.navbar-light .navbar-nav .nav-link:hover,
 .navbar.navbar-light .navbar-nav .nav-link.active {
   color: var(--brand-primary);
 }
-body.dark-mode .navbar.navbar-light .navbar-nav .nav-link.active,
-body.dark-mode .navbar.navbar-light .navbar-nav .show > .nav-link,
-body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
+/* [CORRECCIÓN] Apuntamos a html.dark-mode */
+html.dark-mode .navbar.navbar-light .navbar-nav .nav-link.active,
+html.dark-mode .navbar.navbar-light .navbar-nav .show > .nav-link,
+html.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
     background-color: transparent !important;
     color: var(--brand-primary) !important;
 }
@@ -109,7 +95,6 @@ body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
   border: 1px solid var(--border-color);
   box-shadow: 0 0.125rem 0.25rem var(--shadow-color);
   transition: all 0.2s ease-in-out;
-  /* [CORRECCIÓN 1] Aseguramos que el texto dentro de la tarjeta herede el color correcto del tema */
   color: var(--text-secondary);
 }
 .card:hover { transform: translateY(-5px); box-shadow: 0 0.5rem 1rem var(--shadow-color); }
@@ -119,13 +104,9 @@ body.dark-mode .navbar.navbar-light .navbar-nav .nav-link:focus {
   background-color: var(--brand-primary); color: #ffffff;
 }
 
-/* [CORRECCIÓN 2] Forzamos el cambio de color en la clase de Bootstrap */
-.bg-light-subtle {
-    background-color: var(--bg-secondary) !important;
-}
-
+.bg-light-subtle { background-color: var(--bg-secondary) !important; }
 .text-muted { color: #6c757d !important; }
-body.dark-mode .text-muted { color: #adb5bd !important; }
+html.dark-mode .text-muted { color: #adb5bd !important; }
 
 /* --- Footer --- */
 footer.bg-dark { background-color: #212529 !important; color: #adb5bd; }
@@ -147,122 +128,46 @@ input:checked + .slider:before { transform: translateX(26px); }
 }
 input:checked + .slider:after { content: '\f186'; color: white; left: 6px; }
 
-/* --- [CORRECCIÓN] Icono de Menú Hamburguesa en Tema Oscuro --- */
-/*
- * El icono por defecto es un SVG oscuro definido por la clase .navbar-light.
- * Aquí lo reemplazamos por un SVG con un trazo de color claro
- * cuando el tema oscuro (.dark-mode) está activo.
-*/
-body.dark-mode .navbar-light .navbar-toggler-icon {
+/* --- Icono de Menú Hamburguesa en Tema Oscuro --- */
+html.dark-mode .navbar-light .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(233, 236, 239, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
-/* --- [NUEVO] Estilos para Menú Hamburguesa (Móvil) ---
-/*
- * Cambiamos la posición del menú desplegable para que flote
- * sobre el contenido en lugar de empujarlo hacia abajo.
- * Esto se aplica solo en vistas de móvil (cuando el menú hamburguesa es visible).
-*/
-/* --- Estilos Mejorados para Menú Hamburguesa (Móvil) --- */
-
-/* Solo se aplica en vistas de móvil */
+/* --- Menú Hamburguesa (Móvil) --- */
 @media (max-width: 991.98px) {
-  /* El contenedor del menú colapsable */
   .navbar-collapse {
-    position: fixed; /* Lo fijamos para que ocupe toda la pantalla */
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 80%; /* Ocupa el 80% del ancho */
-    max-width: 300px; /* Un ancho máximo */
+    position: fixed; top: 0; left: 0; bottom: 0; width: 80%; max-width: 300px;
     background-color: var(--bg-secondary);
     border-right: 1px solid var(--border-color);
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    padding: 4rem 1.5rem 1.5rem 1.5rem; /* Más espacio superior para el botón de cerrar */
-    
-    /* Animación de entrada */
+    padding: 4rem 1.5rem 1.5rem 1.5rem;
     transform: translateX(-100%);
     transition: transform 0.3s ease-in-out;
   }
-  
-  /* Cuando el menú está abierto */
-  .navbar-collapse.show {
-    transform: translateX(0);
-  }
-
-  /* 1. Alineamos los elementos de la lista a la izquierda */
-  .navbar-nav {
-    text-align: left;
-    width: 100%;
-  }
-  .navbar-nav .nav-item {
-    margin-bottom: 0.75rem; /* Pequeño espacio entre elementos */
-  }
-
-  /* 2. Estilos para los iconos del menú */
-  .navbar-nav .nav-link .fa-fw {
-    width: 1.25em;
-    margin-right: 0.75rem;
-    color: var(--text-secondary);
-  }
-
-  /* 3. Estilos para el botón de cerrar (X) */
+  .navbar-collapse.show { transform: translateX(0); }
+  .navbar-nav { text-align: left; width: 100%; }
+  .navbar-nav .nav-item { margin-bottom: 0.75rem; }
+  .navbar-nav .nav-link .fa-fw { width: 1.25em; margin-right: 0.75rem; color: var(--text-secondary); }
   .btn-close-menu {
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: var(--text-secondary);
+    position: absolute; top: 1rem; right: 1.5rem;
+    background: none; border: none; font-size: 1.5rem; color: var(--text-secondary);
   }
 }
 
 /* --- Ajustes para la Página del Descifrador --- */
-
-/* --- Estilos para la Herramienta Descifradora --- */
-.tool-container {
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 0.5rem;
-}
-
-/* Adaptamos los textareas para que se vean bien en ambos temas */
-textarea[readonly] {
-    background-color: var(--bg-primary);
-    color: var(--text-secondary);
-    cursor: text;
-}
-
-/* --- [CORRECCIÓN] Color del Placeholder en Tema Oscuro --- */
-body.dark-mode ::placeholder {
-  /* Usamos el color de texto silenciado del tema oscuro */
-  color: var(--text-secondary);
-  opacity: 0.6; /* Hacemos que sea un poco más sutil */
-}
-
-/* 1. Eliminamos el efecto de movimiento en el contenedor de la herramienta */
 .tool-container.card:hover {
   transform: none;
-  box-shadow: 0 0.125rem 0.25rem var(--shadow-color); /* Restaura la sombra original */
+  box-shadow: 0 0.125rem 0.25rem var(--shadow-color);
 }
-
-/* 4. Estilos para los nuevos links informativos */
 .info-links a {
+  color: var(--text-secondary); text-decoration: none;
+  font-size: 0.9rem; transition: color 0.2s ease;
+}
+.info-links a:hover { color: var(--brand-primary); text-decoration: none; }
+.info-links i { color: var(--brand-primary); }
+
+/* --- Placeholder en Tema Oscuro --- */
+html.dark-mode ::placeholder {
   color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s ease;
+  opacity: 0.6;
 }
-
-.info-links a:hover {
-  color: var(--brand-primary);
-  text-decoration: none;
-}
-
-.info-links i {
-  color: var(--brand-primary);
-}
-
