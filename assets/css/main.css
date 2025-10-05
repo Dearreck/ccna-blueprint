@@ -26,6 +26,20 @@ html.dark-mode {
   --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
+/* --- [CORRECCIÓN] Tema Oscuro para Submenús (Dropdown) --- */
+html.dark-mode .dropdown-menu {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+html.dark-mode .dropdown-item {
+  color: var(--text-secondary);
+}
+html.dark-mode .dropdown-item:hover,
+html.dark-mode .dropdown-item:focus {
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
 /* # ESTILOS GLOBALES Y ANTI-FLASH */
 body {
   background-color: var(--bg-primary);
@@ -172,16 +186,7 @@ html.dark-mode ::placeholder {
   opacity: 0.6;
 }
 
-/* --- [CORRECCIÓN] Tema Oscuro para Submenús (Dropdown) --- */
-html.dark-mode .dropdown-menu {
-  background-color: var(--bg-secondary);
-  border-color: var(--border-color);
-}
-html.dark-mode .dropdown-item {
-  color: var(--text-secondary);
-}
-html.dark-mode .dropdown-item:hover,
-html.dark-mode .dropdown-item:focus {
-  color: var(--text-primary);
-  background-color: var(--bg-primary);
+/* --- Estilo para Tarjetas Clicables --- */
+a.card-link {
+  text-decoration: none;
 }
