@@ -190,3 +190,50 @@ html.dark-mode ::placeholder {
 a.card-link {
   text-decoration: none;
 }
+
+/* --- [NUEVO] Estilos para la Herramienta de Subneteo --- */
+.mode-content {
+    display: none;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    background-color: var(--bg-secondary);
+}
+.mode-content.active {
+    display: block;
+}
+.results-area, .exercise-area {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background-color: var(--bg-primary);
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.9em;
+}
+th, td {
+    border: 1px solid var(--border-color);
+    padding: 0.75rem;
+    text-align: left;
+}
+th {
+    background-color: var(--bg-primary);
+}
+/* Estilos para feedback de ejercicios */
+.feedback {
+    border-left: 5px solid #ffc107;
+    padding: 1rem;
+}
+.feedback.correct {
+    border-left-color: #198754;
+    background-color: rgba(25, 135, 84, 0.1);
+}
+.feedback.incorrect {
+    border-left-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
