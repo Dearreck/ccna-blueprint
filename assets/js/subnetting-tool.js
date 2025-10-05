@@ -1131,16 +1131,25 @@ document.addEventListener('DOMContentLoaded', () => {
         currentExerciseData = null;
     }
 
-    /** Añade una nueva fila para requisitos VLSM */
+    /** Añade una nueva fila para requisitos VLSM con los estilos de Bootstrap correctos */
     function addVlsmRequirementRow() {
         const reqDiv = document.createElement('div');
-        reqDiv.classList.add('vlsm-requirement');
+        // [CORRECCIÓN] Añadimos las clases de Bootstrap que faltaban para el layout y estilo
+        reqDiv.classList.add('vlsm-requirement', 'input-group', 'mb-2');
+    
+        // [CORRECCIÓN] Añadimos las clases a los inputs y al botón
         reqDiv.innerHTML = `
-            <input type="number" min="1" placeholder="Hosts" required>
-            <input type="text" placeholder="Nombre (Opcional)">
-            <button type="button" class="remove-req">-</button>
+            <input type="number" class="form-control" min="1" placeholder="Nº de Hosts" required>
+            <input type="text" class="form-control" placeholder="Nombre de Red (Opcional)">
+            <button type="button" class="btn btn-outline-danger remove-req">-</button>
         `;
-        if(vlsmRequirementsContainer) vlsmRequirementsContainer.appendChild(reqDiv);
+        
+        // El 'if' que tenías para añadirlo al contenedor está dentro del uiController,
+        // pero si lo estás modificando directamente en subnetting-tool.js, esta es la lógica completa.
+        const vlsmRequirementsContainer = document.getElementById('vlsmRequirements');
+        if(vlsmRequirementsContainer) {
+            vlsmRequirementsContainer.appendChild(reqDiv);
+        }
     }
 
     /** Elimina una fila de requisito VLSM */
