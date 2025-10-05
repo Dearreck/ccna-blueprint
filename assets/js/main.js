@@ -22,10 +22,20 @@ const loadComponent = (selector, url) => {
     document.addEventListener('DOMContentLoaded', function() {
         const themeToggle = document.getElementById('theme-switch-checkbox');
 
-        // Si no encontramos el interruptor, no hacemos nada más.
-        if (!themeToggle) {
-            return;
-        }
+        // Cargar los componentes reutilizables
+        // La ruta '../' es necesaria para páginas dentro de /pages/
+        const basePath = window.location.pathname.includes('/pages/') ? '../' : '';
+        
+        loadComponent('#navbar-placeholder', `${basePath}components/nav.html`);
+        loadComponent('#footer-placeholder', `${basePath}components/footer.html`);
+    
+        // --- El resto de tu código del tema oscuro ---
+        const themeToggle = document.getElementById('theme-switch-checkbox');
+    
+            // Si no encontramos el interruptor, no hacemos nada más.
+            if (!themeToggle) {
+                return;
+            }
 
         // Función para aplicar el tema y actualizar el estado del interruptor
         const applyTheme = (theme) => {
