@@ -168,6 +168,14 @@ html.dark-mode .navbar-light .navbar-toggler-icon {
   }
 }
 
+/* --- Control de tamaño para la imagen de la sección de info --- */
+.info-section-img {
+  /* Le damos un ancho máximo, por ejemplo, de 350px.
+     Puedes ajustar este valor si la quieres más grande o más pequeña. */
+  max-width: 350px;
+  /* La clase 'img-fluid' ya se encarga del 'height: auto' para mantener la proporción. */
+}
+
 /* --- Ajustes para la Página del Descifrador --- */
 .tool-container.card:hover {
   transform: none;
