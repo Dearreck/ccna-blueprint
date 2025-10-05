@@ -222,6 +222,13 @@ textarea[readonly] {
     cursor: text;
 }
 
+/* --- [CORRECCIÓN] Color del Placeholder en Tema Oscuro --- */
+body.dark-mode ::placeholder {
+  /* Usamos el color de texto silenciado del tema oscuro */
+  color: var(--text-secondary);
+  opacity: 0.6; /* Hacemos que sea un poco más sutil */
+}
+
 /* 1. Eliminamos el efecto de movimiento en el contenedor de la herramienta */
 .tool-container.card:hover {
   transform: none;
