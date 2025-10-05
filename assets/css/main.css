@@ -32,6 +32,25 @@ body {
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 
+body {
+  /* Aseguramos que el body ocupe al menos toda la altura de la pantalla */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  /* El contenido principal crecerá para ocupar el espacio disponible */
+  flex-grow: 1;
+}
+
+/* En la página de la herramienta, centramos verticalmente el contenido */
+main.tool-page-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* # COMPONENTES */
 
 /* --- Barra de Navegación --- */
