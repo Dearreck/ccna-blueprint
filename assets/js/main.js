@@ -20,8 +20,6 @@ const loadComponent = (selector, url) => {
 
     // Esperamos a que todo el contenido de la página esté cargado
     document.addEventListener('DOMContentLoaded', function() {
-        const themeToggle = document.getElementById('theme-switch-checkbox');
-
         // Cargar los componentes reutilizables
         // La ruta '../' es necesaria para páginas dentro de /pages/
         const basePath = window.location.pathname.includes('/pages/') ? '../' : '';
