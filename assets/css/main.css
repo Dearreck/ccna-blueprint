@@ -171,3 +171,17 @@ html.dark-mode ::placeholder {
   color: var(--text-secondary);
   opacity: 0.6;
 }
+
+/* --- [CORRECCIÓN] Tema Oscuro para Submenús (Dropdown) --- */
+html.dark-mode .dropdown-menu {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+html.dark-mode .dropdown-item {
+  color: var(--text-secondary);
+}
+html.dark-mode .dropdown-item:hover,
+html.dark-mode .dropdown-item:focus {
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
