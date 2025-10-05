@@ -185,3 +185,21 @@ body.dark-mode .navbar-light .navbar-toggler-icon {
   }
 }
 
+
+/* --- [NUEVO] Estilos para la Herramienta Descifradora --- */
+.tool-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+}
+
+/* Adaptamos los textareas para que se vean bien en ambos temas */
+textarea[readonly] {
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    cursor: text;
+}
+
+
