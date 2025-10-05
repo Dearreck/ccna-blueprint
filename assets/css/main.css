@@ -191,30 +191,55 @@ a.card-link {
   text-decoration: none;
 }
 
-/* --- [NUEVO] Estilos para la Herramienta de Subneteo --- */
-.mode-content {
-    display: none;
-    padding: 1.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-    margin-top: 1rem;
-    background-color: var(--bg-secondary);
+/* --- Estilos Profesionales para la Herramienta de Subneteo --- */
+.subnet-tool-container {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  max-width: 900px; /* Ancho máximo para la herramienta */
+  margin: 0 auto;
 }
-.mode-content.active {
-    display: block;
+.subnet-tool-container .card-header {
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
 }
+
+/* Estilo para los tabs de modo (Calculadora/Ejercicios) */
+.nav-pills .nav-link {
+  color: var(--text-secondary);
+}
+.nav-pills .nav-link.active {
+  background-color: var(--brand-primary);
+  color: #fff;
+}
+html.dark-mode .nav-pills .nav-link.active {
+  color: var(--text-primary);
+}
+
+
+/* Contenido de cada modo */
+.mode-content { display: none; }
+.mode-content.active { display: block; }
+
+/* Estilos para los formularios internos */
+.subnet-form { display: none; }
+.subnet-form.active { display: block; }
+
 .results-area, .exercise-area {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     padding: 1.5rem;
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
     background-color: var(--bg-primary);
 }
+
+/* Tablas */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
     font-size: 0.9em;
+    background-color: var(--bg-secondary);
 }
 th, td {
     border: 1px solid var(--border-color);
@@ -223,8 +248,13 @@ th, td {
 }
 th {
     background-color: var(--bg-primary);
+    font-weight: 600;
 }
-/* Estilos para feedback de ejercicios */
+html.dark-mode tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Feedback de ejercicios */
 .feedback {
     border-left: 5px solid #ffc107;
     padding: 1rem;
@@ -236,4 +266,12 @@ th {
 .feedback.incorrect {
     border-left-color: #dc3545;
     background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Resaltado de subredes zero/all-ones */
+tr.subnet-zero-or-all-ones {
+    background-color: rgba(255, 193, 7, 0.15) !important;
+}
+html.dark-mode tr.subnet-zero-or-all-ones {
+    background-color: rgba(255, 193, 7, 0.1) !important;
 }
