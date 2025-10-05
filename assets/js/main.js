@@ -1,3 +1,19 @@
+// Función para cargar componentes HTML reutilizables
+const loadComponent = (selector, url) => {
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`No se pudo cargar el componente: ${url}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            // Inserta el HTML del componente en el elemento especificado
+            document.querySelector(selector).innerHTML = data;
+        })
+        .catch(error => console.error('Error cargando componente:', error));
+};
+
 (function() {
     // Nos aseguramos de que el script se ejecute en un entorno seguro
     'use strict';
