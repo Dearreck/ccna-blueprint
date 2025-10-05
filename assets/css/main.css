@@ -204,8 +204,9 @@ body.dark-mode .navbar-light .navbar-toggler-icon {
   }
 }
 
+/* --- Ajustes para la Página del Descifrador --- */
 
-/* --- [NUEVO] Estilos para la Herramienta Descifradora --- */
+/* --- Estilos para la Herramienta Descifradora --- */
 .tool-container {
   max-width: 600px;
   margin: 0 auto;
@@ -221,4 +222,26 @@ textarea[readonly] {
     cursor: text;
 }
 
+/* 1. Eliminamos el efecto de movimiento en el contenedor de la herramienta */
+.tool-container.card:hover {
+  transform: none;
+  box-shadow: 0 0.125rem 0.25rem var(--shadow-color); /* Restaura la sombra original */
+}
+
+/* 4. Estilos para los nuevos links informativos */
+.info-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.info-links a:hover {
+  color: var(--brand-primary);
+  text-decoration: none;
+}
+
+.info-links i {
+  color: var(--brand-primary);
+}
 
