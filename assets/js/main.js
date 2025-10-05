@@ -18,24 +18,17 @@ const loadComponent = (selector, url) => {
     // Nos aseguramos de que el script se ejecute en un entorno seguro
     'use strict';
 
-    // Esperamos a que todo el contenido de la página esté cargado
-    document.addEventListener('DOMContentLoaded', function() {
-        // Cargar los componentes reutilizables
-        // La ruta '../' es necesaria para páginas dentro de /pages/
-        const basePath = window.location.pathname.includes('/pages/') ? '../' : '';
-        
-        loadComponent('#navbar-placeholder', `${basePath}components/nav.html`);
-        loadComponent('#footer-placeholder', `${basePath}components/footer.html`);
-    
-        // --- El resto de tu código del tema oscuro ---
+    document.addEventListener('DOMContentLoaded', () => {
+    // Función para inicializar la lógica del interruptor de tema
+    const initializeThemeToggle = () => {
         const themeToggle = document.getElementById('theme-switch-checkbox');
-    
-            // Si no encontramos el interruptor, no hacemos nada más.
-            if (!themeToggle) {
-                return;
-            }
+        
+        // Si el interruptor no existe, no hacemos nada más.
+        if (!themeToggle) {
+            console.error('El interruptor del tema no se encontró en el DOM.');
+            return;
+        }
 
-        // Función para aplicar el tema y actualizar el estado del interruptor
         const applyTheme = (theme) => {
             if (theme === 'dark') {
                 document.body.classList.add('dark-mode');
@@ -46,27 +39,48 @@ const loadComponent = (selector, url) => {
             }
         };
 
-        // Al cargar, obtenemos el tema guardado. Si no hay nada, usamos 'light' por defecto.
-        // Usamos try...catch por si localStorage está bloqueado por el navegador (modo privado, etc.)
+        // Al cargar, aplicamos el tema guardado
         let currentTheme = 'light';
         try {
             currentTheme = localStorage.getItem('theme') || 'light';
         } catch (e) {
-            console.warn('No se pudo acceder a localStorage. El tema no será persistente.');
+            console.warn('No se pudo acceder a localStorage.');
         }
-
         applyTheme(currentTheme);
 
-        // Añadimos el listener para cuando el estado del interruptor cambie
+        // Añadimos el listener para el cambio
         themeToggle.addEventListener('change', function() {
             const newTheme = this.checked ? 'dark' : 'light';
             document.body.classList.toggle('dark-mode', this.checked);
-
             try {
                 localStorage.setItem('theme', newTheme);
             } catch (e) {
                 console.warn('No se pudo guardar el tema en localStorage.');
             }
         });
+    };
+
+    // Función para cargar componentes HTML
+    const loadComponent = (selector, url, callback) => {
+        fetch(url)
+            .then(response => response.ok ? response.text() : Promise.reject(`Error cargando ${url}`))
+            .then(data => {
+                document.querySelector(selector).innerHTML = data;
+                // Si hay una función de callback, la ejecutamos AHORA
+                if (callback) {
+                    callback();
+                }
+            })
+            .catch(error => console.error('Error cargando componente:', error));
+    };
+
+    // --- Lógica de Carga Principal ---
+    const basePath = window.location.pathname.includes('/pages/') ? '../' : '';
+    
+    // Cargamos el footer (no necesita callback)
+    loadComponent('#footer-placeholder', `${basePath}components/footer.html`);
+    
+    // Cargamos la navbar y, SOLO CUANDO TERMINE, inicializamos el botón del tema.
+    loadComponent('#navbar-placeholder', `${basePath}components/nav.html`, initializeThemeToggle);
     });
 })();
