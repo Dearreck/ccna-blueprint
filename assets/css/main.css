@@ -14,6 +14,20 @@
   --shadow-color: rgba(0, 0, 0, 0.05);
 }
 
+body {
+  /* ... tus estilos existentes ... */
+  /* Ocultamos el body por defecto para evitar el flash de componentes */
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Cuando el body esté listo, lo mostraremos con una suave transición */
+body.loaded {
+  visibility: visible;
+  opacity: 1;
+}
+
 body.dark-mode {
   --bg-primary: #121212;
   --bg-secondary: #1e1e1e;
