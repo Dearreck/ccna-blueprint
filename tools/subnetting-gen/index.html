@@ -33,9 +33,115 @@
             </div>
             <div class="card-body p-lg-4">
                 <section id="calculatorMode" class="mode-content active">
-                    </section>
+                    <h2>Modo: Calculadora de Subneteo 🧮</h2>
+
+                    <div class="calculator-options">
+                        <label><input type="radio" name="calcType" value="classful"> Subneteo Classful</label>
+                        <label><input type="radio" name="calcType" value="vlsm" checked> Subneteo Classless (VLSM)</label>
+                    </div>
+        
+                    <form id="classfulForm" class="subnet-form">
+                        <h3>Subneteo Classful</h3>
+                        <div class="form-group">
+                            <label for="classfulNetworkIp">Dirección IP de Red:</label>
+                            <input type="text" id="classfulNetworkIp" placeholder="Ej: 192.168.1.0" required>
+                            <span class="ip-info"></span> </div>
+                        <div class="form-group requirement-options">
+                            <label>Requisito (elige uno):</label>
+                            <div>
+                                <input type="radio" id="reqSubnets" name="classfulRequirement" value="subnets" checked>
+                                <label for="reqSubnets">Número de Subredes:</label>
+                                <input type="number" id="numSubnets" min="2" placeholder="Mínimo 2">
+                            </div>
+                            <div>
+                                <input type="radio" id="reqHosts" name="classfulRequirement" value="hosts">
+                                <label for="reqHosts">Mínimo de Hosts por Subred:</label>
+                                <input type="number" id="numHosts" min="2" placeholder="Mínimo 2"> </div>
+                        </div>
+                        <button type="submit">Calcular Subredes</button>
+                        <button type="button" id="resetClassfulBtn" class="reset-button" style="margin-left: 10px;">Limpiar</button>
+                    </form>
+        
+                    <form id="vlsmForm" class="subnet-form active">
+                        <h3>Subneteo Classless (VLSM)</h3>
+                        <div class="form-group">
+                            <label for="vlsmNetworkIp">Dirección IP de Red/Prefijo:</label>
+                            <input type="text" id="vlsmNetworkIp" placeholder="Ej: 172.16.0.0/22" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Requisitos de Hosts por Subred:</label>
+                            <div id="vlsmRequirements">
+                                <div class="vlsm-requirement">
+                                    <input type="number" min="1" placeholder="Hosts" required>
+                                    <input type="text" placeholder="Nombre (Opcional)">
+                                    <button type="button" class="remove-req">-</button>
+                                </div>
+                            </div>
+                            <button type="button" id="addVlsmRequirement">Añadir Requisito (+)</button>
+                        </div>
+                         <p class="warning"><strong>Importante:</strong> Introduce los requisitos de hosts en orden descendente (de mayor a menor) para un cálculo VLSM estándar.</p>
+                        <button type="submit">Calcular Subredes VLSM</button>
+                        <button type="button" id="resetVlsmBtn" class="reset-button" style="margin-left: 10px;">Limpiar</button>
+                    </form>
+        
+                    <div id="calculatorResults" class="results-area">
+                        <h3>Resultados del Cálculo:</h3>
+                        <div id="calcSummary"></div> <div id="calcTableContainer">
+                            <p>Introduce los datos y haz clic en calcular.</p>
+                        </div>
+                    </div>
+                </section>
+                
                 <section id="exerciseMode" class="mode-content">
-                    </section>
+                    <h2>Modo: Generador de Ejercicios 📝</h2>
+        
+                    <div class="exercise-options">
+                        <label for="exerciseType">Tipo de Subneteo:</label>
+                        <select id="exerciseType">
+                            <option value="classful">Classful</option>
+                            <option value="vlsm">Classless (VLSM)</option>
+                        </select>
+                        <button id="generateExercise">Generar Nuevo Ejercicio</button>
+                    </div>
+        
+                    <div id="exercisePrompt" class="exercise-area">
+                        <h3>Problema:</h3>
+                        <p>Haz clic en "Generar Nuevo Ejercicio".</p>
+                    </div>
+        
+                    <div id="exerciseSolutionInput" class="exercise-area" style="display: none;">
+                        <h3>Tu Solución:</h3>
+                        <p>Completa los detalles para cada subred requerida:</p>
+                        <div id="userAnswerTableContainer">
+                            </div>
+                        <button id="checkAnswer">Verificar Respuesta</button>
+                        <button id="showSolutionBtn" style="display: none; margin-left: 10px;">Mostrar Solución</button>
+                    </div>
+        
+                    <div id="exerciseFeedback" class="exercise-area feedback" style="display: none;">
+                        <h3>Feedback:</h3>
+                        <p></p> </div>
+        
+                    <div id="exerciseSolution" class="exercise-area" style="display: none;">
+                        <h3>Solución Detallada:</h3>
+                        <div id="solutionTableContainer">
+                            </div>
+                         <div class="explanation-controls" style="margin-top: 15px; display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="exerciseExplanationMethod" style="margin-right: 5px; margin-bottom: 0;">Método de Explicación:</label>
+                                <select id="exerciseExplanationMethod" style="padding: 5px 8px;">
+                                    <option value="magic">Magic Number</option>
+                                    <option value="wildcard">Wildcard (Conceptual)</option>
+                                </select>
+                            </div>
+                            <button id="showSolutionSteps">Mostrar Pasos</button>
+                        </div>
+                        <div id="solutionStepsContent" style="margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; background-color: #f8f9fa; border-radius: 4px; padding: 15px; display: none;">
+                            {/* Los pasos generados aparecerán aquí */}
+                        </div>
+                    </div>
+        
+                </section>
             </div>
         </div>
     </main>
