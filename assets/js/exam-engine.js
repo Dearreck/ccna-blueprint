@@ -88,24 +88,19 @@ document.addEventListener('DOMContentLoaded', () => {
         examSetupContainer.classList.add('d-none');
         examQuestionsContainer.classList.remove('d-none');
         
-        // ¡Llamamos a la nueva función para mostrar la primera pregunta!
         displayQuestion();
     }
 
-    /**
-     * Novedad: Muestra la pregunta actual en la interfaz.
-     */
     function displayQuestion() {
         if (currentQuestionIndex >= currentExamQuestions.length) {
-            // Aquí irá la lógica para finalizar el examen
+            // FIN DEL EXAMEN (próximamente)
             console.log("Fin del examen.");
             return;
         }
 
         const question = currentExamQuestions[currentQuestionIndex];
-        examQuestionsContainer.innerHTML = ''; // Limpiar contenido anterior
+        examQuestionsContainer.innerHTML = ''; 
 
-        // Construir el HTML de la pregunta usando Bootstrap
         const questionCard = document.createElement('div');
         questionCard.className = 'card shadow-sm border-0';
         
@@ -113,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="card-header bg-transparent border-0 pt-4 px-4">
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Pregunta ${currentQuestionIndex + 1} de ${currentExamQuestions.length}</h5>
-                    </div>
+                </div>
             </div>
             <div class="card-body p-4 p-md-5">
                 <p class="question-text lead">${question.question_es}</p>
@@ -128,18 +123,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         cardBodyHTML += '<div id="options-container" class="mt-4">';
-        const options = shuffleArray([...question.options]); // Barajar opciones de respuesta
+        const options = shuffleArray([...question.options]); 
+        question.shuffledOptions = options; // Guardamos las opciones barajadas para usarlas en la verificación
+
         options.forEach((option, index) => {
             cardBodyHTML += `
                 <div class="form-check mb-3">
-                    <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${option.text_es}">
+                    <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}">
                     <label class="form-check-label" for="option${index}">
                         ${option.text_es}
                     </label>
                 </div>
             `;
         });
-        cardBodyHTML += '</div></div>'; // Cierre de #options-container y .card-body
+        cardBodyHTML += '</div></div>';
 
         cardBodyHTML += `
             <div class="card-footer bg-transparent border-0 pb-4 px-4 text-end">
@@ -149,6 +146,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
         questionCard.innerHTML = cardBodyHTML;
         examQuestionsContainer.appendChild(questionCard);
+
+        // MODIFICACIÓN: Añadimos el listener al botón recién creado
+        document.getElementById('check-answer-btn').addEventListener('click', handleAnswerSubmission);
+    }
+    
+    /**
+     * Novedad: Maneja la lógica de verificar la respuesta del usuario.
+     */
+    function handleAnswerSubmission() {
+        const question = currentExamQuestions[currentQuestionIndex];
+        const selectedOptionInput = document.querySelector('input[name="questionOptions"]:checked');
+
+        if (!selectedOptionInput) {
+            alert('Por favor, selecciona una respuesta.');
+            return;
+        }
+
+        const selectedOptionIndex = parseInt(selectedOptionInput.value);
+        const selectedOption = question.shuffledOptions[selectedOptionIndex];
+        const isCorrect = selectedOption.isCorrect;
+
+        if (isCorrect) {
+            userScore++;
+        }
+
+        // --- Feedback Visual ---
+        const allOptionLabels = document.querySelectorAll('#options-container .form-check-label');
+        const allOptionInputs = document.querySelectorAll('#options-container .form-check-input');
+
+        allOptionInputs.forEach(input => input.disabled = true); // Deshabilitar todas las opciones
+
+        question.shuffledOptions.forEach((option, index) => {
+            if (option.isCorrect) {
+                allOptionLabels[index].classList.add('correct');
+            } else if (index === selectedOptionIndex) {
+                allOptionLabels[index].classList.add('incorrect');
+            }
+        });
+
+        // --- Mostrar Explicación ---
+        if (question.explanation_es) {
+            const explanationDiv = document.createElement('div');
+            explanationDiv.className = 'alert alert-info mt-4 explanation-box';
+            explanationDiv.innerHTML = `<strong>Explicación:</strong> ${question.explanation_es}`;
+            document.querySelector('.card-body').appendChild(explanationDiv);
+        }
+
+        // --- Cambiar Botón ---
+        const actionButton = document.getElementById('check-answer-btn');
+        actionButton.textContent = 'Siguiente Pregunta';
+        actionButton.removeEventListener('click', handleAnswerSubmission); // Quitar listener viejo
+        actionButton.addEventListener('click', proceedToNextQuestion); // Añadir nuevo listener
+    }
+    
+    /**
+     * Novedad: Avanza a la siguiente pregunta o finaliza el examen.
+     */
+    function proceedToNextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < currentExamQuestions.length) {
+            displayQuestion();
+        } else {
+            alert(`Fin del examen. Tu puntuación: ${userScore} de ${currentExamQuestions.length}`);
+            // Aquí irá la lógica para mostrar la pantalla de resultados final
+        }
     }
     
     async function fetchQuestions(categories) {
@@ -183,4 +245,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
     init();
 });
-
