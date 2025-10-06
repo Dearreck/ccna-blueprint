@@ -318,25 +318,53 @@ html.dark-mode .form-check-label.incorrect {
 }
 
 /* ==========================================================================
-   Correcciones DEFINITIVAS para Feedback del Simulador (Modo Oscuro)
+   Estilos de Feedback del Simulador (Versión Corregida)
    ========================================================================== */
 
-/*
- * PROBLEMA: El texto en las respuestas correctas/incorrectas no se ve.
- * SOLUCIÓN: Forzar el uso de la variable de color de texto principal del tema oscuro.
-*/
-html.dark-mode .form-check-label.correct,
-html.dark-mode .form-check-label.incorrect {
-  color: var(--text-primary) !important; /* ¡IMPORTANTE! Usa el color de texto principal de tu tema. */
+/* --- TEMA CLARO (Tonos Pastel) --- */
+.form-check-label.correct {
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border: 1px solid #badbcc;
 }
 
-/*
- * PROBLEMA: La caja de explicación no aparece.
- * CAUSA: Sus colores por defecto son para tema claro y no contrastan en el oscuro.
- * SOLUCIÓN: Definir colores de fondo y texto específicos para el tema oscuro.
-*/
+.form-check-label.incorrect {
+  color: #842029;
+  background-color: #f8d7da;
+  border: 1px solid #f5c2c7;
+}
+
+/* --- TEMA OSCURO (Nuevos Colores Pastel y Texto Blanco) --- */
+html.dark-mode .form-check-label.correct {
+  color: #ffffff !important; /* Texto blanco de alto contraste */
+  background-color: #1c4a36; /* Verde oscuro pastel */
+  border: 1px solid #2a6f4f;
+}
+
+html.dark-mode .form-check-label.incorrect {
+  color: #ffffff !important; /* Texto blanco de alto contraste */
+  background-color: #6a2129; /* Rojo oscuro pastel */
+  border: 1px solid #99303b;
+}
+
+/* --- Estilos Comunes para el Feedback --- */
+.form-check-label.correct,
+.form-check-label.incorrect {
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  width: 100%;
+  display: block;
+}
+
+/* --- Caja de Explicación (Para ambos temas) --- */
+.explanation-box {
+    background-color: var(--bs-info-bg-subtle);
+    border-color: var(--bs-info-border-subtle);
+    color: var(--bs-info-text-emphasis);
+}
 html.dark-mode .explanation-box {
-    color: var(--text-primary); /* Usa el color de texto principal de tu tema. */
-    background-color: #0a2d3f;  /* Un azul oscuro sutil para el fondo. */
+    color: var(--text-primary);
+    background-color: #0a2d3f;
     border-color: #0d3d56;
 }
