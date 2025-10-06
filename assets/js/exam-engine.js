@@ -152,53 +152,62 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     /**
-     * Novedad: Maneja la lógica de verificar la respuesta del usuario.
-     */
-    function handleAnswerSubmission() {
-        const question = currentExamQuestions[currentQuestionIndex];
-        const selectedOptionInput = document.querySelector('input[name="questionOptions"]:checked');
+ * NOVEDAD: Versión mejorada que redibuja la pregunta para mostrar feedback y explicación.
+ */
+function handleAnswerSubmission() {
+    const question = currentExamQuestions[currentQuestionIndex];
+    const selectedOptionInput = document.querySelector('input[name="questionOptions"]:checked');
 
-        if (!selectedOptionInput) {
-            alert('Por favor, selecciona una respuesta.');
-            return;
-        }
-
-        const selectedOptionIndex = parseInt(selectedOptionInput.value);
-        const selectedOption = question.shuffledOptions[selectedOptionIndex];
-        const isCorrect = selectedOption.isCorrect;
-
-        if (isCorrect) {
-            userScore++;
-        }
-
-        // --- Feedback Visual ---
-        const allOptionLabels = document.querySelectorAll('#options-container .form-check-label');
-        const allOptionInputs = document.querySelectorAll('#options-container .form-check-input');
-
-        allOptionInputs.forEach(input => input.disabled = true); // Deshabilitar todas las opciones
-
-        question.shuffledOptions.forEach((option, index) => {
-            if (option.isCorrect) {
-                allOptionLabels[index].classList.add('correct');
-            } else if (index === selectedOptionIndex) {
-                allOptionLabels[index].classList.add('incorrect');
-            }
-        });
-
-        // --- Mostrar Explicación ---
-        if (question.explanation_es) {
-            const explanationDiv = document.createElement('div');
-            explanationDiv.className = 'alert alert-info mt-4 explanation-box';
-            explanationDiv.innerHTML = `<strong>Explicación:</strong> ${question.explanation_es}`;
-            document.querySelector('.card-body').appendChild(explanationDiv);
-        }
-
-        // --- Cambiar Botón ---
-        const actionButton = document.getElementById('check-answer-btn');
-        actionButton.textContent = 'Siguiente Pregunta';
-        actionButton.removeEventListener('click', handleAnswerSubmission); // Quitar listener viejo
-        actionButton.addEventListener('click', proceedToNextQuestion); // Añadir nuevo listener
+    if (!selectedOptionInput) {
+        alert('Por favor, selecciona una respuesta.');
+        return;
     }
+
+    const selectedOptionIndex = parseInt(selectedOptionInput.value);
+    const selectedOption = question.shuffledOptions[selectedOptionIndex];
+    const isCorrect = selectedOption.isCorrect;
+
+    if (isCorrect) {
+        userScore++;
+    }
+
+    // --- Redibujar la pregunta con el feedback ---
+    const allOptionInputs = document.querySelectorAll('#options-container .form-check-input');
+    allOptionInputs.forEach(input => input.disabled = true);
+
+    const optionsContainer = document.getElementById('options-container');
+    optionsContainer.innerHTML = ''; // Limpiar opciones para redibujar con feedback
+
+    question.shuffledOptions.forEach((option, index) => {
+        const isSelected = (index === selectedOptionIndex);
+        
+        const feedbackClass = option.isCorrect ? 'correct' : (isSelected ? 'incorrect' : '');
+
+        optionsContainer.innerHTML += `
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}" disabled ${isSelected ? 'checked' : ''}>
+                <label class="form-check-label ${feedbackClass}" for="option${index}">
+                    ${option.text_es}
+                </label>
+            </div>
+        `;
+    });
+    
+    // --- Mostrar Explicación ---
+    if (question.explanation_es) {
+        const explanationDiv = document.createElement('div');
+        explanationDiv.className = 'alert alert-info mt-4 explanation-box';
+        explanationDiv.innerHTML = `<strong>Explicación:</strong> ${question.explanation_es}`;
+        // Insertar la explicación DESPUÉS del contenedor de opciones, dentro del card-body
+        document.querySelector('.card-body #options-container').insertAdjacentElement('afterend', explanationDiv);
+    }
+
+    // --- Cambiar Botón ---
+    const actionButton = document.getElementById('check-answer-btn');
+    actionButton.textContent = 'Siguiente Pregunta';
+    actionButton.removeEventListener('click', handleAnswerSubmission);
+    actionButton.addEventListener('click', proceedToNextQuestion);
+}
     
     /**
      * Novedad: Avanza a la siguiente pregunta o finaliza el examen.
