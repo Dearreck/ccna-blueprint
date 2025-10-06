@@ -274,3 +274,45 @@ tr.subnet-zero-or-all-ones {
 html.dark-mode tr.subnet-zero-or-all-ones {
     background-color: rgba(255, 193, 7, 0.1) !important;
 }
+
+/* --- Estilos para Feedback de Respuestas --- */
+.form-check-label.correct {
+  font-weight: bold;
+  color: #155724; /* Verde oscuro para texto */
+  background-color: #d4edda; /* Verde claro para fondo */
+  border-color: #c3e6cb;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  width: 100%;
+  display: block;
+}
+
+.form-check-label.incorrect {
+  font-weight: bold;
+  color: #721c24; /* Rojo oscuro para texto */
+  background-color: #f8d7da; /* Rojo claro para fondo */
+  border-color: #f5c6cb;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  width: 100%;
+  display: block;
+}
+
+/* --- Ajustes para tema oscuro --- */
+html.dark-mode .form-check-label.correct {
+  color: #c6f6d5;
+  background-color: #1a472a;
+  border-color: #2f6f49;
+}
+
+html.dark-mode .form-check-label.incorrect {
+  color: #fed7d7;
+  background-color: #5a2129;
+  border-color: #9b2c2c;
+}
+
+.explanation-box {
+    background-color: var(--bs-info-bg-subtle);
+    border-color: var(--bs-info-border-subtle);
+    color: var(--bs-info-text-emphasis);
+}
