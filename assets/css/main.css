@@ -318,35 +318,25 @@ html.dark-mode .form-check-label.incorrect {
 }
 
 /* ==========================================================================
-   Correcciones para el Feedback del Simulador de Examen
+   Correcciones DEFINITIVAS para Feedback del Simulador (Modo Oscuro)
    ========================================================================== */
 
-/* --- Colores de Texto en Tema Oscuro para Feedback de Respuestas --- */
 /*
- * El problema: El color de fondo se ajustaba, pero el color del texto no,
- * resultando en texto oscuro sobre fondo oscuro.
- * La solución: Forzar un color de texto claro y de alto contraste.
+ * PROBLEMA: El texto en las respuestas correctas/incorrectas no se ve.
+ * SOLUCIÓN: Forzar el uso de la variable de color de texto principal del tema oscuro.
 */
-html.dark-mode .form-check-label.correct {
-  color: #e9ecef; /* Texto claro (casi blanco) */
-  background-color: #1a472a;
-  border-color: #2f6f49;
-}
-
+html.dark-mode .form-check-label.correct,
 html.dark-mode .form-check-label.incorrect {
-  color: #e9ecef; /* Texto claro (casi blanco) */
-  background-color: #5a2129;
-  border-color: #9b2c2c;
+  color: var(--text-primary) !important; /* ¡IMPORTANTE! Usa el color de texto principal de tu tema. */
 }
 
-/* --- Visibilidad de la Caja de Explicación en Tema Oscuro --- */
 /*
- * El problema: La caja de explicación (un .alert-info) no es visible
- * porque sus colores por defecto no contrastan con el fondo oscuro.
- * La solución: Definir colores de fondo y texto específicos para el tema oscuro.
+ * PROBLEMA: La caja de explicación no aparece.
+ * CAUSA: Sus colores por defecto son para tema claro y no contrastan en el oscuro.
+ * SOLUCIÓN: Definir colores de fondo y texto específicos para el tema oscuro.
 */
 html.dark-mode .explanation-box {
-    color: var(--bs-info-text-emphasis);
-    background-color: #0a2d3f; /* Un azul oscuro sutil */
+    color: var(--text-primary); /* Usa el color de texto principal de tu tema. */
+    background-color: #0a2d3f;  /* Un azul oscuro sutil para el fondo. */
     border-color: #0d3d56;
 }
