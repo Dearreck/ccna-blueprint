@@ -316,3 +316,37 @@ html.dark-mode .form-check-label.incorrect {
     border-color: var(--bs-info-border-subtle);
     color: var(--bs-info-text-emphasis);
 }
+
+/* ==========================================================================
+   Correcciones para el Feedback del Simulador de Examen
+   ========================================================================== */
+
+/* --- Colores de Texto en Tema Oscuro para Feedback de Respuestas --- */
+/*
+ * El problema: El color de fondo se ajustaba, pero el color del texto no,
+ * resultando en texto oscuro sobre fondo oscuro.
+ * La solución: Forzar un color de texto claro y de alto contraste.
+*/
+html.dark-mode .form-check-label.correct {
+  color: #e9ecef; /* Texto claro (casi blanco) */
+  background-color: #1a472a;
+  border-color: #2f6f49;
+}
+
+html.dark-mode .form-check-label.incorrect {
+  color: #e9ecef; /* Texto claro (casi blanco) */
+  background-color: #5a2129;
+  border-color: #9b2c2c;
+}
+
+/* --- Visibilidad de la Caja de Explicación en Tema Oscuro --- */
+/*
+ * El problema: La caja de explicación (un .alert-info) no es visible
+ * porque sus colores por defecto no contrastan con el fondo oscuro.
+ * La solución: Definir colores de fondo y texto específicos para el tema oscuro.
+*/
+html.dark-mode .explanation-box {
+    color: var(--bs-info-text-emphasis);
+    background-color: #0a2d3f; /* Un azul oscuro sutil */
+    border-color: #0d3d56;
+}
