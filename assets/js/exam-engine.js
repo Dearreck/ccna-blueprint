@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const questionCountSelect = document.getElementById('question-count-select');
 
     // --- ESTADO DEL EXAMEN ---
-    let allQuestions = []; // Almacenará todas las preguntas cargadas
-    let currentExamQuestions = []; // Las preguntas para la sesión actual
+    let allQuestions = [];
+    let currentExamQuestions = [];
     let currentQuestionIndex = 0;
     let userScore = 0;
     let examMode = 'study';
 
-    // --- DEFINICIÓN DE CATEGORÍAS (Según el PDF) ---
+    // --- DEFINICIÓN DE CATEGORÍAS ---
     const examCategories = [
         { id: '1.0-network-fundamentals', name: '1.0 Network Fundamentals (20%)' },
         { id: '2.0-network-access', name: '2.0 Network Access (20%)' },
@@ -24,9 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: '6.0-automation-programmability', name: '6.0 Automation & Programmability (10%)' }
     ];
 
-    /**
-     * Carga dinámicamente las categorías del examen en la página de configuración.
-     */
+    
     function loadCategories() {
         if (!categorySelectionContainer) return;
         categorySelectionContainer.innerHTML = '';
@@ -52,11 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /**
-     * Inicia el proceso del examen una vez que el usuario hace clic en "Comenzar".
-     */
+    
     async function startExam() {
-        // 1. Recopilar configuración del usuario
         const selectedMode = document.querySelector('input[name="examMode"]:checked').value;
         const selectedCategoryElements = document.querySelectorAll('#category-selection-container input[type="checkbox"]:checked');
         const questionCount = questionCountSelect.value;
@@ -69,7 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedCategories = Array.from(selectedCategoryElements).map(el => el.value);
         examMode = selectedMode;
 
-        // 2. Cargar las preguntas de los archivos JSON seleccionados
         try {
             allQuestions = await fetchQuestions(selectedCategories);
             if (allQuestions.length === 0) {
@@ -82,33 +76,83 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // 3. Preparar el set de preguntas para el examen
-        currentExamQuestions = shuffleArray([...allQuestions]); // Barajamos una copia
+        currentExamQuestions = shuffleArray([...allQuestions]);
 
         if (questionCount !== 'all') {
             currentExamQuestions = currentExamQuestions.slice(0, parseInt(questionCount));
         }
         
-        // 4. Resetear estado e iniciar UI del examen
         currentQuestionIndex = 0;
         userScore = 0;
         
         examSetupContainer.classList.add('d-none');
         examQuestionsContainer.classList.remove('d-none');
         
-        // El siguiente paso será llamar a una función para mostrar la primera pregunta
-        console.log(`Examen iniciado en modo ${examMode} con ${currentExamQuestions.length} preguntas.`);
-        // displayQuestion(); // <-- Esta será nuestra próxima función a implementar
+        // ¡Llamamos a la nueva función para mostrar la primera pregunta!
+        displayQuestion();
     }
 
     /**
-     * Carga las preguntas desde los archivos JSON especificados.
-     * @param {string[]} categories - Un array de IDs de categorías (ej: ['1.0-network-fundamentals']).
-     * @returns {Promise<object[]>} - Una promesa que resuelve a un array con todas las preguntas.
+     * Novedad: Muestra la pregunta actual en la interfaz.
      */
+    function displayQuestion() {
+        if (currentQuestionIndex >= currentExamQuestions.length) {
+            // Aquí irá la lógica para finalizar el examen
+            console.log("Fin del examen.");
+            return;
+        }
+
+        const question = currentExamQuestions[currentQuestionIndex];
+        examQuestionsContainer.innerHTML = ''; // Limpiar contenido anterior
+
+        // Construir el HTML de la pregunta usando Bootstrap
+        const questionCard = document.createElement('div');
+        questionCard.className = 'card shadow-sm border-0';
+        
+        let cardBodyHTML = `
+            <div class="card-header bg-transparent border-0 pt-4 px-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Pregunta ${currentQuestionIndex + 1} de ${currentExamQuestions.length}</h5>
+                    </div>
+            </div>
+            <div class="card-body p-4 p-md-5">
+                <p class="question-text lead">${question.question_es}</p>
+        `;
+
+        if (question.code) {
+            cardBodyHTML += `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>`;
+        }
+
+        if (question.image) {
+             cardBodyHTML += `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>`;
+        }
+        
+        cardBodyHTML += '<div id="options-container" class="mt-4">';
+        const options = shuffleArray([...question.options]); // Barajar opciones de respuesta
+        options.forEach((option, index) => {
+            cardBodyHTML += `
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${option.text_es}">
+                    <label class="form-check-label" for="option${index}">
+                        ${option.text_es}
+                    </label>
+                </div>
+            `;
+        });
+        cardBodyHTML += '</div></div>'; // Cierre de #options-container y .card-body
+
+        cardBodyHTML += `
+            <div class="card-footer bg-transparent border-0 pb-4 px-4 text-end">
+                <button id="check-answer-btn" class="btn btn-primary">Verificar Respuesta</button>
+            </div>
+        `;
+
+        questionCard.innerHTML = cardBodyHTML;
+        examQuestionsContainer.appendChild(questionCard);
+    }
+    
     async function fetchQuestions(categories) {
         const fetchPromises = categories.map(category => {
-            // Ajustamos la ruta para que sea relativa a la raíz del sitio
             const path = `../data/${category}.json`;
             return fetch(path).then(response => {
                 if (!response.ok) {
@@ -119,16 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const questionArrays = await Promise.all(fetchPromises);
-        
-        // Aplanamos el array de arrays en un solo array de preguntas
         return questionArrays.flat();
     }
 
-    /**
-     * Algoritmo Fisher-Yates para barajar un array.
-     * @param {any[]} array - El array a barajar.
-     * @returns {any[]} - El array barajado.
-     */
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -137,17 +174,12 @@ document.addEventListener('DOMContentLoaded', () => {
         return array;
     }
 
-
-    // --- FUNCIÓN DE INICIALIZACIÓN ---
     function init() {
         loadCategories();
-        
         if (startExamBtn) {
             startExamBtn.addEventListener('click', startExam);
         }
     }
 
-    // Arrancamos la inicialización
     init();
-
 });
