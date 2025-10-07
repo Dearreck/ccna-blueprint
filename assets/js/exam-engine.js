@@ -222,19 +222,40 @@ function handleAnswerSubmission() {
         }
     }
     
+    /**
+     * Carga las preguntas desde los archivos JSON especificados,
+     * ignorando los archivos que fallen o no existan.
+     * @param {string[]} categories - Un array de IDs de categorías.
+     * @returns {Promise<object[]>} - Una promesa que resuelve a un array con todas las preguntas de los archivos cargados exitosamente.
+     */
     async function fetchQuestions(categories) {
         const fetchPromises = categories.map(category => {
             const path = `../data/${category}.json`;
             return fetch(path).then(response => {
                 if (!response.ok) {
+                    // Si el archivo no se encuentra (404) o hay otro error, lanza una excepción.
                     throw new Error(`No se pudo cargar el archivo: ${path}`);
                 }
                 return response.json();
             });
         });
-
-        const questionArrays = await Promise.all(fetchPromises);
-        return questionArrays.flat();
+    
+        // Usamos Promise.allSettled para esperar a que todas las promesas terminen
+        const results = await Promise.allSettled(fetchPromises);
+    
+        const successfulQuestions = [];
+        results.forEach(result => {
+            if (result.status === 'fulfilled') {
+                // Si la promesa se cumplió, añadimos sus preguntas (result.value) al array
+                successfulQuestions.push(...result.value);
+            } else {
+                // Si la promesa falló, mostramos un aviso en la consola pero no detenemos todo
+                console.warn(`Se omitió un archivo de preguntas que no se pudo cargar: ${result.reason.message}`);
+            }
+        });
+    
+        // Aplanamos el array de arrays en un solo array de preguntas
+        return successfulQuestions.flat();
     }
 
     function shuffleArray(array) {
