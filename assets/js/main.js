@@ -1,9 +1,15 @@
+// assets/js/main.js (Versión SPA Refactorizada)
+
 document.addEventListener('DOMContentLoaded', () => {
     
+    /**
+     * Inicializa el interruptor de tema (oscuro/claro) después de que se carga.
+     */
     const initializeThemeToggle = () => {
         const themeToggle = document.getElementById('theme-switch-checkbox');
         if (!themeToggle) return;
 
+        // Sincroniza el estado del checkbox con el tema actual
         themeToggle.checked = document.documentElement.classList.contains('dark-mode');
 
         themeToggle.addEventListener('change', function() {
@@ -17,6 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    /**
+     * Carga un componente HTML desde una URL y lo inyecta en un selector del DOM.
+     * @param {string} selector - El selector CSS del elemento contenedor (ej. '#navbar-placeholder').
+     * @param {string} url - La URL del archivo HTML del componente.
+     * @param {Function} [callback] - Una función opcional que se ejecuta después de cargar el componente.
+     * @returns {Promise<void>}
+     */
     const loadComponent = (selector, url, callback) => {
         return fetch(url)
             .then(response => {
@@ -25,38 +38,44 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 const element = document.querySelector(selector);
-                if (element) element.innerHTML = data;
-                if (callback) callback();
+                if (element) {
+                    element.innerHTML = data;
+                }
+                // Si se proporciona un callback, se ejecuta aquí.
+                if (callback) {
+                    callback();
+                }
             });
     };
 
-    // Lógica de Carga Principal con basePath Dinámico ---
+    // --- Lógica de Carga Principal con basePath Dinámico ---
 
-    // 1. Calculamos la profundidad de la página actual.
-    // Contamos cuántos directorios hay después de "ccna-blueprint" en la URL.
+    // 1. Calcula la profundidad de la página actual para construir rutas relativas correctas.
     const path = window.location.pathname;
     const pathSegments = path.substring(path.indexOf('ccna-blueprint') + 'ccna-blueprint'.length).split('/');
-    // Restamos 1 porque el último segmento es el archivo (index.html) o está vacío.
     const depth = pathSegments.length - 2;
-
-    // 2. Construimos el prefijo de la ruta. Por cada nivel de profundidad, añadimos un "../".
-    // Si la profundidad es 0 (estamos en la raíz), el prefijo queda vacío.
     const basePath = '../'.repeat(depth > 0 ? depth : 0);
 
-    // 3. Usamos Promise.all con nuestra nueva ruta dinámica.
+    // 2. Carga de componentes y orquestación de scripts.
     Promise.all([
+        // MODIFICADO: Ahora el callback de la barra de navegación se encarga
+        // de inicializar tanto el tema como el motor de traducción.
+        // Esto garantiza que i1n.init() solo se ejecute cuando el selector de idioma ya existe en el DOM.
         loadComponent('#navbar-placeholder', `${basePath}components/nav.html`, () => {
-            initializeThemeToggle(); // Mantenemos la inicialización del tema
-            i18n.init();             // Y AHORA inicializamos el idioma
+            initializeThemeToggle(); // Primero, inicializa el interruptor de tema.
+            i1n.init();             // Segundo, inicializa el motor de traducción.
         }),
-
         loadComponent('#footer-placeholder', `${basePath}components/footer.html`)
     ]).then(() => {
+        // 3. Una vez que TODOS los componentes están cargados y los scripts inicializados,
+        // se muestra el contenido de la página para evitar el "flash".
         document.body.classList.add('loaded');
     }).catch(error => {
         console.error('Fallo al cargar componentes esenciales:', error);
+        // Aun si hay un error, mostramos el cuerpo para que el usuario no vea una página en blanco.
         document.body.classList.add('loaded');
     });
 
+    // Actualiza el título de la página si se ha definido en el body.
     document.title = document.body.dataset.title || 'CCNA Blueprint';
 });
