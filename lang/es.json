@@ -8,8 +8,7 @@
   "nav_blog": "Blog",
   "btn_verify": "Verificar Respuesta",
   "btn_next": "Siguiente",
-  "btn_skip": "Omitir Pregunta",
-  "explanation_label": "Explicación",
+  "btn_skip": "Omitir Pregunta"
   "btn_end_exam": "Finalizar Examen",
   "question_header": "Pregunta",
   "question_of": "de",
@@ -30,5 +29,20 @@
   "q_count_10": "10 preguntas",
   "q_count_25": "25 preguntas",
   "q_count_50": "50 preguntas",
-  "q_count_all": "Todas las disponibles"
+  "q_count_all": "Todas las disponibles",
+  "explanation_label": "Explicación",
+  "alert_select_category": "Por favor, selecciona al menos una categoría.",
+  "alert_no_questions": "No se encontraron preguntas para las categorías seleccionadas.",
+  "alert_load_error": "Error al cargar las preguntas del examen.",
+  "alert_select_answer": "Por favor, selecciona una respuesta.",
+  "results_title_excellent": "¡Excelente Resultado!",
+  "results_title_practice": "¡Sigue Practicando!",
+  "results_summary_part1": "Has acertado",
+  "results_summary_part2": "de",
+  "results_summary_part3": "preguntas.",
+  "results_correct": "Correctas",
+  "results_incorrect": "Incorrectas",
+  "results_skipped": "Omitidas",
+  "btn_restart": "Volver a Intentar",
+  "btn_back_home": "Volver al Inicio"
 }
