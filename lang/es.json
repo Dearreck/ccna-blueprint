@@ -1,0 +1,17 @@
+{
+  "nav_home": "Inicio",
+  "nav_tools": "Herramientas",
+  "nav_subnetting": "Generador Subneteo",
+  "nav_password": "Descifrador Contraseña",
+  "nav_exam": "Simulador Examen",
+  "nav_glossary": "Glosario",
+  "nav_blog": "Blog",
+  "exam_title": "Simulador de Examen CCNA",
+  "exam_subtitle": "Selecciona las categorías que deseas practicar y elige un modo.",
+  "exam_mode_label": "1. Elige el Modo",
+  "exam_mode_study": "Modo Estudio",
+  "exam_mode_exam": "Modo Examen",
+  "exam_categories_label": "2. Selecciona las Categorías",
+  "exam_question_count_label": "3. Número de Preguntas",
+  "exam_start_button": "Comenzar Examen"
+}
