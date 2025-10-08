@@ -6,6 +6,12 @@
   "nav_exam": "Exam Simulator",
   "nav_glossary": "Glossary",
   "nav_blog": "Blog",
+  "btn_verify": "Check Answer",
+  "btn_next": "Next",
+  "btn_skip": "Skip Question",
+  "btn_end_exam": "End Exam",
+  "question_header": "Question",
+  "question_of": "of"
   "exam_title": "CCNA Exam Simulator",
   "exam_subtitle": "Select the categories you want to practice and choose a mode.",
   "exam_mode_label": "1. Choose the Mode",
