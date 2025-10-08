@@ -73,8 +73,10 @@ const i18n = {
 };
 
 // Inicializar el motor
+/*
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => i18n.init());
 } else {
     i18n.init();
 }
+*/
