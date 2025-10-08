@@ -14,20 +14,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentQuestionIndex = 0;
     let examStats = { correct: 0, incorrect: 0, skipped: 0 };
     let examMode = 'study';
-    let timerInterval = null; // Para el temporizador
-    let timeRemaining = 0; // Tiempo restante en segundos
+    let timerInterval = null;
+    let timeRemaining = 0;
 
     // --- DEFINICIÓN DE CATEGORÍAS ---
     const examCategories = [
-        { id: '1.0-network-fundamentals', name: '1.0 Network Fundamentals (20%)' },
-        { id: '2.0-network-access', name: '2.0 Network Access (20%)' },
-        { id: '3.0-ip-connectivity', name: '3.0 IP Connectivity (25%)' },
-        { id: '4.0-ip-services', name: '4.0 IP Services (10%)' },
-        { id: '5.0-security-fundamentals', name: '5.0 Security Fundamentals (15%)' },
-        { id: '6.0-automation-programmability', name: '6.0 Automation & Programmability (10%)' }
+        { id: '1.0-network-fundamentals', i18nKey: 'category_1_0' },
+        { id: '2.0-network-access', i18nKey: 'category_2_0' },
+        { id: '3.0-ip-connectivity', i18nKey: 'category_3_0' },
+        { id: '4.0-ip-services', i18nKey: 'category_4_0' },
+        { id: '5.0-security-fundamentals', i18nKey: 'category_5_0' },
+        { id: '6.0-automation-programmability', i18nKey: 'category_6_0' }
     ];
 
-    
+    /**
+     * Carga las categorías del examen usando el motor de traducción.
+     */
     function loadCategories() {
         if (!categorySelectionContainer) return;
         categorySelectionContainer.innerHTML = '';
@@ -45,7 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const label = document.createElement('label');
             label.className = 'form-check-label';
             label.htmlFor = `check-${category.id}`;
-            label.textContent = category.name;
+            label.textContent = i18n.get(category.i18nKey) || category.id;
+            
             formCheckDiv.appendChild(input);
             formCheckDiv.appendChild(label);
             colDiv.appendChild(formCheckDiv);
@@ -53,6 +56,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /**
+     * Traduce las opciones del selector de cantidad de preguntas.
+     */
+    function translateQuestionCountOptions() {
+        const select = document.getElementById('question-count-select');
+        if (!select) return;
+
+        Array.from(select.options).forEach(option => {
+            const key = `q_count_${option.value}`;
+            const translation = i18n.get(key);
+            if (translation !== key) {
+                option.textContent = translation;
+            }
+        });
+    }
     
     async function startExam() {
         const selectedMode = document.querySelector('input[name="examMode"]:checked').value;
@@ -60,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const questionCount = questionCountSelect.value;
         
         if (selectedCategoryElements.length === 0) {
-            alert('Por favor, selecciona al menos una categoría.');
+            alert(i18n.get('alert_select_category'));
             return;
         }
 
@@ -70,12 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             allQuestions = await fetchQuestions(selectedCategories);
             if (allQuestions.length === 0) {
-                alert('No se encontraron preguntas para las categorías seleccionadas.');
+                alert(i18n.get('alert_no_questions'));
                 return;
             }
         } catch (error) {
             console.error('Error al cargar las preguntas:', error);
-            alert('Hubo un problema al cargar las preguntas.');
+            alert(i18n.get('alert_load_error'));
             return;
         }
 
@@ -91,9 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
         examResultsContainer.classList.add('d-none');
         examQuestionsContainer.classList.remove('d-none');
         
-        // Iniciar temporizador si es Modo Examen
         if (examMode === 'exam') {
-            const timePerQuestion = 90; // 90 segundos por pregunta (ajustable)
+            const timePerQuestion = 90;
             timeRemaining = currentExamQuestions.length * timePerQuestion;
             startTimer();
         }
@@ -101,32 +118,24 @@ document.addEventListener('DOMContentLoaded', () => {
         displayQuestion();
     }
 
-    /**
-     * Muestra la pregunta actual en la interfaz, adaptándose al idioma seleccionado.
-     */
     function displayQuestion() {
         if (currentQuestionIndex >= currentExamQuestions.length) {
             finishExam();
             return;
         }
-    
+
         const question = currentExamQuestions[currentQuestionIndex];
-        examQuestionsContainer.innerHTML = ''; 
-    
-        // Obtener el idioma actual desde el motor i18n
+        examQuestionsContainer.innerHTML = '';
         const lang = i18n.currentLanguage || 'es';
-    
+
         const questionCard = document.createElement('div');
         questionCard.className = 'card shadow-sm border-0';
         
-        // Obtener textos de los botones del motor i18n
         const buttonText = examMode === 'exam' ? i18n.get('btn_next') : i18n.get('btn_verify');
         const skipButtonText = i18n.get('btn_skip');
         const endButtonText = i18n.get('btn_end_exam');
-    
-        // Seleccionar el texto de la pregunta en el idioma correcto (con fallback a inglés)
         const questionText = question[`question_${lang}`] || question.question_en;
-    
+
         let cardBodyHTML = `
             <div class="card-header bg-transparent border-0 pt-4 px-4">
                 <div class="d-flex justify-content-between align-items-center">
@@ -135,50 +144,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
             <div class="card-body p-4 p-md-5">
-                <p class="question-text lead">${questionText}</p>
-        `;
-    
-        if (question.code) {
-            cardBodyHTML += `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>`;
-        }
-    
-        if (question.image) {
-             cardBodyHTML += `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>`;
-        }
+                <p class="question-text lead">${questionText}</p>`;
+
+        if (question.code) cardBodyHTML += `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>`;
+        if (question.image) cardBodyHTML += `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>`;
         
         cardBodyHTML += '<div id="options-container" class="mt-4">';
         const options = shuffleArray([...question.options]); 
         question.shuffledOptions = options;
-    
+
         options.forEach((option, index) => {
-            // Seleccionar el texto de la opción en el idioma correcto (con fallback a inglés o español)
             const optionText = option[`text_${lang}`] || option.text_en || option.text_es;
             cardBodyHTML += `
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}">
-                    <label class="form-check-label" for="option${index}">
-                        ${optionText}
-                    </label>
-                </div>
-            `;
+                    <label class="form-check-label" for="option${index}">${optionText}</label>
+                </div>`;
         });
         cardBodyHTML += '</div></div>';
-    
+
         cardBodyHTML += `
             <div class="card-footer bg-transparent border-0 pb-4 px-4 d-flex justify-content-between align-items-center">
-                <div>
-                    <button id="end-exam-btn" class="btn btn-sm btn-outline-danger">${endButtonText}</button>
-                </div>
+                <div><button id="end-exam-btn" class="btn btn-sm btn-outline-danger">${endButtonText}</button></div>
                 <div>
                     <button id="skip-question-btn" class="btn btn-secondary me-2">${skipButtonText}</button>
                     <button id="check-answer-btn" class="btn btn-primary">${buttonText}</button>
                 </div>
-            </div>
-        `;
-    
+            </div>`;
+
         questionCard.innerHTML = cardBodyHTML;
         examQuestionsContainer.appendChild(questionCard);
-    
+
         document.getElementById('check-answer-btn').addEventListener('click', handleAnswerSubmission);
         document.getElementById('skip-question-btn').addEventListener('click', skipQuestion);
         document.getElementById('end-exam-btn').addEventListener('click', finishExam);
@@ -186,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function handleAnswerSubmission() {
         if (examMode === 'study') {
-            ();
+            handleStudyModeAnswer();
         } else {
             handleExamModeAnswer();
         }
@@ -198,62 +194,46 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const question = currentExamQuestions[currentQuestionIndex];
         const selectedOptionInput = document.querySelector('input[name="questionOptions"]:checked');
-    
+
         if (!selectedOptionInput) {
-            alert('Por favor, selecciona una respuesta.');
+            alert(i18n.get('alert_select_answer'));
             document.getElementById('skip-question-btn').disabled = false;
             document.getElementById('end-exam-btn').disabled = false;
             return;
         }
-    
-        // --- INICIO DE LA CORRECCIÓN ---
-        // 1. Obtener el idioma activo desde el motor i18n
+
         const lang = i18n.currentLanguage || 'es';
-    
         const selectedOptionIndex = parseInt(selectedOptionInput.value);
         const selectedOption = question.shuffledOptions[selectedOptionIndex];
         
-        if (selectedOption.isCorrect) {
-            examStats.correct++;
-        } else {
-            examStats.incorrect++;
-        }
+        if (selectedOption.isCorrect) examStats.correct++;
+        else examStats.incorrect++;
         
         const allOptionInputs = document.querySelectorAll('#options-container .form-check-input');
         allOptionInputs.forEach(input => input.disabled = true);
-    
         const optionsContainer = document.getElementById('options-container');
-        optionsContainer.innerHTML = ''; // Limpiar para redibujar
-    
+        optionsContainer.innerHTML = '';
         question.shuffledOptions.forEach((option, index) => {
             const isSelected = (index === selectedOptionIndex);
             const feedbackClass = option.isCorrect ? 'correct' : (isSelected ? 'incorrect' : '');
-            
-            // 2. Usar el idioma activo para obtener el texto de la opción
             const optionText = option[`text_${lang}`] || option.text_en || option.text_es;
-    
             optionsContainer.innerHTML += `
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}" disabled ${isSelected ? 'checked' : ''}>
-                    <label class="form-check-label ${feedbackClass}" for="option${index}">
-                        ${optionText}
-                    </label>
+                    <label class="form-check-label ${feedbackClass}" for="option${index}">${optionText}</label>
                 </div>`;
         });
         
-        // 3. Usar el idioma activo para obtener el texto de la explicación
         const explanationText = question[`explanation_${lang}`] || question.explanation_en;
-    
         if (explanationText) {
             const explanationDiv = document.createElement('div');
             explanationDiv.className = 'alert alert-info mt-4 explanation-box';
             explanationDiv.innerHTML = `<strong>${i18n.get('explanation_label')}:</strong> ${explanationText}`;
             document.querySelector('.card-body #options-container').insertAdjacentElement('afterend', explanationDiv);
         }
-        // --- FIN DE LA CORRECCIÓN ---
-    
+
         const actionButton = document.getElementById('check-answer-btn');
-        actionButton.textContent = i18n.get('btn_next'); // Usar i18n para el texto del botón
+        actionButton.textContent = i18n.get('btn_next');
         actionButton.removeEventListener('click', handleAnswerSubmission);
         actionButton.addEventListener('click', proceedToNextQuestion);
     }
@@ -261,7 +241,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleExamModeAnswer() {
         const selectedOptionInput = document.querySelector('input[name="questionOptions"]:checked');
         if (!selectedOptionInput) {
-            alert('Debes seleccionar una respuesta para continuar.');
+            alert(i18n.get('alert_select_answer'));
             return;
         }
 
@@ -285,41 +265,37 @@ document.addEventListener('DOMContentLoaded', () => {
         displayQuestion();
     }
     
-    /**
-     * Muestra la pantalla de resultados y guarda la puntuación.
-     * (Versión con el cálculo de porcentaje corregido)
-     */
     function finishExam() {
         stopTimer();
         examQuestionsContainer.classList.add('d-none');
         examResultsContainer.classList.remove('d-none');
-    
+
         const totalQuestions = currentExamQuestions.length;
-        const answeredQuestions = examStats.correct + examStats.incorrect;
-    
-        // --- LÍNEA CORREGIDA ---
-        // El porcentaje ahora se calcula sobre el TOTAL de preguntas, no solo las respondidas.
         const scorePercentage = totalQuestions > 0 ? Math.round((examStats.correct / totalQuestions) * 100) : 0;
-        
+
         document.getElementById('results-score').textContent = `${scorePercentage}%`;
-        document.getElementById('results-summary').textContent = `Has respondido ${answeredQuestions} de ${totalQuestions} preguntas.`;
+        document.getElementById('results-summary').textContent = `${i18n.get('results_summary_part1')} ${examStats.correct} ${i18n.get('results_summary_part2')} ${totalQuestions} ${i18n.get('results_summary_part3')}`;
         document.getElementById('results-correct').textContent = examStats.correct;
         document.getElementById('results-incorrect').textContent = examStats.incorrect;
         document.getElementById('results-skipped').textContent = examStats.skipped;
-    
+        
+        document.querySelector('#results-correct + small').textContent = i18n.get('results_correct');
+        document.querySelector('#results-incorrect + small').textContent = i18n.get('results_incorrect');
+        document.querySelector('#results-skipped + small').textContent = i18n.get('results_skipped');
+        document.getElementById('restart-exam-btn').textContent = i18n.get('btn_restart');
+        document.querySelector('#exam-results-container a').textContent = i18n.get('btn_back_home');
+
         const resultsScoreElement = document.getElementById('results-score');
         resultsScoreElement.classList.remove('text-success', 'text-danger');
-        // El umbral de aprobación para el CCNA suele ser ~82.5%, usaremos 85% como referencia.
         if (scorePercentage >= 85) {
             resultsScoreElement.classList.add('text-success');
-            document.getElementById('results-title').textContent = '¡Excelente Trabajo!';
+            document.getElementById('results-title').textContent = i18n.get('results_title_excellent');
         } else {
             resultsScoreElement.classList.add('text-danger');
-            document.getElementById('results-title').textContent = '¡Sigue Practicando!';
+            document.getElementById('results-title').textContent = i18n.get('results_title_practice');
         }
         
         saveExamAttempt();
-    
         document.getElementById('restart-exam-btn').addEventListener('click', startExam);
     }
 
@@ -337,9 +313,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) { console.error("No se pudo guardar el resultado del examen.", e); }
     }
 
-    // --- LÓGICA DEL TEMPORIZADOR ---
     function startTimer() {
-        stopTimer(); // Asegurarse de que no haya otros timers corriendo
+        stopTimer();
         timerInterval = setInterval(() => {
             timeRemaining--;
             updateTimerDisplay();
@@ -362,7 +337,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // --- FUNCIONES DE UTILIDAD ---
     async function fetchQuestions(categories) {
         const fetchPromises = categories.map(category => {
             const path = `../data/${category}.json`;
@@ -389,7 +363,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function init() {
-        loadCategories();
+        // Disparado por un evento personalizado desde i18n.js para asegurar que las traducciones estén listas.
+        document.addEventListener('i18n-loaded', () => {
+            loadCategories();
+            translateQuestionCountOptions();
+        });
+
         if (startExamBtn) {
             startExamBtn.addEventListener('click', startExam);
         }
