@@ -141,12 +141,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const questionText = question[`question_${lang}`] || question.question_en;
         const headerText = `${i1n.get('question_header')} ${currentQuestionIndex + 1} ${i1n.get('question_of')} ${currentExamQuestions.length}`;
 
+        // 1. Crea el HTML del temporizador SOLO si estamos en modo examen.
+        const timerHTML = examMode === 'exam' 
+            ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` 
+            : ''; // Si no, crea una cadena vacía.
+    
+        // 2. Construye el HTML principal usando la variable timerHTML.
         let cardBodyHTML = `
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-transparent border-0 pt-4 px-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">${headerText}</h5>
-                        <div id="timer-display" class="fs-5 fw-bold text-primary"></div>
+                        ${timerHTML} 
                     </div>
                 </div>
                 <div class="card-body p-4 p-md-5">
@@ -179,7 +185,11 @@ document.addEventListener('DOMContentLoaded', () => {
             </div></div>`;
         
         examQuestionsContainer.innerHTML = cardBodyHTML;
-        updateTimerDisplay(); // Asegura que el timer se muestre al re-renderizar
+        
+        // Solo actualiza el texto del timer si estamos en modo examen.
+        if (examMode === 'exam') {
+            updateTimerDisplay();
+        }
 
         // Asigna los event listeners a los nuevos botones
         document.getElementById('check-answer-btn').addEventListener('click', handleAnswerSubmission);
