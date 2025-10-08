@@ -251,8 +251,8 @@
       { "text_es": "192,168,1,1", "text_en": "192,168,1,1", "isCorrect": true },
       { "text_es": "10.0.40.180", "text_en": "10.0.40.180", "isCorrect": false }
     ],
-    "explanation_es": "La opción C utiliza comas (,) como separadores en lugar de puntos (.), lo cual viola la regla del formato decimal punteado.",
-    "explanation_en": "Option C uses commas (,) as separators instead of dots (.), which violates the dotted-decimal format rule."
+    "explanation_es": "La opción '192,168,1,1' utiliza comas (,) como separadores en lugar de puntos (.), lo cual viola la regla del formato decimal punteado.",
+    "explanation_en": "Option '192,168,1,1' uses commas (,) as separators instead of dots (.), which violates the dotted-decimal format rule."
   },
   {
     "id": "format_q10",
@@ -263,8 +263,8 @@
       { "text_es": "Verdadero", "text_en": "True", "isCorrect": true },
       { "text_es": "Falso", "text_en": "False", "isCorrect": false }
     ],
-    "explanation_es": "Correcto. Aunque las computadoras usan el formato binario, el formato decimal punteado fue diseñado para la conveniencia y legibilidad humana.",
-    "explanation_en": "Correct. Although computers use the binary format, the dotted-decimal format was designed for human convenience and readability."
+    "explanation_es": "Las computadoras usan el formato binario (1 ó 0); el formato decimal punteado fue diseñado para la conveniencia y legibilidad humana.",
+    "explanation_en": "Although computers use the binary format (1 or 0); the dotted-decimal format was designed for human convenience and readability."
   },
   {
     "id": "binary_q1",
