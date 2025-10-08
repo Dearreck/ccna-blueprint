@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function handleAnswerSubmission() {
         if (examMode === 'study') {
-            handleStudyModeAnswer();
+            ();
         } else {
             handleExamModeAnswer();
         }
@@ -198,43 +198,62 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const question = currentExamQuestions[currentQuestionIndex];
         const selectedOptionInput = document.querySelector('input[name="questionOptions"]:checked');
-
+    
         if (!selectedOptionInput) {
             alert('Por favor, selecciona una respuesta.');
             document.getElementById('skip-question-btn').disabled = false;
             document.getElementById('end-exam-btn').disabled = false;
             return;
         }
-
+    
+        // --- INICIO DE LA CORRECCIÓN ---
+        // 1. Obtener el idioma activo desde el motor i18n
+        const lang = i18n.currentLanguage || 'es';
+    
         const selectedOptionIndex = parseInt(selectedOptionInput.value);
         const selectedOption = question.shuffledOptions[selectedOptionIndex];
         
-        if (selectedOption.isCorrect) examStats.correct++;
-        else examStats.incorrect++;
+        if (selectedOption.isCorrect) {
+            examStats.correct++;
+        } else {
+            examStats.incorrect++;
+        }
         
         const allOptionInputs = document.querySelectorAll('#options-container .form-check-input');
         allOptionInputs.forEach(input => input.disabled = true);
+    
         const optionsContainer = document.getElementById('options-container');
-        optionsContainer.innerHTML = '';
+        optionsContainer.innerHTML = ''; // Limpiar para redibujar
+    
         question.shuffledOptions.forEach((option, index) => {
             const isSelected = (index === selectedOptionIndex);
             const feedbackClass = option.isCorrect ? 'correct' : (isSelected ? 'incorrect' : '');
+            
+            // 2. Usar el idioma activo para obtener el texto de la opción
+            const optionText = option[`text_${lang}`] || option.text_en || option.text_es;
+    
             optionsContainer.innerHTML += `
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}" disabled ${isSelected ? 'checked' : ''}>
-                    <label class="form-check-label ${feedbackClass}" for="option${index}">${option.text_es}</label>
+                    <label class="form-check-label ${feedbackClass}" for="option${index}">
+                        ${optionText}
+                    </label>
                 </div>`;
         });
         
-        if (question.explanation_es) {
+        // 3. Usar el idioma activo para obtener el texto de la explicación
+        const explanationText = question[`explanation_${lang}`] || question.explanation_en;
+    
+        if (explanationText) {
             const explanationDiv = document.createElement('div');
             explanationDiv.className = 'alert alert-info mt-4 explanation-box';
-            explanationDiv.innerHTML = `<strong>Explicación:</strong> ${question.explanation_es}`;
+            explanationDiv.innerHTML = `<strong>${i18n.get('explanation_label')}:</strong> ${explanationText}`;
             document.querySelector('.card-body #options-container').insertAdjacentElement('afterend', explanationDiv);
         }
-
+        // --- FIN DE LA CORRECCIÓN ---
+    
         const actionButton = document.getElementById('check-answer-btn');
-        actionButton.textContent = 'Siguiente Pregunta';
+        actionButton.textContent = i18n.get('btn_next'); // Usar i18n para el texto del botón
         actionButton.removeEventListener('click', handleAnswerSubmission);
         actionButton.addEventListener('click', proceedToNextQuestion);
     }
