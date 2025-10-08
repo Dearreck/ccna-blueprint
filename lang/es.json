@@ -19,5 +19,15 @@
   "exam_mode_exam": "Modo Examen",
   "exam_categories_label": "2. Selecciona las Categorías",
   "exam_question_count_label": "3. Número de Preguntas",
-  "exam_start_button": "Comenzar Examen"
+  "exam_start_button": "Comenzar Examen",
+  "category_1_0": "1.0 Fundamentos de Red (20%)",
+  "category_2_0": "2.0 Acceso a la Red (20%)",
+  "category_3_0": "3.0 Conectividad IP (25%)",
+  "category_4_0": "4.0 Servicios IP (10%)",
+  "category_5_0": "5.0 Fundamentos de Seguridad (15%)",
+  "category_6_0": "6.0 Automatización y Programabilidad (10%)",
+  "q_count_10": "10 preguntas",
+  "q_count_25": "25 preguntas",
+  "q_count_50": "50 preguntas",
+  "q_count_all": "Todas las disponibles"
 }
