@@ -92,64 +92,70 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function displayQuestion() {
-        if (currentQuestionIndex >= currentExamQuestions.length) {
-            // FIN DEL EXAMEN (próximamente)
-            console.log("Fin del examen.");
-            return;
-        }
+    if (currentQuestionIndex >= currentExamQuestions.length) {
+        finishExam();
+        return;
+    }
 
-        const question = currentExamQuestions[currentQuestionIndex];
-        examQuestionsContainer.innerHTML = ''; 
+    const question = currentExamQuestions[currentQuestionIndex];
+    examQuestionsContainer.innerHTML = ''; 
 
-        const questionCard = document.createElement('div');
-        questionCard.className = 'card shadow-sm border-0';
-        
-        let cardBodyHTML = `
-            <div class="card-header bg-transparent border-0 pt-4 px-4">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Pregunta ${currentQuestionIndex + 1} de ${currentExamQuestions.length}</h5>
+    const questionCard = document.createElement('div');
+    questionCard.className = 'card shadow-sm border-0';
+    
+    let cardBodyHTML = `
+        <div class="card-header bg-transparent border-0 pt-4 px-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Pregunta ${currentQuestionIndex + 1} de ${currentExamQuestions.length}</h5>
                 </div>
-            </div>
-            <div class="card-body p-4 p-md-5">
-                <p class="question-text lead">${question.question_es}</p>
-        `;
+        </div>
+        <div class="card-body p-4 p-md-5">
+            <p class="question-text lead">${question.question_es}</p>
+    `;
 
-        if (question.code) {
-            cardBodyHTML += `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>`;
-        }
+    if (question.code) {
+        cardBodyHTML += `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>`;
+    }
 
-        if (question.image) {
-             cardBodyHTML += `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>`;
-        }
-        
-        cardBodyHTML += '<div id="options-container" class="mt-4">';
-        const options = shuffleArray([...question.options]); 
-        question.shuffledOptions = options; // Guardamos las opciones barajadas para usarlas en la verificación
+    if (question.image) {
+         cardBodyHTML += `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>`;
+    }
+    
+    cardBodyHTML += '<div id="options-container" class="mt-4">';
+    const options = shuffleArray([...question.options]); 
+    question.shuffledOptions = options;
 
-        options.forEach((option, index) => {
-            cardBodyHTML += `
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}">
-                    <label class="form-check-label" for="option${index}">
-                        ${option.text_es}
-                    </label>
-                </div>
-            `;
-        });
-        cardBodyHTML += '</div></div>';
-
+    options.forEach((option, index) => {
         cardBodyHTML += `
-            <div class="card-footer bg-transparent border-0 pb-4 px-4 text-end">
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}">
+                <label class="form-check-label" for="option${index}">
+                    ${option.text_es}
+                </label>
+            </div>
+        `;
+    });
+    cardBodyHTML += '</div></div>';
+
+    // --- ZONA DE BOTONES ACTUALIZADA ---
+    cardBodyHTML += `
+        <div class="card-footer bg-transparent border-0 pb-4 px-4 d-flex justify-content-between align-items-center">
+            <div>
+                <button id="end-exam-btn" class="btn btn-sm btn-outline-danger">Finalizar Examen</button>
+            </div>
+            <div>
+                <button id="skip-question-btn" class="btn btn-secondary me-2">Omitir Pregunta</button>
                 <button id="check-answer-btn" class="btn btn-primary">Verificar Respuesta</button>
             </div>
-        `;
+        </div>
+    `;
 
-        questionCard.innerHTML = cardBodyHTML;
-        examQuestionsContainer.appendChild(questionCard);
+    questionCard.innerHTML = cardBodyHTML;
+    examQuestionsContainer.appendChild(questionCard);
 
-        // MODIFICACIÓN: Añadimos el listener al botón recién creado
-        document.getElementById('check-answer-btn').addEventListener('click', handleAnswerSubmission);
-    }
+    document.getElementById('check-answer-btn').addEventListener('click', handleAnswerSubmission);
+    // Los listeners para los nuevos botones se añadirán en el futuro
+}
     
     /**
  * NOVEDAD: Versión mejorada que redibuja la pregunta para mostrar feedback y explicación.
