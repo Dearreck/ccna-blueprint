@@ -101,68 +101,88 @@ document.addEventListener('DOMContentLoaded', () => {
         displayQuestion();
     }
 
+    /**
+     * Muestra la pregunta actual en la interfaz, adaptándose al idioma seleccionado.
+     */
     function displayQuestion() {
         if (currentQuestionIndex >= currentExamQuestions.length) {
             finishExam();
             return;
         }
-
+    
         const question = currentExamQuestions[currentQuestionIndex];
         examQuestionsContainer.innerHTML = ''; 
-
+    
+        // Obtener el idioma actual desde el motor i18n
+        const lang = i18n.currentLanguage || 'es';
+    
         const questionCard = document.createElement('div');
         questionCard.className = 'card shadow-sm border-0';
         
-        const buttonText = examMode === 'exam' ? 'Siguiente' : 'Verificar Respuesta';
-
+        // Obtener textos de los botones del motor i18n
+        const buttonText = examMode === 'exam' ? i18n.get('btn_next') : i18n.get('btn_verify');
+        const skipButtonText = i18n.get('btn_skip');
+        const endButtonText = i18n.get('btn_end_exam');
+    
+        // Seleccionar el texto de la pregunta en el idioma correcto (con fallback a inglés)
+        const questionText = question[`question_${lang}`] || question.question_en;
+    
         let cardBodyHTML = `
             <div class="card-header bg-transparent border-0 pt-4 px-4">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Pregunta ${currentQuestionIndex + 1} de ${currentExamQuestions.length}</h5>
+                    <h5 class="mb-0">${i18n.get('question_header')} ${currentQuestionIndex + 1} ${i18n.get('question_of')} ${currentExamQuestions.length}</h5>
                     <div id="timer-display" class="fs-5 fw-bold text-primary"></div>
                 </div>
             </div>
             <div class="card-body p-4 p-md-5">
-                <p class="question-text lead">${question.question_es}</p>
+                <p class="question-text lead">${questionText}</p>
         `;
-
-        if (question.code) cardBodyHTML += `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>`;
-        if (question.image) cardBodyHTML += `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>`;
+    
+        if (question.code) {
+            cardBodyHTML += `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>`;
+        }
+    
+        if (question.image) {
+             cardBodyHTML += `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>`;
+        }
         
         cardBodyHTML += '<div id="options-container" class="mt-4">';
         const options = shuffleArray([...question.options]); 
         question.shuffledOptions = options;
-
+    
         options.forEach((option, index) => {
+            // Seleccionar el texto de la opción en el idioma correcto (con fallback a inglés o español)
+            const optionText = option[`text_${lang}`] || option.text_en || option.text_es;
             cardBodyHTML += `
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}">
-                    <label class="form-check-label" for="option${index}">${option.text_es}</label>
+                    <label class="form-check-label" for="option${index}">
+                        ${optionText}
+                    </label>
                 </div>
             `;
         });
         cardBodyHTML += '</div></div>';
-
+    
         cardBodyHTML += `
             <div class="card-footer bg-transparent border-0 pb-4 px-4 d-flex justify-content-between align-items-center">
                 <div>
-                    <button id="end-exam-btn" class="btn btn-sm btn-outline-danger">Finalizar Examen</button>
+                    <button id="end-exam-btn" class="btn btn-sm btn-outline-danger">${endButtonText}</button>
                 </div>
                 <div>
-                    <button id="skip-question-btn" class="btn btn-secondary me-2">Omitir Pregunta</button>
+                    <button id="skip-question-btn" class="btn btn-secondary me-2">${skipButtonText}</button>
                     <button id="check-answer-btn" class="btn btn-primary">${buttonText}</button>
                 </div>
             </div>
         `;
-
+    
         questionCard.innerHTML = cardBodyHTML;
         examQuestionsContainer.appendChild(questionCard);
-
+    
         document.getElementById('check-answer-btn').addEventListener('click', handleAnswerSubmission);
         document.getElementById('skip-question-btn').addEventListener('click', skipQuestion);
         document.getElementById('end-exam-btn').addEventListener('click', finishExam);
     }
-    
     
     function handleAnswerSubmission() {
         if (examMode === 'study') {
