@@ -65,7 +65,48 @@
             </div>
         </div>
 
-        <div id="exam-questions-container" class="d-none"></div>
+        <div id="exam-questions-container" class="d-none">
+            </div>
+
+        <div id="exam-results-container" class="d-none">
+            <div class="row">
+                <div class="col-12 col-lg-8 offset-lg-2">
+                    <div class="card shadow-sm border-0 text-center">
+                        <div class="card-body p-4 p-md-5">
+                            <h1 id="results-title" class="card-title mb-3">¡Examen Finalizado!</h1>
+                            <h2 id="results-score" class="display-4 fw-bold">--%</h2>
+                            <p id="results-summary" class="lead text-muted">Has acertado X de Y preguntas.</p>
+                            
+                            <div class="row my-4 text-center">
+                                <div class="col-4">
+                                    <div class="stat-box p-3 rounded bg-success-subtle">
+                                        <h5 class="mb-0" id="results-correct">--</h5>
+                                        <small class="text-muted">Correctas</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-box p-3 rounded bg-danger-subtle">
+                                        <h5 class="mb-0" id="results-incorrect">--</h5>
+                                        <small class="text-muted">Incorrectas</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-box p-3 rounded bg-secondary-subtle">
+                                        <h5 class="mb-0" id="results-skipped">--</h5>
+                                        <small class="text-muted">Omitidas</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-5">
+                                <button id="restart-exam-btn" class="btn btn-primary btn-lg px-4 gap-3">Volver a Intentar</button>
+                                <a href="../" class="btn btn-outline-secondary btn-lg px-4">Volver al Inicio</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <div id="footer-placeholder"></div>
