@@ -329,8 +329,8 @@
       { "text_es": "Verdadero", "text_en": "True", "isCorrect": true },
       { "text_es": "Falso", "text_en": "False", "isCorrect": false }
     ],
-    "explanation_es": "Correcto. El formato decimal punteado es una conversión a decimal de cada uno de los cuatro octetos que componen la dirección binaria de 32 bits.",
-    "explanation_en": "Correct. The dotted-decimal format is a decimal conversion of each of the four octets that make up the 32-bit binary address."
+    "explanation_es": "El formato decimal punteado es una conversión a decimal de cada uno de los cuatro octetos que componen la dirección binaria de 32 bits.",
+    "explanation_en": "The dotted-decimal format is a decimal conversion of each of the four octets that make up the 32-bit binary address."
   },
   {
     "id": "binary_q6",
@@ -369,8 +369,8 @@
       { "text_es": "Verdadero", "text_en": "True", "isCorrect": true },
       { "text_es": "Falso", "text_en": "False", "isCorrect": false }
     ],
-    "explanation_es": "Correcto. La longitud de 32 bits es una característica definitoria de las direcciones IPv4. El protocolo más nuevo, IPv6, utiliza direcciones de 128 bits.",
-    "explanation_en": "Correct. The 32-bit length is a defining characteristic of IPv4 addresses. The newer protocol, IPv6, uses 128-bit addresses."
+    "explanation_es": "La longitud de 32 bits es una característica definitoria de las direcciones IPv4. El protocolo más nuevo, IPv6, utiliza direcciones de 128 bits.",
+    "explanation_en": "The 32-bit length is a defining characteristic of IPv4 addresses. The newer protocol, IPv6, uses 128-bit addresses."
   },
   {
     "id": "binary_q9",
@@ -409,8 +409,8 @@
       { "text_es": "Verdadero", "text_en": "True", "isCorrect": true },
       { "text_es": "Falso", "text_en": "False", "isCorrect": false }
     ],
-    "explanation_es": "Correcto. Conceptualmente, cada dirección IP se estructura en dos campos o partes: una que identifica la red y otra que identifica al host dentro de esa red.",
-    "explanation_en": "Correct. Conceptually, each IP address is structured into two fields or parts: one that identifies the network and another that identifies the host within that network."
+    "explanation_es": "Conceptualmente, cada dirección IP se estructura en dos campos o partes: una que identifica la red y otra que identifica al host dentro de esa red.",
+    "explanation_en": "Conceptually, each IP address is structured into two fields or parts: one that identifies the network and another that identifies the host within that network."
   },
   {
     "id": "portions_q2",
@@ -449,8 +449,8 @@
       { "text_es": "Verdadero", "text_en": "True", "isCorrect": false },
       { "text_es": "Falso", "text_en": "False", "isCorrect": true }
     ],
-    "explanation_es": "Falso. Para estar en la misma subred, deben compartir la misma porción de red. La porción de host debe ser única para cada dispositivo dentro de esa subred para poder diferenciarlos.",
-    "explanation_en": "False. To be on the same subnet, they must share the same network portion. The host portion must be unique for each device within that subnet to differentiate them."
+    "explanation_es": "Para estar en la misma subred, deben compartir la misma porción de red. La porción de host debe ser única para cada dispositivo dentro de esa subred para poder diferenciarlos.",
+    "explanation_en": "To be on the same subnet, they must share the same network portion. The host portion must be unique for each device within that subnet to differentiate them."
   },
   {
     "id": "portions_q5",
@@ -503,8 +503,8 @@
       { "text_es": "Verdadero", "text_en": "True", "isCorrect": false },
       { "text_es": "Falso", "text_en": "False", "isCorrect": true }
     ],
-    "explanation_es": "Falso. El punto de división entre la porción de red y host varía y no es fijo. Es determinado por la máscara de subred asociada a la dirección IP.",
-    "explanation_en": "False. The dividing point between the network and host portion varies and is not fixed. It is determined by the subnet mask associated with the IP address."
+    "explanation_es": "El punto de división entre la porción de red y host varía y no es fijo. Es determinado por la máscara de subred asociada a la dirección IP.",
+    "explanation_en": "The dividing point between the network and host portion varies and is not fixed. It is determined by the subnet mask associated with the IP address."
   },
   {
     "id": "portions_q9",
@@ -543,8 +543,8 @@
       { "text_es": "Verdadero", "text_en": "True", "isCorrect": true },
       { "text_es": "Falso", "text_en": "False", "isCorrect": false }
     ],
-    "explanation_es": "Correcto. Esta es la definición y propósito fundamental de la máscara de subred en el direccionamiento IPv4.",
-    "explanation_en": "Correct. This is the fundamental definition and purpose of the subnet mask in IPv4 addressing."
+    "explanation_es": "Esta es la definición y propósito fundamental de la máscara de subred en el direccionamiento IPv4.",
+    "explanation_en": "This is the fundamental definition and purpose of the subnet mask in IPv4 addressing."
   },
   {
     "id": "mask_q2",
@@ -583,8 +583,8 @@
       { "text_es": "Verdadero", "text_en": "True", "isCorrect": false },
       { "text_es": "Falso", "text_en": "False", "isCorrect": true }
     ],
-    "explanation_es": "Falso. En la máscara de subred, los bits con valor '1' (representados como 255 en octetos completos) corresponden a la porción de red. Los bits con valor '0' corresponden a la porción de host.",
-    "explanation_en": "False. In the subnet mask, bits with a value of '1' (represented as 255 in full octets) correspond to the network portion. Bits with a value of '0' correspond to the host portion."
+    "explanation_es": "En la máscara de subred, los bits con valor '1' (representados como 255 en octetos completos) corresponden a la porción de red. Los bits con valor '0' corresponden a la porción de host.",
+    "explanation_en": "In the subnet mask, bits with a value of '1' (represented as 255 in full octets) correspond to the network portion. Bits with a value of '0' correspond to the host portion."
   },
   {
     "id": "mask_q5",
@@ -623,8 +623,8 @@
       { "text_es": "Verdadero", "text_en": "True", "isCorrect": false },
       { "text_es": "Falso", "text_en": "False", "isCorrect": true }
     ],
-    "explanation_es": "Falso. Aunque ambas son números de 32 bits y se escriben en formato similar, tienen propósitos completamente diferentes. La IP identifica/localiza al host, mientras que la máscara define la división red/host de esa IP. Siempre trabajan juntas.",
-    "explanation_en": "False. Although both are 32-bit numbers and written in a similar format, they have completely different purposes. The IP identifies/locates the host, while the mask defines the network/host division of that IP. They always work together."
+    "explanation_es": "Aunque ambas son números de 32 bits y se escriben en formato similar, tienen propósitos completamente diferentes. La IP identifica/localiza al host, mientras que la máscara define la división red/host de esa IP. Siempre trabajan juntas.",
+    "explanation_en": "Although both are 32-bit numbers and written in a similar format, they have completely different purposes. The IP identifies/locates the host, while the mask defines the network/host division of that IP. They always work together."
   },
   {
     "id": "mask_q8",
@@ -663,8 +663,8 @@
       { "text_es": "Verdadero", "text_en": "True", "isCorrect": true },
       { "text_es": "Falso", "text_en": "False", "isCorrect": false }
     ],
-    "explanation_es": "Correcto. Un dispositivo aplica la máscara de subred a su propia IP y a la IP de destino para comparar las porciones de red resultantes. Si coinciden, el destino está en la red local; si no, está en una red remota y debe enviarse al gateway. La máscara es esencial para esta determinación.",
-    "explanation_en": "Correct. A device applies the subnet mask to its own IP and the destination IP to compare the resulting network portions. If they match, the destination is on the local network; if not, it's on a remote network and must be sent to the gateway. The mask is essential for this determination."
+    "explanation_es": "Un dispositivo aplica la máscara de subred a su propia IP y a la IP de destino para comparar las porciones de red resultantes. Si coinciden, el destino está en la red local; si no, está en una red remota y debe enviarse al gateway. La máscara es esencial para esta determinación.",
+    "explanation_en": "A device applies the subnet mask to its own IP and the destination IP to compare the resulting network portions. If they match, the destination is on the local network; if not, it's on a remote network and must be sent to the gateway. The mask is essential for this determination."
   }
 ]
 
