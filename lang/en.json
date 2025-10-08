@@ -30,5 +30,20 @@
   "q_count_10": "10 questions",
   "q_count_25": "25 questions",
   "q_count_50": "50 questions",
-  "q_count_all": "All available"
+  "q_count_all": "All available",
+  "explanation_label": "Explanation",
+  "alert_select_category": "Please select at least one category.",
+  "alert_no_questions": "No questions found for the selected categories.",
+  "alert_load_error": "Error loading exam questions.",
+  "alert_select_answer": "Please select an answer.",
+  "results_title_excellent": "Excellent Score!",
+  "results_title_practice": "Keep Practicing!",
+  "results_summary_part1": "You answered",
+  "results_summary_part2": "out of",
+  "results_summary_part3": "questions correctly.",
+  "results_correct": "Correct",
+  "results_incorrect": "Incorrect",
+  "results_skipped": "Skipped",
+  "btn_restart": "Try Again",
+  "btn_back_home": "Back to Home"
 }
