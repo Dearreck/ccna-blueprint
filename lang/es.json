@@ -6,6 +6,12 @@
   "nav_exam": "Simulador Examen",
   "nav_glossary": "Glosario",
   "nav_blog": "Blog",
+  "btn_verify": "Verificar Respuesta",
+  "btn_next": "Siguiente",
+  "btn_skip": "Omitir Pregunta",
+  "btn_end_exam": "Finalizar Examen",
+  "question_header": "Pregunta",
+  "question_of": "de"
   "exam_title": "Simulador de Examen CCNA",
   "exam_subtitle": "Selecciona las categorías que deseas practicar y elige un modo.",
   "exam_mode_label": "1. Elige el Modo",
