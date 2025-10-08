@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     async function startExam() {
+        clearExamState();
         const selectedMode = document.querySelector('input[name="examMode"]:checked').value;
         const selectedCategoryElements = document.querySelectorAll('#category-selection-container input[type="checkbox"]:checked');
         const questionCount = questionCountSelect.value;
@@ -262,10 +263,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function proceedToNextQuestion() {
         currentQuestionIndex++;
+        saveExamState();
         displayQuestion();
     }
     
     function finishExam() {
+        clearExamState();
         stopTimer();
         examQuestionsContainer.classList.add('d-none');
         window.location.hash = 'results';
@@ -385,26 +388,65 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function init() {
-        // Disparado por un evento personalizado desde i18n.js para asegurar que las traducciones estén listas.
         document.addEventListener('i18n-loaded', () => {
-            loadCategories();
-            translateQuestionCountOptions();
-
-            // Revisa si la URL indica que debemos mostrar los resultados
+            // PRIORIDAD 1: ¿Hay un examen en progreso para restaurar?
+            if (loadExamState()) {
+                examSetupContainer.classList.add('d-none');
+                examQuestionsContainer.classList.remove('d-none');
+                if (examMode === 'exam') {
+                    startTimer();
+                }
+                displayQuestion(); // Mostramos la pregunta donde se quedó
+                return; // Detenemos la ejecución aquí para no hacer nada más
+            }
+    
+            // PRIORIDAD 2: ¿La URL indica que debemos mostrar los resultados?
             if (window.location.hash === '#results') {
-                // Intentamos recuperar el último resultado de localStorage
                 const lastAttempt = getLastExamAttempt();
                 if (lastAttempt) {
-                    // Ocultamos la configuración y mostramos los resultados con los datos guardados
                     examSetupContainer.classList.add('d-none');
                     displayResults(lastAttempt.stats, lastAttempt.totalQuestions);
+                    return; // Detenemos la ejecución
                 }
             }
+            
+            // FALLBACK: Si ninguna de las condiciones anteriores se cumple, mostramos la configuración inicial.
+            loadCategories();
+            translateQuestionCountOptions();
         });
-
+    
         if (startExamBtn) {
             startExamBtn.addEventListener('click', startExam);
         }
+    }
+
+    function saveExamState() {
+        const examState = {
+            currentExamQuestions,
+            currentQuestionIndex,
+            examStats,
+            examMode,
+            timeRemaining
+        };
+        sessionStorage.setItem('CCNA_examState', JSON.stringify(examState));
+    }
+    
+    function loadExamState() {
+        const savedState = sessionStorage.getItem('CCNA_examState');
+        if (savedState) {
+            const state = JSON.parse(savedState);
+            currentExamQuestions = state.currentExamQuestions;
+            currentQuestionIndex = state.currentQuestionIndex;
+            examStats = state.examStats;
+            examMode = state.examMode;
+            timeRemaining = state.timeRemaining;
+            return true;
+        }
+        return false;
+    }
+    
+    function clearExamState() {
+        sessionStorage.removeItem('CCNA_examState');
     }
 
     init();
