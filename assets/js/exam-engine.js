@@ -268,35 +268,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function finishExam() {
         stopTimer();
         examQuestionsContainer.classList.add('d-none');
-        examResultsContainer.classList.remove('d-none');
-
-        const totalQuestions = currentExamQuestions.length;
-        const scorePercentage = totalQuestions > 0 ? Math.round((examStats.correct / totalQuestions) * 100) : 0;
-
-        document.getElementById('results-score').textContent = `${scorePercentage}%`;
-        document.getElementById('results-summary').textContent = `${i18n.get('results_summary_part1')} ${examStats.correct} ${i18n.get('results_summary_part2')} ${totalQuestions} ${i18n.get('results_summary_part3')}`;
-        document.getElementById('results-correct').textContent = examStats.correct;
-        document.getElementById('results-incorrect').textContent = examStats.incorrect;
-        document.getElementById('results-skipped').textContent = examStats.skipped;
-        
-        document.querySelector('#results-correct + small').textContent = i18n.get('results_correct');
-        document.querySelector('#results-incorrect + small').textContent = i18n.get('results_incorrect');
-        document.querySelector('#results-skipped + small').textContent = i18n.get('results_skipped');
-        document.getElementById('restart-exam-btn').textContent = i18n.get('btn_restart');
-        document.querySelector('#exam-results-container a').textContent = i18n.get('btn_back_home');
-
-        const resultsScoreElement = document.getElementById('results-score');
-        resultsScoreElement.classList.remove('text-success', 'text-danger');
-        if (scorePercentage >= 85) {
-            resultsScoreElement.classList.add('text-success');
-            document.getElementById('results-title').textContent = i18n.get('results_title_excellent');
-        } else {
-            resultsScoreElement.classList.add('text-danger');
-            document.getElementById('results-title').textContent = i18n.get('results_title_practice');
-        }
+        window.location.hash = 'results';
         
         saveExamAttempt();
-        document.getElementById('restart-exam-btn').addEventListener('click', startExam);
+        // Llamamos a la nueva función para mostrar los resultados
+        displayResults(examStats, currentExamQuestions.length);
     }
 
     function saveExamAttempt() {
@@ -362,11 +338,68 @@ document.addEventListener('DOMContentLoaded', () => {
         return array;
     }
 
+    // Función para obtener el último intento guardado
+    function getLastExamAttempt() {
+        try {
+            const history = JSON.parse(localStorage.getItem('CCNA_examHistory')) || [];
+            return history.length > 0 ? history[history.length - 1] : null;
+        } catch (e) {
+            console.error("No se pudo leer el historial de exámenes.", e);
+            return null;
+        }
+    }
+
+    // Función para mostrar los resultados
+    function displayResults(stats, totalQuestions) {
+        examResultsContainer.classList.remove('d-none');
+        const scorePercentage = totalQuestions > 0 ? Math.round((stats.correct / totalQuestions) * 100) : 0;
+
+        document.getElementById('results-score').textContent = `${scorePercentage}%`;
+        document.getElementById('results-summary').textContent = `${i18n.get('results_summary_part1')} ${stats.correct} ${i18n.get('results_summary_part2')} ${totalQuestions} ${i18n.get('results_summary_part3')}`;
+        document.getElementById('results-correct').textContent = stats.correct;
+        document.getElementById('results-incorrect').textContent = stats.incorrect;
+        document.getElementById('results-skipped').textContent = stats.skipped;
+        
+        document.querySelector('#results-correct + small').textContent = i18n.get('results_correct');
+        document.querySelector('#results-incorrect + small').textContent = i18n.get('results_incorrect');
+        document.querySelector('#results-skipped + small').textContent = i18n.get('results_skipped');
+        document.getElementById('restart-exam-btn').textContent = i18n.get('btn_restart');
+        document.querySelector('#exam-results-container a').textContent = i18n.get('btn_back_home');
+
+        const resultsScoreElement = document.getElementById('results-score');
+        resultsScoreElement.classList.remove('text-success', 'text-warning', 'text-danger'); // Limpia clases previas
+        if (scorePercentage >= 85) {
+            resultsScoreElement.classList.add('text-success');
+            document.getElementById('results-title').textContent = i18n.get('results_title_excellent');
+        } else {
+            resultsScoreElement.classList.add('text-danger');
+            document.getElementById('results-title').textContent = i18n.get('results_title_practice');
+        }
+        
+        // El botón de reiniciar ahora debe limpiar el hash
+        const restartBtn = document.getElementById('restart-exam-btn');
+        restartBtn.addEventListener('click', () => {
+            window.location.hash = ''; // Limpia el hash
+            window.location.reload(); // Recarga para ir a la configuración
+        });
+    }
+
     function init() {
         // Disparado por un evento personalizado desde i18n.js para asegurar que las traducciones estén listas.
         document.addEventListener('i18n-loaded', () => {
             loadCategories();
             translateQuestionCountOptions();
+
+            // Revisa si la URL indica que debemos mostrar los resultados
+            if (window.location.hash === '#results') {
+                // Intentamos recuperar el último resultado de localStorage
+                const lastAttempt = getLastExamAttempt();
+                if (lastAttempt) {
+                    // Ocultamos la configuración y mostramos los resultados con los datos guardados
+                    examSetupContainer.classList.add('d-none');
+                    displayResults(lastAttempt.stats, lastAttempt.totalQuestions);
+                }
+            }
         });
 
         if (startExamBtn) {
