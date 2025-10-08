@@ -45,7 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Usamos Promise.all con nuestra nueva ruta dinámica.
     Promise.all([
-        loadComponent('#navbar-placeholder', `${basePath}components/nav.html`, initializeThemeToggle),
+        loadComponent('#navbar-placeholder', `${basePath}components/nav.html`, () => {
+            initializeThemeToggle(); // Mantenemos la inicialización del tema
+            i18n.init();             // Y AHORA inicializamos el idioma
+        }),
+
         loadComponent('#footer-placeholder', `${basePath}components/footer.html`)
     ]).then(() => {
         document.body.classList.add('loaded');
