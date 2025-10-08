@@ -6,12 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const examSetupContainer = document.getElementById('exam-setup-container');
     const examQuestionsContainer = document.getElementById('exam-questions-container');
     const questionCountSelect = document.getElementById('question-count-select');
+    const examResultsContainer = document.getElementById('exam-results-container');
 
     // --- ESTADO DEL EXAMEN ---
     let allQuestions = [];
     let currentExamQuestions = [];
     let currentQuestionIndex = 0;
-    let userScore = 0;
+    let examStats = { correct: 0, incorrect: 0, skipped: 0 };
     let examMode = 'study';
 
     // --- DEFINICIÓN DE CATEGORÍAS ---
@@ -24,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: '6.0-automation-programmability', name: '6.0 Automation & Programmability (10%)' }
     ];
 
-    
+    /**
+     * Carga dinámicamente las categorías del examen en la página de configuración.
+     */
     function loadCategories() {
         if (!categorySelectionContainer) return;
         categorySelectionContainer.innerHTML = '';
@@ -50,7 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    
+    /**
+     * Inicia el proceso del examen una vez que el usuario hace clic en "Comenzar".
+     */
     async function startExam() {
         const selectedMode = document.querySelector('input[name="examMode"]:checked').value;
         const selectedCategoryElements = document.querySelectorAll('#category-selection-container input[type="checkbox"]:checked');
@@ -77,193 +82,242 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         currentExamQuestions = shuffleArray([...allQuestions]);
-
         if (questionCount !== 'all') {
             currentExamQuestions = currentExamQuestions.slice(0, parseInt(questionCount));
         }
         
+        // Resetear estado e iniciar UI del examen
         currentQuestionIndex = 0;
-        userScore = 0;
+        examStats = { correct: 0, incorrect: 0, skipped: 0 };
         
         examSetupContainer.classList.add('d-none');
+        examResultsContainer.classList.add('d-none');
         examQuestionsContainer.classList.remove('d-none');
         
         displayQuestion();
     }
 
+    /**
+     * Muestra la pregunta actual en la interfaz, incluyendo todos los botones de acción.
+     */
     function displayQuestion() {
-    if (currentQuestionIndex >= currentExamQuestions.length) {
-        finishExam();
-        return;
-    }
+        if (currentQuestionIndex >= currentExamQuestions.length) {
+            finishExam();
+            return;
+        }
 
-    const question = currentExamQuestions[currentQuestionIndex];
-    examQuestionsContainer.innerHTML = ''; 
+        const question = currentExamQuestions[currentQuestionIndex];
+        examQuestionsContainer.innerHTML = ''; 
 
-    const questionCard = document.createElement('div');
-    questionCard.className = 'card shadow-sm border-0';
-    
-    let cardBodyHTML = `
-        <div class="card-header bg-transparent border-0 pt-4 px-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Pregunta ${currentQuestionIndex + 1} de ${currentExamQuestions.length}</h5>
-                </div>
-        </div>
-        <div class="card-body p-4 p-md-5">
-            <p class="question-text lead">${question.question_es}</p>
-    `;
-
-    if (question.code) {
-        cardBodyHTML += `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>`;
-    }
-
-    if (question.image) {
-         cardBodyHTML += `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>`;
-    }
-    
-    cardBodyHTML += '<div id="options-container" class="mt-4">';
-    const options = shuffleArray([...question.options]); 
-    question.shuffledOptions = options;
-
-    options.forEach((option, index) => {
-        cardBodyHTML += `
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}">
-                <label class="form-check-label" for="option${index}">
-                    ${option.text_es}
-                </label>
-            </div>
-        `;
-    });
-    cardBodyHTML += '</div></div>';
-
-    // --- ZONA DE BOTONES ACTUALIZADA ---
-    cardBodyHTML += `
-        <div class="card-footer bg-transparent border-0 pb-4 px-4 d-flex justify-content-between align-items-center">
-            <div>
-                <button id="end-exam-btn" class="btn btn-sm btn-outline-danger">Finalizar Examen</button>
-            </div>
-            <div>
-                <button id="skip-question-btn" class="btn btn-secondary me-2">Omitir Pregunta</button>
-                <button id="check-answer-btn" class="btn btn-primary">Verificar Respuesta</button>
-            </div>
-        </div>
-    `;
-
-    questionCard.innerHTML = cardBodyHTML;
-    examQuestionsContainer.appendChild(questionCard);
-
-    document.getElementById('check-answer-btn').addEventListener('click', handleAnswerSubmission);
-    // Los listeners para los nuevos botones se añadirán en el futuro
-}
-    
-    /**
- * NOVEDAD: Versión mejorada que redibuja la pregunta para mostrar feedback y explicación.
- */
-function handleAnswerSubmission() {
-    const question = currentExamQuestions[currentQuestionIndex];
-    const selectedOptionInput = document.querySelector('input[name="questionOptions"]:checked');
-
-    if (!selectedOptionInput) {
-        alert('Por favor, selecciona una respuesta.');
-        return;
-    }
-
-    const selectedOptionIndex = parseInt(selectedOptionInput.value);
-    const selectedOption = question.shuffledOptions[selectedOptionIndex];
-    const isCorrect = selectedOption.isCorrect;
-
-    if (isCorrect) {
-        userScore++;
-    }
-
-    // --- Redibujar la pregunta con el feedback ---
-    const allOptionInputs = document.querySelectorAll('#options-container .form-check-input');
-    allOptionInputs.forEach(input => input.disabled = true);
-
-    const optionsContainer = document.getElementById('options-container');
-    optionsContainer.innerHTML = ''; // Limpiar opciones para redibujar con feedback
-
-    question.shuffledOptions.forEach((option, index) => {
-        const isSelected = (index === selectedOptionIndex);
+        const questionCard = document.createElement('div');
+        questionCard.className = 'card shadow-sm border-0';
         
-        const feedbackClass = option.isCorrect ? 'correct' : (isSelected ? 'incorrect' : '');
+        let cardBodyHTML = `
+            <div class="card-header bg-transparent border-0 pt-4 px-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Pregunta ${currentQuestionIndex + 1} de ${currentExamQuestions.length}</h5>
+                </div>
+            </div>
+            <div class="card-body p-4 p-md-5">
+                <p class="question-text lead">${question.question_es}</p>
+        `;
 
-        optionsContainer.innerHTML += `
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}" disabled ${isSelected ? 'checked' : ''}>
-                <label class="form-check-label ${feedbackClass}" for="option${index}">
-                    ${option.text_es}
-                </label>
+        if (question.code) {
+            cardBodyHTML += `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>`;
+        }
+        if (question.image) {
+             cardBodyHTML += `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>`;
+        }
+        
+        cardBodyHTML += '<div id="options-container" class="mt-4">';
+        const options = shuffleArray([...question.options]); 
+        question.shuffledOptions = options;
+
+        options.forEach((option, index) => {
+            cardBodyHTML += `
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}">
+                    <label class="form-check-label" for="option${index}">
+                        ${option.text_es}
+                    </label>
+                </div>
+            `;
+        });
+        cardBodyHTML += '</div></div>';
+
+        cardBodyHTML += `
+            <div class="card-footer bg-transparent border-0 pb-4 px-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <button id="end-exam-btn" class="btn btn-sm btn-outline-danger">Finalizar Examen</button>
+                </div>
+                <div>
+                    <button id="skip-question-btn" class="btn btn-secondary me-2">Omitir Pregunta</button>
+                    <button id="check-answer-btn" class="btn btn-primary">Verificar Respuesta</button>
+                </div>
             </div>
         `;
-    });
-    
-    // --- Mostrar Explicación ---
-    if (question.explanation_es) {
-        const explanationDiv = document.createElement('div');
-        explanationDiv.className = 'alert alert-info mt-4 explanation-box';
-        explanationDiv.innerHTML = `<strong>Explicación:</strong> ${question.explanation_es}`;
-        // Insertar la explicación DESPUÉS del contenedor de opciones, dentro del card-body
-        document.querySelector('.card-body #options-container').insertAdjacentElement('afterend', explanationDiv);
-    }
 
-    // --- Cambiar Botón ---
-    const actionButton = document.getElementById('check-answer-btn');
-    actionButton.textContent = 'Siguiente Pregunta';
-    actionButton.removeEventListener('click', handleAnswerSubmission);
-    actionButton.addEventListener('click', proceedToNextQuestion);
-}
+        questionCard.innerHTML = cardBodyHTML;
+        examQuestionsContainer.appendChild(questionCard);
+
+        document.getElementById('check-answer-btn').addEventListener('click', handleAnswerSubmission);
+        document.getElementById('skip-question-btn').addEventListener('click', skipQuestion);
+        document.getElementById('end-exam-btn').addEventListener('click', finishExam);
+    }
     
     /**
-     * Novedad: Avanza a la siguiente pregunta o finaliza el examen.
+     * Maneja la lógica de verificar la respuesta del usuario.
+     */
+    function handleAnswerSubmission() {
+        document.getElementById('skip-question-btn').disabled = true;
+        document.getElementById('end-exam-btn').disabled = true;
+
+        const question = currentExamQuestions[currentQuestionIndex];
+        const selectedOptionInput = document.querySelector('input[name="questionOptions"]:checked');
+
+        if (!selectedOptionInput) {
+            alert('Por favor, selecciona una respuesta.');
+            document.getElementById('skip-question-btn').disabled = false;
+            document.getElementById('end-exam-btn').disabled = false;
+            return;
+        }
+
+        const selectedOptionIndex = parseInt(selectedOptionInput.value);
+        const selectedOption = question.shuffledOptions[selectedOptionIndex];
+        
+        if (selectedOption.isCorrect) {
+            examStats.correct++;
+        } else {
+            examStats.incorrect++;
+        }
+        
+        const allOptionInputs = document.querySelectorAll('#options-container .form-check-input');
+        allOptionInputs.forEach(input => input.disabled = true);
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        question.shuffledOptions.forEach((option, index) => {
+            const isSelected = (index === selectedOptionIndex);
+            const feedbackClass = option.isCorrect ? 'correct' : (isSelected ? 'incorrect' : '');
+            optionsContainer.innerHTML += `
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}" disabled ${isSelected ? 'checked' : ''}>
+                    <label class="form-check-label ${feedbackClass}" for="option${index}">
+                        ${option.text_es}
+                    </label>
+                </div>
+            `;
+        });
+        
+        if (question.explanation_es) {
+            const explanationDiv = document.createElement('div');
+            explanationDiv.className = 'alert alert-info mt-4 explanation-box';
+            explanationDiv.innerHTML = `<strong>Explicación:</strong> ${question.explanation_es}`;
+            document.querySelector('.card-body #options-container').insertAdjacentElement('afterend', explanationDiv);
+        }
+
+        const actionButton = document.getElementById('check-answer-btn');
+        actionButton.textContent = 'Siguiente Pregunta';
+        actionButton.removeEventListener('click', handleAnswerSubmission);
+        actionButton.addEventListener('click', proceedToNextQuestion);
+    }
+    
+    /**
+     * Lógica para omitir una pregunta.
+     */
+    function skipQuestion() {
+        examStats.skipped++;
+        proceedToNextQuestion();
+    }
+    
+    /**
+     * Avanza a la siguiente pregunta o finaliza el examen.
      */
     function proceedToNextQuestion() {
         currentQuestionIndex++;
-        if (currentQuestionIndex < currentExamQuestions.length) {
-            displayQuestion();
+        displayQuestion();
+    }
+    
+    /**
+     * Muestra la pantalla de resultados y guarda la puntuación.
+     */
+    function finishExam() {
+        examQuestionsContainer.classList.add('d-none');
+        examResultsContainer.classList.remove('d-none');
+
+        const totalQuestions = currentExamQuestions.length;
+        const scorePercentage = totalQuestions > 0 ? Math.round((examStats.correct / totalQuestions) * 100) : 0;
+
+        document.getElementById('results-score').textContent = `${scorePercentage}%`;
+        document.getElementById('results-summary').textContent = `Has acertado ${examStats.correct} de ${totalQuestions} preguntas.`;
+        document.getElementById('results-correct').textContent = examStats.correct;
+        document.getElementById('results-incorrect').textContent = examStats.incorrect;
+        document.getElementById('results-skipped').textContent = examStats.skipped;
+
+        const resultsScoreElement = document.getElementById('results-score');
+        resultsScoreElement.classList.remove('text-success', 'text-danger');
+        if (scorePercentage >= 85) {
+            resultsScoreElement.classList.add('text-success');
+            document.getElementById('results-title').textContent = '¡Excelente Trabajo!';
         } else {
-            alert(`Fin del examen. Tu puntuación: ${userScore} de ${currentExamQuestions.length}`);
-            // Aquí irá la lógica para mostrar la pantalla de resultados final
+            resultsScoreElement.classList.add('text-danger');
+            document.getElementById('results-title').textContent = '¡Sigue Practicando!';
+        }
+        
+        saveExamAttempt();
+
+        document.getElementById('restart-exam-btn').addEventListener('click', startExam);
+    }
+
+    /**
+     * Guarda el intento en localStorage con el prefijo "CCNA_".
+     */
+    function saveExamAttempt() {
+        const attempt = {
+            date: new Date().toISOString(),
+            stats: examStats,
+            totalQuestions: currentExamQuestions.length
+        };
+
+        try {
+            const history = JSON.parse(localStorage.getItem('CCNA_examHistory')) || [];
+            history.push(attempt);
+            localStorage.setItem('CCNA_examHistory', JSON.stringify(history));
+        } catch (e) {
+            console.error("No se pudo guardar el resultado del examen en localStorage.", e);
         }
     }
     
     /**
-     * Carga las preguntas desde los archivos JSON especificados,
-     * ignorando los archivos que fallen o no existan.
-     * @param {string[]} categories - Un array de IDs de categorías.
-     * @returns {Promise<object[]>} - Una promesa que resuelve a un array con todas las preguntas de los archivos cargados exitosamente.
+     * Carga las preguntas desde los archivos JSON, ignorando los que fallen.
      */
     async function fetchQuestions(categories) {
         const fetchPromises = categories.map(category => {
             const path = `../data/${category}.json`;
             return fetch(path).then(response => {
                 if (!response.ok) {
-                    // Si el archivo no se encuentra (404) o hay otro error, lanza una excepción.
                     throw new Error(`No se pudo cargar el archivo: ${path}`);
                 }
                 return response.json();
             });
         });
-    
-        // Usamos Promise.allSettled para esperar a que todas las promesas terminen
+
         const results = await Promise.allSettled(fetchPromises);
-    
         const successfulQuestions = [];
         results.forEach(result => {
             if (result.status === 'fulfilled') {
-                // Si la promesa se cumplió, añadimos sus preguntas (result.value) al array
                 successfulQuestions.push(...result.value);
             } else {
-                // Si la promesa falló, mostramos un aviso en la consola pero no detenemos todo
                 console.warn(`Se omitió un archivo de preguntas que no se pudo cargar: ${result.reason.message}`);
             }
         });
-    
-        // Aplanamos el array de arrays en un solo array de preguntas
+        
         return successfulQuestions.flat();
     }
 
+    /**
+     * Algoritmo Fisher-Yates para barajar un array.
+     */
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -272,6 +326,9 @@ function handleAnswerSubmission() {
         return array;
     }
 
+    /**
+     * Función de inicialización.
+     */
     function init() {
         loadCategories();
         if (startExamBtn) {
@@ -279,5 +336,7 @@ function handleAnswerSubmission() {
         }
     }
 
+    // Arrancamos la inicialización
     init();
+
 });
