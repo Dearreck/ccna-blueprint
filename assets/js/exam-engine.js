@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentQuestionIndex = 0;
     let examStats = { correct: 0, incorrect: 0, skipped: 0 };
     let examMode = 'study';
+    let timerInterval = null; // Para el temporizador
+    let timeRemaining = 0; // Tiempo restante en segundos
 
     // --- DEFINICIÓN DE CATEGORÍAS ---
     const examCategories = [
@@ -25,9 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: '6.0-automation-programmability', name: '6.0 Automation & Programmability (10%)' }
     ];
 
-    /**
-     * Carga dinámicamente las categorías del examen en la página de configuración.
-     */
+    
     function loadCategories() {
         if (!categorySelectionContainer) return;
         categorySelectionContainer.innerHTML = '';
@@ -53,9 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /**
-     * Inicia el proceso del examen una vez que el usuario hace clic en "Comenzar".
-     */
+    
     async function startExam() {
         const selectedMode = document.querySelector('input[name="examMode"]:checked').value;
         const selectedCategoryElements = document.querySelectorAll('#category-selection-container input[type="checkbox"]:checked');
@@ -72,12 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             allQuestions = await fetchQuestions(selectedCategories);
             if (allQuestions.length === 0) {
-                alert('No se encontraron preguntas para las categorías seleccionadas. Asegúrate de que los archivos JSON no estén vacíos.');
+                alert('No se encontraron preguntas para las categorías seleccionadas.');
                 return;
             }
         } catch (error) {
             console.error('Error al cargar las preguntas:', error);
-            alert('Hubo un problema al cargar las preguntas. Revisa la consola para más detalles.');
+            alert('Hubo un problema al cargar las preguntas.');
             return;
         }
 
@@ -86,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
             currentExamQuestions = currentExamQuestions.slice(0, parseInt(questionCount));
         }
         
-        // Resetear estado e iniciar UI del examen
         currentQuestionIndex = 0;
         examStats = { correct: 0, incorrect: 0, skipped: 0 };
         
@@ -94,12 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
         examResultsContainer.classList.add('d-none');
         examQuestionsContainer.classList.remove('d-none');
         
+        // Iniciar temporizador si es Modo Examen
+        if (examMode === 'exam') {
+            const timePerQuestion = 90; // 90 segundos por pregunta (ajustable)
+            timeRemaining = currentExamQuestions.length * timePerQuestion;
+            startTimer();
+        }
+        
         displayQuestion();
     }
 
-    /**
-     * Muestra la pregunta actual en la interfaz, incluyendo todos los botones de acción.
-     */
     function displayQuestion() {
         if (currentQuestionIndex >= currentExamQuestions.length) {
             finishExam();
@@ -112,22 +113,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const questionCard = document.createElement('div');
         questionCard.className = 'card shadow-sm border-0';
         
+        const buttonText = examMode === 'exam' ? 'Siguiente' : 'Verificar Respuesta';
+
         let cardBodyHTML = `
             <div class="card-header bg-transparent border-0 pt-4 px-4">
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Pregunta ${currentQuestionIndex + 1} de ${currentExamQuestions.length}</h5>
+                    <div id="timer-display" class="fs-5 fw-bold text-primary"></div>
                 </div>
             </div>
             <div class="card-body p-4 p-md-5">
                 <p class="question-text lead">${question.question_es}</p>
         `;
 
-        if (question.code) {
-            cardBodyHTML += `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>`;
-        }
-        if (question.image) {
-             cardBodyHTML += `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>`;
-        }
+        if (question.code) cardBodyHTML += `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>`;
+        if (question.image) cardBodyHTML += `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>`;
         
         cardBodyHTML += '<div id="options-container" class="mt-4">';
         const options = shuffleArray([...question.options]); 
@@ -137,9 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cardBodyHTML += `
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}">
-                    <label class="form-check-label" for="option${index}">
-                        ${option.text_es}
-                    </label>
+                    <label class="form-check-label" for="option${index}">${option.text_es}</label>
                 </div>
             `;
         });
@@ -152,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div>
                     <button id="skip-question-btn" class="btn btn-secondary me-2">Omitir Pregunta</button>
-                    <button id="check-answer-btn" class="btn btn-primary">Verificar Respuesta</button>
+                    <button id="check-answer-btn" class="btn btn-primary">${buttonText}</button>
                 </div>
             </div>
         `;
@@ -165,13 +163,19 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('end-exam-btn').addEventListener('click', finishExam);
     }
     
-    /**
-     * Maneja la lógica de verificar la respuesta del usuario.
-     */
+    
     function handleAnswerSubmission() {
+        if (examMode === 'study') {
+            handleStudyModeAnswer();
+        } else {
+            handleExamModeAnswer();
+        }
+    }
+
+    function handleStudyModeAnswer() {
         document.getElementById('skip-question-btn').disabled = true;
         document.getElementById('end-exam-btn').disabled = true;
-
+        
         const question = currentExamQuestions[currentQuestionIndex];
         const selectedOptionInput = document.querySelector('input[name="questionOptions"]:checked');
 
@@ -185,15 +189,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedOptionIndex = parseInt(selectedOptionInput.value);
         const selectedOption = question.shuffledOptions[selectedOptionIndex];
         
-        if (selectedOption.isCorrect) {
-            examStats.correct++;
-        } else {
-            examStats.incorrect++;
-        }
+        if (selectedOption.isCorrect) examStats.correct++;
+        else examStats.incorrect++;
         
         const allOptionInputs = document.querySelectorAll('#options-container .form-check-input');
         allOptionInputs.forEach(input => input.disabled = true);
-
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = '';
         question.shuffledOptions.forEach((option, index) => {
@@ -202,11 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
             optionsContainer.innerHTML += `
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}" disabled ${isSelected ? 'checked' : ''}>
-                    <label class="form-check-label ${feedbackClass}" for="option${index}">
-                        ${option.text_es}
-                    </label>
-                </div>
-            `;
+                    <label class="form-check-label ${feedbackClass}" for="option${index}">${option.text_es}</label>
+                </div>`;
         });
         
         if (question.explanation_es) {
@@ -221,35 +218,45 @@ document.addEventListener('DOMContentLoaded', () => {
         actionButton.removeEventListener('click', handleAnswerSubmission);
         actionButton.addEventListener('click', proceedToNextQuestion);
     }
+
+    function handleExamModeAnswer() {
+        const selectedOptionInput = document.querySelector('input[name="questionOptions"]:checked');
+        if (!selectedOptionInput) {
+            alert('Debes seleccionar una respuesta para continuar.');
+            return;
+        }
+
+        const question = currentExamQuestions[currentQuestionIndex];
+        const selectedOptionIndex = parseInt(selectedOptionInput.value);
+        const selectedOption = question.shuffledOptions[selectedOptionIndex];
+
+        if (selectedOption.isCorrect) examStats.correct++;
+        else examStats.incorrect++;
+        
+        proceedToNextQuestion();
+    }
     
-    /**
-     * Lógica para omitir una pregunta.
-     */
     function skipQuestion() {
         examStats.skipped++;
         proceedToNextQuestion();
     }
     
-    /**
-     * Avanza a la siguiente pregunta o finaliza el examen.
-     */
     function proceedToNextQuestion() {
         currentQuestionIndex++;
         displayQuestion();
     }
     
-    /**
-     * Muestra la pantalla de resultados y guarda la puntuación.
-     */
     function finishExam() {
+        stopTimer();
         examQuestionsContainer.classList.add('d-none');
         examResultsContainer.classList.remove('d-none');
 
         const totalQuestions = currentExamQuestions.length;
-        const scorePercentage = totalQuestions > 0 ? Math.round((examStats.correct / totalQuestions) * 100) : 0;
-
+        const answeredQuestions = examStats.correct + examStats.incorrect;
+        const scorePercentage = answeredQuestions > 0 ? Math.round((examStats.correct / answeredQuestions) * 100) : 0;
+        
         document.getElementById('results-score').textContent = `${scorePercentage}%`;
-        document.getElementById('results-summary').textContent = `Has acertado ${examStats.correct} de ${totalQuestions} preguntas.`;
+        document.getElementById('results-summary').textContent = `Has respondido ${answeredQuestions} de ${totalQuestions} preguntas.`;
         document.getElementById('results-correct').textContent = examStats.correct;
         document.getElementById('results-incorrect').textContent = examStats.incorrect;
         document.getElementById('results-skipped').textContent = examStats.skipped;
@@ -269,55 +276,63 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('restart-exam-btn').addEventListener('click', startExam);
     }
 
-    /**
-     * Guarda el intento en localStorage con el prefijo "CCNA_".
-     */
     function saveExamAttempt() {
         const attempt = {
             date: new Date().toISOString(),
             stats: examStats,
-            totalQuestions: currentExamQuestions.length
+            totalQuestions: currentExamQuestions.length,
+            mode: examMode
         };
-
         try {
             const history = JSON.parse(localStorage.getItem('CCNA_examHistory')) || [];
             history.push(attempt);
             localStorage.setItem('CCNA_examHistory', JSON.stringify(history));
-        } catch (e) {
-            console.error("No se pudo guardar el resultado del examen en localStorage.", e);
+        } catch (e) { console.error("No se pudo guardar el resultado del examen.", e); }
+    }
+
+    // --- LÓGICA DEL TEMPORIZADOR ---
+    function startTimer() {
+        stopTimer(); // Asegurarse de que no haya otros timers corriendo
+        timerInterval = setInterval(() => {
+            timeRemaining--;
+            updateTimerDisplay();
+            if (timeRemaining <= 0) {
+                finishExam();
+            }
+        }, 1000);
+    }
+
+    function stopTimer() {
+        clearInterval(timerInterval);
+    }
+
+    function updateTimerDisplay() {
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        const timerDisplay = document.getElementById('timer-display');
+        if (timerDisplay) {
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
     }
     
-    /**
-     * Carga las preguntas desde los archivos JSON, ignorando los que fallen.
-     */
+    // --- FUNCIONES DE UTILIDAD ---
     async function fetchQuestions(categories) {
         const fetchPromises = categories.map(category => {
             const path = `../data/${category}.json`;
             return fetch(path).then(response => {
-                if (!response.ok) {
-                    throw new Error(`No se pudo cargar el archivo: ${path}`);
-                }
+                if (!response.ok) throw new Error(`Fallo al cargar: ${path}`);
                 return response.json();
             });
         });
-
         const results = await Promise.allSettled(fetchPromises);
         const successfulQuestions = [];
         results.forEach(result => {
-            if (result.status === 'fulfilled') {
-                successfulQuestions.push(...result.value);
-            } else {
-                console.warn(`Se omitió un archivo de preguntas que no se pudo cargar: ${result.reason.message}`);
-            }
+            if (result.status === 'fulfilled') successfulQuestions.push(...result.value);
+            else console.warn(`Se omitió un archivo: ${result.reason.message}`);
         });
-        
         return successfulQuestions.flat();
     }
 
-    /**
-     * Algoritmo Fisher-Yates para barajar un array.
-     */
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -326,9 +341,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return array;
     }
 
-    /**
-     * Función de inicialización.
-     */
     function init() {
         loadCategories();
         if (startExamBtn) {
@@ -336,7 +348,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Arrancamos la inicialización
     init();
-
 });
