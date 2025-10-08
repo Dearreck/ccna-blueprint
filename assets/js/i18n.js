@@ -12,6 +12,9 @@ const i18n = {
         await this.loadTranslations();
         this.translatePage();
         this.setupLanguageSelector();
+    
+        // Notifica a otros scripts que las traducciones están listas.
+        document.dispatchEvent(new CustomEvent('i18n-loaded'));
     },
 
     async loadTranslations() {
