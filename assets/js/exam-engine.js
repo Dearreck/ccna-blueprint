@@ -246,23 +246,31 @@ document.addEventListener('DOMContentLoaded', () => {
         displayQuestion();
     }
     
+    /**
+     * Muestra la pantalla de resultados y guarda la puntuación.
+     * (Versión con el cálculo de porcentaje corregido)
+     */
     function finishExam() {
         stopTimer();
         examQuestionsContainer.classList.add('d-none');
         examResultsContainer.classList.remove('d-none');
-
+    
         const totalQuestions = currentExamQuestions.length;
         const answeredQuestions = examStats.correct + examStats.incorrect;
-        const scorePercentage = answeredQuestions > 0 ? Math.round((examStats.correct / answeredQuestions) * 100) : 0;
+    
+        // --- LÍNEA CORREGIDA ---
+        // El porcentaje ahora se calcula sobre el TOTAL de preguntas, no solo las respondidas.
+        const scorePercentage = totalQuestions > 0 ? Math.round((examStats.correct / totalQuestions) * 100) : 0;
         
         document.getElementById('results-score').textContent = `${scorePercentage}%`;
         document.getElementById('results-summary').textContent = `Has respondido ${answeredQuestions} de ${totalQuestions} preguntas.`;
         document.getElementById('results-correct').textContent = examStats.correct;
         document.getElementById('results-incorrect').textContent = examStats.incorrect;
         document.getElementById('results-skipped').textContent = examStats.skipped;
-
+    
         const resultsScoreElement = document.getElementById('results-score');
         resultsScoreElement.classList.remove('text-success', 'text-danger');
+        // El umbral de aprobación para el CCNA suele ser ~82.5%, usaremos 85% como referencia.
         if (scorePercentage >= 85) {
             resultsScoreElement.classList.add('text-success');
             document.getElementById('results-title').textContent = '¡Excelente Trabajo!';
@@ -272,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         saveExamAttempt();
-
+    
         document.getElementById('restart-exam-btn').addEventListener('click', startExam);
     }
 
