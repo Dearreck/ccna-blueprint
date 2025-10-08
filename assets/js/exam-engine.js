@@ -116,6 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
             startTimer();
         }
         
+        // Guarda el estado inicial del examen (pregunta 1) antes de mostrarla.
+        saveExamState();
+        
         displayQuestion();
     }
 
