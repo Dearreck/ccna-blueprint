@@ -324,6 +324,12 @@ function renderReviewPage() {
     const question = currentExamQuestions[currentReviewIndex];
     const lang = i1n.currentLanguage || 'es';
 
+    // Nueva variable para la insignia
+    let skippedBadgeHTML = '';
+    if (question.userAnswerIndex === 'skipped') {
+        skippedBadgeHTML = `<div class="skipped-question-badge">${i1n.get('review_skipped_badge')}</div>`;
+    }
+
     let questionNavHTML = '<div id="question-nav-container" class="d-flex flex-wrap justify-content-center gap-2 mb-4">';
     currentExamQuestions.forEach((q, index) => {
         let statusClass = 'status-skipped'; // Por defecto es omitida
@@ -351,6 +357,7 @@ function renderReviewPage() {
                 <h2 class="text-center mb-4">${i1n.get('review_title')}</h2>
                 ${questionNavHTML}
                 <div class="card review-question-card">
+                    ${skippedBadgeHTML}
                     <div class="card-header">
                         <strong>${i1n.get('question_header')} ${currentReviewIndex + 1}/${currentExamQuestions.length}:</strong> ${questionText}
                     </div>
@@ -368,10 +375,6 @@ function renderReviewPage() {
         reviewHTML += `<div class="${optionClass}">${optionText}</div>`;
     });
 
-    if (question.userAnswerIndex === 'skipped') {
-        reviewHTML += `<div class="alert alert-warning mt-2">Pregunta Omitida</div>`;
-    }
-
     reviewHTML += `
                         <div class="alert alert-info mt-3 explanation-box">
                             <strong>${i1n.get('explanation_label')}:</strong> ${explanationText}
@@ -380,16 +383,15 @@ function renderReviewPage() {
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                    <button id="prev-review-btn" class="btn btn-secondary" ${currentReviewIndex === 0 ? 'disabled' : ''}>&laquo; Anterior</button>
+                    <button id="prev-review-btn" class="btn btn-secondary" ${currentReviewIndex === 0 ? 'disabled' : ''}>&laquo; ${i1n.get('btn_previous')}</button>
                     <button id="back-to-results-btn" class="btn btn-outline-primary">${i1n.get('review_back_button')}</button>
-                    <button id="next-review-btn" class="btn btn-secondary" ${currentReviewIndex === currentExamQuestions.length - 1 ? 'disabled' : ''}>Siguiente &raquo;</button>
+                    <button id="next-review-btn" class="btn btn-secondary" ${currentReviewIndex === currentExamQuestions.length - 1 ? 'disabled' : ''}>${i1n.get('btn_next')} &raquo;</button>
                 </div>
             </div>
         </div>`;
     
     examReviewContainer.innerHTML = reviewHTML;
 
-    // --- NUEVO: Event Listener para el Navegador ---
     // Usamos delegación de eventos para que un solo listener maneje todos los círculos
     document.getElementById('question-nav-container').addEventListener('click', (e) => {
         if (e.target && e.target.classList.contains('question-nav-circle')) {
