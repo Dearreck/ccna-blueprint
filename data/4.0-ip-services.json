@@ -1,1 +1,16 @@
-
+[
+  {
+    "id": "services_q1",
+    "category": "4.0-ip-services",
+    "question_es": "Un usuario escribe 'www.cisco.com' en su navegador. ¿Qué servicio de red es responsable de traducir este nombre de dominio a una dirección IP para que el navegador pueda establecer una conexión?",
+    "question_en": "A user types 'www.cisco.com' into their browser. Which network service is responsible for translating this domain name into an IP address so the browser can establish a connection?",
+    "options": [
+      { "text_es": "DHCP (Dynamic Host Configuration Protocol)", "text_en": "DHCP (Dynamic Host Configuration Protocol)", "isCorrect": false },
+      { "text_es": "NTP (Network Time Protocol)", "text_en": "NTP (Network Time Protocol)", "isCorrect": false },
+      { "text_es": "SNMP (Simple Network Management Protocol)", "text_en": "SNMP (Simple Network Management Protocol)", "isCorrect": false },
+      { "text_es": "DNS (Domain Name System)", "text_en": "DNS (Domain Name System)", "isCorrect": true }
+    ],
+    "explanation_es": "El DNS (Domain Name System) funciona como la 'agenda telefónica' de Internet. Su función principal es resolver (traducir) nombres de dominio legibles por humanos (como www.cisco.com) a las direcciones IP numéricas (como 198.133.219.25) que los computadores utilizan para comunicarse entre sí.",
+    "explanation_en": "The DNS (Domain Name System) acts as the 'phonebook' of the Internet. Its primary function is to resolve (translate) human-readable domain names (like www.cisco.com) into the numerical IP addresses (like 198.133.219.25) that computers use to communicate with each other."
+  }
+]
