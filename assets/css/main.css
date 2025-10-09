@@ -400,3 +400,59 @@ html.dark-mode .review-option.incorrect-answer {
   background-color: #842029;
   border-color: #a52834;
 }
+
+/* --- Estilos para el Navegador de Preguntas de la Revisión --- */
+.question-nav-container {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1.25rem;
+}
+
+.question-nav-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.question-nav-circle:hover {
+  transform: translateY(-2px);
+}
+
+.question-nav-circle.active {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 8px var(--brand-primary);
+}
+
+/* --- Colores Tema Claro --- */
+.question-nav-circle.status-correct {
+  background-color: #d1e7dd; /* Verde sutil */
+  color: #0f5132;
+}
+.question-nav-circle.status-incorrect {
+  background-color: #f8d7da; /* Rojo sutil */
+  color: #842029;
+}
+.question-nav-circle.status-skipped {
+  background-color: #e9ecef; /* Gris claro */
+  color: #495057;
+}
+
+/* --- Colores Tema Oscuro --- */
+html.dark-mode .question-nav-circle.status-correct {
+  background-color: #0f5132;
+  color: #d1e7dd;
+}
+html.dark-mode .question-nav-circle.status-incorrect {
+  background-color: #842029;
+  color: #f8d7da;
+}
+html.dark-mode .question-nav-circle.status-skipped {
+  background-color: #343a40;
+  color: #adb5bd;
+}
