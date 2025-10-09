@@ -48,6 +48,8 @@
   "btn_review": "Review Exam",
   "review_title": "Exam Review",
   "review_back_button": "Back to Results",
+  "review_skipped_badge": "Skipped",
+  "btn_previous": "Previous",
   "home_hero_title": "Master the CCNA Exam",
   "home_hero_subtitle": "Resources, tools, and simulators to prepare you to pass your networking certification.",
   "home_hero_button": "Start Practicing",
