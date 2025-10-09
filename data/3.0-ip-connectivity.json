@@ -22,4 +22,27 @@
     "explanation_es": "Para enrutar un paquete a la IP de destino 10.0.1.15, el router busca la ruta más específica en su tabla, aplicando la regla de 'coincidencia de prefijo más larga' (longest prefix match). En la tabla, tanto la ruta OSPF (O) a 10.0.1.0/24 como la ruta EIGRP (D) a 10.0.1.0/28 coinciden con el destino. Sin embargo, la ruta /28 es más específica que la /24 (28 bits de coincidencia > 24 bits). Por lo tanto, el router elegirá la ruta EIGRP. El siguiente salto para esa ruta es 192.168.0.7.",
     "explanation_en": "To route a packet to the destination IP 10.0.1.15, the router looks for the most specific route in its table, applying the 'longest prefix match' rule. In the table, both the OSPF route (O) to 10.0.1.0/24 and the EIGRP route (D) to 10.0.1.0/28 match the destination. However, the /28 route is more specific than the /24 route (28 matching bits > 24 bits). Therefore, the router will choose the EIGRP route. The next hop for that route is 192.168.0.7."
   },
+  {
+    "id": "routing_decision_ad_metric_q1",
+    "category": "3.0-ip-connectivity",
+    "topic": {
+      "id": "3.2",
+      "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
+      "description_en": "Determine how a router makes a forwarding decision by default",
+      "subtopic_id": "3.2.c",
+      "subtopic_description": "Metric"
+    },
+    "question_es": "Consulte la información. Paquetes recibidos por el router desde BGP entran por una interfaz serie en 209.165.201.10. Cada ruta mostrada está presente en la tabla de enrutamiento. ¿Qué interfaz se utiliza para reenviar el tráfico con una dirección IP de destino de 10.10.10.24?",
+    "question_en": "Refer to the exhibit. Packets received by the router from BGP enter via a serial interface at 209.165.201.10. Each route is present within the routing table. Which interface is used to forward traffic, with a destination IP of 10.10.10.24?",
+    "image": null,
+    "code": "EIGRP  10.10.10.0/24[90/1441]  via  F0/10\nEIGRP  10.10.10.0/24[90/144]   via  F0/11\nEIGRP  10.10.10.0/24[90/1441]  via  F0/12\nOSPF   10.10.10.0/24[110/20]   via  F0/13\nOSPF   10.10.10.0/24[110/30]   via  F0/14",
+    "options": [
+      { "text_es": "F0/13", "text_en": "F0/13", "isCorrect": false },
+      { "text_es": "F0/11", "text_en": "F0/11", "isCorrect": true },
+      { "text_es": "F0/10", "text_en": "F0/10", "isCorrect": false },
+      { "text_es": "F0/12", "text_en": "F0/12", "isCorrect": false }
+    ],
+    "explanation_es": "Un router selecciona la mejor ruta usando una jerarquía de tres pasos: 1. **Coincidencia de prefijo más larga**: En este caso, todas las rutas candidatas tienen el mismo prefijo (/24), por lo que se pasa al siguiente criterio. 2. **Distancia Administrativa (AD) más baja**: El router prefiere las rutas EIGRP (AD 90) sobre las OSPF (AD 110). Por lo tanto, las rutas OSPF son descartadas. 3. **Métrica más baja**: Entre las rutas EIGRP restantes, se elige la que tiene la métrica más baja. La ruta a través de F0/11 (métrica 144) es mejor que las de F0/10 y F0/12 (métrica 1441), convirtiéndola en la ruta final seleccionada.",
+    "explanation_en": "A router selects the best path using a three-step hierarchy: 1. **Longest Prefix Match**: In this case, all candidate routes have the same prefix length (/24), so the router moves to the next criterion. 2. **Lowest Administrative Distance (AD)**: The router prefers the EIGRP routes (AD 90) over the OSPF routes (AD 110). Therefore, the OSPF routes are discarded. 3. **Lowest Metric**: Among the remaining EIGRP routes, the one with the lowest metric is chosen. The route via F0/11 (metric 144) is better than those via F0/10 and F0/12 (metric 1441), making it the final selected path."
+  }
 ]
