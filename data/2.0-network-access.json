@@ -2,6 +2,7 @@
   {
     "id": "ap_modes_q1",
     "category": "2.0-network-access",
+    "isMultipleChoice": false,
     "topic": {
       "id": "2.6",
       "description_es": "Describir las arquitecturas inalámbricas de Cisco y los modos de AP",
@@ -25,6 +26,7 @@
   {
     "id": "lldp_config_q1",
     "category": "2.0-network-access",
+    "isMultipleChoice": false,
     "topic": {
       "id": "2.3",
       "description_es": "Configurar y verificar protocolos de descubrimiento de Capa 2 (CDP y LLDP)",
@@ -48,6 +50,7 @@
   {
     "id": "stp_portfast_states_q1",
     "category": "2.0-network-access",
+    "isMultipleChoice": true,
     "topic": {
       "id": "2.5",
       "description_es": "Interpretar operaciones básicas de Rapid PVST+ Spanning Tree Protocol",
@@ -72,6 +75,7 @@
   {
     "id": "wlc_aaa_override_q1",
     "category": "2.0-network-access",
+    "isMultipleChoice": false,
     "topic": {
       "id": "2.9",
       "description_es": "Interpretar la configuración de la GUI de la LAN inalámbrica para la conectividad del cliente, como la creación de WLAN, configuraciones de seguridad y ajustes avanzados",
@@ -95,6 +99,7 @@
   {
     "id": "wlc_lag_reboot_q1",
     "category": "2.0-network-access",
+    "isMultipleChoice": false,
     "topic": {
       "id": "2.7",
       "description_es": "Describir las conexiones de infraestructura física de los componentes de WLAN (AP, WLC, puertos de acceso/troncales y LAG)",
