@@ -9,7 +9,6 @@
   "btn_verify": "Check Answer",
   "btn_next": "Next",
   "btn_skip": "Skip Question",
-  "explanation_label": "Explanation",
   "btn_end_exam": "End Exam",
   "question_header": "Question",
   "question_of": "of",
@@ -48,5 +47,18 @@
   "btn_back_home": "Back to Home",
   "btn_review": "Review Exam",
   "review_title": "Exam Review",
-  "review_back_button": "Back to Results"
+  "review_back_button": "Back to Results",
+  "home_hero_title": "Master the CCNA Exam",
+  "home_hero_subtitle": "Resources, tools, and simulators to prepare you to pass your networking certification.",
+  "home_hero_button": "Start Practicing",
+  "home_tools_title": "Essential Tools",
+  "home_tools_subtitle": "Utilities designed to accelerate your learning.",
+  "home_tool1_title": "Subnetting Generator",
+  "home_tool1_desc": "Instantly practice Classful and Classless (VLSM) subnetting exercises.",
+  "home_tool2_title": "Password Cracker",
+  "home_tool2_desc": "Recover 'enable secret type 7' passwords from your configurations.",
+  "home_tool3_title": "Exam Simulator",
+  "home_tool3_desc": "Test yourself with realistic questions, by category, and with study or exam modes.",
+  "home_about_title": "What is the CCNA certification?",
+  "home_about_desc": "The Cisco Certified Network Associate (CCNA) is one of the most recognized certifications in the IT industry. It validates your skills and knowledge in network fundamentals, network access, IP connectivity, IP services, security fundamentals, and automation."
 }
