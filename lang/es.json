@@ -44,5 +44,8 @@
   "results_incorrect": "Incorrectas",
   "results_skipped": "Omitidas",
   "btn_restart": "Volver a Intentar",
-  "btn_back_home": "Volver al Inicio"
+  "btn_back_home": "Volver al Inicio",
+  "btn_review": "Revisar Examen",
+  "review_title": "Revisión del Examen",
+  "review_back_button": "Volver a Resultados"
 }
