@@ -320,6 +320,24 @@ function renderReviewPage() {
     const question = currentExamQuestions[currentReviewIndex];
     const lang = i1n.currentLanguage || 'es';
 
+    let questionNavHTML = '<div id="question-nav-container" class="d-flex flex-wrap justify-content-center gap-2 mb-4">';
+    currentExamQuestions.forEach((q, index) => {
+        let statusClass = 'status-skipped'; // Por defecto es omitida
+        const userAnswerOption = q.shuffledOptions[q.userAnswerIndex];
+
+        if (userAnswerOption) { // Si el usuario respondió
+            if (userAnswerOption.isCorrect) {
+                statusClass = 'status-correct';
+            } else {
+                statusClass = 'status-incorrect';
+            }
+        }
+        // Añade una clase 'active' si es la pregunta que se está viendo
+        const activeClass = (index === currentReviewIndex) ? 'active' : '';
+        questionNavHTML += `<div class="question-nav-circle ${statusClass} ${activeClass}" data-index="${index}">${index + 1}</div>`;
+    });
+    questionNavHTML += '</div>';
+
     const questionText = question[`question_${lang}`] || question.question_en;
     const explanationText = question[`explanation_${lang}`] || question.explanation_en;
 
@@ -327,6 +345,7 @@ function renderReviewPage() {
         <div class="row">
             <div class="col-12 col-lg-8 offset-lg-2">
                 <h2 class="text-center mb-4">${i1n.get('review_title')}</h2>
+                ${questionNavHTML}
                 <div class="card review-question-card">
                     <div class="card-header">
                         <strong>${i1n.get('question_header')} ${currentReviewIndex + 1}/${currentExamQuestions.length}:</strong> ${questionText}
@@ -365,6 +384,18 @@ function renderReviewPage() {
         </div>`;
     
     examReviewContainer.innerHTML = reviewHTML;
+
+    // --- NUEVO: Event Listener para el Navegador ---
+    // Usamos delegación de eventos para que un solo listener maneje todos los círculos
+    document.getElementById('question-nav-container').addEventListener('click', (e) => {
+        if (e.target && e.target.classList.contains('question-nav-circle')) {
+            const newIndex = parseInt(e.target.dataset.index, 10);
+            if (newIndex !== currentReviewIndex) {
+                currentReviewIndex = newIndex;
+                renderReviewPage();
+            }
+        }
+    });
 
     // Asignar eventos a los nuevos botones
     document.getElementById('prev-review-btn').addEventListener('click', () => {
