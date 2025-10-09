@@ -44,5 +44,28 @@
     ],
     "explanation_es": "Un router selecciona la mejor ruta usando una jerarquía de tres pasos: 1. **Coincidencia de prefijo más larga**: En este caso, todas las rutas candidatas tienen el mismo prefijo (/24), por lo que se pasa al siguiente criterio. 2. **Distancia Administrativa (AD) más baja**: El router prefiere las rutas EIGRP (AD 90) sobre las OSPF (AD 110). Por lo tanto, las rutas OSPF son descartadas. 3. **Métrica más baja**: Entre las rutas EIGRP restantes, se elige la que tiene la métrica más baja. La ruta a través de F0/11 (métrica 144) es mejor que las de F0/10 y F0/12 (métrica 1441), convirtiéndola en la ruta final seleccionada.",
     "explanation_en": "A router selects the best path using a three-step hierarchy: 1. **Longest Prefix Match**: In this case, all candidate routes have the same prefix length (/24), so the router moves to the next criterion. 2. **Lowest Administrative Distance (AD)**: The router prefers the EIGRP routes (AD 90) over the OSPF routes (AD 110). Therefore, the OSPF routes are discarded. 3. **Lowest Metric**: Among the remaining EIGRP routes, the one with the lowest metric is chosen. The route via F0/11 (metric 144) is better than those via F0/10 and F0/12 (metric 1441), making it the final selected path."
+  },
+  {
+    "id": "routing_decision_lpm_q2",
+    "category": "3.0-ip-connectivity",
+    "topic": {
+      "id": "3.2",
+      "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
+      "description_en": "Determine how a router makes a forwarding decision by default",
+      "subtopic_id": "3.2.a",
+      "subtopic_description": "Longest prefix match"
+    },
+    "question_es": "Consulte la información. Los paquetes recibidos por el router desde BGP entran por una interfaz serie en 209.165.201.1. Cada ruta mostrada está presente en la tabla de enrutamiento. ¿Qué interfaz se utiliza para reenviar el tráfico con una dirección IP de destino de 10.1.1.19?",
+    "question_en": "Refer to the exhibit. Packets received by the router from BGP enter via a serial interface at 209.165.201.1. Each route is present within the routing table. Which interface is used to forward traffic, with a destination IP of 10.1.1.19?",
+    "image": null,
+    "code": "RIP    10.1.1.16/28[120/5]   via F0/0\nOSPF   10.1.1.0/24[110/30]   via F0/1\nOSPF   10.1.1.0/24[110/40]   via F0/2\nEIGRP  10.1.0.0/26[90/20]    via F0/3\nEIGRP  10.0.0.0/8 [90/133]   via F0/4",
+    "options": [
+      { "text_es": "F0/0", "text_en": "F0/0", "isCorrect": true },
+      { "text_es": "F0/1", "text_en": "F0/1", "isCorrect": false },
+      { "text_es": "F0/4", "text_en": "F0/4", "isCorrect": false },
+      { "text_es": "F0/3", "text_en": "F0/3", "isCorrect": false }
+    ],
+    "explanation_es": "El router siempre elige la ruta con la coincidencia de prefijo más larga (la más específica). Para el destino 10.1.1.19, coinciden tres rutas: 10.0.0.0/8, 10.1.1.0/24 y 10.1.1.16/28. Como /28 es el prefijo más largo (más específico) de los tres, el router selecciona la ruta RIP. La interfaz de salida para esa ruta es F0/0. La distancia administrativa y la métrica solo se considerarían si hubiera múltiples rutas con el mismo prefijo más largo.",
+    "explanation_en": "The router always chooses the route with the longest prefix match (the most specific one). For the destination 10.1.1.19, three routes match: 10.0.0.0/8, 10.1.1.0/24, and 10.1.1.16/28. Since /28 is the longest (most specific) prefix of the three, the router selects the RIP route. The exit interface for that route is F0/0. Administrative distance and metric would only be considered if there were multiple routes with the same longest prefix."
   }
 ]
