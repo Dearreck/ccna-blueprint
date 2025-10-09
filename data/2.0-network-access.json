@@ -21,5 +21,28 @@
     ],
     "explanation_es": "Los puntos de acceso en modo Ligero (Lightweight) están diseñados para ser gestionados por un Controlador de LAN Inalámbrica (WLC). El WLC centraliza la configuración, la gestión y las decisiones de roaming, lo que simplifica la administración de redes Wi-Fi a gran escala. En contraste, los AP en modo Autónomo se configuran y gestionan individualmente.",
     "explanation_en": "Lightweight mode access points are designed to be managed by a Wireless LAN Controller (WLC). The WLC centralizes configuration, management, and roaming decisions, which simplifies the administration of large-scale Wi-Fi networks. In contrast, Autonomous mode APs are configured and managed individually."
+  },
+  {
+    "id": "lldp_config_q1",
+    "category": "2.0-network-access",
+    "topic": {
+      "id": "2.3",
+      "description_es": "Configurar y verificar protocolos de descubrimiento de Capa 2 (CDP y LLDP)",
+      "description_en": "Configure and verify Layer 2 discovery protocols (Cisco Discovery Protocol and LLDP)",
+      "subtopic_id": "2.3",
+      "subtopic_description": "LLDP Configuration"
+    },
+    "question_es": "Consulte la información. Un ingeniero de redes debe actualizar la configuración en Switch2 para que envíe paquetes LLDP cada minuto y la información enviada a través de LLDP se considere válida durante 3 minutos. ¿Qué configuración debe aplicar el ingeniero?",
+    "question_en": "Refer to the exhibit. A network engineer must update the configuration on Switch2 so that it sends LLDP packets every minute and the information sent via LLDP is refreshed every 3 minutes. Which configuration must the engineer apply?",
+    "image": null,
+    "code": "Switch2# show lldp\n\nGlobal LLDP Information:\nStatus: ACTIVE\nLLDP advertisements are sent every 30 seconds\nLLDP hold time advertised is 120 seconds\nLLDP interface reinitialization delay is 2 seconds",
+    "options": [
+      { "text_es": "Switch2(config)# lldp timer 1\nSwitch2(config)# lldp holdtime 3", "text_en": "Switch2(config)# lldp timer 1\nSwitch2(config)# lldp holdtime 3", "isCorrect": false },
+      { "text_es": "Switch2(config)# lldp timer 60\nSwitch2(config)# lldp tlv-select 180", "text_en": "Switch2(config)# lldp timer 60\nSwitch2(config)# lldp tlv-select 180", "isCorrect": false },
+      { "text_es": "Switch2(config)# lldp timer 60\nSwitch2(config)# lldp holdtime 180", "text_en": "Switch2(config)# lldp timer 60\nSwitch2(config)# lldp holdtime 180", "isCorrect": true },
+      { "text_es": "Switch2(config)# lldp timer 1\nSwitch2(config)# lldp tlv-select 3", "text_en": "Switch2(config)# lldp timer 1\nSwitch2(config)# lldp tlv-select 3", "isCorrect": false }
+    ],
+    "explanation_es": "El comando `lldp timer` establece la frecuencia de envío de los anuncios LLDP en segundos. Para enviar paquetes cada minuto, el valor debe ser 60. El comando `lldp holdtime` establece el multiplicador que, junto con el timer, determina cuánto tiempo un dispositivo receptor debe mantener la información LLDP antes de descartarla; sin embargo, es práctica común y más claro configurarlo directamente en segundos, lo cual se logra al configurar el holdtime con el valor total deseado. Para 3 minutos, el valor es 180 segundos.",
+    "explanation_en": "The `lldp timer` command sets the transmission frequency of LLDP advertisements in seconds. To send packets every minute, the value must be 60. The `lldp holdtime` command sets the multiplier that, along with the timer, determines how long a receiving device should keep LLDP information before discarding it; however, it's common and clearer to set this directly in total seconds by configuring the holdtime with the desired value. For 3 minutes, the value is 180 seconds."
   }
 ]
