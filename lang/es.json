@@ -46,6 +46,8 @@
   "btn_restart": "Volver a Intentar",
   "btn_back_home": "Volver al Inicio",
   "btn_review": "Revisar Examen",
+  "review_skipped_badge": "Omitida",
+  "btn_previous": "Anterior",
   "review_title": "Revisión del Examen",
   "review_back_button": "Volver a Resultados",
   "home_hero_title": "Domina el Examen CCNA",
