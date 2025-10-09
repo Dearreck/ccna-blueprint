@@ -2,6 +2,7 @@
   {
     "id": "server_function_q1",
     "category": "1.0-network-fundamentals",
+    "isMultipleChoice": false,
     "topic": {
       "id": "1.1",
       "description_es": "Explicar el rol y la función de los componentes de la red",
@@ -25,6 +26,7 @@
   {
     "id": "ipv6_address_type_ula_q1",
     "category": "1.0-network-fundamentals",
+    "isMultipleChoice": false,
     "topic": {
       "id": "1.9",
       "description_es": "Describir los tipos de direcciones IPv6",
