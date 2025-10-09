@@ -1,16 +1,25 @@
 [
   {
-    "id": "l2_security_q1",
+    "id": "local_passwords_q1",
     "category": "5.0-security-fundamentals",
-    "question_es": "¿Qué característica de seguridad de Capa 2 se utiliza para mitigar los ataques de suplantación de MAC (MAC spoofing) y desbordamiento de la tabla CAM (CAM table overflow), al limitar el número de direcciones MAC que se pueden aprender en un puerto de switch?",
-    "question_en": "Which Layer 2 security feature is used to mitigate MAC spoofing and CAM table overflow attacks by limiting the number of MAC addresses that can be learned on a switch port?",
+    "topic": {
+      "id": "5.3",
+      "description_es": "Configurar y verificar el control de acceso a dispositivos usando contraseñas locales",
+      "description_en": "Configure and verify device access control using local passwords",
+      "subtopic_id": "5.3",
+      "subtopic_description": "Local Passwords Configuration"
+    },
+    "question_es": "Un ingeniero de Cisco está configurando un router con valores de fábrica con estas tres contraseñas:\n1. La contraseña de EXEC de usuario para acceso por consola es 'p4ssw0rd1'.\n2. La contraseña de EXEC de usuario para acceso por Telnet es 's3cr3t2'.\n3. La contraseña para el modo EXEC privilegiado es 'priv4t3p4ss'.\n¿Qué secuencia de comandos debe configurar el ingeniero?",
+    "question_en": "A Cisco engineer is configuring a factory-default router with these three passwords:\n1. The user EXEC password for console access is 'p4ssw0rd1'.\n2. The user EXEC password for Telnet access is 's3cr3t2'.\n3. The password for privileged EXEC mode is 'priv4t3p4ss'.\nWhich command sequence must the engineer configure?",
+    "image": null,
+    "code": null,
     "options": [
-      { "text_es": "DHCP Snooping", "text_en": "DHCP Snooping", "isCorrect": false },
-      { "text_es": "Dynamic ARP Inspection (DAI)", "text_en": "Dynamic ARP Inspection (DAI)", "isCorrect": false },
-      { "text_es": "Port Security", "text_en": "Port Security", "isCorrect": true },
-      { "text_es": "802.1X Authentication", "text_en": "802.1X Authentication", "isCorrect": false }
+      { "text_es": "enable secret privilege 15 priv4t3p4ss\n!\nline con0\npassword p4ssw0rd1\nlogin\n!\nline vty 0 15\npassword s3cr3t2\nlogin", "text_en": "enable secret privilege 15 priv4t3p4ss\n!\nline con0\npassword p4ssw0rd1\nlogin\n!\nline vty 0 15\npassword s3cr3t2\nlogin", "isCorrect": false },
+      { "text_es": "enable secret priv4t3p4ss\n!\nline con 0\npassword login p4ssw0rd1\nlogin\n!\nline vty 0 15\npassword login s3cr3t2\nlogin", "text_en": "enable secret priv4t3p4ss\n!\nline con 0\npassword login p4ssw0rd1\nlogin\n!\nline vty 0 15\npassword login s3cr3t2\nlogin", "isCorrect": false },
+      { "text_es": "enable secret priv4t3p4ss\n!\nline con0\npassword p4ssw0rd1\n!\nline vty 0 15\npassword s3cr3t2\nlogin", "text_en": "enable secret priv4t3p4ss\n!\nline con0\npassword p4ssw0rd1\n!\nline vty 0 15\npassword s3cr3t2\nlogin", "isCorrect": false },
+      { "text_es": "enable secret priv4t3p4ss\n!\nline con0\npassword p4ssw0rd1\nlogin\n!\nline vty 0 15\npassword s3cr3t2\nlogin", "text_en": "enable secret priv4t3p4ss\n!\nline con0\npassword p4ssw0rd1\nlogin\n!\nline vty 0 15\npassword s3cr3t2\nlogin", "isCorrect": true }
     ],
-    "explanation_es": "La seguridad de puertos (Port Security) permite a un administrador de red especificar las direcciones MAC de los dispositivos que tienen permitido conectarse a un puerto. También puede limitar el número máximo de direcciones MAC que un puerto puede aprender. Si se viola la política, el puerto puede ser configurado para deshabilitarse, protegiendo así la red contra accesos no autorizados y ataques de desbordamiento de la tabla MAC.",
-    "explanation_en": "Port Security allows a network administrator to specify the MAC addresses of devices that are allowed to connect to a port. It can also limit the maximum number of MAC addresses a port can learn. If the policy is violated, the port can be configured to shut down, thereby protecting the network against unauthorized access and MAC table overflow attacks."
-  }
+    "explanation_es": "La configuración correcta requiere tres pasos: 1. `enable secret priv4t3p4ss` para establecer la contraseña del modo privilegiado. 2. Bajo `line con 0`, se usa `password p4ssw0rd1` para definir la contraseña de la consola y `login` para que se solicite. 3. Bajo `line vty 0 15`, se usa `password s3cr3t2` para definir la contraseña de Telnet/SSH y `login` para que se solicite. Las otras opciones tienen sintaxis incorrecta o les falta el comando `login` crucial en la línea de consola.",
+    "explanation_en": "The correct configuration requires three steps: 1. `enable secret priv4t3p4ss` to set the privileged mode password. 2. Under `line con 0`, `password p4ssw0rd1` is used to define the console password and `login` is used to enforce it. 3. Under `line vty 0 15`, `password s3cr3t2` defines the Telnet/SSH password and `login` enforces it. The other options have incorrect syntax or are missing the crucial `login` command on the console line."
+  },
 ]
