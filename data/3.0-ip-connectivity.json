@@ -1,1 +1,16 @@
-
+[
+  {
+    "id": "routing_decision_q1",
+    "category": "3.0-ip-connectivity",
+    "question_es": "Cuando un router recibe un paquete, ¿cuál es el criterio principal que utiliza por defecto para decidir por qué interfaz reenviar el paquete?",
+    "question_en": "When a router receives a packet, what is the primary criterion it uses by default to decide which interface to forward the packet out of?",
+    "options": [
+      { "text_es": "La ruta con la distancia administrativa más baja.", "text_en": "The route with the lowest administrative distance.", "isCorrect": false },
+      { "text_es": "La ruta en la tabla de enrutamiento que tenga la coincidencia de prefijo más larga (longest prefix match) con la IP de destino.", "text_en": "The route in the routing table that has the longest prefix match with the destination IP.", "isCorrect": true },
+      { "text_es": "La ruta con la métrica más baja, independientemente de la longitud del prefijo.", "text_en": "The route with the lowest metric, regardless of the prefix length.", "isCorrect": false },
+      { "text_es": "La dirección MAC de destino en la cabecera de la trama.", "text_en": "The destination MAC address in the frame header.", "isCorrect": false }
+    ],
+    "explanation_es": "La regla fundamental del reenvío de paquetes IP es la 'coincidencia de prefijo más larga'. Un router examinará su tabla de enrutamiento y elegirá la ruta cuyo prefijo de red coincida con la mayor cantidad de bits de la dirección IP de destino del paquete. Esto asegura que el paquete se envíe por la ruta más específica disponible.",
+    "explanation_en": "The fundamental rule of IP packet forwarding is the 'longest prefix match'. A router will examine its routing table and choose the route whose network prefix matches the most bits of the packet's destination IP address. This ensures the packet is sent along the most specific path available."
+  }
+]
