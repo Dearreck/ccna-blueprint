@@ -67,5 +67,28 @@
     ],
     "explanation_es": "El router siempre elige la ruta con la coincidencia de prefijo más larga (la más específica). Para el destino 10.1.1.19, coinciden tres rutas: 10.0.0.0/8, 10.1.1.0/24 y 10.1.1.16/28. Como /28 es el prefijo más largo (más específico) de los tres, el router selecciona la ruta RIP. La interfaz de salida para esa ruta es F0/0. La distancia administrativa y la métrica solo se considerarían si hubiera múltiples rutas con el mismo prefijo más largo.",
     "explanation_en": "The router always chooses the route with the longest prefix match (the most specific one). For the destination 10.1.1.19, three routes match: 10.0.0.0/8, 10.1.1.0/24, and 10.1.1.16/28. Since /28 is the longest (most specific) prefix of the three, the router selects the RIP route. The exit interface for that route is F0/0. Administrative distance and metric would only be considered if there were multiple routes with the same longest prefix."
+  },
+  {
+    "id": "default_route_ad_q1",
+    "category": "3.0-ip-connectivity",
+    "topic": {
+      "id": "3.1",
+      "description_es": "Interpretar los componentes de la tabla de enrutamiento",
+      "description_en": "Interpret the components of routing table",
+      "subtopic_id": "3.1.e",
+      "subtopic_description": "Administrative distance"
+    },
+    "question_es": "Consulte la información. Un paquete originado en 10.10.10.32 está destinado a Internet. ¿Cuál es la distancia administrativa para la ruta de destino?",
+    "question_en": "Refer to the exhibit. A packet sourced from 10.10.10.32 is destined for the Internet. What is the administrative distance for the destination route?",
+    "image": null,
+    "code": "Gateway of last resort is 172.16.2.2 to network 0.0.0.0\n\n     10.0.0.0/8 is variably subnetted, 3 subnets, 3 masks\nC    10.10.100.0/26 is directly connected, GigabitEthernet0/0/6\nC    10.10.10.0/24 is directly connected, GigabitEthernet0/0/0\nL    10.10.10.3/32 is directly connected, GigabitEthernet0/0/0\n     172.16.0.0/16 is variably subnetted, 3 subnets, 2 masks\nS    172.16.1.33/32 is directly connected, GigabitEthernet0/0/1\nC    172.16.2.0/23 is directly connected, GigabitEthernet0/0/1\nL    172.16.2.1/32 is directly connected, GigabitEthernet0/0/1\nS* 0.0.0.0/0 [1/0] via 172.16.2.2",
+    "options": [
+      { "text_es": "0", "text_en": "0", "isCorrect": false },
+      { "text_es": "32", "text_en": "32", "isCorrect": false },
+      { "text_es": "1", "text_en": "1", "isCorrect": true },
+      { "text_es": "2", "text_en": "2", "isCorrect": false }
+    ],
+    "explanation_es": "El tráfico destinado a 'Internet' utiliza la ruta por defecto, también conocida como 'Gateway of last resort'. En la tabla de enrutamiento, esta ruta se muestra como `S* 0.0.0.0/0 [1/0] via 172.16.2.2`. El formato `[AD/métrica]` indica la Distancia Administrativa (AD) y la métrica. El primer valor en los corchetes es la AD, que en este caso es 1, el valor por defecto para una ruta estática.",
+    "explanation_en": "Traffic destined for the 'Internet' uses the default route, also known as the 'Gateway of last resort'. In the routing table, this route is shown as `S* 0.0.0.0/0 [1/0] via 172.16.2.2`. The format `[AD/metric]` indicates the Administrative Distance (AD) and the metric. The first value in the brackets is the AD, which in this case is 1, the default value for a static route."
   }
 ]
