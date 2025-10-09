@@ -2,6 +2,7 @@
   {
     "id": "json_component_key_q1",
     "category": "6.0-automation-programmability",
+    "isMultipleChoice": false,
     "topic": {
       "id": "6.7",
       "description_es": "Reconocer componentes de datos codificados en JSON",
