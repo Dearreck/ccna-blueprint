@@ -1,16 +1,25 @@
 [
   {
-    "id": "routing_decision_q1",
+    "id": "routing_decision_lpm_q1",
     "category": "3.0-ip-connectivity",
-    "question_es": "Cuando un router recibe un paquete, ¿cuál es el criterio principal que utiliza por defecto para decidir por qué interfaz reenviar el paquete?",
-    "question_en": "When a router receives a packet, what is the primary criterion it uses by default to decide which interface to forward the packet out of?",
+    "topic": {
+      "id": "3.2",
+      "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
+      "description_en": "Determine how a router makes a forwarding decision by default",
+      "subtopic_id": "3.2.a",
+      "subtopic_description": "Longest prefix match"
+    },
+    "question_es": "Consulte la información. El tráfico originado desde la interfaz loopback0 intenta conectarse vía SSH al host en 10.0.1.15. ¿Cuál es el siguiente salto hacia la dirección de destino?",
+    "question_en": "Refer to the exhibit. Traffic sourced from the loopback0 interface is trying to connect via ssh to the host at 10.0.1.15. What is the next hop to the destination address?",
+    "image": null,
+    "code": "R1# show ip route\nCodes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP\n       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area\n       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2\n       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP\n       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, * - candidate\ndefault\n       U - per-user static route, o - ODR\nGateway of last resort is not set\nC    192.168.3.5 is directly connected, Loopback0\n     10.0.0.0/8 is variably subnetted, 4 subnets, 2 masks\nO    10.0.1.3/32 [110/100] via 192.168.0.40, 00:39:08, Serial0\nC    10.0.1.0/24 is directly connected, Serial0\n     10.0.1.190/32 [110/5] via 192.168.0.35, 00:39:08, Serial0\nO    10.0.1.0/24 [110/10] via 192.168.0.4, 00:39:08, Gigabit Ethernet 0/0\nD    10.0.1.0/28 [90/10] via 192.168.0.7, 00:39:08, Gigabit Ethernet 0/0",
     "options": [
-      { "text_es": "La ruta con la distancia administrativa más baja.", "text_en": "The route with the lowest administrative distance.", "isCorrect": false },
-      { "text_es": "La ruta en la tabla de enrutamiento que tenga la coincidencia de prefijo más larga (longest prefix match) con la IP de destino.", "text_en": "The route in the routing table that has the longest prefix match with the destination IP.", "isCorrect": true },
-      { "text_es": "La ruta con la métrica más baja, independientemente de la longitud del prefijo.", "text_en": "The route with the lowest metric, regardless of the prefix length.", "isCorrect": false },
-      { "text_es": "La dirección MAC de destino en la cabecera de la trama.", "text_en": "The destination MAC address in the frame header.", "isCorrect": false }
+      { "text_es": "192.168.0.4", "text_en": "192.168.0.4", "isCorrect": false },
+      { "text_es": "192.168.3.5", "text_en": "192.168.3.5", "isCorrect": false },
+      { "text_es": "192.168.0.7", "text_en": "192.168.0.7", "isCorrect": true },
+      { "text_es": "192.168.0.40", "text_en": "192.168.0.40", "isCorrect": false }
     ],
-    "explanation_es": "La regla fundamental del reenvío de paquetes IP es la 'coincidencia de prefijo más larga'. Un router examinará su tabla de enrutamiento y elegirá la ruta cuyo prefijo de red coincida con la mayor cantidad de bits de la dirección IP de destino del paquete. Esto asegura que el paquete se envíe por la ruta más específica disponible.",
-    "explanation_en": "The fundamental rule of IP packet forwarding is the 'longest prefix match'. A router will examine its routing table and choose the route whose network prefix matches the most bits of the packet's destination IP address. This ensures the packet is sent along the most specific path available."
-  }
+    "explanation_es": "Para enrutar un paquete a la IP de destino 10.0.1.15, el router busca la ruta más específica en su tabla, aplicando la regla de 'coincidencia de prefijo más larga' (longest prefix match). En la tabla, tanto la ruta OSPF (O) a 10.0.1.0/24 como la ruta EIGRP (D) a 10.0.1.0/28 coinciden con el destino. Sin embargo, la ruta /28 es más específica que la /24 (28 bits de coincidencia > 24 bits). Por lo tanto, el router elegirá la ruta EIGRP. El siguiente salto para esa ruta es 192.168.0.7.",
+    "explanation_en": "To route a packet to the destination IP 10.0.1.15, the router looks for the most specific route in its table, applying the 'longest prefix match' rule. In the table, both the OSPF route (O) to 10.0.1.0/24 and the EIGRP route (D) to 10.0.1.0/28 match the destination. However, the /28 route is more specific than the /24 route (28 matching bits > 24 bits). Therefore, the router will choose the EIGRP route. The next hop for that route is 192.168.0.7."
+  },
 ]
