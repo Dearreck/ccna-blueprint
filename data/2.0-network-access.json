@@ -22,7 +22,6 @@
     "explanation_es": "Los puntos de acceso en modo Ligero (Lightweight) están diseñados para ser gestionados por un Controlador de LAN Inalámbrica (WLC). El WLC centraliza la configuración, la gestión y las decisiones de roaming, lo que simplifica la administración de redes Wi-Fi a gran escala. En contraste, los AP en modo Autónomo se configuran y gestionan individualmente.",
     "explanation_en": "Lightweight mode access points are designed to be managed by a Wireless LAN Controller (WLC). The WLC centralizes configuration, management, and roaming decisions, which simplifies the administration of large-scale Wi-Fi networks. In contrast, Autonomous mode APs are configured and managed individually."
   },
-  
   {
     "id": "lldp_config_q1",
     "category": "2.0-network-access",
@@ -46,7 +45,6 @@
     "explanation_es": "El comando `lldp timer` establece la frecuencia de envío de los anuncios LLDP en segundos. Para enviar paquetes cada minuto, el valor debe ser 60. El comando `lldp holdtime` establece el multiplicador que, junto con el timer, determina cuánto tiempo un dispositivo receptor debe mantener la información LLDP antes de descartarla; sin embargo, es práctica común y más claro configurarlo directamente en segundos, lo cual se logra al configurar el holdtime con el valor total deseado. Para 3 minutos, el valor es 180 segundos.",
     "explanation_en": "The `lldp timer` command sets the transmission frequency of LLDP advertisements in seconds. To send packets every minute, the value must be 60. The `lldp holdtime` command sets the multiplier that, along with the timer, determines how long a receiving device should keep LLDP information before discarding it; however, it's common and clearer to set this directly in total seconds by configuring the holdtime with the desired value. For 3 minutes, the value is 180 seconds."
   },
-  
   {
     "id": "stp_portfast_states_q1",
     "category": "2.0-network-access",
@@ -71,7 +69,6 @@
     "explanation_es": "La función PortFast está diseñada para puertos de acceso conectados a dispositivos finales (como PCs o servidores). Permite que el puerto pase inmediatamente del estado de bloqueo (blocking) al de reenvío (forwarding), omitiendo los estados de escucha (listening) y aprendizaje (learning), que normalmente durarían 30 segundos en total (15s + 15s). Esto acelera la convergencia de la red y evita que los dispositivos finales tengan problemas para obtener una dirección IP a través de DHCP.",
     "explanation_en": "The PortFast feature is designed for access ports connected to end devices (like PCs or servers). It allows the port to transition immediately from the blocking state to the forwarding state, bypassing the listening and learning states, which would normally take a total of 30 seconds (15s + 15s). This speeds up network convergence and prevents end devices from having issues obtaining an IP address via DHCP."
   },
-  
   {
     "id": "wlc_aaa_override_q1",
     "category": "2.0-network-access",
@@ -95,7 +92,6 @@
     "explanation_es": "Para que un WLC asigne dinámicamente a un cliente a una VLAN específica basada en las credenciales verificadas por un servidor RADIUS (como Cisco ISE), la función 'Allow AAA Override' debe estar habilitada en la configuración de la WLAN (SSID). Esta opción permite que los atributos RADIUS enviados por el servidor ISE (como el ID de la VLAN, ACLs o perfiles de QoS) sobrescriban la configuración por defecto de la WLAN.",
     "explanation_en": "For a WLC to dynamically assign a client to a specific VLAN based on credentials verified by a RADIUS server (like Cisco ISE), the 'Allow AAA Override' feature must be enabled in the WLAN (SSID) configuration. This option allows the RADIUS attributes sent from the ISE server (such as VLAN ID, ACLs, or QoS profiles) to override the default settings of the WLAN."
   },
-  
   {
     "id": "wlc_lag_reboot_q1",
     "category": "2.0-network-access",
@@ -118,6 +114,5 @@
     ],
     "explanation_es": "La habilitación o deshabilitación de Link Aggregation (LAG) en un Cisco Wireless LAN Controller (WLC) es un cambio fundamental en cómo el sistema maneja sus puertos físicos. Debido a la naturaleza de este cambio a nivel de sistema, el WLC requiere un reinicio para que la nueva configuración de LAG tenga efecto.",
     "explanation_en": "Enabling or disabling Link Aggregation (LAG) on a Cisco Wireless LAN Controller (WLC) is a fundamental change to how the system handles its physical ports. Due to the system-level nature of this change, the WLC requires a reboot for the new LAG configuration to take effect."
-  },
-  
+  }
 ]
