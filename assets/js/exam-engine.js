@@ -1,450 +1,311 @@
-// assets/js/exam-engine.js (Versión Final y Completa)
-
 document.addEventListener('DOMContentLoaded', () => {
+    // --- ELEMENTOS DEL DOM ---
+    const examOptions = document.getElementById('exam-options');
+    const questionContainer = document.getElementById('question-container');
+    const resultsContainer = document.getElementById('results-container');
+    const reviewContainer = document.getElementById('review-container');
 
-    // --- REFERENCIAS AL DOM ---
-    const categorySelectionContainer = document.getElementById('category-selection-container');
+    const questionText = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const explanationContainer = document.getElementById('explanation-container');
+    const explanationText = document.getElementById('explanation');
+    const progressText = document.getElementById('progress-text');
+    const timerElement = document.getElementById('timer');
+
+    const resultsSummaryBody = document.getElementById('results-summary-body');
+    
+    const reviewQuestionText = document.getElementById('review-question-text');
+    const reviewOptionsContainer = document.getElementById('review-options-container');
+    const reviewExplanation = document.getElementById('review-explanation');
+    const reviewProgressText = document.getElementById('review-progress-text');
+
+    // Botones
     const startExamBtn = document.getElementById('start-exam-btn');
-    const examSetupContainer = document.getElementById('exam-setup-container');
-    const examQuestionsContainer = document.getElementById('exam-questions-container');
-    const questionCountSelect = document.getElementById('question-count-select');
-    const examResultsContainer = document.getElementById('exam-results-container');
-    const examReviewContainer = document.getElementById('exam-review-container');
+    const nextButton = document.getElementById('next-btn');
+    const prevButton = document.getElementById('prev-btn');
+    const reviewExamBtn = document.getElementById('review-exam-btn');
+    const prevReviewButton = document.getElementById('prev-review-btn');
+    const nextReviewButton = document.getElementById('next-review-btn');
+    const backToResultsButton = document.getElementById('back-to-results-btn');
 
     // --- ESTADO DEL EXAMEN ---
-    let allQuestions = [];
-    let currentExamQuestions = [];
+    let questions = [];
     let currentQuestionIndex = 0;
-    let examStats = { correct: 0, incorrect: 0, skipped: 0 };
+    let currentReviewIndex = 0;
     let examMode = 'study';
-    let timerInterval = null;
-    let timeRemaining = 0;
+    let examTimer;
 
-    const examCategories = [
-        { id: '1.0-network-fundamentals', i18nKey: 'category_1_0' },
-        { id: '2.0-network-access', i18nKey: 'category_2_0' },
-        { id: '3.0-ip-connectivity', i18nKey: 'category_3_0' },
-        { id: '4.0-ip-services', i18nKey: 'category_4_0' },
-        { id: '5.0-security-fundamentals', i18nKey: 'category_5_0' },
-        { id: '6.0-automation-programmability', i18nKey: 'category_6_0' }
-    ];
-
-    function loadCategories() {
-        if (!categorySelectionContainer) return;
-        categorySelectionContainer.innerHTML = '';
-        examCategories.forEach(category => {
-            const colDiv = document.createElement('div');
-            colDiv.className = 'col-12 col-md-6 mb-2';
-            const formCheckDiv = document.createElement('div');
-            formCheckDiv.className = 'form-check';
-            const input = document.createElement('input');
-            input.className = 'form-check-input';
-            input.type = 'checkbox';
-            input.value = category.id;
-            input.id = `check-${category.id}`;
-            input.checked = true;
-            const label = document.createElement('label');
-            label.className = 'form-check-label';
-            label.htmlFor = `check-${category.id}`;
-            label.textContent = i1n.get(category.i18nKey) || category.id;
-            
-            formCheckDiv.appendChild(input);
-            formCheckDiv.appendChild(label);
-            colDiv.appendChild(formCheckDiv);
-            categorySelectionContainer.appendChild(colDiv);
-        });
-    }
-
-    function translateQuestionCountOptions() {
-        if (!questionCountSelect) return;
-        Array.from(questionCountSelect.options).forEach(option => {
-            const key = `q_count_${option.value}`;
-            const translation = i1n.get(key);
-            if (translation !== key) {
-                option.textContent = translation;
-            }
-        });
-    }
-    
-    async function startExam() {
-        const selectedMode = document.querySelector('input[name="examMode"]:checked').value;
-        const selectedCategoryElements = document.querySelectorAll('#category-selection-container input[type="checkbox"]:checked');
-        const questionCount = questionCountSelect.value;
-        
-        if (selectedCategoryElements.length === 0) {
-            alert(i1n.get('alert_select_category'));
-            return;
-        }
-
-        const selectedCategories = Array.from(selectedCategoryElements).map(el => el.value);
-        examMode = selectedMode;
-
+    // --- LÓGICA DEL EXAMEN ---
+    async function startExam(category, lang) {
+        const filePath = `data/${category}_${lang}.json`;
         try {
-            allQuestions = await fetchQuestions(selectedCategories);
-            if (allQuestions.length === 0) {
-                alert(i1n.get('alert_no_questions'));
-                return;
+            const response = await fetch(filePath);
+            if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
+            const data = await response.json();
+            if (!data || data.length === 0) throw new Error('No questions found in file');
+
+            // --- MODIFICACIÓN 1 de 5: Inicialización del estado de cada pregunta ---
+            questions = data.map(q => ({
+                ...q,
+                userStatus: undefined, // 'correct', 'incorrect', 'skipped'
+                userChoice: null
+            }));
+
+            currentQuestionIndex = 0;
+            examOptions.style.display = 'none';
+            resultsContainer.style.display = 'none';
+            reviewContainer.style.display = 'none';
+            questionContainer.style.display = 'block';
+
+            if (examMode === 'exam') {
+                startTimer(questions.length * 60);
             }
+
+            showQuestion(currentQuestionIndex);
         } catch (error) {
-            console.error('Error al cargar las preguntas:', error);
-            alert(i1n.get('alert_load_error'));
-            return;
+            console.error('Error loading questions:', error);
+            alert('Error al cargar las preguntas. Verifique que el archivo exista y no esté vacío.');
         }
-
-        currentExamQuestions = shuffleArray([...allQuestions]);
-        if (questionCount !== 'all') {
-            currentExamQuestions = currentExamQuestions.slice(0, parseInt(questionCount));
-        }
-        
-        // Pre-procesamos TODAS las preguntas para añadirles su lista de opciones barajadas.
-        // Esto evita errores en la revisión si el examen se termina antes de tiempo.
-        currentExamQuestions.forEach(question => {
-            question.shuffledOptions = shuffleArray([...question.options]);
-            question.userAnswerIndex = null; // Inicializamos la respuesta del usuario
-        });
-
-        currentQuestionIndex = 0;
-        examStats = { correct: 0, incorrect: 0, skipped: 0 };
-        
-        examSetupContainer.classList.add('d-none');
-        examResultsContainer.classList.add('d-none');
-        examReviewContainer.classList.add('d-none');
-        examQuestionsContainer.classList.remove('d-none');
-        
-        if (examMode === 'exam') {
-            const timePerQuestion = 90;
-            timeRemaining = currentExamQuestions.length * timePerQuestion;
-            startTimer();
-        }
-        
-        displayQuestion();
     }
 
-    function displayQuestion() {
-        if (currentQuestionIndex >= currentExamQuestions.length) {
-            finishExam();
-            return;
-        }
+    function showQuestion(index) {
+        const question = questions[index];
+        questionText.textContent = question.question;
+        optionsContainer.innerHTML = '';
+        explanationContainer.style.display = 'none';
 
-        const question = currentExamQuestions[currentQuestionIndex];
-        const lang = i1n.currentLanguage || 'es';
+        question.options.forEach(option => {
+            const button = document.createElement('button');
+            button.className = 'list-group-item list-group-item-action';
+            button.textContent = option.text;
+            button.dataset.option = option.id;
+            
+            if (question.userChoice === option.id) {
+                button.classList.add('active');
+            }
 
-        const buttonText = examMode === 'study' ? i1n.get('btn_verify') : i1n.get('btn_next');
-        const skipButtonText = i1n.get('btn_skip');
-        const endButtonText = i1n.get('btn_end_exam');
-        const questionText = question[`question_${lang}`] || question.question_en;
-        const headerText = `${i1n.get('question_header')} ${currentQuestionIndex + 1} ${i1n.get('question_of')} ${currentExamQuestions.length}`;
-        const timerHTML = examMode === 'exam' ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` : '';
-
-        let cardBodyHTML = `
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-transparent border-0 pt-4 px-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">${headerText}</h5>
-                        ${timerHTML}
-                    </div>
-                </div>
-                <div class="card-body p-4 p-md-5">
-                    <p class="question-text lead">${questionText}</p>
-                    ${question.code ? `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>` : ''}
-                    ${question.image ? `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>` : ''}
-                    <div id="options-container" class="mt-4">`;
-        
-        question.shuffledOptions.forEach((option, index) => {
-            const optionText = option[`text_${lang}`] || option.text_en || option.text_es;
-            cardBodyHTML += `
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}">
-                    <label class="form-check-label" for="option${index}">${optionText}</label>
-                </div>`;
+            button.addEventListener('click', () => {
+                if (question.userChoice === null) {
+                    Array.from(optionsContainer.children).forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    checkAnswer(option.id, button);
+                }
+            });
+            optionsContainer.appendChild(button);
         });
-        
-        cardBodyHTML += `</div></div>
-            <div class="card-footer bg-transparent border-0 pb-4 px-4 d-flex justify-content-between align-items-center">
-                <div><button id="end-exam-btn" class="btn btn-sm btn-outline-danger">${endButtonText}</button></div>
-                <div>
-                    <button id="skip-question-btn" class="btn btn-secondary me-2">${skipButtonText}</button>
-                    <button id="check-answer-btn" class="btn btn-primary">${buttonText}</button>
-                </div>
-            </div></div>`;
-        
-        examQuestionsContainer.innerHTML = cardBodyHTML;
-        if (examMode === 'exam') {
-            updateTimerDisplay();
-        }
 
-        document.getElementById('check-answer-btn').addEventListener('click', handleAnswerSubmission);
-        document.getElementById('skip-question-btn').addEventListener('click', skipQuestion);
-        document.getElementById('end-exam-btn').addEventListener('click', finishExam);
-    }
-    
-    function handleAnswerSubmission() {
-        const selectedOptionInput = document.querySelector('input[name="questionOptions"]:checked');
-        if (!selectedOptionInput) {
-            alert(i1n.get('alert_select_answer'));
-            return;
+        if (question.userStatus && question.userStatus !== 'skipped') {
+            Array.from(optionsContainer.children).forEach(btn => {
+                btn.disabled = true;
+                if (examMode === 'study') {
+                    const optionId = btn.dataset.option;
+                    if (optionId === question.answer) btn.classList.add('correct');
+                    else if (optionId === question.userChoice) btn.classList.add('incorrect');
+                }
+            });
+            if (examMode === 'study') {
+                explanationText.textContent = question.explanation;
+                explanationContainer.style.display = 'block';
+            }
         }
+        
+        updateNavigation();
+        updateProgress();
+    }
+
+    function checkAnswer(selectedOption) {
+        const currentQuestion = questions[currentQuestionIndex];
+        if (currentQuestion.userStatus) return; 
+
+        const isCorrect = selectedOption === currentQuestion.answer;
+        
+        // --- MODIFICACIÓN 2 de 5: Almacenar estado y elección del usuario ---
+        currentQuestion.userStatus = isCorrect ? 'correct' : 'incorrect';
+        currentQuestion.userChoice = selectedOption;
 
         if (examMode === 'study') {
-            handleStudyModeAnswer(selectedOptionInput);
-        } else {
-            handleExamModeAnswer(selectedOptionInput);
-        }
-    }
-
-    function handleStudyModeAnswer(selectedOptionInput) {
-        const question = currentExamQuestions[currentQuestionIndex];
-        const selectedOptionIndex = parseInt(selectedOptionInput.value);
-        question.userAnswerIndex = selectedOptionIndex;
-        
-        document.getElementById('skip-question-btn').disabled = true;
-        document.getElementById('end-exam-btn').disabled = true;
-        
-        const lang = i1n.currentLanguage || 'es';
-        const selectedOption = question.shuffledOptions[selectedOptionIndex];
-        
-        if (selectedOption.isCorrect) examStats.correct++;
-        else examStats.incorrect++;
-        
-        document.querySelectorAll('#options-container .form-check-input').forEach(input => input.disabled = true);
-        question.shuffledOptions.forEach((option, index) => {
-            const label = document.querySelector(`label[for="option${index}"]`);
-            if (option.isCorrect) {
-                label.classList.add('correct');
-            } else if (index === selectedOptionIndex) {
-                label.classList.add('incorrect');
-            }
-        });
-        
-        const explanationText = question[`explanation_${lang}`] || question.explanation_en;
-        if (explanationText) {
-            const explanationDiv = document.createElement('div');
-            explanationDiv.className = 'alert alert-info mt-4 explanation-box';
-            explanationDiv.innerHTML = `<strong>${i1n.get('explanation_label')}:</strong> ${explanationText}`;
-            document.querySelector('.card-body #options-container').insertAdjacentElement('afterend', explanationDiv);
-        }
-
-        const actionButton = document.getElementById('check-answer-btn');
-        actionButton.textContent = i1n.get('btn_next');
-        actionButton.onclick = proceedToNextQuestion;
-    }
-
-    function handleExamModeAnswer(selectedOptionInput) {
-        const question = currentExamQuestions[currentQuestionIndex];
-        const selectedOptionIndex = parseInt(selectedOptionInput.value);
-        question.userAnswerIndex = selectedOptionIndex;
-
-        const selectedOption = question.shuffledOptions[selectedOptionIndex];
-
-        if (selectedOption.isCorrect) examStats.correct++;
-        else examStats.incorrect++;
-        
-        proceedToNextQuestion();
-    }
-    
-    function skipQuestion() {
-        currentExamQuestions[currentQuestionIndex].userAnswerIndex = 'skipped'; 
-        examStats.skipped++;
-        proceedToNextQuestion();
-    }
-    
-    function proceedToNextQuestion() {
-        currentQuestionIndex++;
-        displayQuestion();
-    }
-    
-    function finishExam() {
-        stopTimer();
-        examQuestionsContainer.classList.add('d-none');
-        
-        saveExamAttempt();
-        displayResults(examStats, currentExamQuestions.length);
-    }
-
-    function displayResults(stats, totalQuestions) {
-        examResultsContainer.classList.remove('d-none');
-        const scorePercentage = totalQuestions > 0 ? Math.round((stats.correct / totalQuestions) * 100) : 0;
-
-        document.getElementById('results-score').textContent = `${scorePercentage}%`;
-        document.getElementById('results-summary').textContent = `${i1n.get('results_summary_part1')} ${stats.correct} ${i1n.get('results_summary_part2')} ${totalQuestions} ${i1n.get('results_summary_part3')}`;
-        document.getElementById('results-correct').textContent = stats.correct;
-        document.getElementById('results-incorrect').textContent = stats.incorrect;
-        document.getElementById('results-skipped').textContent = stats.skipped;
-        
-        document.querySelector('#results-correct + small').textContent = i1n.get('results_correct');
-        document.querySelector('#results-incorrect + small').textContent = i1n.get('results_incorrect');
-        document.querySelector('#results-skipped + small').textContent = i1n.get('results_skipped');
-        document.getElementById('review-exam-btn').textContent = i1n.get('btn_review');
-        document.getElementById('restart-exam-btn').textContent = i1n.get('btn_restart');
-        document.querySelector('#exam-results-container a').textContent = i1n.get('btn_back_home');
-
-        const resultsScoreElement = document.getElementById('results-score');
-        resultsScoreElement.classList.remove('text-success', 'text-danger');
-        if (scorePercentage >= 85) {
-            resultsScoreElement.classList.add('text-success');
-            document.getElementById('results-title').textContent = i1n.get('results_title_excellent');
-        } else {
-            resultsScoreElement.classList.add('text-danger');
-            document.getElementById('results-title').textContent = i1n.get('results_title_practice');
-        }
-        
-        document.getElementById('review-exam-btn').onclick = displayExamReview;
-        document.getElementById('restart-exam-btn').onclick = resetToSetup;
-    }
-
-    function displayExamReview() {
-        examResultsContainer.classList.add('d-none');
-        examReviewContainer.classList.remove('d-none');
-        examReviewContainer.innerHTML = '';
-
-        const lang = i1n.currentLanguage || 'es';
-        let reviewHTML = `<div class="row"><div class="col-12 col-lg-8 offset-lg-2">`;
-        reviewHTML += `<h1 class="text-center mb-4">${i1n.get('review_title')}</h1>`;
-
-        currentExamQuestions.forEach((question, index) => {
-            const questionText = question[`question_${lang}`] || question.question_en;
-            const explanationText = question[`explanation_${lang}`] || question.explanation_en;
-
-            reviewHTML += `<div class="card review-question-card">
-                            <div class="card-header"><strong>${i1n.get('question_header')} ${index + 1}:</strong> ${questionText}</div>
-                            <div class="card-body">`;
-            
-            question.shuffledOptions.forEach((option, optionIndex) => {
-                const optionText = option[`text_${lang}`] || option.text_en;
-                let optionClass = 'review-option';
-                
-                if (option.isCorrect) {
-                    optionClass += ' correct-answer';
-                } else if (question.userAnswerIndex === optionIndex) {
-                    optionClass += ' incorrect-answer';
-                }
-
-                reviewHTML += `<div class="${optionClass}">${optionText}</div>`;
+            Array.from(optionsContainer.children).forEach(btn => {
+                btn.disabled = true;
+                const optionId = btn.dataset.option;
+                if (optionId === currentQuestion.answer) btn.classList.add('correct');
+                else if (optionId === selectedOption) btn.classList.add('incorrect');
             });
+            explanationText.textContent = currentQuestion.explanation;
+            explanationContainer.style.display = 'block';
+        }
+    }
 
-            if(question.userAnswerIndex === 'skipped'){
-                reviewHTML += `<div class="alert alert-warning mt-2">Pregunta Omitida</div>`;
+    function showResults() {
+        questionContainer.style.display = 'none';
+        if (examTimer) clearInterval(examTimer);
+        timerElement.style.display = 'none';
+
+        // --- MODIFICACIÓN 3 de 5: Lógica de conteo precisa y robusta ---
+        const correctAnswers = questions.filter(q => q.userStatus === 'correct').length;
+        const incorrectAnswers = questions.filter(q => q.userStatus === 'incorrect').length;
+        const skippedQuestions = questions.filter(q => q.userStatus === 'skipped' || q.userStatus === undefined).length;
+
+        const totalQuestions = questions.length;
+        const score = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0;
+        const passed = score >= 85;
+
+        updateResultsUI(totalQuestions, correctAnswers, incorrectAnswers, skippedQuestions, score, passed);
+        updateResultsSummary();
+        
+        resultsContainer.style.display = 'block';
+    }
+    
+    function updateResultsUI(total, correct, incorrect, skipped, score, passed) {
+        document.getElementById('total-questions').textContent = total;
+        document.getElementById('correct-answers').textContent = correct;
+        document.getElementById('incorrect-answers').textContent = incorrect;
+        document.getElementById('skipped-questions').textContent = skipped;
+        document.getElementById('score').textContent = `${score.toFixed(2)}%`;
+        const statusElement = document.getElementById('status');
+        statusElement.textContent = passed ? 'Aprobado' : 'Reprobado';
+        statusElement.className = `status ${passed ? 'status-passed' : 'status-failed'}`;
+    }
+
+    function updateResultsSummary() {
+        resultsSummaryBody.innerHTML = '';
+        questions.forEach((question, index) => {
+            const row = document.createElement('tr');
+            let statusIcon = '';
+            switch (question.userStatus) {
+                case 'correct': statusIcon = '<i class="fas fa-check-circle text-success"></i> Correcta'; break;
+                case 'incorrect': statusIcon = '<i class="fas fa-times-circle text-danger"></i> Incorrecta'; break;
+                default: statusIcon = '<i class="fas fa-minus-circle text-warning"></i> Omitida'; break;
             }
-
-            reviewHTML += `<div class="alert alert-info mt-3 explanation-box">
-                            <strong>${i1n.get('explanation_label')}:</strong> ${explanationText}
-                           </div>`;
-
-            reviewHTML += `</div></div>`;
+            row.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${question.question.substring(0, 60)}...</td>
+                <td>${statusIcon}</td>
+                <td><button class="btn btn-sm btn-outline-primary review-question-btn" data-index="${index}">Revisar</button></td>
+            `;
+            resultsSummaryBody.appendChild(row);
         });
-        
-        reviewHTML += `<div class="text-center mt-4"><button id="back-to-results-btn" class="btn btn-primary">${i1n.get('review_back_button')}</button></div>`
-        reviewHTML += `</div></div>`;
-        
-        examReviewContainer.innerHTML = reviewHTML;
-        document.getElementById('back-to-results-btn').onclick = () => {
-            examReviewContainer.classList.add('d-none');
-            examResultsContainer.classList.remove('d-none');
-        };
     }
 
-    function resetToSetup() {
-        examResultsContainer.classList.add('d-none');
-        examQuestionsContainer.classList.add('d-none');
-        examReviewContainer.classList.add('d-none');
-        examSetupContainer.classList.remove('d-none');
-        
-        loadCategories();
-        translateQuestionCountOptions();
+    function startReview(index = 0) {
+        resultsContainer.style.display = 'none';
+        reviewContainer.style.display = 'block';
+        currentReviewIndex = index;
+        showReviewQuestion(currentReviewIndex);
     }
 
-    function saveExamAttempt() {
-        const attempt = {
-            date: new Date().toISOString(),
-            stats: examStats,
-            totalQuestions: currentExamQuestions.length,
-            mode: examMode
-        };
-        try {
-            const history = JSON.parse(localStorage.getItem('CCNA_examHistory')) || [];
-            history.push(attempt);
-            localStorage.setItem('CCNA_examHistory', JSON.stringify(history));
-        } catch (e) { console.error("No se pudo guardar el resultado del examen.", e); }
+    function showReviewQuestion(index) {
+        const question = questions[index];
+        reviewQuestionText.textContent = question.question;
+        reviewOptionsContainer.innerHTML = '';
+
+        question.options.forEach(option => {
+            const div = document.createElement('div');
+            div.className = 'list-group-item';
+            div.textContent = option.text;
+
+            if (option.id === question.answer) div.classList.add('correct');
+            else if (option.id === question.userChoice) div.classList.add('incorrect');
+            
+            reviewOptionsContainer.appendChild(div);
+        });
+
+        reviewExplanation.textContent = `Explicación: ${question.explanation}`;
+        updateReviewNavigation();
+        reviewProgressText.textContent = `Revisando Pregunta ${index + 1} de ${questions.length}`;
     }
 
-    function startTimer() {
-        stopTimer();
-        timerInterval = setInterval(() => {
-            timeRemaining--;
-            updateTimerDisplay();
-            if (timeRemaining <= 0) {
-                finishExam();
+    function updateReviewNavigation() {
+        prevReviewButton.disabled = currentReviewIndex === 0;
+        nextReviewButton.disabled = currentReviewIndex === questions.length - 1;
+    }
+
+    function updateNavigation() {
+        prevButton.disabled = currentQuestionIndex === 0;
+        nextButton.textContent = (currentQuestionIndex === questions.length - 1) ? 'Finalizar' : 'Siguiente';
+    }
+
+    function updateProgress() {
+        progressText.textContent = `Pregunta ${currentQuestionIndex + 1} de ${questions.length}`;
+    }
+
+    function startTimer(duration) {
+        let timer = duration;
+        timerElement.style.display = 'block';
+        examTimer = setInterval(() => {
+            const minutes = parseInt(timer / 60, 10);
+            const seconds = parseInt(timer % 60, 10);
+            timerElement.textContent = `${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+            
+            if (--timer < 0) {
+                clearInterval(examTimer);
+                // --- MODIFICACIÓN 4 de 5: Marcar preguntas restantes como omitidas al acabarse el tiempo ---
+                questions.forEach(q => {
+                    if (q.userStatus === undefined) {
+                        q.userStatus = 'skipped';
+                    }
+                });
+                showResults();
             }
         }, 1000);
     }
 
-    function stopTimer() {
-        clearInterval(timerInterval);
-    }
-
-    function updateTimerDisplay() {
-        const minutes = Math.floor(timeRemaining / 60);
-        const seconds = timeRemaining % 60;
-        const timerDisplay = document.getElementById('timer-display');
-        if (timerDisplay) {
-            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-    }
-    
-    async function fetchQuestions(categories) {
-        const fetchPromises = categories.map(category => {
-            const path = `../data/${category}.json`;
-            return fetch(path).then(response => {
-                if (!response.ok) throw new Error(`Fallo al cargar: ${path}`);
-                return response.text().then(text => text ? JSON.parse(text) : []);
-            });
-        });
-
-        const results = await Promise.allSettled(fetchPromises);
-        const successfulQuestions = [];
-        results.forEach(result => {
-            if (result.status === 'fulfilled' && Array.isArray(result.value)) {
-                successfulQuestions.push(...result.value);
-            } else if (result.status === 'rejected') {
-                console.warn(`Se omitió un archivo: ${result.reason.message}`);
-            }
-        });
-        return successfulQuestions.flat();
-    }
-
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
+    // --- INICIALIZACIÓN ---
     function init() {
-        document.addEventListener('i18n-loaded', () => {
-            loadCategories();
-            translateQuestionCountOptions();
+        startExamBtn.addEventListener('click', () => {
+            const category = document.getElementById('category-select').value;
+            const lang = document.documentElement.lang;
+            examMode = document.getElementById('mode-select').value;
+            startExam(category, lang);
         });
 
-        i1n.registerDynamicRenderer(() => {
-            if (!examQuestionsContainer.classList.contains('d-none')) {
-                displayQuestion();
+        nextButton.addEventListener('click', () => {
+            // --- MODIFICACIÓN 5 de 5: Marcar pregunta como omitida si se avanza sin contestar ---
+            if (questions[currentQuestionIndex].userStatus === undefined) {
+                questions[currentQuestionIndex].userStatus = 'skipped';
             }
-            else if (!examResultsContainer.classList.contains('d-none')) {
-                displayResults(examStats, currentExamQuestions.length);
-            }
-            else if (!examReviewContainer.classList.contains('d-none')) {
-                displayExamReview();
-            }
-            else {
-                loadCategories();
-                translateQuestionCountOptions();
+
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion(currentQuestionIndex);
+            } else {
+                showResults();
             }
         });
 
-        if (startExamBtn) {
-            startExamBtn.addEventListener('click', startExam);
-        }
+        prevButton.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion(currentQuestionIndex);
+            }
+        });
+
+        reviewExamBtn.addEventListener('click', () => startReview());
+
+        resultsSummaryBody.addEventListener('click', (e) => {
+            if (e.target.classList.contains('review-question-btn')) {
+                const index = parseInt(e.target.dataset.index, 10);
+                startReview(index);
+            }
+        });
+
+        prevReviewButton.addEventListener('click', () => {
+            if (currentReviewIndex > 0) {
+                currentReviewIndex--;
+                showReviewQuestion(currentReviewIndex);
+            }
+        });
+
+        nextReviewButton.addEventListener('click', () => {
+            if (currentReviewIndex < questions.length - 1) {
+                currentReviewIndex++;
+                showReviewQuestion(currentReviewIndex);
+            }
+        });
+
+        backToResultsButton.addEventListener('click', () => {
+            reviewContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+        });
     }
 
     init();
