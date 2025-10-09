@@ -47,5 +47,18 @@
   "btn_back_home": "Volver al Inicio",
   "btn_review": "Revisar Examen",
   "review_title": "Revisión del Examen",
-  "review_back_button": "Volver a Resultados"
+  "review_back_button": "Volver a Resultados",
+  "home_hero_title": "Domina el Examen CCNA",
+  "home_hero_subtitle": "Recursos, herramientas y simuladores para prepararte y aprobar tu certificación de networking.",
+  "home_hero_button": "Empezar a practicar",
+  "home_tools_title": "Herramientas Esenciales",
+  "home_tools_subtitle": "Utilidades diseñadas para acelerar tu aprendizaje.",
+  "home_tool1_title": "Generador de Subneteo",
+  "home_tool1_desc": "Practica ejercicios de subnetting Classful y Classless (VLSM) al instante.",
+  "home_tool2_title": "Descifrador de Contraseñas",
+  "home_tool2_desc": "Recupera contraseñas 'enable secret type 7' de tus configuraciones.",
+  "home_tool3_title": "Simulador de Examen",
+  "home_tool3_desc": "Ponte a prueba con preguntas realistas, por categorías y con modo de estudio o examen.",
+  "home_about_title": "¿Qué es la certificación CCNA?",
+  "home_about_desc": "El Cisco Certified Network Associate (CCNA) es una de las certificaciones más reconocidas en la industria de TI. Valida tus habilidades y conocimientos en los fundamentos de redes, acceso a la red, conectividad IP, servicios IP, fundamentos de seguridad y automatización."
 }
