@@ -136,6 +136,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const headerText = `${i1n.get('question_header')} ${currentQuestionIndex + 1} ${i1n.get('question_of')} ${currentExamQuestions.length}`;
         const timerHTML = examMode === 'exam' ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` : '';
 
+        let imageHTML = '';
+        let codeHTML = '';
+    
+        // Comprueba si hay una imagen y crea su HTML
+        if (question.image) {
+            // La ruta es relativa a la carpeta 'data/images/' que crearemos
+            imageHTML = `<div class="text-center my-3">
+                           <img src="../data/images/${question.image}" class="img-fluid rounded border" alt="Diagrama de la pregunta">
+                         </div>`;
+        }
+    
+        // Comprueba si hay código y crea su HTML
+        if (question.code) {
+            codeHTML = `<pre class="code-block"><code>${question.code}</code></pre>`;
+        }
+
         let cardBodyHTML = `
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-transparent border-0 pt-4 px-4">
@@ -146,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="card-body p-4 p-md-5">
                     <p class="question-text lead">${questionText}</p>
+                    ${imageHTML}  ${codeHTML}
                     ${question.code ? `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>` : ''}
                     ${question.image ? `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>` : ''}
                     <div id="options-container" class="mt-4">`;
