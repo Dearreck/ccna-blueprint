@@ -173,9 +173,9 @@ document.addEventListener('DOMContentLoaded', () => {
             updateTimerDisplay();
         }
 
-        document.getElementById('check-answer-btn').addEventListener('click', handleAnswerSubmission);
-        document.getElementById('skip-question-btn').addEventListener('click', skipQuestion);
-        document.getElementById('end-exam-btn').addEventListener('click', finishExam);
+        document.getElementById('check-answer-btn').onclick = handleAnswerSubmission;
+        document.getElementById('skip-question-btn').onclick =  skipQuestion;
+        document.getElementById('end-exam-btn').onclick =  finishExam;
     }
     
     function handleAnswerSubmission() {
