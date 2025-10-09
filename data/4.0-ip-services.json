@@ -2,6 +2,7 @@
   {
     "id": "services_q1",
     "category": "4.0-ip-services",
+    "isMultipleChoice": false,
     "question_es": "Un usuario escribe 'www.cisco.com' en su navegador. ¿Qué servicio de red es responsable de traducir este nombre de dominio a una dirección IP para que el navegador pueda establecer una conexión?",
     "question_en": "A user types 'www.cisco.com' into their browser. Which network service is responsible for translating this domain name into an IP address so the browser can establish a connection?",
     "options": [
