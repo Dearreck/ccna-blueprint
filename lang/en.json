@@ -45,5 +45,8 @@
   "results_incorrect": "Incorrect",
   "results_skipped": "Skipped",
   "btn_restart": "Try Again",
-  "btn_back_home": "Back to Home"
+  "btn_back_home": "Back to Home",
+  "btn_review": "Review Exam",
+  "review_title": "Exam Review",
+  "review_back_button": "Back to Results"
 }
