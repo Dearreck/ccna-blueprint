@@ -22,4 +22,27 @@
     "explanation_es": "La función principal de un servidor web es escuchar las solicitudes HTTP de los clientes (como los navegadores web) y responder entregando los recursos solicitados, que pueden ser páginas web, imágenes o aplicaciones completas. Las otras opciones describen las funciones de servidores de autenticación, FTP o de correo electrónico.",
     "explanation_en": "The primary function of a web server is to listen for HTTP requests from clients (like web browsers) and respond by delivering the requested resources, which can be web pages, images, or entire applications. The other options describe the functions of authentication, FTP, or email servers."
   },
+  {
+    "id": "ipv6_address_type_ula_q1",
+    "category": "1.0-network-fundamentals",
+    "topic": {
+      "id": "1.9",
+      "description_es": "Describir los tipos de direcciones IPv6",
+      "description_en": "Describe IPv6 address types",
+      "subtopic_id": "1.9.a",
+      "subtopic_description": "Unicast (global, unique local, and link local)"
+    },
+    "question_es": "Un ingeniero de redes está instalando un dispositivo con capacidad solo para IPv6. El cliente ha solicitado que la dirección IP del dispositivo sea alcanzable únicamente desde la red interna. ¿Qué tipo de dirección IPv6 debe asignar el ingeniero?",
+    "question_en": "A network engineer is installing an IPv6-only capable device. The client has requested that the device IP address be reachable only from the internal network. Which type of IPv6 address must the engineer assign?",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "dirección global agregable", "text_en": "aggregatable global address", "isCorrect": false },
+      { "text_es": "dirección IPv4-compatible IPv6", "text_en": "IPv4-compatible IPv6 address", "isCorrect": false },
+      { "text_es": "dirección link-local", "text_en": "link-local address", "isCorrect": false },
+      { "text_es": "dirección local única (unique local)", "text_en": "unique local address", "isCorrect": true }
+    ],
+    "explanation_es": "Las direcciones locales únicas (Unique Local Addresses - ULA), que comienzan con el prefijo FD00::/8, son el equivalente en IPv6 de las direcciones privadas IPv4 (RFC 1918). Están diseñadas para ser enrutables dentro de una red interna pero no en la Internet pública, cumpliendo exactamente con el requisito del cliente.",
+    "explanation_en": "Unique Local Addresses (ULA), which begin with the FD00::/8 prefix, are the IPv6 equivalent of private IPv4 addresses (RFC 1918). They are designed to be routable within an internal network but not on the public Internet, precisely meeting the client's requirement."
+  }
 ]
