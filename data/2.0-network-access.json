@@ -44,5 +44,29 @@
     ],
     "explanation_es": "El comando `lldp timer` establece la frecuencia de envío de los anuncios LLDP en segundos. Para enviar paquetes cada minuto, el valor debe ser 60. El comando `lldp holdtime` establece el multiplicador que, junto con el timer, determina cuánto tiempo un dispositivo receptor debe mantener la información LLDP antes de descartarla; sin embargo, es práctica común y más claro configurarlo directamente en segundos, lo cual se logra al configurar el holdtime con el valor total deseado. Para 3 minutos, el valor es 180 segundos.",
     "explanation_en": "The `lldp timer` command sets the transmission frequency of LLDP advertisements in seconds. To send packets every minute, the value must be 60. The `lldp holdtime` command sets the multiplier that, along with the timer, determines how long a receiving device should keep LLDP information before discarding it; however, it's common and clearer to set this directly in total seconds by configuring the holdtime with the desired value. For 3 minutes, the value is 180 seconds."
+  },
+  {
+    "id": "stp_portfast_states_q1",
+    "category": "2.0-network-access",
+    "topic": {
+      "id": "2.5",
+      "description_es": "Interpretar operaciones básicas de Rapid PVST+ Spanning Tree Protocol",
+      "description_en": "Interpret basic operations of Rapid PVST+ Spanning Tree Protocol",
+      "subtopic_id": "2.5.c",
+      "subtopic_description": "PortFast"
+    },
+    "question_es": "¿Qué dos estados de spanning-tree se omiten en una interfaz que ejecuta PortFast? (Elija dos.)",
+    "question_en": "Which two spanning-tree states are bypassed on an interface running PortFast? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "blocking (bloqueo)", "text_en": "blocking", "isCorrect": false },
+      { "text_es": "disabled (deshabilitado)", "text_en": "disabled", "isCorrect": false },
+      { "text_es": "learning (aprendizaje)", "text_en": "learning", "isCorrect": true },
+      { "text_es": "listening (escucha)", "text_en": "listening", "isCorrect": true },
+      { "text_es": "forwarding (reenvío)", "text_en": "forwarding", "isCorrect": false }
+    ],
+    "explanation_es": "La función PortFast está diseñada para puertos de acceso conectados a dispositivos finales (como PCs o servidores). Permite que el puerto pase inmediatamente del estado de bloqueo (blocking) al de reenvío (forwarding), omitiendo los estados de escucha (listening) y aprendizaje (learning), que normalmente durarían 30 segundos en total (15s + 15s). Esto acelera la convergencia de la red y evita que los dispositivos finales tengan problemas para obtener una dirección IP a través de DHCP.",
+    "explanation_en": "The PortFast feature is designed for access ports connected to end devices (like PCs or servers). It allows the port to transition immediately from the blocking state to the forwarding state, bypassing the listening and learning states, which would normally take a total of 30 seconds (15s + 15s). This speeds up network convergence and prevents end devices from having issues obtaining an IP address via DHCP."
   }
 ]
