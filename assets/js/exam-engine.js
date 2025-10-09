@@ -515,7 +515,7 @@ function renderReviewPage() {
                 displayResults(examStats, currentExamQuestions.length);
             }
             else if (!examReviewContainer.classList.contains('d-none')) {
-                displayExamReview();
+                renderReviewPage();
             }
             else {
                 loadCategories();
