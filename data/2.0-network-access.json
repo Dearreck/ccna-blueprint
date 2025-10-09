@@ -1,16 +1,25 @@
 [
   {
-    "id": "vlan_q1",
+    "id": "ap_modes_q1",
     "category": "2.0-network-access",
-    "question_es": "¿Cuál es el propósito principal de configurar un puerto de switch en modo de acceso (access port)?",
-    "question_en": "What is the primary purpose of configuring a switch port in access mode?",
+    "topic": {
+      "id": "2.6",
+      "description_es": "Describir las arquitecturas inalámbricas de Cisco y los modos de AP",
+      "description_en": "Describe Cisco Wireless Architectures and AP modes",
+      "subtopic_id": "2.6",
+      "subtopic_description": "AP Modes"
+    },
+    "question_es": "¿Qué modo de punto de acceso depende de un controlador centralizado para la gestión, el roaming y la configuración del SSID?",
+    "question_en": "Which access point mode relies on a centralized controller for management, roaming, and SSID configuration?",
+    "image": null,
+    "code": null,
     "options": [
-      { "text_es": "Permitir que el puerto transporte tráfico para múltiples VLANs simultáneamente.", "text_en": "To allow the port to carry traffic for multiple VLANs simultaneously.", "isCorrect": false },
-      { "text_es": "Asignar el puerto a una única VLAN para que los dispositivos conectados a él pertenezcan a esa VLAN.", "text_en": "To assign the port to a single VLAN so that devices connected to it belong to that VLAN.", "isCorrect": true },
-      { "text_es": "Crear un enlace troncal (trunk) para conectar con otro switch.", "text_en": "To create a trunk link to connect to another switch.", "isCorrect": false },
-      { "text_es": "Deshabilitar el puerto para evitar el acceso no autorizado.", "text_en": "To disable the port to prevent unauthorized access.", "isCorrect": false }
+      { "text_es": "Modo Bridge", "text_en": "Bridge mode", "isCorrect": false },
+      { "text_es": "Modo Repetidor", "text_en": "Repeater mode", "isCorrect": false },
+      { "text_es": "Modo Autónomo", "text_en": "Autonomous mode", "isCorrect": false },
+      { "text_es": "Modo Ligero (Lightweight)", "text_en": "Lightweight mode", "isCorrect": true }
     ],
-    "explanation_es": "Un puerto en modo de acceso está configurado para pertenecer a una sola VLAN. Su función es conectar dispositivos finales (como computadoras, impresoras o teléfonos IP) a la red, asegurando que todo el tráfico que pasa por él se asocie con esa VLAN específica.",
-    "explanation_en": "An access mode port is configured to belong to a single VLAN. Its function is to connect end devices (such as computers, printers, or IP phones) to the network, ensuring that all traffic passing through it is associated with that specific VLAN."
+    "explanation_es": "Los puntos de acceso en modo Ligero (Lightweight) están diseñados para ser gestionados por un Controlador de LAN Inalámbrica (WLC). El WLC centraliza la configuración, la gestión y las decisiones de roaming, lo que simplifica la administración de redes Wi-Fi a gran escala. En contraste, los AP en modo Autónomo se configuran y gestionan individualmente.",
+    "explanation_en": "Lightweight mode access points are designed to be managed by a Wireless LAN Controller (WLC). The WLC centralizes configuration, management, and roaming decisions, which simplifies the administration of large-scale Wi-Fi networks. In contrast, Autonomous mode APs are configured and managed individually."
   }
 ]
