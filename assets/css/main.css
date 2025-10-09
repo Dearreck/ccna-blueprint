@@ -461,18 +461,18 @@ html.dark-mode .question-nav-circle.status-skipped {
 /* --- Ajuste para el Posicionamiento de la Insignia --- */
 .review-question-card {
   position: relative; /* Necesario para posicionar la insignia hija */
-  overflow: hidden; /* Evita que la insignia se salga del borde redondeado */
 }
 
 /* --- Estilos para la Nueva Insignia de Pregunta Omitida --- */
 .skipped-question-badge {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: -14px;
+  left: 20px;
   padding: 0.25rem 0.8rem;
   font-size: 0.75rem;
   font-weight: bold;
-  border-bottom-right-radius: 0.375rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 /* --- Colores Tema Claro --- */
