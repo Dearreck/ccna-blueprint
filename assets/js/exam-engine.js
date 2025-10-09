@@ -1,3 +1,5 @@
+// assets/js/exam-engine.js (Versión Final y Completa)
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- REFERENCIAS AL DOM ---
@@ -27,9 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: '6.0-automation-programmability', i18nKey: 'category_6_0' }
     ];
 
-    /**
-     * Carga las categorías del examen en la pantalla de configuración.
-     */
     function loadCategories() {
         if (!categorySelectionContainer) return;
         categorySelectionContainer.innerHTML = '';
@@ -56,9 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /**
-     * Traduce las opciones del selector de cantidad de preguntas.
-     */
     function translateQuestionCountOptions() {
         if (!questionCountSelect) return;
         Array.from(questionCountSelect.options).forEach(option => {
@@ -70,9 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    /**
-     * Inicia un nuevo examen, cargando las preguntas y reseteando el estado.
-     */
     async function startExam() {
         const selectedMode = document.querySelector('input[name="examMode"]:checked').value;
         const selectedCategoryElements = document.querySelectorAll('#category-selection-container input[type="checkbox"]:checked');
@@ -102,18 +95,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (questionCount !== 'all') {
             currentExamQuestions = currentExamQuestions.slice(0, parseInt(questionCount));
         }
-
+        
         // Pre-procesamos TODAS las preguntas para añadirles su lista de opciones barajadas.
         // Esto evita errores en la revisión si el examen se termina antes de tiempo.
         currentExamQuestions.forEach(question => {
             question.shuffledOptions = shuffleArray([...question.options]);
+            question.userAnswerIndex = null; // Inicializamos la respuesta del usuario
         });
-        
+
         currentQuestionIndex = 0;
         examStats = { correct: 0, incorrect: 0, skipped: 0 };
         
         examSetupContainer.classList.add('d-none');
         examResultsContainer.classList.add('d-none');
+        examReviewContainer.classList.add('d-none');
         examQuestionsContainer.classList.remove('d-none');
         
         if (examMode === 'exam') {
@@ -125,10 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
         displayQuestion();
     }
 
-    /**
-     * Muestra la pregunta actual en la pantalla. Esta función ahora también
-     * se usa para re-renderizar la pregunta cuando cambia el idioma.
-     */
     function displayQuestion() {
         if (currentQuestionIndex >= currentExamQuestions.length) {
             finishExam();
@@ -138,20 +129,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const question = currentExamQuestions[currentQuestionIndex];
         const lang = i1n.currentLanguage || 'es';
 
-        // Prepara los textos traducidos
         const buttonText = examMode === 'study' ? i1n.get('btn_verify') : i1n.get('btn_next');
         const skipButtonText = i1n.get('btn_skip');
         const endButtonText = i1n.get('btn_end_exam');
         const questionText = question[`question_${lang}`] || question.question_en;
         const headerText = `${i1n.get('question_header')} ${currentQuestionIndex + 1} ${i1n.get('question_of')} ${currentExamQuestions.length}`;
-        const timerHTML = examMode === 'exam' ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` : ''; // Si no, crea una cadena vacía.
-    
+        const timerHTML = examMode === 'exam' ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` : '';
+
         let cardBodyHTML = `
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-transparent border-0 pt-4 px-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="mb-0">${headerText}</h5>
-                        ${timerHTML} 
+                        ${timerHTML}
                     </div>
                 </div>
                 <div class="card-body p-4 p-md-5">
@@ -159,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${question.code ? `<pre class="bg-dark text-light p-3 rounded"><code>${question.code}</code></pre>` : ''}
                     ${question.image ? `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>` : ''}
                     <div id="options-container" class="mt-4">`;
-
+        
         question.shuffledOptions.forEach((option, index) => {
             const optionText = option[`text_${lang}`] || option.text_en || option.text_es;
             cardBodyHTML += `
@@ -179,21 +169,15 @@ document.addEventListener('DOMContentLoaded', () => {
             </div></div>`;
         
         examQuestionsContainer.innerHTML = cardBodyHTML;
-        
-        // Solo actualiza el texto del timer si estamos en modo examen.
         if (examMode === 'exam') {
             updateTimerDisplay();
         }
 
-        // Asigna los event listeners a los nuevos botones
         document.getElementById('check-answer-btn').addEventListener('click', handleAnswerSubmission);
         document.getElementById('skip-question-btn').addEventListener('click', skipQuestion);
         document.getElementById('end-exam-btn').addEventListener('click', finishExam);
     }
     
-    /**
-     * Maneja el envío de una respuesta, diferenciando entre modo estudio y examen.
-     */
     function handleAnswerSubmission() {
         const selectedOptionInput = document.querySelector('input[name="questionOptions"]:checked');
         if (!selectedOptionInput) {
@@ -208,13 +192,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /**
-     * Lógica para el modo estudio: muestra feedback inmediato.
-     */
     function handleStudyModeAnswer(selectedOptionInput) {
         const question = currentExamQuestions[currentQuestionIndex];
         const selectedOptionIndex = parseInt(selectedOptionInput.value);
-        question.userAnswerIndex = selectedOptionIndex; // Guardamos la respuesta del usuario
+        question.userAnswerIndex = selectedOptionIndex;
         
         document.getElementById('skip-question-btn').disabled = true;
         document.getElementById('end-exam-btn').disabled = true;
@@ -248,13 +229,10 @@ document.addEventListener('DOMContentLoaded', () => {
         actionButton.onclick = proceedToNextQuestion;
     }
 
-    /**
-     * Lógica para el modo examen: registra la respuesta y avanza.
-     */
     function handleExamModeAnswer(selectedOptionInput) {
         const question = currentExamQuestions[currentQuestionIndex];
         const selectedOptionIndex = parseInt(selectedOptionInput.value);
-        question.userAnswerIndex = selectedOptionIndex; // Guardamos la respuesta del usuario
+        question.userAnswerIndex = selectedOptionIndex;
 
         const selectedOption = question.shuffledOptions[selectedOptionIndex];
 
@@ -264,39 +242,25 @@ document.addEventListener('DOMContentLoaded', () => {
         proceedToNextQuestion();
     }
     
-    /**
-     * Salta la pregunta actual.
-     */
     function skipQuestion() {
-        // Guardamos que la pregunta fue omitida
         currentExamQuestions[currentQuestionIndex].userAnswerIndex = 'skipped'; 
         examStats.skipped++;
         proceedToNextQuestion();
     }
     
-    /**
-     * Avanza a la siguiente pregunta del examen.
-     */
     function proceedToNextQuestion() {
         currentQuestionIndex++;
         displayQuestion();
     }
     
-    /**
-     * Finaliza el examen y muestra la pantalla de resultados.
-     */
     function finishExam() {
         stopTimer();
         examQuestionsContainer.classList.add('d-none');
-        examResultsContainer.classList.remove('d-none');
-
+        
         saveExamAttempt();
         displayResults(examStats, currentExamQuestions.length);
     }
 
-    /**
-     * Muestra la pantalla de resultados. Se usa al finalizar y al re-renderizar.
-     */
     function displayResults(stats, totalQuestions) {
         examResultsContainer.classList.remove('d-none');
         const scorePercentage = totalQuestions > 0 ? Math.round((stats.correct / totalQuestions) * 100) : 0;
@@ -324,18 +288,14 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('results-title').textContent = i1n.get('results_title_practice');
         }
         
-        // Asignamos los event listeners a los botones de la pantalla de resultados
         document.getElementById('review-exam-btn').onclick = displayExamReview;
         document.getElementById('restart-exam-btn').onclick = resetToSetup;
     }
 
-    /**
-     * NUEVO: Genera y muestra la pantalla de revisión del examen.
-     */
     function displayExamReview() {
         examResultsContainer.classList.add('d-none');
         examReviewContainer.classList.remove('d-none');
-        examReviewContainer.innerHTML = ''; // Limpiamos contenido previo
+        examReviewContainer.innerHTML = '';
 
         const lang = i1n.currentLanguage || 'es';
         let reviewHTML = `<div class="row"><div class="col-12 col-lg-8 offset-lg-2">`;
@@ -346,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const explanationText = question[`explanation_${lang}`] || question.explanation_en;
 
             reviewHTML += `<div class="card review-question-card">
-                            <div class="card-header"><strong>Pregunta ${index + 1}:</strong> ${questionText}</div>
+                            <div class="card-header"><strong>${i1n.get('question_header')} ${index + 1}:</strong> ${questionText}</div>
                             <div class="card-body">`;
             
             question.shuffledOptions.forEach((option, optionIndex) => {
@@ -354,9 +314,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 let optionClass = 'review-option';
                 
                 if (option.isCorrect) {
-                    optionClass += ' correct-answer'; // Siempre resalta la correcta
+                    optionClass += ' correct-answer';
                 } else if (question.userAnswerIndex === optionIndex) {
-                    optionClass += ' incorrect-answer'; // Si el usuario la marcó y es incorrecta
+                    optionClass += ' incorrect-answer';
                 }
 
                 reviewHTML += `<div class="${optionClass}">${optionText}</div>`;
@@ -383,21 +343,16 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    /**
-     * NUEVO: Resetea la UI a la pantalla de configuración inicial.
-     */
     function resetToSetup() {
         examResultsContainer.classList.add('d-none');
         examQuestionsContainer.classList.add('d-none');
+        examReviewContainer.classList.add('d-none');
         examSetupContainer.classList.remove('d-none');
-        // Vuelve a traducir los elementos de la configuración por si el idioma cambió
+        
         loadCategories();
         translateQuestionCountOptions();
     }
 
-    /**
-     * Guarda el intento actual en localStorage.
-     */
     function saveExamAttempt() {
         const attempt = {
             date: new Date().toISOString(),
@@ -412,7 +367,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) { console.error("No se pudo guardar el resultado del examen.", e); }
     }
 
-    // --- LÓGICA DEL TEMPORIZADOR ---
     function startTimer() {
         stopTimer();
         timerInterval = setInterval(() => {
@@ -437,13 +391,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // --- LÓGICA DE CARGA DE DATOS ---
     async function fetchQuestions(categories) {
         const fetchPromises = categories.map(category => {
             const path = `../data/${category}.json`;
             return fetch(path).then(response => {
                 if (!response.ok) throw new Error(`Fallo al cargar: ${path}`);
-                // Clave: Asegurarse de que el archivo no esté vacío antes de parsear
                 return response.text().then(text => text ? JSON.parse(text) : []);
             });
         });
@@ -468,28 +420,22 @@ document.addEventListener('DOMContentLoaded', () => {
         return array;
     }
 
-    /**
-     * Función de inicialización principal.
-     */
     function init() {
-        // Espera a que las traducciones iniciales estén listas
         document.addEventListener('i18n-loaded', () => {
             loadCategories();
             translateQuestionCountOptions();
         });
 
-        // MODIFICADO: Se registra una función que i1n llamará CADA VEZ que el idioma cambie.
-        // Esto es el corazón de la funcionalidad SPA.
         i1n.registerDynamicRenderer(() => {
-            // Si estamos viendo una pregunta, la volvemos a mostrar para traducirla.
             if (!examQuestionsContainer.classList.contains('d-none')) {
                 displayQuestion();
             }
-            // Si estamos en la pantalla de resultados, la volvemos a mostrar.
             else if (!examResultsContainer.classList.contains('d-none')) {
                 displayResults(examStats, currentExamQuestions.length);
             }
-            // Si estamos en la configuración, refrescamos sus textos.
+            else if (!examReviewContainer.classList.contains('d-none')) {
+                displayExamReview();
+            }
             else {
                 loadCategories();
                 translateQuestionCountOptions();
@@ -501,6 +447,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Inicia todo el motor.
     init();
 });
