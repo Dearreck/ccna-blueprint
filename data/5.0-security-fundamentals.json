@@ -2,6 +2,7 @@
   {
     "id": "local_passwords_q1",
     "category": "5.0-security-fundamentals",
+    "isMultipleChoice": false,
     "topic": {
       "id": "5.3",
       "description_es": "Configurar y verificar el control de acceso a dispositivos usando contraseñas locales",
@@ -25,6 +26,7 @@
   {
     "id": "acl_for_ssh_q1",
     "category": "5.0-security-fundamentals",
+    "isMultipleChoice": false,
     "topic": {
       "id": "5.6",
       "description_es": "Configurar y verificar listas de control de acceso",
@@ -48,6 +50,7 @@
   {
     "id": "wpa3_encryption_q1",
     "category": "5.0-security-fundamentals",
+    "isMultipleChoice": false,
     "topic": {
       "id": "5.9",
       "description_es": "Describir los protocolos de seguridad inalámbrica (WPA, WPA2 y WPA3)",
