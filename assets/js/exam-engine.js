@@ -256,6 +256,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function finishExam() {
         stopTimer();
         examQuestionsContainer.classList.add('d-none');
+
+        // Calcula cuántas preguntas ya han tenido un resultado (correcta, incorrecta u omitida con el botón "Omitir").
+        const questionsProcessed = examStats.correct + examStats.incorrect + examStats.skipped;
+        // Calcula cuántas preguntas no se respondieron.
+        const unansweredQuestions = currentExamQuestions.length - questionsProcessed;
+    
+        // Si hay preguntas sin responder, se añaden al contador de 'omitidas'.
+        if (unansweredQuestions > 0) {
+            examStats.skipped += unansweredQuestions;
+        }
         
         saveExamAttempt();
         displayResults(examStats, currentExamQuestions.length);
