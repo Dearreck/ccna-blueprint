@@ -302,56 +302,90 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('restart-exam-btn').onclick = resetToSetup;
     }
 
-    function displayExamReview() {
-        examResultsContainer.classList.add('d-none');
-        examReviewContainer.classList.remove('d-none');
-        examReviewContainer.innerHTML = '';
+    // Variable para el índice de la pregunta a revisar
+let currentReviewIndex = 0;
 
-        const lang = i1n.currentLanguage || 'es';
-        let reviewHTML = `<div class="row"><div class="col-12 col-lg-8 offset-lg-2">`;
-        reviewHTML += `<h1 class="text-center mb-4">${i1n.get('review_title')}</h1>`;
+function displayExamReview() {
+    examResultsContainer.classList.add('d-none');
+    examReviewContainer.classList.remove('d-none');
+    currentReviewIndex = 0; // Inicia en la primera pregunta
+    renderReviewPage(); // Llama a la nueva función de renderizado
+}
 
-        currentExamQuestions.forEach((question, index) => {
-            const questionText = question[`question_${lang}`] || question.question_en;
-            const explanationText = question[`explanation_${lang}`] || question.explanation_en;
-
-            reviewHTML += `<div class="card review-question-card">
-                            <div class="card-header"><strong>${i1n.get('question_header')} ${index + 1}:</strong> ${questionText}</div>
-                            <div class="card-body">`;
-            
-            question.shuffledOptions.forEach((option, optionIndex) => {
-                const optionText = option[`text_${lang}`] || option.text_en;
-                let optionClass = 'review-option';
-                
-                if (option.isCorrect) {
-                    optionClass += ' correct-answer';
-                } else if (question.userAnswerIndex === optionIndex) {
-                    optionClass += ' incorrect-answer';
-                }
-
-                reviewHTML += `<div class="${optionClass}">${optionText}</div>`;
-            });
-
-            if(question.userAnswerIndex === 'skipped'){
-                reviewHTML += `<div class="alert alert-warning mt-2">Pregunta Omitida</div>`;
-            }
-
-            reviewHTML += `<div class="alert alert-info mt-3 explanation-box">
-                            <strong>${i1n.get('explanation_label')}:</strong> ${explanationText}
-                           </div>`;
-
-            reviewHTML += `</div></div>`;
-        });
-        
-        reviewHTML += `<div class="text-center mt-4"><button id="back-to-results-btn" class="btn btn-primary">${i1n.get('review_back_button')}</button></div>`
-        reviewHTML += `</div></div>`;
-        
-        examReviewContainer.innerHTML = reviewHTML;
-        document.getElementById('back-to-results-btn').onclick = () => {
-            examReviewContainer.classList.add('d-none');
-            examResultsContainer.classList.remove('d-none');
-        };
+function renderReviewPage() {
+    if (currentReviewIndex < 0 || currentReviewIndex >= currentExamQuestions.length) {
+        return; // No hace nada si el índice está fuera de los límites
     }
+
+    const question = currentExamQuestions[currentReviewIndex];
+    const lang = i1n.currentLanguage || 'es';
+
+    const questionText = question[`question_${lang}`] || question.question_en;
+    const explanationText = question[`explanation_${lang}`] || question.explanation_en;
+
+    let reviewHTML = `
+        <div class="row">
+            <div class="col-12 col-lg-8 offset-lg-2">
+                <h2 class="text-center mb-4">${i1n.get('review_title')}</h2>
+                <div class="card review-question-card">
+                    <div class="card-header">
+                        <strong>${i1n.get('question_header')} ${currentReviewIndex + 1}/${currentExamQuestions.length}:</strong> ${questionText}
+                    </div>
+                    <div class="card-body">`;
+
+    question.shuffledOptions.forEach((option, optionIndex) => {
+        const optionText = option[`text_${lang}`] || option.text_en;
+        let optionClass = 'review-option';
+        
+        if (option.isCorrect) {
+            optionClass += ' correct-answer';
+        } else if (question.userAnswerIndex === optionIndex) {
+            optionClass += ' incorrect-answer';
+        }
+        reviewHTML += `<div class="${optionClass}">${optionText}</div>`;
+    });
+
+    if (question.userAnswerIndex === 'skipped') {
+        reviewHTML += `<div class="alert alert-warning mt-2">Pregunta Omitida</div>`;
+    }
+
+    reviewHTML += `
+                        <div class="alert alert-info mt-3 explanation-box">
+                            <strong>${i1n.get('explanation_label')}:</strong> ${explanationText}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button id="prev-review-btn" class="btn btn-secondary" ${currentReviewIndex === 0 ? 'disabled' : ''}>&laquo; Anterior</button>
+                    <button id="back-to-results-btn" class="btn btn-outline-primary">${i1n.get('review_back_button')}</button>
+                    <button id="next-review-btn" class="btn btn-secondary" ${currentReviewIndex === currentExamQuestions.length - 1 ? 'disabled' : ''}>Siguiente &raquo;</button>
+                </div>
+            </div>
+        </div>`;
+    
+    examReviewContainer.innerHTML = reviewHTML;
+
+    // Asignar eventos a los nuevos botones
+    document.getElementById('prev-review-btn').addEventListener('click', () => {
+        if (currentReviewIndex > 0) {
+            currentReviewIndex--;
+            renderReviewPage();
+        }
+    });
+
+    document.getElementById('next-review-btn').addEventListener('click', () => {
+        if (currentReviewIndex < currentExamQuestions.length - 1) {
+            currentReviewIndex++;
+            renderReviewPage();
+        }
+    });
+    
+    document.getElementById('back-to-results-btn').onclick = () => {
+        examReviewContainer.classList.add('d-none');
+        examResultsContainer.classList.remove('d-none');
+    };
+}
 
     function resetToSetup() {
         examResultsContainer.classList.add('d-none');
