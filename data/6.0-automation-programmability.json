@@ -1,1 +1,16 @@
-
+[
+  {
+    "id": "automation_q1",
+    "category": "6.0-automation-programmability",
+    "question_es": "En el contexto de las redes basadas en controladores (controller-based networking), ¿qué describe mejor la función de las APIs Southbound?",
+    "question_en": "In the context of controller-based networking, what best describes the function of Southbound APIs?",
+    "options": [
+      { "text_es": "Permiten que las aplicaciones de negocio y los sistemas de orquestación se comuniquen con el controlador de red.", "text_en": "They allow business applications and orchestration systems to communicate with the network controller.", "isCorrect": false },
+      { "text_es": "Permiten la comunicación entre múltiples controladores de red en diferentes dominios.", "text_en": "They enable communication between multiple network controllers in different domains.", "isCorrect": false },
+      { "text_es": "Permiten que el controlador de red se comunique con los dispositivos de red físicos y virtuales (como switches y routers) en el plano de datos.", "text_en": "They allow the network controller to communicate with the physical and virtual network devices (like switches and routers) in the data plane.", "isCorrect": true },
+      { "text_es": "Se utilizan para que los administradores de red accedan a la interfaz gráfica del controlador.", "text_en": "They are used by network administrators to access the controller's graphical user interface.", "isCorrect": false }
+    ],
+    "explanation_es": "Las APIs Southbound (hacia el sur) se utilizan para la comunicación desde el controlador de red hacia los dispositivos de la infraestructura subyacente (underlay). Protocolos como OpenFlow, NETCONF o SNMP son ejemplos de interfaces southbound que permiten al controlador (plano de control) programar y gestionar el comportamiento de reenvío de los switches y routers (plano de datos).",
+    "explanation_en": "Southbound APIs are used for communication from the network controller down to the underlying infrastructure devices (the underlay). Protocols like OpenFlow, NETCONF, or SNMP are examples of southbound interfaces that allow the controller (control plane) to program and manage the forwarding behavior of switches and routers (data plane)."
+  }
+]
