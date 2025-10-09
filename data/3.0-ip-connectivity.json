@@ -90,5 +90,28 @@
     ],
     "explanation_es": "El tráfico destinado a 'Internet' utiliza la ruta por defecto, también conocida como 'Gateway of last resort'. En la tabla de enrutamiento, esta ruta se muestra como `S* 0.0.0.0/0 [1/0] via 172.16.2.2`. El formato `[AD/métrica]` indica la Distancia Administrativa (AD) y la métrica. El primer valor en los corchetes es la AD, que en este caso es 1, el valor por defecto para una ruta estática.",
     "explanation_en": "Traffic destined for the 'Internet' uses the default route, also known as the 'Gateway of last resort'. In the routing table, this route is shown as `S* 0.0.0.0/0 [1/0] via 172.16.2.2`. The format `[AD/metric]` indicates the Administrative Distance (AD) and the metric. The first value in the brackets is the AD, which in this case is 1, the default value for a static route."
+  },
+  {
+    "id": "routing_decision_lpm_q3_final",
+    "category": "3.0-ip-connectivity",
+    "topic": {
+      "id": "3.2",
+      "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
+      "description_en": "Determine how a router makes a forwarding decision by default",
+      "subtopic_id": "3.2.a",
+      "subtopic_description": "Longest prefix match"
+    },
+    "question_es": "Consulte la información. ¿Cuál es el siguiente salto para el tráfico que entra en R1 con un destino de 10.1.2.126?",
+    "question_en": "Refer to the exhibit. What is the next hop for traffic entering R1 with a destination of 10.1.2.126?",
+    "image": null,
+    "code": "R1# show ip route\nCodes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP\n       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area\n\nGateway of last resort is not set\n\n     10.0.0.0/24 is subnetted, 5 subnets\nD    10.1.2.0/24 [90/2170112] via 10.165.20.226, 00:01:30, Serial0/0\nD    10.1.3.0/24 [90/2170112] via 10.165.20.226, 00:01:30, Serial0/0\nD    10.1.2.0/25 [90/2170112] via 10.165.20.126, 00:01:30, Serial0/0\nD    10.1.3.0/25 [90/2170112] via 10.165.20.146, 00:01:30, Serial0/0\nD    10.1.4.0/25 [90/2170112] via 10.165.20.156, 00:01:30, Serial0/0\n     192.168.10.0/24 is variably subnetted, 2 subnets, 2 masks\nC    192.168.10.0/24 is directly connected, GigabitEthernet0/0\n     192.168.11.0/24 is variably subnetted, 2 subnets, 2 masks\nC    192.168.11.0/24 is directly connected, GigabitEthernet0/1\n     10.165.20.0/24 is variably subnetted, 2 subnets, 2 masks\nC    10.165.20.0/24 is directly connected, Serial0/0\nS    10.1.2.112/28 [1/0] via 10.165.20.166",
+    "options": [
+      { "text_es": "10.165.20.166", "text_en": "10.165.20.166", "isCorrect": true },
+      { "text_es": "10.165.20.226", "text_en": "10.165.20.226", "isCorrect": false },
+      { "text_es": "10.165.20.146", "text_en": "10.165.20.146", "isCorrect": false },
+      { "text_es": "10.165.20.126", "text_en": "10.165.20.126", "isCorrect": false }
+    ],
+    "explanation_es": "El router sigue la regla de la 'coincidencia de prefijo más larga' para elegir la mejor ruta. Para el destino 10.1.2.126, coinciden tres rutas con prefijos /24, /25 y /28. Dado que /28 es el prefijo más largo y, por lo tanto, el más específico, el router elegirá la ruta estática (S) `10.1.2.112/28`. El siguiente salto para esta ruta es `10.165.20.166`.",
+    "explanation_en": "The router follows the 'longest prefix match' rule to choose the best path. For the destination 10.1.2.126, three routes match with /24, /25, and /28 prefixes. Since /28 is the longest and therefore most specific prefix, the router will choose the static route (S) `10.1.2.112/28`. The next hop for this route is `10.165.20.166`."
   }
 ]
