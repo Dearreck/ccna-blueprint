@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- REFERENCIAS AL DOM (Añadimos el contenedor de revisión) ---
+    // --- REFERENCIAS AL DOM ---
     const categorySelectionContainer = document.getElementById('category-selection-container');
     const startExamBtn = document.getElementById('start-exam-btn');
     const examSetupContainer = document.getElementById('exam-setup-container');
@@ -102,6 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (questionCount !== 'all') {
             currentExamQuestions = currentExamQuestions.slice(0, parseInt(questionCount));
         }
+
+        // Pre-procesamos TODAS las preguntas para añadirles su lista de opciones barajadas.
+        // Esto evita errores en la revisión si el examen se termina antes de tiempo.
+        currentExamQuestions.forEach(question => {
+            question.shuffledOptions = shuffleArray([...question.options]);
+        });
         
         currentQuestionIndex = 0;
         examStats = { correct: 0, incorrect: 0, skipped: 0 };
@@ -138,13 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const endButtonText = i1n.get('btn_end_exam');
         const questionText = question[`question_${lang}`] || question.question_en;
         const headerText = `${i1n.get('question_header')} ${currentQuestionIndex + 1} ${i1n.get('question_of')} ${currentExamQuestions.length}`;
-
-        // 1. Crea el HTML del temporizador SOLO si estamos en modo examen.
-        const timerHTML = examMode === 'exam' 
-            ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` 
-            : ''; // Si no, crea una cadena vacía.
+        const timerHTML = examMode === 'exam' ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` : ''; // Si no, crea una cadena vacía.
     
-        // 2. Construye el HTML principal usando la variable timerHTML.
         let cardBodyHTML = `
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-transparent border-0 pt-4 px-4">
@@ -159,11 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${question.image ? `<div class="text-center my-3"><img src="${question.image}" class="img-fluid rounded" alt="Imagen de la pregunta"></div>` : ''}
                     <div id="options-container" class="mt-4">`;
 
-        // Si las opciones no han sido barajadas para esta pregunta, se barajan una vez.
-        if (!question.shuffledOptions) {
-            question.shuffledOptions = shuffleArray([...question.options]);
-        }
-        
         question.shuffledOptions.forEach((option, index) => {
             const optionText = option[`text_${lang}`] || option.text_en || option.text_es;
             cardBodyHTML += `
