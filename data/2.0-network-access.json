@@ -1,1 +1,16 @@
-
+[
+  {
+    "id": "vlan_q1",
+    "category": "2.0-network-access",
+    "question_es": "¿Cuál es el propósito principal de configurar un puerto de switch en modo de acceso (access port)?",
+    "question_en": "What is the primary purpose of configuring a switch port in access mode?",
+    "options": [
+      { "text_es": "Permitir que el puerto transporte tráfico para múltiples VLANs simultáneamente.", "text_en": "To allow the port to carry traffic for multiple VLANs simultaneously.", "isCorrect": false },
+      { "text_es": "Asignar el puerto a una única VLAN para que los dispositivos conectados a él pertenezcan a esa VLAN.", "text_en": "To assign the port to a single VLAN so that devices connected to it belong to that VLAN.", "isCorrect": true },
+      { "text_es": "Crear un enlace troncal (trunk) para conectar con otro switch.", "text_en": "To create a trunk link to connect to another switch.", "isCorrect": false },
+      { "text_es": "Deshabilitar el puerto para evitar el acceso no autorizado.", "text_en": "To disable the port to prevent unauthorized access.", "isCorrect": false }
+    ],
+    "explanation_es": "Un puerto en modo de acceso está configurado para pertenecer a una sola VLAN. Su función es conectar dispositivos finales (como computadoras, impresoras o teléfonos IP) a la red, asegurando que todo el tráfico que pasa por él se asocie con esa VLAN específica.",
+    "explanation_en": "An access mode port is configured to belong to a single VLAN. Its function is to connect end devices (such as computers, printers, or IP phones) to the network, ensuring that all traffic passing through it is associated with that specific VLAN."
+  }
+]
