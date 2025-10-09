@@ -2,6 +2,7 @@
   {
     "id": "routing_decision_lpm_q1",
     "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
     "topic": {
       "id": "3.2",
       "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
@@ -25,6 +26,7 @@
   {
     "id": "routing_decision_ad_metric_q1",
     "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
     "topic": {
       "id": "3.2",
       "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
@@ -48,6 +50,7 @@
   {
     "id": "routing_decision_lpm_q2",
     "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
     "topic": {
       "id": "3.2",
       "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
@@ -71,6 +74,7 @@
   {
     "id": "default_route_ad_q1",
     "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
     "topic": {
       "id": "3.1",
       "description_es": "Interpretar los componentes de la tabla de enrutamiento",
@@ -94,6 +98,7 @@
   {
     "id": "routing_decision_lpm_q3_final",
     "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
     "topic": {
       "id": "3.2",
       "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
