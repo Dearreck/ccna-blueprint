@@ -1,1 +1,16 @@
-
+[
+  {
+    "id": "l2_security_q1",
+    "category": "5.0-security-fundamentals",
+    "question_es": "¿Qué característica de seguridad de Capa 2 se utiliza para mitigar los ataques de suplantación de MAC (MAC spoofing) y desbordamiento de la tabla CAM (CAM table overflow), al limitar el número de direcciones MAC que se pueden aprender en un puerto de switch?",
+    "question_en": "Which Layer 2 security feature is used to mitigate MAC spoofing and CAM table overflow attacks by limiting the number of MAC addresses that can be learned on a switch port?",
+    "options": [
+      { "text_es": "DHCP Snooping", "text_en": "DHCP Snooping", "isCorrect": false },
+      { "text_es": "Dynamic ARP Inspection (DAI)", "text_en": "Dynamic ARP Inspection (DAI)", "isCorrect": false },
+      { "text_es": "Port Security", "text_en": "Port Security", "isCorrect": true },
+      { "text_es": "802.1X Authentication", "text_en": "802.1X Authentication", "isCorrect": false }
+    ],
+    "explanation_es": "La seguridad de puertos (Port Security) permite a un administrador de red especificar las direcciones MAC de los dispositivos que tienen permitido conectarse a un puerto. También puede limitar el número máximo de direcciones MAC que un puerto puede aprender. Si se viola la política, el puerto puede ser configurado para deshabilitarse, protegiendo así la red contra accesos no autorizados y ataques de desbordamiento de la tabla MAC.",
+    "explanation_en": "Port Security allows a network administrator to specify the MAC addresses of devices that are allowed to connect to a port. It can also limit the maximum number of MAC addresses a port can learn. If the policy is violated, the port can be configured to shut down, thereby protecting the network against unauthorized access and MAC table overflow attacks."
+  }
+]
