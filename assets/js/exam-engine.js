@@ -1,16 +1,15 @@
-// assets/js/exam-engine.js (Versión SPA Refactorizada)
-
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- REFERENCIAS AL DOM ---
+    // --- REFERENCIAS AL DOM (Añadimos el contenedor de revisión) ---
     const categorySelectionContainer = document.getElementById('category-selection-container');
     const startExamBtn = document.getElementById('start-exam-btn');
     const examSetupContainer = document.getElementById('exam-setup-container');
     const examQuestionsContainer = document.getElementById('exam-questions-container');
     const questionCountSelect = document.getElementById('question-count-select');
     const examResultsContainer = document.getElementById('exam-results-container');
+    const examReviewContainer = document.getElementById('exam-review-container');
 
-    // --- ESTADO DEL EXAMEN (Ahora persiste mientras no se recargue la página) ---
+    // --- ESTADO DEL EXAMEN ---
     let allQuestions = [];
     let currentExamQuestions = [];
     let currentQuestionIndex = 0;
@@ -19,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let timerInterval = null;
     let timeRemaining = 0;
 
-    // --- DEFINICIÓN DE CATEGORÍAS ---
     const examCategories = [
         { id: '1.0-network-fundamentals', i18nKey: 'category_1_0' },
         { id: '2.0-network-access', i18nKey: 'category_2_0' },
@@ -218,18 +216,19 @@ document.addEventListener('DOMContentLoaded', () => {
      * Lógica para el modo estudio: muestra feedback inmediato.
      */
     function handleStudyModeAnswer(selectedOptionInput) {
+        const question = currentExamQuestions[currentQuestionIndex];
+        const selectedOptionIndex = parseInt(selectedOptionInput.value);
+        question.userAnswerIndex = selectedOptionIndex; // Guardamos la respuesta del usuario
+        
         document.getElementById('skip-question-btn').disabled = true;
         document.getElementById('end-exam-btn').disabled = true;
         
-        const question = currentExamQuestions[currentQuestionIndex];
         const lang = i1n.currentLanguage || 'es';
-        const selectedOptionIndex = parseInt(selectedOptionInput.value);
         const selectedOption = question.shuffledOptions[selectedOptionIndex];
         
         if (selectedOption.isCorrect) examStats.correct++;
         else examStats.incorrect++;
         
-        // Deshabilita y colorea las opciones
         document.querySelectorAll('#options-container .form-check-input').forEach(input => input.disabled = true);
         question.shuffledOptions.forEach((option, index) => {
             const label = document.querySelector(`label[for="option${index}"]`);
@@ -250,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const actionButton = document.getElementById('check-answer-btn');
         actionButton.textContent = i1n.get('btn_next');
-        actionButton.onclick = proceedToNextQuestion; // Cambia la acción del botón
+        actionButton.onclick = proceedToNextQuestion;
     }
 
     /**
@@ -259,6 +258,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleExamModeAnswer(selectedOptionInput) {
         const question = currentExamQuestions[currentQuestionIndex];
         const selectedOptionIndex = parseInt(selectedOptionInput.value);
+        question.userAnswerIndex = selectedOptionIndex; // Guardamos la respuesta del usuario
+
         const selectedOption = question.shuffledOptions[selectedOptionIndex];
 
         if (selectedOption.isCorrect) examStats.correct++;
@@ -271,6 +272,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * Salta la pregunta actual.
      */
     function skipQuestion() {
+        // Guardamos que la pregunta fue omitida
+        currentExamQuestions[currentQuestionIndex].userAnswerIndex = 'skipped'; 
         examStats.skipped++;
         proceedToNextQuestion();
     }
@@ -299,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Muestra la pantalla de resultados. Se usa al finalizar y al re-renderizar.
      */
     function displayResults(stats, totalQuestions) {
-        examResultsContainer.classList.remove('d-none'); // Asegura que sea visible
+        examResultsContainer.classList.remove('d-none');
         const scorePercentage = totalQuestions > 0 ? Math.round((stats.correct / totalQuestions) * 100) : 0;
 
         document.getElementById('results-score').textContent = `${scorePercentage}%`;
@@ -311,6 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#results-correct + small').textContent = i1n.get('results_correct');
         document.querySelector('#results-incorrect + small').textContent = i1n.get('results_incorrect');
         document.querySelector('#results-skipped + small').textContent = i1n.get('results_skipped');
+        document.getElementById('review-exam-btn').textContent = i1n.get('btn_review');
         document.getElementById('restart-exam-btn').textContent = i1n.get('btn_restart');
         document.querySelector('#exam-results-container a').textContent = i1n.get('btn_back_home');
 
@@ -324,7 +328,63 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('results-title').textContent = i1n.get('results_title_practice');
         }
         
+        // Asignamos los event listeners a los botones de la pantalla de resultados
+        document.getElementById('review-exam-btn').onclick = displayExamReview;
         document.getElementById('restart-exam-btn').onclick = resetToSetup;
+    }
+
+    /**
+     * NUEVO: Genera y muestra la pantalla de revisión del examen.
+     */
+    function displayExamReview() {
+        examResultsContainer.classList.add('d-none');
+        examReviewContainer.classList.remove('d-none');
+        examReviewContainer.innerHTML = ''; // Limpiamos contenido previo
+
+        const lang = i1n.currentLanguage || 'es';
+        let reviewHTML = `<div class="row"><div class="col-12 col-lg-8 offset-lg-2">`;
+        reviewHTML += `<h1 class="text-center mb-4">${i1n.get('review_title')}</h1>`;
+
+        currentExamQuestions.forEach((question, index) => {
+            const questionText = question[`question_${lang}`] || question.question_en;
+            const explanationText = question[`explanation_${lang}`] || question.explanation_en;
+
+            reviewHTML += `<div class="card review-question-card">
+                            <div class="card-header"><strong>Pregunta ${index + 1}:</strong> ${questionText}</div>
+                            <div class="card-body">`;
+            
+            question.shuffledOptions.forEach((option, optionIndex) => {
+                const optionText = option[`text_${lang}`] || option.text_en;
+                let optionClass = 'review-option';
+                
+                if (option.isCorrect) {
+                    optionClass += ' correct-answer'; // Siempre resalta la correcta
+                } else if (question.userAnswerIndex === optionIndex) {
+                    optionClass += ' incorrect-answer'; // Si el usuario la marcó y es incorrecta
+                }
+
+                reviewHTML += `<div class="${optionClass}">${optionText}</div>`;
+            });
+
+            if(question.userAnswerIndex === 'skipped'){
+                reviewHTML += `<div class="alert alert-warning mt-2">Pregunta Omitida</div>`;
+            }
+
+            reviewHTML += `<div class="alert alert-info mt-3 explanation-box">
+                            <strong>${i1n.get('explanation_label')}:</strong> ${explanationText}
+                           </div>`;
+
+            reviewHTML += `</div></div>`;
+        });
+        
+        reviewHTML += `<div class="text-center mt-4"><button id="back-to-results-btn" class="btn btn-primary">${i1n.get('review_back_button')}</button></div>`
+        reviewHTML += `</div></div>`;
+        
+        examReviewContainer.innerHTML = reviewHTML;
+        document.getElementById('back-to-results-btn').onclick = () => {
+            examReviewContainer.classList.add('d-none');
+            examResultsContainer.classList.remove('d-none');
+        };
     }
 
     /**
