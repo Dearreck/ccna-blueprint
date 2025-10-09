@@ -44,5 +44,28 @@
     ],
     "explanation_es": "La configuración correcta requiere varios elementos: 1. Para filtrar el acceso a las líneas VTY (acceso remoto como SSH), se utiliza el comando `access-class in` bajo la configuración de `line vty`, no `access-group` en una interfaz. 2. Dado que SSH usa TCP puerto 22, se necesita una ACL extendida para poder filtrar por protocolo y puerto. 3. La ACL `permit tcp 10.139.58.0 0.0.0.15 any eq 22` permite correctamente el tráfico TCP desde la subred de origen /28 (cuya wildcard es 0.0.0.15) a cualquier destino (las interfaces del router) en el puerto 22 (SSH).",
     "explanation_en": "The correct configuration requires several elements: 1. To filter access to the VTY lines (remote access like SSH), the `access-class in` command is used under the `line vty` configuration, not `access-group` on an interface. 2. Since SSH uses TCP port 22, an extended ACL is required to filter by protocol and port. 3. The ACL `permit tcp 10.139.58.0 0.0.0.15 any eq 22` correctly permits TCP traffic from the source /28 subnet (which has a wildcard of 0.0.0.15) to any destination (the router's interfaces) on port 22 (SSH)."
+  },
+  {
+    "id": "wpa3_encryption_q1",
+    "category": "5.0-security-fundamentals",
+    "topic": {
+      "id": "5.9",
+      "description_es": "Describir los protocolos de seguridad inalámbrica (WPA, WPA2 y WPA3)",
+      "description_en": "Describe wireless security protocols (WPA, WPA2, and WPA3)",
+      "subtopic_id": "5.9",
+      "subtopic_description": "WPA3"
+    },
+    "question_es": "¿Qué método de cifrado es utilizado por WPA3?",
+    "question_en": "Which encryption method is used by WPA3?",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "TKIP", "text_en": "TKIP", "isCorrect": false },
+      { "text_es": "SAE", "text_en": "SAE", "isCorrect": false },
+      { "text_es": "PSK", "text_en": "PSK", "isCorrect": false },
+      { "text_es": "AES", "text_en": "AES", "isCorrect": true }
+    ],
+    "explanation_es": "WPA3 continúa utilizando el robusto cifrado AES (Advanced Encryption Standard) para la confidencialidad de los datos, al igual que WPA2. Aunque WPA3 introduce un nuevo método de intercambio de claves llamado SAE (Simultaneous Authentication of Equals) para reemplazar a PSK, el algoritmo de cifrado subyacente para el tráfico de datos sigue siendo AES.",
+    "explanation_en": "WPA3 continues to use the robust AES (Advanced Encryption Standard) cipher for data confidentiality, just like WPA2. Although WPA3 introduces a new key exchange method called SAE (Simultaneous Authentication of Equals) to replace PSK, the underlying encryption algorithm for the data traffic remains AES."
   }
 ]
