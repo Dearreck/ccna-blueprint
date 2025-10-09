@@ -257,14 +257,18 @@ document.addEventListener('DOMContentLoaded', () => {
         stopTimer();
         examQuestionsContainer.classList.add('d-none');
 
-        // Calcula cuántas preguntas ya han tenido un resultado (correcta, incorrecta u omitida con el botón "Omitir").
-        const questionsProcessed = examStats.correct + examStats.incorrect + examStats.skipped;
-        // Calcula cuántas preguntas no se respondieron.
-        const unansweredQuestions = currentExamQuestions.length - questionsProcessed;
-    
-        // Si hay preguntas sin responder, se añaden al contador de 'omitidas'.
-        if (unansweredQuestions > 0) {
-            examStats.skipped += unansweredQuestions;
+        // Se recorren las preguntas desde el índice actual hasta el final.
+        for (let i = currentQuestionIndex; i < currentExamQuestions.length; i++) {
+            const question = currentExamQuestions[i];
+            
+            // Si una pregunta no ha sido respondida (su estado es null),
+            // se actualiza su estado individual a 'skipped'.
+            if (question.userAnswerIndex === null) {
+                question.userAnswerIndex = 'skipped';
+                
+                // También se actualiza la estadística general para mantener la consistencia.
+                examStats.skipped++; 
+            }
         }
         
         saveExamAttempt();
