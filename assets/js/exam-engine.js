@@ -121,87 +121,183 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function displayQuestion() {
-    if (currentQuestionIndex >= currentExamQuestions.length) {
-        finishExam();
-        return;
-    }
-
-    const question = currentExamQuestions[currentQuestionIndex];
-    const lang = i1n.currentLanguage || 'es';
-
-    const buttonText = examMode === 'study' ? i1n.get('btn_verify') : i1n.get('btn_next');
-    const skipButtonText = i1n.get('btn_skip');
-    const endButtonText = i1n.get('btn_end_exam');
-    const questionText = question[`question_${lang}`] || question.question_en;
-    const headerText = `${i1n.get('question_header')} ${currentQuestionIndex + 1} ${i1n.get('question_of')} ${currentExamQuestions.length}`;
-    const timerHTML = examMode === 'exam' ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` : '';
-
-    let imageHTML = '', codeHTML = '';
-    if (question.image) {
-        imageHTML = `<div class="text-center my-3"><img src="../data/images/${question.image}" class="img-fluid rounded border" alt="Diagrama de la pregunta"></div>`;
-    }
-    if (question.code) {
-        codeHTML = `<pre class="code-block"><code>${question.code}</code></pre>`;
-    }
-
-    let cardHTML = `
-        <div class="card shadow-sm border-0">
-            <div class="card-header bg-transparent border-0 pt-4 px-4">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">${headerText}</h5>
-                    ${timerHTML}
-                </div>
-            </div>
-            <div class="card-body p-4 p-md-5">
-                <p class="question-text lead">${questionText}</p>
-                ${imageHTML}
-                ${codeHTML}
-                <div id="options-container" class="mt-4">`;
+        if (currentQuestionIndex >= currentExamQuestions.length) {
+            finishExam();
+            return;
+        }
     
-    question.shuffledOptions.forEach((option, index) => {
-        const optionText = option[`text_${lang}`] || option.text_en || option.text_es;
-        cardHTML += `
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="radio" name="questionOptions" id="option${index}" value="${index}">
-                <label class="form-check-label" for="option${index}">${optionText}</label>
-            </div>`;
-    });
+        const question = currentExamQuestions[currentQuestionIndex];
+        const lang = i1n.currentLanguage || 'es';
     
-    cardHTML += `
-                </div>
-            </div>
-            <div class="card-footer bg-transparent border-0 pb-4 px-4 d-flex justify-content-between align-items-center">
-                <div><button id="end-exam-btn" class="btn btn-sm btn-outline-danger">${endButtonText}</button></div>
-                <div>
-                    <button id="skip-question-btn" class="btn btn-secondary me-2">${skipButtonText}</button>
-                    <button id="check-answer-btn" class="btn btn-primary"></button>
-                </div>
-            </div>
-        </div>`;
+        const buttonText = examMode === 'study' ? i1n.get('btn_verify') : i1n.get('btn_next');
+        const skipButtonText = i1n.get('btn_skip');
+        const endButtonText = i1n.get('btn_end_exam');
+        const questionText = question[`question_${lang}`] || question.question_en;
+        const headerText = `${i1n.get('question_header')} ${currentQuestionIndex + 1} ${i1n.get('question_of')} ${currentExamQuestions.length}`;
+        const timerHTML = examMode === 'exam' ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` : '';
     
-    examQuestionsContainer.innerHTML = cardHTML;
+        let imageHTML = '', codeHTML = '';
+        if (question.image) {
+            imageHTML = `<div class="text-center my-3"><img src="../data/images/${question.image}" class="img-fluid rounded border" alt="Diagrama de la pregunta"></div>`;
+        }
+        if (question.code) {
+            codeHTML = `<pre class="code-block"><code>${question.code}</code></pre>`;
+        }
+    
+        let cardHTML = `
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-transparent border-0 pt-4 px-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">${headerText}</h5>
+                        ${timerHTML}
+                    </div>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <p class="question-text lead">${questionText}</p>
+                    ${imageHTML}
+                    ${codeHTML}
+                    <div id="options-container" class="mt-4">`;
 
-    // --- INICIO DE LA SOLUCIÓN ---
-    const isAlreadyAnsweredInStudyMode = question.userAnswerIndex !== null && examMode === 'study';
-    const actionButton = document.getElementById('check-answer-btn');
-
-    if (isAlreadyAnsweredInStudyMode) {
-        // La pregunta ya fue respondida, así que la renderizamos en su estado final
-        document.querySelectorAll('#options-container .form-check-input').forEach(input => input.disabled = true);
-
+        // Determina el tipo de input a usar
+        const inputType = question.isMultipleChoice ? 'checkbox' : 'radio';
+        
         question.shuffledOptions.forEach((option, index) => {
-            const label = document.querySelector(`label[for="option${index}"]`);
-            if (option.isCorrect) {
-                label.classList.add('correct');
-                if (question.userAnswerIndex === index) { // Si el usuario acertó, marcamos su selección
+            const optionText = option[`text_${lang}`] || option.text_en || option.text_es;
+            cardHTML += `
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="${inputType}" name="questionOptions" id="option${index}" value="${index}">
+                    <label class="form-check-label" for="option${index}">${optionText}</label>
+                </div>`;
+        });
+        
+        cardHTML += `
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 pb-4 px-4 d-flex justify-content-between align-items-center">
+                    <div><button id="end-exam-btn" class="btn btn-sm btn-outline-danger">${endButtonText}</button></div>
+                    <div>
+                        <button id="skip-question-btn" class="btn btn-secondary me-2">${skipButtonText}</button>
+                        <button id="check-answer-btn" class="btn btn-primary"></button>
+                    </div>
+                </div>
+            </div>`;
+        
+        examQuestionsContainer.innerHTML = cardHTML;
+    
+        // --- INICIO DE LA SOLUCIÓN ---
+        const isAlreadyAnsweredInStudyMode = question.userAnswerIndex !== null && examMode === 'study';
+        const actionButton = document.getElementById('check-answer-btn');
+    
+        if (isAlreadyAnsweredInStudyMode) {
+            // La pregunta ya fue respondida, así que la renderizamos en su estado final
+            document.querySelectorAll('#options-container .form-check-input').forEach(input => input.disabled = true);
+    
+            question.shuffledOptions.forEach((option, index) => {
+                const label = document.querySelector(`label[for="option${index}"]`);
+                if (option.isCorrect) {
+                    label.classList.add('correct');
+                    if (question.userAnswerIndex === index) { // Si el usuario acertó, marcamos su selección
+                        document.getElementById(`option${index}`).checked = true;
+                    }
+                } else if (index === question.userAnswerIndex) {
+                    label.classList.add('incorrect');
                     document.getElementById(`option${index}`).checked = true;
                 }
-            } else if (index === question.userAnswerIndex) {
+            });
+    
+            const explanationText = question[`explanation_${lang}`] || question.explanation_en;
+            if (explanationText) {
+                const explanationDiv = document.createElement('div');
+                explanationDiv.className = 'alert alert-info mt-4 explanation-box';
+                explanationDiv.innerHTML = `<strong>${i1n.get('explanation_label')}:</strong> ${explanationText}`;
+                document.querySelector('.card-body #options-container').insertAdjacentElement('afterend', explanationDiv);
+            }
+    
+            actionButton.textContent = i1n.get('btn_next');
+            actionButton.onclick = proceedToNextQuestion;
+        } else {
+            // Comportamiento normal para preguntas no respondidas
+            actionButton.textContent = buttonText;
+            actionButton.onclick = handleAnswerSubmission;
+        }
+        // --- FIN DE LA SOLUCIÓN ---
+    
+        if (examMode === 'exam') updateTimerDisplay();
+        document.getElementById('skip-question-btn').addEventListener('click', skipQuestion);
+        document.getElementById('end-exam-btn').addEventListener('click', finishExam);
+    }
+    
+    // Esta función necesita ser reescrita para manejar ambos casos
+    function handleAnswerSubmission() {
+        const selectedInputs = document.querySelectorAll('input[name="questionOptions"]:checked');
+        if (selectedInputs.length === 0) {
+            alert(i1n.get('alert_select_answer'));
+            return;
+        }
+    
+        // Guardamos un array de índices seleccionados
+        const selectedIndices = Array.from(selectedInputs).map(input => parseInt(input.value, 10));
+        
+        const question = currentExamQuestions[currentQuestionIndex];
+        // Guardamos el array para preguntas de selección múltiple, o solo el número para las de selección única
+        question.userAnswerIndex = question.isMultipleChoice ? selectedIndices : selectedIndices[0];
+    
+        // Lógica de Verificación
+        let isCompletelyCorrect = false;
+        if (question.isMultipleChoice) {
+            const correctIndices = new Set(
+                question.shuffledOptions.map((opt, i) => opt.isCorrect ? i : -1).filter(i => i !== -1)
+            );
+            const selectedIndicesSet = new Set(selectedIndices);
+            
+            // La respuesta es correcta si ambos conjuntos son idénticos en tamaño y contenido
+            isCompletelyCorrect = correctIndices.size === selectedIndicesSet.size && 
+                                  [...correctIndices].every(i => selectedIndicesSet.has(i));
+        } else {
+            // Lógica original para preguntas de selección única
+            const selectedOption = question.shuffledOptions[selectedIndices[0]];
+            isCompletelyCorrect = selectedOption.isCorrect;
+        }
+    
+        if (examMode === 'study') {
+            // En modo estudio, mostramos la explicación y el feedback
+            if (isCompletelyCorrect) {
+                examStats.correct++;
+            } else {
+                examStats.incorrect++;
+            }
+            showStudyModeFeedback(); // Nueva función para encapsular el feedback visual
+        } else {
+            // En modo examen, solo contamos y avanzamos
+            if (isCompletelyCorrect) {
+                examStats.correct++;
+            } else {
+                examStats.incorrect++;
+            }
+            proceedToNextQuestion();
+        }
+    }
+
+    // Nueva función para el feedback visual en Modo Estudio
+    function showStudyModeFeedback() {
+        const question = currentExamQuestions[currentQuestionIndex];
+        const lang = i1n.currentLanguage || 'es';
+    
+        document.querySelectorAll('#options-container .form-check-input').forEach(input => input.disabled = true);
+        
+        question.shuffledOptions.forEach((option, index) => {
+            const label = document.querySelector(`label[for="option${index}"]`);
+            const userSelectedThis = Array.isArray(question.userAnswerIndex) 
+                ? question.userAnswerIndex.includes(index)
+                : question.userAnswerIndex === index;
+    
+            if (option.isCorrect) {
+                label.classList.add('correct');
+            } else if (userSelectedThis && !option.isCorrect) {
                 label.classList.add('incorrect');
-                document.getElementById(`option${index}`).checked = true;
             }
         });
-
+    
         const explanationText = question[`explanation_${lang}`] || question.explanation_en;
         if (explanationText) {
             const explanationDiv = document.createElement('div');
@@ -209,33 +305,13 @@ document.addEventListener('DOMContentLoaded', () => {
             explanationDiv.innerHTML = `<strong>${i1n.get('explanation_label')}:</strong> ${explanationText}`;
             document.querySelector('.card-body #options-container').insertAdjacentElement('afterend', explanationDiv);
         }
-
+    
+        const actionButton = document.getElementById('check-answer-btn');
         actionButton.textContent = i1n.get('btn_next');
         actionButton.onclick = proceedToNextQuestion;
-    } else {
-        // Comportamiento normal para preguntas no respondidas
-        actionButton.textContent = buttonText;
-        actionButton.onclick = handleAnswerSubmission;
-    }
-    // --- FIN DE LA SOLUCIÓN ---
-
-    if (examMode === 'exam') updateTimerDisplay();
-    document.getElementById('skip-question-btn').addEventListener('click', skipQuestion);
-    document.getElementById('end-exam-btn').addEventListener('click', finishExam);
-}
-    
-    function handleAnswerSubmission() {
-        const selectedOptionInput = document.querySelector('input[name="questionOptions"]:checked');
-        if (!selectedOptionInput) {
-            alert(i1n.get('alert_select_answer'));
-            return;
-        }
-
-        if (examMode === 'study') {
-            handleStudyModeAnswer(selectedOptionInput);
-        } else {
-            handleExamModeAnswer(selectedOptionInput);
-        }
+        
+        document.getElementById('skip-question-btn').disabled = true;
+        document.getElementById('end-exam-btn').disabled = true;
     }
 
     function handleStudyModeAnswer(selectedOptionInput) {
