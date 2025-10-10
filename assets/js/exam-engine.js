@@ -175,15 +175,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const categoryInfo = CATEGORY_CONFIG[question.category] || { color: '#6c757d', icon: 'fa-question-circle' };
 
-        // 1. Obtenemos el nombre completo de la categoría usando el motor de traducción.
-        const categoryName = i1n.get(examCategories.find(c => c.id === question.category)?.i18nKey || question.category);
+        // 1. Selecciona la descripción del tema en el idioma correcto.
+        const topicDescription = question.topic ? (question.topic[`description_${lang}`] || question.topic.description_en) : '';
         
-        // 2. Definimos el título y el contenido como tú sugeriste.
-        const popoverTitle = categoryName; 
+        // 2. Construye el contenido del popover usando la descripción dinámica.
         const popoverContent = question.topic 
-            // Se usan comillas simples (') dentro del atributo para no romper el HTML.
-            ? `<strong>${question.topic.id}:</strong> ${question.topic.description_es}<br><small class='text-muted'>${question.topic.subtopic_id}: ${question.topic.subtopic_description}</small>`
-            : 'Información de subtema no disponible.';
+            ? `<strong>${question.topic.id}:</strong> ${topicDescription}<br><small class='text-muted'>${question.topic.subtopic_id}: ${question.topic.subtopic_description}</small>`
+            : 'Subtopic information not available.';
         
         // --- FIN DE LA SOLUCIÓN ---
         
@@ -525,15 +523,13 @@ function renderReviewPage() {
 
     const categoryInfo = CATEGORY_CONFIG[question.category] || { color: '#6c757d', icon: 'fa-question-circle' };
 
-    // 1. Obtenemos el nombre completo de la categoría usando el motor de traducción.
-    const categoryName = i1n.get(examCategories.find(c => c.id === question.category)?.i18nKey || question.category);
+    // 1. Selecciona la descripción del tema en el idioma correcto.
+    const topicDescription = question.topic ? (question.topic[`description_${lang}`] || question.topic.description_en) : '';
     
-    // 2. Definimos el título y el contenido como tú sugeriste.
-    const popoverTitle = categoryName; 
+    // 2. Construye el contenido del popover usando la descripción dinámica.
     const popoverContent = question.topic 
-        // Se usan comillas simples (') dentro del atributo para no romper el HTML.
-        ? `<strong>${question.topic.id}:</strong> ${question.topic.description_es}<br><small class='text-muted'>${question.topic.subtopic_id}: ${question.topic.subtopic_description}</small>`
-        : 'Información de subtema no disponible.';
+        ? `<strong>${question.topic.id}:</strong> ${topicDescription}<br><small class='text-muted'>${question.topic.subtopic_id}: ${question.topic.subtopic_description}</small>`
+        : 'Subtopic information not available.';
     
     const categoryBadgeHTML = `
         <div class="category-badge" 
