@@ -174,35 +174,37 @@ document.addEventListener('DOMContentLoaded', () => {
         const lang = i1n.currentLanguage || 'es';
 
         const categoryInfo = CATEGORY_CONFIG[question.category] || { color: '#6c757d', icon: 'fa-question-circle' };
-
-        // 1. Selecciona la descripción del tema en el idioma correcto.
+    
+        // Obtenemos el nombre de la categoría del motor de traducción
+        const categoryName = i1n.get(examCategories.find(c => c.id === question.category)?.i18nKey || question.category);
+    
+        // Seleccionamos la descripción del tema en el idioma correcto
         const topicDescription = question.topic ? (question.topic[`description_${lang}`] || question.topic.description_en) : '';
-        
-        // 2. Construye el contenido del popover usando la descripción dinámica.
+    
+        // Definimos el título y contenido del popover
+        const popoverTitle = categoryName; 
         const popoverContent = question.topic 
             ? `<strong>${question.topic.id}:</strong> ${topicDescription}<br><small class='text-muted'>${question.topic.subtopic_id}: ${question.topic.subtopic_description}</small>`
             : 'Subtopic information not available.';
-        
-        // --- FIN DE LA SOLUCIÓN ---
-        
+    
+        // Creamos el HTML de la insignia
         const categoryBadgeHTML = `
             <div class="category-badge" 
                  style="background-color: ${categoryInfo.color};"
-                 data-bs-toggle="popover"
-                 data-bs-trigger="hover focus"
-                 data-bs-html="true"
-                 title="${popoverTitle}"
-                 data-bs-content="${popoverContent}">
+                 data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-html="true"
+                 title="${popoverTitle}" data-bs-content="${popoverContent}">
                 <i class="fas ${categoryInfo.icon}"></i>
             </div>`;
     
+        const headerText = `${i1n.get('question_header')} ${currentQuestionIndex + 1} ${i1n.get('question_of')} ${currentExamQuestions.length}`;
+        const headerHTML = `<h5 class="mb-0 d-flex align-items-center">${categoryBadgeHTML} <span class="ms-2">${headerText}</span></h5>`;
+
         const buttonText = examMode === 'study' ? i1n.get('btn_verify') : i1n.get('btn_next');
         const skipButtonText = i1n.get('btn_skip');
         const endButtonText = i1n.get('btn_end_exam');
         const questionText = question[`question_${lang}`] || question.question_en;
-        const headerText = `${i1n.get('question_header')} ${currentQuestionIndex + 1} ${i1n.get('question_of')} ${currentExamQuestions.length}`;
-        const headerHTML = `<h5 class="mb-0 d-flex align-items-center">${categoryBadgeHTML} <span class="ms-2">${headerText}</span></h5>`;
         const timerHTML = examMode === 'exam' ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` : '';
+        const questionText = question[`question_${lang}`] || question.question_en;
     
         let imageHTML = '', codeHTML = '';
         if (question.image) {
@@ -216,8 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-transparent border-0 pt-4 px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">${headerHTML}</h5>
-                        ${timerHTML}
+                        ${headerHTML}  ${timerHTML}
                     </div>
                 </div>
                 <div class="card-body p-4 p-md-5">
@@ -252,7 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         examQuestionsContainer.innerHTML = cardHTML;
     
-        // --- INICIO DE LA SOLUCIÓN ---
         const isAlreadyAnsweredInStudyMode = question.userAnswerIndex !== null && examMode === 'study';
         const actionButton = document.getElementById('check-answer-btn');
     
@@ -291,7 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
             actionButton.textContent = buttonText;
             actionButton.onclick = handleAnswerSubmission;
         }
-        // --- FIN DE LA SOLUCIÓN ---
     
         if (examMode === 'exam') updateTimerDisplay();
         document.getElementById('skip-question-btn').addEventListener('click', skipQuestion);
@@ -299,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
         popoverTriggerList.map(function (popoverTriggerEl) {
-          return new bootstrap.Popover(popoverTriggerEl);
+            return new bootstrap.Popover(popoverTriggerEl);
         });
     }
     
