@@ -240,5 +240,45 @@
     ],
     "explanation_es": "La autenticación multifactor (MFA) requiere la combinación de dos o más factores de autenticación. Estos factores se clasifican en: algo que sabes (conocimiento), algo que tienes (posesión) y algo que eres (inherencia). El 'conocimiento único del usuario' (como una contraseña) es el factor de conocimiento. Los 'soft tokens' (como una app de autenticación en tu teléfono) son un ejemplo del factor de posesión. La combinación de ambos constituye MFA.",
     "explanation_en": "Multifactor authentication (MFA) requires the combination of two or more authentication factors. These factors are categorized as: something you know (knowledge), something you have (possession), and something you are (inherence). 'Unique user knowledge' (like a password) is the knowledge factor. 'Soft tokens' (like an authenticator app on your phone) are an example of the possession factor. Combining both constitutes MFA."
+  },
+  {
+    "id": "local_user_strongest_password_q1",
+    "category": "5.0-security-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "5.3",
+      "description_es": "Configurar y verificar el control de acceso a dispositivos usando contraseñas locales",
+      "description_en": "Configure and verify device access control using local passwords",
+      "subtopic_id": "5.3",
+      "subtopic_description": "Local User Configuration"
+    },
+    "question_es": "Un ingeniero debe configurar R1 para una nueva cuenta de usuario. La cuenta debe cumplir estos requisitos:\n1. Debe configurarse en la base de datos local.\n2. El nombre de usuario es 'engineer2'.\n3. Debe utilizar la contraseña configurable más fuerte.\n¿Qué comando debe configurar el ingeniero en el router?",
+    "question_en": "An engineer must configure R1 for a new user account. The account must meet these requirements:\n1. It must be configured in the local database.\n2. The username is engineer2.\n3. It must use the strongest password configurable.\nWhich command must the engineer configure on the router?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "R1(config)# username engineer2 privilege 1 password 7 test2021",
+        "text_en": "R1(config)# username engineer2 privilege 1 password 7 test2021",
+        "isCorrect": false
+      },
+      {
+        "text_es": "R1(config)# username engineer2 secret 4 XXXXXXXX",
+        "text_en": "R1(config)# username engineer2 secret 4 XXXXXXXX",
+        "isCorrect": false
+      },
+      {
+        "text_es": "R1(config)# username engineer2 secret 5 password XXXXXXXX",
+        "text_en": "R1(config)# username engineer2 secret 5 password XXXXXXXX",
+        "isCorrect": false
+      },
+      {
+        "text_es": "R1(config)# username engineer2 algorithm-type scrypt secret test2021",
+        "text_en": "R1(config)# username engineer2 algorithm-type scrypt secret test2021",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "El requisito es usar la contraseña más fuerte posible. La opción que utiliza `algorithm-type scrypt` configura un hash de Tipo 9, que está diseñado para ser computacionalmente intensivo y resistente a los ataques de fuerza bruta modernos, lo que lo convierte en el método más seguro disponible en los IOS de Cisco actuales.\n\n### Palabras Clave del Comando `username`\n| Keyword | Significado y Nivel de Seguridad |\n|---|---|\n| `privilege` | Asigna un nivel de privilegio al usuario (0-15). 15 es el nivel más alto (acceso total). |\n| `password` | Almacena la contraseña en texto plano. Si `service password-encryption` está activo, usa un cifrado **Tipo 7**, que es muy débil y fácilmente reversible. **(Baja Seguridad)** |\n| `secret` | Almacena la contraseña usando un hash MD5 no reversible (**Tipo 5**). Es mucho más seguro que `password`. **(Seguridad Media-Alta)** |\n| `algorithm-type` | Permite especificar un algoritmo de hash más moderno y fuerte que el MD5 por defecto. |\n| `scrypt` | Usa el algoritmo **scrypt** (**Tipo 9**) para crear el hash. Es la opción más segura, diseñada para resistir ataques de GPU/ASIC. **(Máxima Seguridad)** |\n| `sha256` | Usa el algoritmo **SHA-256** (**Tipo 8**) para crear el hash. Es más fuerte que MD5. **(Alta Seguridad)** |",
+    "explanation_en": "The requirement is to use the strongest possible password. The option using `algorithm-type scrypt` configures a Type 9 hash, which is designed to be computationally intensive and resistant to modern brute-force attacks, making it the most secure method available on current Cisco IOS.\n\n### Keywords of the `username` Command\n| Keyword | Meaning and Security Level |\n|---|---|\n| `privilege` | Assigns a privilege level to the user (0-15). 15 is the highest level (full access). |\n| `password` | Stores the password in plaintext. If `service password-encryption` is active, it uses a **Type 7** encryption, which is very weak and easily reversible. **(Low Security)** |\n| `secret` | Stores the password using a non-reversible MD5 hash (**Type 5**). It is much more secure than `password`. **(Medium-High Security)** |\n| `algorithm-type` | Allows specifying a more modern and stronger hashing algorithm than the default MD5. |\n| `scrypt` | Uses the **scrypt** algorithm (**Type 9**) to create the hash. It is the most secure option, designed to resist GPU/ASIC attacks. **(Maximum Security)** |\n| `sha256` | Uses the **SHA-256** algorithm (**Type 8**) to create the hash. It is stronger than MD5. **(High Security)** |"
   }
 ]
