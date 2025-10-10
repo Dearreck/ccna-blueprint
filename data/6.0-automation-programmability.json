@@ -46,5 +46,29 @@
     ],
     "explanation_es": "Uno de los principales beneficios de la automatización y las redes basadas en controladores es la centralización de la gestión. Esto permite a los administradores realizar tareas complejas y repetitivas, como las actualizaciones de software, de manera consistente y eficiente en múltiples dispositivos desde un único punto de control, reduciendo errores y ahorrando tiempo.",
     "explanation_en": "One of the primary benefits of automation and controller-based networking is the centralization of management. This allows administrators to perform complex and repetitive tasks, such as software upgrades, consistently and efficiently across multiple devices from a single point of control, reducing errors and saving time."
+  },
+  {
+    "id": "dna_center_vs_traditional_q1",
+    "category": "6.0-automation-programmability",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "6.2",
+      "description_es": "Comparar redes tradicionales con redes basadas en controladores",
+      "description_en": "Compare traditional networks with controller-based networking",
+      "subtopic_id": "6.2",
+      "subtopic_description": "Controller-based vs. Traditional Networking"
+    },
+    "question_es": "¿Qué diferencia la gestión de dispositivos habilitada por Cisco DNA Center de la gestión tradicional de dispositivos de campus?",
+    "question_en": "What differentiates device management enabled by Cisco DNA Center from traditional campus device management?",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "centralizada", "text_en": "centralized", "isCorrect": true },
+      { "text_es": "orientada a la CLI del dispositivo", "text_en": "CLI-oriented device", "isCorrect": false },
+      { "text_es": "manual dispositivo por dispositivo", "text_en": "device-by-device hands-on", "isCorrect": false },
+      { "text_es": "por dispositivo", "text_en": "per-device", "isCorrect": false }
+    ],
+    "explanation_es": "La gestión tradicional de redes implica configurar cada dispositivo de forma individual (por dispositivo, orientado a la CLI). Cisco DNA Center introduce un modelo de gestión centralizado, donde las políticas y configuraciones se definen en un controlador único que luego las despliega a todos los dispositivos de la red, simplificando la operación y asegurando la consistencia.",
+    "explanation_en": "Traditional network management involves configuring each device individually (per-device, CLI-oriented). Cisco DNA Center introduces a centralized management model, where policies and configurations are defined on a single controller that then deploys them to all network devices, simplifying operations and ensuring consistency."
   }
 ]
