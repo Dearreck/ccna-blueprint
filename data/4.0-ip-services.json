@@ -133,5 +133,45 @@
     ],
     "explanation_es": "La característica principal de NAT con sobrecarga, o PAT (Port Address Translation), es su capacidad de permitir que múltiples dispositivos en una red privada compartan una única dirección IP pública. Lo logra manteniendo un seguimiento de cada sesión única a través de la combinación de la dirección IP y el número de puerto de origen, asignando un número de puerto único a cada sesión saliente.",
     "explanation_en": "The main feature of NAT overload, or PAT (Port Address Translation), is its ability to allow multiple devices on a private network to share a single public IP address. It achieves this by keeping track of each unique session through the combination of the source IP address and port number, assigning a unique port number to each outgoing session."
+  },
+  {
+    "id": "ftp_function_q1",
+    "category": "4.0-ip-services",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "4.9",
+      "description_es": "Describir las capacidades y funciones de TFTP/FTP en la red",
+      "description_en": "Describe the capabilities and functions of TFTP/FTP in the network",
+      "subtopic_id": "4.9",
+      "subtopic_description": "FTP Functions"
+    },
+    "question_es": "¿Cuál es una función de FTP?",
+    "question_en": "What is a function of FTP?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "se basa en el conocido puerto UDP 69 para la transferencia de datos",
+        "text_en": "relies on the well-known UDP port 69 for data transfer",
+        "isCorrect": false
+      },
+      {
+        "text_es": "utiliza dos conexiones separadas para el tráfico de control y de datos",
+        "text_en": "uses two separate connections for control and data traffic",
+        "isCorrect": true
+      },
+      {
+        "text_es": "utiliza números de bloque para identificar y mitigar errores en la transferencia de datos",
+        "text_en": "uses block numbers to identify and mitigate data-transfer errors",
+        "isCorrect": false
+      },
+      {
+        "text_es": "siempre opera sin validación de la conexión del usuario",
+        "text_en": "always operates without user connection validation",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Una característica fundamental del Protocolo de Transferencia de Archivos (FTP) es que utiliza dos conexiones TCP distintas: una conexión de control en el puerto 21 para enviar comandos (como usuario, contraseña, listar, etc.) y una conexión de datos separada para la transferencia real de los archivos. El puerto UDP 69 y los números de bloque son característicos de TFTP, no de FTP.",
+    "explanation_en": "A fundamental characteristic of the File Transfer Protocol (FTP) is that it uses two distinct TCP connections: a control connection on port 21 for sending commands (like user, pass, list, etc.) and a separate data connection for the actual file transfer. UDP port 69 and block numbers are characteristic of TFTP, not FTP."
   }
 ]
