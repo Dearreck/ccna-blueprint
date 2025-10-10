@@ -452,23 +452,34 @@ function renderReviewPage() {
         skippedBadgeHTML = `<div class="skipped-question-badge">${i1n.get('review_skipped_badge')}</div>`;
     }
 
+    // --- INICIO DE LA SOLUCIÓN ---
     let questionNavHTML = '<div id="question-nav-container" class="d-flex flex-wrap justify-content-center gap-2 mb-4">';
     currentExamQuestions.forEach((q, index) => {
         let statusClass = 'status-skipped'; // Por defecto es omitida
-        const userAnswerOption = q.shuffledOptions[q.userAnswerIndex];
-
-        if (userAnswerOption) { // Si el usuario respondió
-            if (userAnswerOption.isCorrect) {
-                statusClass = 'status-correct';
+    
+        // Comprueba si la pregunta fue respondida
+        if (q.userAnswerIndex !== null && q.userAnswerIndex !== 'skipped') {
+            let isCompletelyCorrect = false;
+    
+            if (q.isMultipleChoice) {
+                // Lógica de verificación para selección múltiple
+                const correctIndices = new Set(q.shuffledOptions.map((opt, i) => opt.isCorrect ? i : -1).filter(i => i !== -1));
+                const selectedIndicesSet = new Set(q.userAnswerIndex);
+                isCompletelyCorrect = correctIndices.size === selectedIndicesSet.size && [...correctIndices].every(i => selectedIndicesSet.has(i));
             } else {
-                statusClass = 'status-incorrect';
+                // Lógica de verificación para selección única
+                const selectedOption = q.shuffledOptions[q.userAnswerIndex];
+                isCompletelyCorrect = selectedOption && selectedOption.isCorrect;
             }
+            
+            statusClass = isCompletelyCorrect ? 'status-correct' : 'status-incorrect';
         }
-        // Añade una clase 'active' si es la pregunta que se está viendo
+    
         const activeClass = (index === currentReviewIndex) ? 'active' : '';
         questionNavHTML += `<div class="question-nav-circle ${statusClass} ${activeClass}" data-index="${index}">${index + 1}</div>`;
     });
     questionNavHTML += '</div>';
+    // --- FIN DE LA SOLUCIÓN ---
 
     const questionText = question[`question_${lang}`] || question.question_en;
     const explanationText = question[`explanation_${lang}`] || question.explanation_en;
