@@ -173,5 +173,50 @@
     ],
     "explanation_es": "Una característica fundamental del Protocolo de Transferencia de Archivos (FTP) es que utiliza dos conexiones TCP distintas: una conexión de control en el puerto 21 para enviar comandos (como usuario, contraseña, listar, etc.) y una conexión de datos separada para la transferencia real de los archivos. El puerto UDP 69 y los números de bloque son característicos de TFTP, no de FTP.",
     "explanation_en": "A fundamental characteristic of the File Transfer Protocol (FTP) is that it uses two distinct TCP connections: a control connection on port 21 for sending commands (like user, pass, list, etc.) and a separate data connection for the actual file transfer. UDP port 69 and block numbers are characteristic of TFTP, not FTP."
-  }
+  },
+  {
+  "id": "ssh_unnecessary_commands_q1",
+  "category": "4.0-ip-services",
+  "isMultipleChoice": true,
+  "topic": {
+    "id": "4.8",
+    "description_es": "Configurar dispositivos de red para acceso remoto usando SSH",
+    "description_en": "Configure network devices for remote access using SSH",
+    "subtopic_id": "4.8",
+    "subtopic_description": "SSH Configuration"
+  },
+  "question_es": "Consulte la información. Un ingeniero ejecutó el script y añadió comandos que no eran necesarios para SSH y ahora debe eliminarlos. ¿Qué dos comandos deben ejecutarse para corregir la configuración? (Elija dos.)",
+  "question_en": "Refer to the exhibit. An engineer executed the script and added commands that were not necessary for SSH and now must remove the commands. Which two commands must be executed to correct the configuration? (Choose two.)",
+  "image": null,
+  "code": "hostname CPE\nservice password-encryption\nip domain name ccna.cisco.com\nip name-server 198.51.100.210\ncrypto key generate rsa modulus 1024\nusername admin privilege 15 secret $om1scr1t\nline vty 0 4\ntransport input ssh\nlogin local",
+  "options": [
+    {
+      "text_es": "no service password-encryption",
+      "text_en": "no service password-encryption",
+      "isCorrect": true
+    },
+    {
+      "text_es": "no ip domain name ccna.cisco.com",
+      "text_en": "no ip domain name ccna.cisco.com",
+      "isCorrect": false
+    },
+    {
+      "text_es": "no hostname CPE",
+      "text_en": "no hostname CPE",
+      "isCorrect": false
+    },
+    {
+      "text_es": "no login local",
+      "text_en": "no login local",
+      "isCorrect": false
+    },
+    {
+      "text_es": "no ip name-server 198.51.100.210",
+      "text_en": "no ip name-server 198.51.100.210",
+      "isCorrect": true
+    }
+  ],
+  "explanation_es": "La configuración de SSH requiere un nombre de host, un nombre de dominio, claves criptográficas, un usuario local (si se usa `login local`) y la configuración de las líneas VTY (`transport input ssh` y `login local`). Los comandos `service password-encryption` (que cifra contraseñas locales en texto plano) y `ip name-server` (que configura un servidor DNS para el router) no son requisitos para que el servicio SSH funcione, por lo tanto, son los que se deben eliminar.",
+  "explanation_en": "SSH configuration requires a hostname, a domain name, crypto keys, a local user (if using `login local`), and VTY line configuration (`transport input ssh` and `login local`). The `service password-encryption` command (which encrypts local plaintext passwords) and the `ip name-server` command (which configures a DNS server for the router) are not requirements for the SSH service to function, therefore, they are the ones that should be removed."
+}
 ]
