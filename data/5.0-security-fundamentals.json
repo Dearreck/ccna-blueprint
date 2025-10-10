@@ -155,5 +155,45 @@
     ],
     "explanation_es": "La principal mejora de seguridad en WPA3-Personal es la sustitución del método de autenticación PSK (Pre-Shared Key) por SAE (Simultaneous Authentication of Equals). SAE es mucho más resistente a los ataques de diccionario fuera de línea, que eran una vulnerabilidad significativa en WPA2. El '4-way handshake' es característico de WPA2, y TKIP/RC4 son protocolos de cifrado antiguos e inseguros.",
     "explanation_en": "The primary security improvement in WPA3-Personal is replacing the PSK (Pre-Shared Key) authentication method with SAE (Simultaneous Authentication of Equals). SAE is much more resistant to offline dictionary attacks, which were a significant vulnerability in WPA2. The 4-way handshake is characteristic of WPA2, and TKIP/RC4 are old and insecure encryption protocols."
+  },
+  {
+    "id": "aaa_console_fallback_q1",
+    "category": "5.0-security-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "5.8",
+      "description_es": "Comparar los conceptos de autenticación, autorización y contabilidad (AAA)",
+      "description_en": "Compare authentication, authorization, and accounting concepts",
+      "subtopic_id": "5.8",
+      "subtopic_description": "AAA Authentication Methods"
+    },
+    "question_es": "Después de una brecha de seguridad reciente y un fallo de RADIUS, un ingeniero debe asegurar el puerto de consola de cada router empresarial con un nombre de usuario y contraseña locales. ¿Qué configuración debe aplicar el ingeniero para realizar esta tarea?",
+    "question_en": "After a recent security breach and a RADIUS failure, an engineer must secure the console port of each enterprise router with a local username and password. Which configuration must the engineer apply to accomplish this task?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "aaa new-model\naaa authorization exec default local\naaa authentication login default radius\nusername localuser privilege 15 secret plaintextpassword",
+        "text_en": "aaa new-model\naaa authorization exec default local\naaa authentication login default radius\nusername localuser privilege 15 secret plaintextpassword",
+        "isCorrect": false
+      },
+      {
+        "text_es": "username localuser secret plaintextpassword\nline con 0\nlogin authentication default\nprivilege level 15",
+        "text_en": "username localuser secret plaintextpassword\nline con 0\nlogin authentication default\nprivilege level 15",
+        "isCorrect": true
+      },
+      {
+        "text_es": "username localuser secret plaintextpassword\nline con 0\nno login local\nprivilege level 15",
+        "text_en": "username localuser secret plaintextpassword\nline con 0\nno login local\nprivilege level 15",
+        "isCorrect": false
+      },
+      {
+        "text_es": "aaa new-model\nline con 0\npassword plaintextpassword\nprivilege level 15",
+        "text_en": "aaa new-model\nline con 0\npassword plaintextpassword\nprivilege level 15",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "La configuración correcta requiere crear un usuario local (`username ... secret ...`). Luego, en la línea de consola (`line con 0`), el comando `login authentication default` aplica la lista de autenticación AAA por defecto. En un escenario de fallo de RADIUS, este comando funcionará si la lista por defecto está configurada con un método de respaldo, como `local`. Finalmente, `privilege level 15` en la línea de consola otorga acceso privilegiado inmediato al iniciar sesión, lo cual es una práctica común para la gestión de consolas de emergencia.",
+    "explanation_en": "The correct configuration requires creating a local user (`username ... secret ...`). Then, on the console line (`line con 0`), the `login authentication default` command applies the default AAA authentication list. In a RADIUS failure scenario, this command will work if the default list is configured with a fallback method, such as `local`. Finally, `privilege level 15` on the console line grants immediate privileged access upon login, which is a common practice for emergency console management."
   }
 ]
