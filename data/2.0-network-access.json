@@ -184,5 +184,45 @@
     ],
     "explanation_es": "Link Aggregation (LAG) agrupa múltiples puertos físicos en un único enlace lógico (EtherChannel). Sus dos beneficios principales son: 1. **Aumento del rendimiento (throughput)** al sumar el ancho de banda de los enlaces individuales. 2. **Redundancia**, ya que si un enlace falla, el tráfico se redistribuye automáticamente por los enlaces restantes.",
     "explanation_en": "Link Aggregation (LAG) bundles multiple physical ports into a single logical link (EtherChannel). Its two main benefits are: 1. **Increased throughput** by summing the bandwidth of the individual links. 2. **Redundancy**, because if one link fails, traffic is automatically redistributed over the remaining links."
+  },
+  {
+    "id": "lacp_passive_mode_q1",
+    "category": "2.0-network-access",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "2.4",
+      "description_es": "Configurar y verificar EtherChannel (LACP) (Capa 2/Capa 3)",
+      "description_en": "Configure and verify (Layer 2/Layer 3) EtherChannel (LACP)",
+      "subtopic_id": "2.4",
+      "subtopic_description": "LACP Negotiation"
+    },
+    "question_es": "Consulte la información. ¿Qué cambio en la configuración de Switch2 permite que los dos switches establezcan un EtherChannel?",
+    "question_en": "Refer to the exhibit. Which change to the configuration on Switch2 allows the two switches to establish an EtherChannel?",
+    "image": null,
+    "code": "Switch1#show etherchannel summary\nFlags:  D - down        P - in port-channel\n        I - stand-alone s - suspended\n        H - Hot-standby (LACP only)\n        R - Layer3      S - Layer2\n        U - in use      f - failed to allocate aggregator\n\nNumber of channel-groups in use: 1\nNumber of aggregators:           1\n\nGroup  Port-channel  Protocol    Ports\n------+-------------+-----------+-----------------------------------------------\n1      Po1(SD)         LACP        Fa0/2(I) Fa0/1(I)\n\nSwitch1#show run\n!\ninterface FastEthernet0/1\n channel-group 1 mode passive\n!\ninterface FastEthernet0/2\n channel-group 1 mode passive\n!\n\nSwitch2#show run\n!\ninterface FastEthernet0/1\n channel-group 1 mode passive\n!\ninterface FastEthernet0/2\n channel-group 1 mode passive\n!",
+    "options": [
+      {
+        "text_es": "Cambiar el protocolo a PAgP y usar el modo 'auto'.",
+        "text_en": "Change the protocol to PAgP and use auto mode.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Cambiar el protocolo a EtherChannel 'on'.",
+        "text_en": "Change the protocol to EtherChannel on.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Cambiar el modo LACP a 'desirable'.",
+        "text_en": "Change the LACP mode to desirable.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Cambiar el modo LACP a 'active'.",
+        "text_en": "Change the LACP mode to active.",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "LACP (Link Aggregation Control Protocol) tiene dos modos: 'active' (activo) y 'passive' (pasivo). Un puerto en modo 'active' intenta activamente formar un EtherChannel, mientras que un puerto en modo 'passive' solo responde a las solicitudes. Para que se forme un EtherChannel, al menos un lado debe estar en modo 'active'. En la configuración mostrada, ambos switches están en modo 'passive', por lo que ninguno inicia la negociación. Cambiar Switch2 a 'active' permitirá que se establezca el canal.",
+    "explanation_en": "LACP (Link Aggregation Control Protocol) has two modes: 'active' and 'passive'. A port in 'active' mode actively tries to form an EtherChannel, while a port in 'passive' mode only responds to requests. For an EtherChannel to form, at least one side must be in 'active' mode. In the configuration shown, both switches are in 'passive' mode, so neither initiates the negotiation. Changing Switch2 to 'active' will allow the channel to be established."
   }
 ]
