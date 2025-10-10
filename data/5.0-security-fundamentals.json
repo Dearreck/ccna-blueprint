@@ -70,5 +70,50 @@
     ],
     "explanation_es": "WPA3 continúa utilizando el robusto cifrado AES (Advanced Encryption Standard) para la confidencialidad de los datos, al igual que WPA2. Aunque WPA3 introduce un nuevo método de intercambio de claves llamado SAE (Simultaneous Authentication of Equals) para reemplazar a PSK, el algoritmo de cifrado subyacente para el tráfico de datos sigue siendo AES.",
     "explanation_en": "WPA3 continues to use the robust AES (Advanced Encryption Standard) cipher for data confidentiality, just like WPA2. Although WPA3 introduces a new key exchange method called SAE (Simultaneous Authentication of Equals) to replace PSK, the underlying encryption algorithm for the data traffic remains AES."
+  },
+  {
+    "id": "security_posture_best_practices_q1",
+    "category": "5.0-security-fundamentals",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "5.2",
+      "description_es": "Describir los elementos de un programa de seguridad (concienciación del usuario, formación y control de acceso físico)",
+      "description_en": "Describe security program elements (user awareness, training, and physical access control)",
+      "subtopic_id": "5.2",
+      "subtopic_description": "Security Best Practices"
+    },
+    "question_es": "¿Cuáles dos prácticas son recomendadas para una postura de seguridad aceptable en una red? (Elija dos.)",
+    "question_en": "Which two practices are recommended for an acceptable security posture in a network? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Deshabilitar puertos, interfaces y servicios no utilizados o innecesarios.",
+        "text_en": "Disable unused or unnecessary ports, interfaces, and services.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Mantener el equipo de red en una ubicación segura.",
+        "text_en": "Maintain network equipment in a secure location.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Usar un llavero criptográfico (cryptographic keychain) para autenticar en los dispositivos de red.",
+        "text_en": "Use a cryptographic keychain to authenticate to network devices.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Colocar los servidores internos de correo y archivos en una DMZ designada.",
+        "text_en": "Place internal email and file servers in a designated DMZ.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Hacer copias de seguridad de las configuraciones de los dispositivos en unidades USB cifradas para una recuperación segura.",
+        "text_en": "Back up device configurations to encrypted USB drives for secure retrieval.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Una postura de seguridad sólida se basa en múltiples capas. Dos de las prácticas más fundamentales son: 1. **Reducir la superficie de ataque** deshabilitando cualquier puerto o servicio que no sea esencial, ya que cada uno es un punto de entrada potencial para un atacante. 2. **Asegurar el acceso físico** a los equipos, ya que un atacante con acceso físico puede eludir muchas otras medidas de seguridad.",
+    "explanation_en": "A strong security posture relies on multiple layers. Two of the most fundamental practices are: 1. **Reducing the attack surface** by disabling any port or service that is not essential, as each is a potential entry point for an attacker. 2. **Securing physical access** to equipment, as an attacker with physical access can bypass many other security measures."
   }
 ]
