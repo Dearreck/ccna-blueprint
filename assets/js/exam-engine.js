@@ -514,75 +514,63 @@ function displayExamReview() {
 
 function renderReviewPage() {
     if (currentReviewIndex < 0 || currentReviewIndex >= currentExamQuestions.length) {
-        return; // No hace nada si el índice está fuera de los límites
+        return; // Índice fuera de rango, no hacer nada.
     }
 
     const question = currentExamQuestions[currentReviewIndex];
     const lang = i1n.currentLanguage || 'es';
 
-    const categoryInfo = CATEGORY_CONFIG[question.category] || { color: '#6c757d', icon: 'fa-question-circle' };
+    // --- Lógica para construir los componentes visuales ---
 
-    // 1. Selecciona la descripción del tema en el idioma correcto.
-    const topicDescription = question.topic ? (question.topic[`description_${lang}`] || question.topic.description_en) : '';
-    
-    // 2. Construye el contenido del popover usando la descripción dinámica.
-    const popoverContent = question.topic 
-        ? `<strong>${question.topic.id}:</strong> ${topicDescription}<br><small class='text-muted'>${question.topic.subtopic_id}: ${question.topic.subtopic_description}</small>`
-        : 'Subtopic information not available.';
-    
-    const categoryBadgeHTML = `
-        <div class="category-badge" 
-             style="background-color: ${categoryInfo.color};"
-             data-bs-toggle="popover"
-             data-bs-trigger="hover focus"
-             data-bs-html="true"
-             title="${popoverTitle}"
-             data-bs-content="${popoverContent}">
-            <i class="fas ${categoryInfo.icon}"></i>
-        </div>`;
+    // 1. Navegador de Círculos
+    let questionNavHTML = '<div id="question-nav-container" class="d-flex flex-wrap justify-content-center gap-2 mb-4">';
+    currentExamQuestions.forEach((q, index) => {
+        let statusClass = 'status-skipped';
+        if (q.userAnswerIndex !== null && q.userAnswerIndex !== 'skipped') {
+            let isCompletelyCorrect = false;
+            if (q.isMultipleChoice) {
+                const correctIndices = new Set(q.shuffledOptions.map((opt, i) => opt.isCorrect ? i : -1).filter(i => i !== -1));
+                const selectedIndicesSet = new Set(q.userAnswerIndex);
+                isCompletelyCorrect = correctIndices.size === selectedIndicesSet.size && [...correctIndices].every(i => selectedIndicesSet.has(i));
+            } else {
+                const selectedOption = q.shuffledOptions[q.userAnswerIndex];
+                isCompletelyCorrect = selectedOption && selectedOption.isCorrect;
+            }
+            statusClass = isCompletelyCorrect ? 'status-correct' : 'status-incorrect';
+        }
+        const activeClass = (index === currentReviewIndex) ? 'active' : '';
+        questionNavHTML += `<div class="question-nav-circle ${statusClass} ${activeClass}" data-index="${index}">${index + 1}</div>`;
+    });
+    questionNavHTML += '</div>';
 
-    // Nueva variable para la insignia
+    // 2. Insignia de "Omitida" (si aplica)
     let skippedBadgeHTML = '';
     if (question.userAnswerIndex === 'skipped') {
         skippedBadgeHTML = `<div class="skipped-question-badge">${i1n.get('review_skipped_badge')}</div>`;
     }
 
-    // --- INICIO DE LA SOLUCIÓN ---
-    let questionNavHTML = '<div id="question-nav-container" class="d-flex flex-wrap justify-content-center gap-2 mb-4">';
-    currentExamQuestions.forEach((q, index) => {
-        let statusClass = 'status-skipped'; // Por defecto es omitida
-    
-        // Comprueba si la pregunta fue respondida
-        if (q.userAnswerIndex !== null && q.userAnswerIndex !== 'skipped') {
-            let isCompletelyCorrect = false;
-    
-            if (q.isMultipleChoice) {
-                // Lógica de verificación para selección múltiple
-                const correctIndices = new Set(q.shuffledOptions.map((opt, i) => opt.isCorrect ? i : -1).filter(i => i !== -1));
-                const selectedIndicesSet = new Set(q.userAnswerIndex);
-                isCompletelyCorrect = correctIndices.size === selectedIndicesSet.size && [...correctIndices].every(i => selectedIndicesSet.has(i));
-            } else {
-                // Lógica de verificación para selección única
-                const selectedOption = q.shuffledOptions[q.userAnswerIndex];
-                isCompletelyCorrect = selectedOption && selectedOption.isCorrect;
-            }
-            
-            statusClass = isCompletelyCorrect ? 'status-correct' : 'status-incorrect';
-        }
-    
-        const activeClass = (index === currentReviewIndex) ? 'active' : '';
-        questionNavHTML += `<div class="question-nav-circle ${statusClass} ${activeClass}" data-index="${index}">${index + 1}</div>`;
-    });
-    questionNavHTML += '</div>';
-    // --- FIN DE LA SOLUCIÓN ---
+    // 3. Insignia de Categoría y Popover (AQUÍ SE DEFINEN LAS VARIABLES)
+    const categoryInfo = CATEGORY_CONFIG[question.category] || { color: '#6c757d', icon: 'fa-question-circle' };
+    const categoryName = i1n.get(examCategories.find(c => c.id === question.category)?.i18nKey || question.category);
+    const topicDescription = question.topic ? (question.topic[`description_${lang}`] || question.topic.description_en) : '';
+    const popoverTitle = categoryName;
+    const popoverContent = question.topic
+        ? `<strong>${question.topic.id}:</strong> ${topicDescription}<br><small class='text-muted'>${question.topic.subtopic_id}: ${question.topic.subtopic_description}</small>`
+        : 'Subtopic information not available.';
+    const categoryBadgeHTML = `
+        <div class="category-badge" 
+             style="background-color: ${categoryInfo.color};"
+             data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-html="true"
+             title="${popoverTitle}" data-bs-content="${popoverContent}">
+            <i class="fas ${categoryInfo.icon}"></i>
+        </div>`;
 
+    // 4. Encabezado de la Pregunta
     const headerText = `${i1n.get('question_header')} ${currentReviewIndex + 1}/${currentExamQuestions.length}`;
     const headerHTML = `<h5 class="mb-0 d-flex align-items-center">${categoryBadgeHTML} <span class="ms-2">${headerText}:</span></h5>`;
-    const questionText = question[`question_${lang}`] || question.question_en;
-    const explanationText = question[`explanation_${lang}`] || question.explanation_en;
 
-    // --- INICIO DE LA SOLUCIÓN ---
-    // Añadimos la misma lógica que usamos en displayQuestion()
+    // 5. Contenido de la pregunta (Texto, Imagen, Código)
+    const questionText = question[`question_${lang}`] || question.question_en;
     let imageHTML = '', codeHTML = '';
     if (question.image) {
         imageHTML = `<div class="text-center my-3"><img src="../data/images/${question.image}" class="img-fluid rounded border" alt="Diagrama de la pregunta"></div>`;
@@ -591,6 +579,7 @@ function renderReviewPage() {
         codeHTML = `<pre class="code-block"><code>${question.code}</code></pre>`;
     }
 
+    // --- Construcción del HTML Final ---
     let reviewHTML = `
         <div class="row">
             <div class="col-12 col-lg-8 offset-lg-2">
@@ -602,50 +591,38 @@ function renderReviewPage() {
                         ${headerHTML}
                     </div>
                     <div class="card-body">
-                        <p class="question-text lead">${questionText}</p> ${imageHTML}
-                        ${codeHTML}
-    `;
-
-    /*let reviewHTML = `
-        <div class="row">
-            <div class="col-12 col-lg-8 offset-lg-2">
-                <h2 class="text-center mb-4">${i1n.get('review_title')}</h2>
-                ${questionNavHTML}
-                <div class="card review-question-card">
-                    ${skippedBadgeHTML}
-                    <div class="card-header">
-                        <strong>${i1n.get('question_header')} ${currentReviewIndex + 1}/${currentExamQuestions.length}:</strong> ${questionText}
-                    </div>
-                    <div class="card-body">
-                        ${imageHTML}  ${codeHTML}   `;*/
+                        <p class="question-text lead">${questionText}</p>
+                        ${imageHTML}
+                        ${codeHTML}`;
 
     question.shuffledOptions.forEach((option, optionIndex) => {
-        const optionText = option[`text_${lang}`] || option.text_en;
+        let optionText = option[`text_${lang}`] || option.text_en;
+        optionText = optionText.replace(/ ! /g, '<br>');
         let optionClass = 'review-option';
-    
-        // Determina si el usuario seleccionó esta opción (funciona para ambos tipos de pregunta)
         const userSelectedThisOption = Array.isArray(question.userAnswerIndex)
             ? question.userAnswerIndex.includes(optionIndex)
             : question.userAnswerIndex === optionIndex;
-    
+
         if (option.isCorrect) {
-            // Si la opción es correcta, siempre se marca en verde
             optionClass += ' correct-answer';
         } else if (userSelectedThisOption) {
-            // Si no es correcta, pero el usuario la seleccionó, se marca en rojo
             optionClass += ' incorrect-answer';
         }
-        
         reviewHTML += `<div class="${optionClass}">${optionText}</div>`;
     });
 
-    reviewHTML += `<div class="alert alert-info mt-3 explanation-box">
-                            <strong>${i1n.get('explanation_label')}:</strong> 
-                            ${marked.parse(explanationText)}
-                        </div>
+    const explanationText = question[`explanation_${lang}`] || question.explanation_en;
+    if (explanationText) {
+        reviewHTML += `
+            <div class="alert alert-info mt-3 explanation-box">
+                <strong>${i1n.get('explanation_label')}:</strong> 
+                ${marked.parse(explanationText)}
+            </div>`;
+    }
+
+    reviewHTML += `
                     </div>
                 </div>
-
                 <div class="d-flex justify-content-between mt-4">
                     <button id="prev-review-btn" class="btn btn-secondary" ${currentReviewIndex === 0 ? 'disabled' : ''}>&laquo; ${i1n.get('btn_previous')}</button>
                     <button id="back-to-results-btn" class="btn btn-outline-primary">${i1n.get('review_back_button')}</button>
@@ -653,10 +630,15 @@ function renderReviewPage() {
                 </div>
             </div>
         </div>`;
-    
+
     examReviewContainer.innerHTML = reviewHTML;
 
-    // Usamos delegación de eventos para que un solo listener maneje todos los círculos
+    // --- Inicialización de Eventos y Componentes ---
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
+
     document.getElementById('question-nav-container').addEventListener('click', (e) => {
         if (e.target && e.target.classList.contains('question-nav-circle')) {
             const newIndex = parseInt(e.target.dataset.index, 10);
@@ -667,7 +649,6 @@ function renderReviewPage() {
         }
     });
 
-    // Asignar eventos a los nuevos botones
     document.getElementById('prev-review-btn').addEventListener('click', () => {
         if (currentReviewIndex > 0) {
             currentReviewIndex--;
@@ -681,16 +662,11 @@ function renderReviewPage() {
             renderReviewPage();
         }
     });
-    
+
     document.getElementById('back-to-results-btn').onclick = () => {
         examReviewContainer.classList.add('d-none');
         examResultsContainer.classList.remove('d-none');
     };
-
-    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-    popoverTriggerList.map(function (popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl);
-    });
 }
 
     function resetToSetup() {
