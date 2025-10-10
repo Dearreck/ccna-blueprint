@@ -13,5 +13,45 @@
     ],
     "explanation_es": "El DNS (Domain Name System) funciona como la 'agenda telefónica' de Internet. Su función principal es resolver (traducir) nombres de dominio legibles por humanos (como www.cisco.com) a las direcciones IP numéricas (como 198.133.219.25) que los computadores utilizan para comunicarse entre sí.",
     "explanation_en": "The DNS (Domain Name System) acts as the 'phonebook' of the Internet. Its primary function is to resolve (translate) human-readable domain names (like www.cisco.com) into the numerical IP addresses (like 198.133.219.25) that computers use to communicate with each other."
+  },
+  {
+    "id": "snmpv3_command_q1",
+    "category": "4.0-ip-services",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "4.4",
+      "description_es": "Explicar la función de SNMP en las operaciones de red",
+      "description_en": "Explain the function of SNMP in network operations",
+      "subtopic_id": "4.4",
+      "subtopic_description": "SNMP Versions"
+    },
+    "question_es": "¿Qué comando implica el uso de SNMPv3?",
+    "question_en": "Which command implies the use of SNMPv3?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "snmp-server user",
+        "text_en": "snmp-server user",
+        "isCorrect": true
+      },
+      {
+        "text_es": "snmp-server enable traps",
+        "text_en": "snmp-server enable traps",
+        "isCorrect": false
+      },
+      {
+        "text_es": "snmp-server host",
+        "text_en": "snmp-server host",
+        "isCorrect": false
+      },
+      {
+        "text_es": "snmp-server community",
+        "text_en": "snmp-server community",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "SNMPv3 introdujo un Modelo de Seguridad Basado en el Usuario (USM) para proporcionar autenticación y cifrado. El comando `snmp-server user` es específico para crear estos usuarios y definir sus niveles de seguridad. En contraste, el comando `snmp-server community` se utiliza para las versiones más antiguas e inseguras, SNMPv1 y SNMPv2c, que se basan en 'cadenas de comunidad' en texto plano.",
+    "explanation_en": "SNMPv3 introduced a User-based Security Model (USM) to provide authentication and encryption. The `snmp-server user` command is specific to creating these users and defining their security levels. In contrast, the `snmp-server community` command is used for the older, insecure versions, SNMPv1 and SNMPv2c, which rely on clear-text 'community strings'."
   }
 ]
