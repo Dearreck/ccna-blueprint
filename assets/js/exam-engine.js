@@ -484,6 +484,17 @@ function renderReviewPage() {
     const questionText = question[`question_${lang}`] || question.question_en;
     const explanationText = question[`explanation_${lang}`] || question.explanation_en;
 
+    // --- INICIO DE LA SOLUCIÓN ---
+    // Añadimos la misma lógica que usamos en displayQuestion()
+    let imageHTML = '', codeHTML = '';
+    if (question.image) {
+        imageHTML = `<div class="text-center my-3"><img src="../data/images/${question.image}" class="img-fluid rounded border" alt="Diagrama de la pregunta"></div>`;
+    }
+    if (question.code) {
+        codeHTML = `<pre class="code-block"><code>${question.code}</code></pre>`;
+    }
+    // --- FIN DE LA SOLUCIÓN ---
+
     let reviewHTML = `
         <div class="row">
             <div class="col-12 col-lg-8 offset-lg-2">
@@ -494,22 +505,30 @@ function renderReviewPage() {
                     <div class="card-header">
                         <strong>${i1n.get('question_header')} ${currentReviewIndex + 1}/${currentExamQuestions.length}:</strong> ${questionText}
                     </div>
-                    <div class="card-body">`;
+                    <div class="card-body">
+                        ${imageHTML}  ${codeHTML}   `;
 
     question.shuffledOptions.forEach((option, optionIndex) => {
         const optionText = option[`text_${lang}`] || option.text_en;
         let optionClass = 'review-option';
-        
+    
+        // Determina si el usuario seleccionó esta opción (funciona para ambos tipos de pregunta)
+        const userSelectedThisOption = Array.isArray(question.userAnswerIndex)
+            ? question.userAnswerIndex.includes(optionIndex)
+            : question.userAnswerIndex === optionIndex;
+    
         if (option.isCorrect) {
+            // Si la opción es correcta, siempre se marca en verde
             optionClass += ' correct-answer';
-        } else if (question.userAnswerIndex === optionIndex) {
+        } else if (userSelectedThisOption) {
+            // Si no es correcta, pero el usuario la seleccionó, se marca en rojo
             optionClass += ' incorrect-answer';
         }
+        
         reviewHTML += `<div class="${optionClass}">${optionText}</div>`;
     });
 
-    reviewHTML += `
-                        <div class="alert alert-info mt-3 explanation-box">
+    reviewHTML += `<div class="alert alert-info mt-3 explanation-box">
                             <strong>${i1n.get('explanation_label')}:</strong> ${explanationText}
                         </div>
                     </div>
