@@ -250,7 +250,7 @@
   {
     "id": "routing_decision_multiple_prefixes_q1",
     "category": "3.0-ip-connectivity",
-    "isMultipleChoice": true,
+    "isMultipleChoice": false,
     "topic": {
       "id": "3.2",
       "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
