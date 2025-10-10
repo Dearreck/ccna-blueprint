@@ -11,6 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const examResultsContainer = document.getElementById('exam-results-container');
     const examReviewContainer = document.getElementById('exam-review-container');
 
+    // --- CONFIGURACIÓN DE CATEGORÍAS ---
+    const CATEGORY_CONFIG = {
+        '1.0-network-fundamentals': { color: '#0d6efd', icon: 'fa-sitemap' },
+        '2.0-network-access': { color: '#198754', icon: 'fa-network-wired' },
+        '3.0-ip-connectivity': { color: '#6f42c1', icon: 'fa-route' },
+        '4.0-ip-services': { color: '#fd7e14', icon: 'fa-cogs' },
+        '5.0-security-fundamentals': { color: '#dc3545', icon: 'fa-shield-alt' },
+        '6.0-automation-programmability': { color: '#0dcaf0', icon: 'fa-code' }
+    };
+
     // --- ESTADO DEL EXAMEN ---
     let allQuestions = [];
     let currentExamQuestions = [];
@@ -29,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: '6.0-automation-programmability', i18nKey: 'category_6_0' }
     ];
 
-    function loadCategories() {
+    /*function loadCategories() {
         if (!categorySelectionContainer) return;
         categorySelectionContainer.innerHTML = '';
         examCategories.forEach(category => {
@@ -53,6 +63,39 @@ document.addEventListener('DOMContentLoaded', () => {
             colDiv.appendChild(formCheckDiv);
             categorySelectionContainer.appendChild(colDiv);
         });
+    }*/
+
+    async function loadAndDisplayCategories() {
+        if (!categorySelectionContainer) return;
+        categorySelectionContainer.innerHTML = `<p class="text-muted">Cargando preguntas...</p>`;
+    
+        let totalQuestionsInBank = 0;
+        const allCategoryIds = examCategories.map(cat => cat.id);
+        const allQuestionsData = await fetchQuestions(allCategoryIds); // Carga todas las preguntas de una vez
+    
+        categorySelectionContainer.innerHTML = ''; // Limpia el mensaje de "cargando"
+    
+        examCategories.forEach(category => {
+            const questionCount = allQuestionsData.filter(q => q.category === category.id).length;
+            totalQuestionsInBank += questionCount;
+            
+            const categoryInfo = CATEGORY_CONFIG[category.id] || { color: '#6c757d' };
+    
+            const categoryHTML = `
+                <div class="col-12 col-md-6 mb-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="${category.id}" id="check-${category.id}" checked>
+                        <label class="form-check-label" for="check-${category.id}">
+                            ${i18n.get(category.i18nKey) || category.id}
+                        </label>
+                        <span class="badge rounded-pill" style="background-color: ${categoryInfo.color};">${questionCount}</span>
+                    </div>
+                </div>`;
+            categorySelectionContainer.innerHTML += categoryHTML;
+        });
+    
+        // Opcional: Mostrar el total de preguntas en algún lugar
+        console.log(`Total de preguntas en el banco: ${totalQuestionsInBank}`);
     }
 
     function translateQuestionCountOptions() {
@@ -128,12 +171,31 @@ document.addEventListener('DOMContentLoaded', () => {
     
         const question = currentExamQuestions[currentQuestionIndex];
         const lang = i1n.currentLanguage || 'es';
+
+        const categoryInfo = CATEGORY_CONFIG[question.category] || { color: '#6c757d', icon: 'fa-question-circle' };
+        // Prepara el contenido del popover (si la pregunta es v2.0)
+        const popoverTitle = question.topic ? `Tema ${question.topic.id}` : 'Categoría';
+        const popoverContent = question.topic 
+            ? `${question.topic.description_es}<br><small class="text-muted">${question.topic.subtopic_id}: ${question.topic.subtopic_description}</small>`
+            : question.category;
+        
+        const categoryBadgeHTML = `
+            <div class="category-badge" 
+                 style="background-color: ${categoryInfo.color};"
+                 data-bs-toggle="popover"
+                 data-bs-trigger="hover focus"
+                 data-bs-html="true"
+                 title="${popoverTitle}"
+                 data-bs-content="${popoverContent}">
+                <i class="fas ${categoryInfo.icon}"></i>
+            </div>`;
     
         const buttonText = examMode === 'study' ? i1n.get('btn_verify') : i1n.get('btn_next');
         const skipButtonText = i1n.get('btn_skip');
         const endButtonText = i1n.get('btn_end_exam');
         const questionText = question[`question_${lang}`] || question.question_en;
         const headerText = `${i1n.get('question_header')} ${currentQuestionIndex + 1} ${i1n.get('question_of')} ${currentExamQuestions.length}`;
+        const headerHTML = `<h5 class="mb-0 d-flex align-items-center">${categoryBadgeHTML} <span class="ms-2">${headerText}</span></h5>`;
         const timerHTML = examMode === 'exam' ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` : '';
     
         let imageHTML = '', codeHTML = '';
@@ -148,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="card shadow-sm border-0">
                 <div class="card-header bg-transparent border-0 pt-4 px-4">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">${headerText}</h5>
+                        <h5 class="mb-0">${headerHTML}</h5>
                         ${timerHTML}
                     </div>
                 </div>
@@ -448,6 +510,25 @@ function renderReviewPage() {
     const question = currentExamQuestions[currentReviewIndex];
     const lang = i1n.currentLanguage || 'es';
 
+    const categoryInfo = CATEGORY_CONFIG[question.category] || { color: '#6c757d', icon: 'fa-question-circle' };
+    
+    // Prepara el contenido del popover (si la pregunta es v2.0)
+    const popoverTitle = question.topic ? `Tema ${question.topic.id}` : 'Categoría';
+    const popoverContent = question.topic 
+        ? `${question.topic.description_es}<br><small class="text-muted">${question.topic.subtopic_id}: ${question.topic.subtopic_description}</small>`
+        : question.category;
+    
+    const categoryBadgeHTML = `
+        <div class="category-badge" 
+             style="background-color: ${categoryInfo.color};"
+             data-bs-toggle="popover"
+             data-bs-trigger="hover focus"
+             data-bs-html="true"
+             title="${popoverTitle}"
+             data-bs-content="${popoverContent}">
+            <i class="fas ${categoryInfo.icon}"></i>
+        </div>`;
+
     // Nueva variable para la insignia
     let skippedBadgeHTML = '';
     if (question.userAnswerIndex === 'skipped') {
@@ -658,7 +739,7 @@ function renderReviewPage() {
 
     function init() {
         document.addEventListener('i18n-loaded', () => {
-            loadCategories();
+            loadAndDisplayCategories();
             translateQuestionCountOptions();
         });
 
