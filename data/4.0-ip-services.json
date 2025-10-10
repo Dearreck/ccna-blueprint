@@ -175,48 +175,88 @@
     "explanation_en": "A fundamental characteristic of the File Transfer Protocol (FTP) is that it uses two distinct TCP connections: a control connection on port 21 for sending commands (like user, pass, list, etc.) and a separate data connection for the actual file transfer. UDP port 69 and block numbers are characteristic of TFTP, not FTP."
   },
   {
-  "id": "ssh_unnecessary_commands_q1",
-  "category": "4.0-ip-services",
-  "isMultipleChoice": true,
-  "topic": {
-    "id": "4.8",
-    "description_es": "Configurar dispositivos de red para acceso remoto usando SSH",
-    "description_en": "Configure network devices for remote access using SSH",
-    "subtopic_id": "4.8",
-    "subtopic_description": "SSH Configuration"
+    "id": "ssh_unnecessary_commands_q1",
+    "category": "4.0-ip-services",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "4.8",
+      "description_es": "Configurar dispositivos de red para acceso remoto usando SSH",
+      "description_en": "Configure network devices for remote access using SSH",
+      "subtopic_id": "4.8",
+      "subtopic_description": "SSH Configuration"
+    },
+    "question_es": "Consulte la información. Un ingeniero ejecutó el script y añadió comandos que no eran necesarios para SSH y ahora debe eliminarlos. ¿Qué dos comandos deben ejecutarse para corregir la configuración? (Elija dos.)",
+    "question_en": "Refer to the exhibit. An engineer executed the script and added commands that were not necessary for SSH and now must remove the commands. Which two commands must be executed to correct the configuration? (Choose two.)",
+    "image": null,
+    "code": "hostname CPE\nservice password-encryption\nip domain name ccna.cisco.com\nip name-server 198.51.100.210\ncrypto key generate rsa modulus 1024\nusername admin privilege 15 secret $om1scr1t\nline vty 0 4\ntransport input ssh\nlogin local",
+    "options": [
+      {
+        "text_es": "no service password-encryption",
+        "text_en": "no service password-encryption",
+        "isCorrect": true
+      },
+      {
+        "text_es": "no ip domain name ccna.cisco.com",
+        "text_en": "no ip domain name ccna.cisco.com",
+        "isCorrect": false
+      },
+      {
+        "text_es": "no hostname CPE",
+        "text_en": "no hostname CPE",
+        "isCorrect": false
+      },
+      {
+        "text_es": "no login local",
+        "text_en": "no login local",
+        "isCorrect": false
+      },
+      {
+        "text_es": "no ip name-server 198.51.100.210",
+        "text_en": "no ip name-server 198.51.100.210",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "La configuración de SSH requiere un nombre de host, un nombre de dominio, claves criptográficas, un usuario local (si se usa `login local`) y la configuración de las líneas VTY (`transport input ssh` y `login local`). Los comandos `service password-encryption` (que cifra contraseñas locales en texto plano) y `ip name-server` (que configura un servidor DNS para el router) no son requisitos para que el servicio SSH funcione, por lo tanto, son los que se deben eliminar.",
+    "explanation_en": "SSH configuration requires a hostname, a domain name, crypto keys, a local user (if using `login local`), and VTY line configuration (`transport input ssh` and `login local`). The `service password-encryption` command (which encrypts local plaintext passwords) and the `ip name-server` command (which configures a DNS server for the router) are not requirements for the SSH service to function, therefore, they are the ones that should be removed."
   },
-  "question_es": "Consulte la información. Un ingeniero ejecutó el script y añadió comandos que no eran necesarios para SSH y ahora debe eliminarlos. ¿Qué dos comandos deben ejecutarse para corregir la configuración? (Elija dos.)",
-  "question_en": "Refer to the exhibit. An engineer executed the script and added commands that were not necessary for SSH and now must remove the commands. Which two commands must be executed to correct the configuration? (Choose two.)",
-  "image": null,
-  "code": "hostname CPE\nservice password-encryption\nip domain name ccna.cisco.com\nip name-server 198.51.100.210\ncrypto key generate rsa modulus 1024\nusername admin privilege 15 secret $om1scr1t\nline vty 0 4\ntransport input ssh\nlogin local",
-  "options": [
-    {
-      "text_es": "no service password-encryption",
-      "text_en": "no service password-encryption",
-      "isCorrect": true
+  {
+    "id": "syslog_severity_level_q1",
+    "category": "4.0-ip-services",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "4.5",
+      "description_es": "Describir el uso de las características de syslog, incluyendo 'facilities' y niveles de severidad",
+      "description_en": "Describe the use of syslog features, including facilities and severity levels",
+      "subtopic_id": "4.5",
+      "subtopic_description": "Severity Levels"
     },
-    {
-      "text_es": "no ip domain name ccna.cisco.com",
-      "text_en": "no ip domain name ccna.cisco.com",
-      "isCorrect": false
-    },
-    {
-      "text_es": "no hostname CPE",
-      "text_en": "no hostname CPE",
-      "isCorrect": false
-    },
-    {
-      "text_es": "no login local",
-      "text_en": "no login local",
-      "isCorrect": false
-    },
-    {
-      "text_es": "no ip name-server 198.51.100.210",
-      "text_en": "no ip name-server 198.51.100.210",
-      "isCorrect": true
-    }
-  ],
-  "explanation_es": "La configuración de SSH requiere un nombre de host, un nombre de dominio, claves criptográficas, un usuario local (si se usa `login local`) y la configuración de las líneas VTY (`transport input ssh` y `login local`). Los comandos `service password-encryption` (que cifra contraseñas locales en texto plano) y `ip name-server` (que configura un servidor DNS para el router) no son requisitos para que el servicio SSH funcione, por lo tanto, son los que se deben eliminar.",
-  "explanation_en": "SSH configuration requires a hostname, a domain name, crypto keys, a local user (if using `login local`), and VTY line configuration (`transport input ssh` and `login local`). The `service password-encryption` command (which encrypts local plaintext passwords) and the `ip name-server` command (which configures a DNS server for the router) are not requirements for the SSH service to function, therefore, they are the ones that should be removed."
-}
+    "question_es": "¿Qué nivel de severidad de syslog se considera el más grave y resulta en que el sistema se considere inutilizable?",
+    "question_en": "Which syslog severity level is considered the most severe and results in the system being considered unusable?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Alert (Alerta)",
+        "text_en": "Alert",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Emergency (Emergencia)",
+        "text_en": "Emergency",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Error",
+        "text_en": "Error",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Critical (Crítico)",
+        "text_en": "Critical",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "El nivel de severidad de syslog **Emergency (Nivel 0)** es el más alto e indica que el sistema es inoperable. Los niveles van del 0 (más grave) al 7 (menos grave).\n\n### Niveles de Severidad de Syslog\n| Nivel | Palabra Clave | Descripción |\n|---|---|---|\n| 0 | **Emergencies** | El sistema es inutilizable. |\n| 1 | **Alerts** | Se debe actuar de inmediato. |\n| 2 | **Critical** | Condiciones críticas. |\n| 3 | **Errors** | Condiciones de error. |\n| 4 | **Warnings** | Condiciones de advertencia. |\n| 5 | **Notifications**| Condición normal pero significativa. |\n| 6 | **Informational**| Mensajes informativos. |\n| 7 | **Debugging** | Mensajes de depuración. |",
+    "explanation_en": "The syslog severity level **Emergency (Level 0)** is the highest and indicates the system is unusable. The levels range from 0 (most severe) to 7 (least severe).\n\n### Syslog Severity Levels\n| Level | Keyword | Description |\n|---|---|---|\n| 0 | **Emergencies** | System is unusable. |\n| 1 | **Alerts** | Action must be taken immediately. |\n| 2 | **Critical** | Critical conditions. |\n| 3 | **Errors** | Error conditions. |\n| 4 | **Warnings** | Warning conditions. |\n| 5 | **Notifications**| Normal but significant condition. |\n| 6 | **Informational**| Informational messages. |\n| 7 | **Debugging** | Debugging-level messages. |"
+  }
 ]
