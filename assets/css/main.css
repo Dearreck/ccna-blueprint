@@ -564,3 +564,48 @@ html.dark-mode .exam-questions-container .form-check:hover .form-check-label {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
 }
+
+
+/* --- Estilos para el contenido Markdown en la Explicación --- */
+
+/* 1. Unifica la fuente de los encabezados (h1, h2, h3...) */
+.explanation-box h1,
+.explanation-box h2,
+.explanation-box h3,
+.explanation-box h4 {
+  font-family: inherit; /* Usa la misma fuente que el resto del cuerpo */
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+/* 2. Da estilo a las tablas para que se integren con el diseño */
+.explanation-box table {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-collapse: collapse;
+}
+
+.explanation-box th,
+.explanation-box td {
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.explanation-box th {
+  font-weight: bold;
+}
+
+/* 3. Estilo para el código dentro de la tabla o texto */
+.explanation-box code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 85%;
+}
+
+html.dark-mode .explanation-box code {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
