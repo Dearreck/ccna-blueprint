@@ -204,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const endButtonText = i1n.get('btn_end_exam');
         const questionText = question[`question_${lang}`] || question.question_en;
         const timerHTML = examMode === 'exam' ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` : '';
-        const questionText = question[`question_${lang}`] || question.question_en;
     
         let imageHTML = '', codeHTML = '';
         if (question.image) {
