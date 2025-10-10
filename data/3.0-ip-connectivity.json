@@ -246,5 +246,45 @@
     ],
     "explanation_es": "La tabla de enrutamiento muestra dos rutas EIGRP (D) hacia la misma red de destino (172.16.1.4/30). Ambas rutas tienen la misma distancia administrativa (90) y la misma métrica (7445). Cuando un router tiene múltiples rutas hacia el mismo destino con la misma métrica y AD, instala ambas en la tabla de enrutamiento y realiza un balanceo de carga de igual costo (equal-cost load balancing) entre ellas.",
     "explanation_en": "The routing table shows two EIGRP (D) routes to the same destination network (172.16.1.4/30). Both routes have the same administrative distance (90) and the same metric (7445). When a router has multiple paths to the same destination with an equal metric and AD, it installs both routes in the routing table and performs equal-cost load balancing between them."
+  },
+  {
+    "id": "routing_decision_multiple_prefixes_q1",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "3.2",
+      "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
+      "description_en": "Determine how a router makes a forwarding decision by default",
+      "subtopic_id": "3.2.a",
+      "subtopic_description": "Longest prefix match"
+    },
+    "question_es": "Un router recibió tres prefijos de destino: 10.0.0.0/8, 10.0.0.0/16 y 10.0.0.0/24. Cuando se ejecuta el comando `show ip route`, ¿qué salida devuelve?",
+    "question_en": "A router received three destination prefixes: 10.0.0.0/8, 10.0.0.0/16, and 10.0.0.0/24. When the show ip route command is executed, which output does it return?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Gateway of last resort is 172.16.1.1 to network 0.0.0.0\nO E2 10.0.0.0/24 [110/5] via 192.168.3.1, 0:01:00, Ethernet2",
+        "text_en": "Gateway of last resort is 172.16.1.1 to network 0.0.0.0\nO E2 10.0.0.0/24 [110/5] via 192.168.3.1, 0:01:00, Ethernet2",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Gateway of last resort is 172.16.1.1 to network 0.0.0.0\nO E2 10.0.0.0/8 [110/5] via 192.168.1.1, 0:01:00, Ethernet0",
+        "text_en": "Gateway of last resort is 172.16.1.1 to network 0.0.0.0\nO E2 10.0.0.0/8 [110/5] via 192.168.1.1, 0:01:00, Ethernet0",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Gateway of last resort is 172.16.1.1 to network 0.0.0.0\nO E2 10.0.0.0/8 [110/5] via 192.168.1.1, 0:01:00, Ethernet0\nO E2 10.0.0.0/16 [110/5] via 192.168.2.1, 0:01:00, Ethernet1\nO E2 10.0.0.0/24 [110/5] via 192.168.3.1, 0:01:00, Ethernet2",
+        "text_en": "Gateway of last resort is 172.16.1.1 to network 0.0.0.0\nO E2 10.0.0.0/8 [110/5] via 192.168.1.1, 0:01:00, Ethernet0\nO E2 10.0.0.0/16 [110/5] via 192.168.2.1, 0:01:00, Ethernet1\nO E2 10.0.0.0/24 [110/5] via 192.168.3.1, 0:01:00, Ethernet2",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Gateway of last resort is 172.16.1.1 to network 0.0.0.0\nO E2 10.0.0.0/16 [110/5] via 192.168.2.1, 0:01:00, Ethernet1\nO E2 10.0.0.0/24 [110/5] via 192.168.3.1, 0:01:00, Ethernet2",
+        "text_en": "Gateway of last resort is 172.16.1.1 to network 0.0.0.0\nO E2 10.0.0.0/16 [110/5] via 192.168.2.1, 0:01:00, Ethernet1\nO E2 10.0.0.0/24 [110/5] via 192.168.3.1, 0:01:00, Ethernet2",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Un router instalará todas las rutas aprendidas en su tabla de enrutamiento, siempre y cuando no sean rutas duplicadas exactas. En este caso, el router ha aprendido tres rutas distintas para la red 10.0.0.0 con diferentes máscaras de subred (/8, /16 y /24). Como cada una es una ruta única, las tres se instalan en la tabla de enrutamiento. Al enrutar un paquete, el router usará la regla de coincidencia de prefijo más larga para seleccionar la ruta más específica.",
+    "explanation_en": "A router will install all learned routes into its routing table, as long as they are not exact duplicate routes. In this case, the router has learned three distinct routes for the 10.0.0.0 network with different subnet masks (/8, /16, and /24). Since each is a unique route, all three are installed in the routing table. When routing a packet, the router will use the longest prefix match rule to select the most specific route."
   }
 ]
