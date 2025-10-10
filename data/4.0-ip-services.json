@@ -93,5 +93,45 @@
     ],
     "explanation_es": "Para una configuración mínima y segura de SSHv2, se requieren varios pasos: 1. Establecer un `hostname`. 2. Definir un `ip domain name` para generar las claves criptográficas. 3. Generar las claves RSA con `crypto key generate rsa`. 4. Crear un `username` local para la autenticación. 5. Forzar la versión 2 con `ip ssh version 2`. 6. En las líneas VTY, permitir solo SSH con `transport input ssh` y usar la base de datos local para la autenticación con `login local`. La opción correcta es la única que cumple todos estos requisitos.",
     "explanation_en": "For a minimal and secure SSHv2 configuration, several steps are required: 1. Set a `hostname`. 2. Define an `ip domain name` to generate cryptographic keys. 3. Generate RSA keys with `crypto key generate rsa`. 4. Create a local `username` for authentication. 5. Force version 2 with `ip ssh version 2`. 6. On the VTY lines, allow only SSH with `transport input ssh` and use the local database for authentication with `login local`. The correct option is the only one that meets all these requirements."
+  },
+  {
+    "id": "nat_overload_q1",
+    "category": "4.0-ip-services",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "4.1",
+      "description_es": "Configurar y verificar NAT de origen interno usando estática y pools",
+      "description_en": "Configure and verify inside source NAT using static and pools",
+      "subtopic_id": "4.1",
+      "subtopic_description": "NAT Overload (PAT)"
+    },
+    "question_es": "¿Qué distingue a NAT con sobrecarga (PAT) de NAT dinámico?",
+    "question_en": "What distinguishes NAT overload (PAT) from dynamic NAT?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "PAT utiliza múltiples direcciones IP públicas para una única dirección IP privada.",
+        "text_en": "PAT uses multiple public IP addresses for a single private IP address.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "PAT utiliza el número de puerto para diferenciar entre múltiples sesiones de hosts internos que comparten una única dirección IP pública.",
+        "text_en": "PAT uses the port number to differentiate between multiple sessions from internal hosts that share a single public IP address.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "PAT solo permite una traducción uno a uno entre direcciones IP privadas y públicas.",
+        "text_en": "PAT only allows a one-to-one translation between private and public IP addresses.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "PAT no requiere una tabla de traducción en el router.",
+        "text_en": "PAT does not require a translation table on the router.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "La característica principal de NAT con sobrecarga, o PAT (Port Address Translation), es su capacidad de permitir que múltiples dispositivos en una red privada compartan una única dirección IP pública. Lo logra manteniendo un seguimiento de cada sesión única a través de la combinación de la dirección IP y el número de puerto de origen, asignando un número de puerto único a cada sesión saliente.",
+    "explanation_en": "The main feature of NAT overload, or PAT (Port Address Translation), is its ability to allow multiple devices on a private network to share a single public IP address. It achieves this by keeping track of each unique session through the combination of the source IP address and port number, assigning a unique port number to each outgoing session."
   }
 ]
