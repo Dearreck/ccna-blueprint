@@ -115,5 +115,45 @@
     ],
     "explanation_es": "Una postura de seguridad sólida se basa en múltiples capas. Dos de las prácticas más fundamentales son: 1. **Reducir la superficie de ataque** deshabilitando cualquier puerto o servicio que no sea esencial, ya que cada uno es un punto de entrada potencial para un atacante. 2. **Asegurar el acceso físico** a los equipos, ya que un atacante con acceso físico puede eludir muchas otras medidas de seguridad.",
     "explanation_en": "A strong security posture relies on multiple layers. Two of the most fundamental practices are: 1. **Reducing the attack surface** by disabling any port or service that is not essential, as each is a potential entry point for an attacker. 2. **Securing physical access** to equipment, as an attacker with physical access can bypass many other security measures."
+  },
+  {
+    "id": "wpa3_security_improvement_q1",
+    "category": "5.0-security-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "5.9",
+      "description_es": "Describir los protocolos de seguridad inalámbrica (WPA, WPA2 y WPA3)",
+      "description_en": "Describe wireless security protocols (WPA, WPA2, and WPA3)",
+      "subtopic_id": "5.9",
+      "subtopic_description": "WPA3"
+    },
+    "question_es": "¿Cómo mejora la seguridad WPA3?",
+    "question_en": "How does WPA3 improve security?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Usa TKIP para el cifrado.",
+        "text_en": "It uses TKIP for encryption.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Usa un '4-way handshake' para la autenticación.",
+        "text_en": "It uses a 4-way handshake for authentication.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Usa SAE para la autenticación.",
+        "text_en": "It uses SAE for authentication.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Usa RC4 para el cifrado.",
+        "text_en": "It uses RC4 for encryption.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "La principal mejora de seguridad en WPA3-Personal es la sustitución del método de autenticación PSK (Pre-Shared Key) por SAE (Simultaneous Authentication of Equals). SAE es mucho más resistente a los ataques de diccionario fuera de línea, que eran una vulnerabilidad significativa en WPA2. El '4-way handshake' es característico de WPA2, y TKIP/RC4 son protocolos de cifrado antiguos e inseguros.",
+    "explanation_en": "The primary security improvement in WPA3-Personal is replacing the PSK (Pre-Shared Key) authentication method with SAE (Simultaneous Authentication of Equals). SAE is much more resistant to offline dictionary attacks, which were a significant vulnerability in WPA2. The 4-way handshake is characteristic of WPA2, and TKIP/RC4 are old and insecure encryption protocols."
   }
 ]
