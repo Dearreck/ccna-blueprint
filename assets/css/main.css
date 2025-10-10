@@ -506,3 +506,23 @@ html.dark-mode .skipped-question-badge {
 .review-option {
   white-space: pre-wrap;
 }
+
+
+/* --- Estilos de Hover para las Opciones de Pregunta --- */
+.form-check .form-check-label,
+.review-option {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Efecto para el tema claro */
+.exam-questions-container .form-check:hover .form-check-label {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 10px rgba(13, 110, 253, 0.3);
+}
+
+/* Efecto para el tema oscuro */
+html.dark-mode .exam-questions-container .form-check:hover .form-check-label {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  background-color: rgba(59, 130, 246, 0.1);
+}
