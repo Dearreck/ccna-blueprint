@@ -258,5 +258,45 @@
     ],
     "explanation_es": "El nivel de severidad de syslog **Emergency (Nivel 0)** es el más alto e indica que el sistema es inoperable. Los niveles van del 0 (más grave) al 7 (menos grave).\n\n### Niveles de Severidad de Syslog\n| Nivel | Palabra Clave | Descripción |\n|---|---|---|\n| 0 | **Emergencies** | El sistema es inutilizable. |\n| 1 | **Alerts** | Se debe actuar de inmediato. |\n| 2 | **Critical** | Condiciones críticas. |\n| 3 | **Errors** | Condiciones de error. |\n| 4 | **Warnings** | Condiciones de advertencia. |\n| 5 | **Notifications**| Condición normal pero significativa. |\n| 6 | **Informational**| Mensajes informativos. |\n| 7 | **Debugging** | Mensajes de depuración. |",
     "explanation_en": "The syslog severity level **Emergency (Level 0)** is the highest and indicates the system is unusable. The levels range from 0 (most severe) to 7 (least severe).\n\n### Syslog Severity Levels\n| Level | Keyword | Description |\n|---|---|---|\n| 0 | **Emergencies** | System is unusable. |\n| 1 | **Alerts** | Action must be taken immediately. |\n| 2 | **Critical** | Critical conditions. |\n| 3 | **Errors** | Error conditions. |\n| 4 | **Warnings** | Warning conditions. |\n| 5 | **Notifications**| Normal but significant condition. |\n| 6 | **Informational**| Informational messages. |\n| 7 | **Debugging** | Debugging-level messages. |"
+  },
+  {
+    "id": "ccna-qos-shaping-bw-limit-01",
+    "category": "4.0 IP Services",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "4.7",
+      "description_es": "Explicar el comportamiento de reenvío por salto (PHB) para QoS, como clasificación, marcado, encolamiento, congestión, vigilancia (policing) y modelado (shaping)",
+      "description_en": "Explain the forwarding per-hop behavior (PHB) for QoS such as classification, marking, queuing, congestion, policing, and shaping",
+      "subtopic_id": "4.7",
+      "subtopic_description": "shaping"
+    },
+    "question_es": "¿Cuál es un propósito del modelado de tráfico (traffic shaping)?",
+    "question_en": "What is a purpose of traffic shaping?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Proporciona un servicio de mejor esfuerzo (best-effort).",
+        "text_en": "It provides best-effort service.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Permite la identificación dinámica de flujos.",
+        "text_en": "It enables dynamic flow identification.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Limita el uso del ancho de banda.",
+        "text_en": "It limits bandwidth usage.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Permite el enrutamiento basado en políticas.",
+        "text_en": "It enables policy-based routing.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "El **modelado de tráfico (traffic shaping)** es una técnica de Calidad de Servicio (QoS) que retrasa el tráfico que excede una tasa de ancho de banda configurada. Los paquetes en exceso no se descartan, sino que se almacenan en un búfer (cola) y se envían más tarde, cuando hay ancho de banda disponible. Esto tiene el efecto de 'suavizar' los picos de tráfico para asegurar que el uso del ancho de banda no exceda el límite definido, lo cual es su propósito principal.\n\n### Análisis de las Opciones:\n* **A. Proporciona un servicio de mejor esfuerzo (best-effort):** Incorrecto. El servicio de 'mejor esfuerzo' es el comportamiento predeterminado de una red IP sin QoS, donde no hay garantías de entrega. El modelado de tráfico es precisamente una herramienta de QoS para ofrecer un servicio *mejor* que el de mejor esfuerzo.\n* **B. Permite la identificación dinámica de flujos:** Incorrecto. La identificación de flujos de tráfico (por ejemplo, reconocer tráfico de video vs. correo electrónico) es tarea de los mecanismos de **clasificación**, como NBAR (Network Based Application Recognition). El modelado actúa *después* de que el tráfico ha sido clasificado.\n* **C. Limita el uso del ancho de banda:** Correcto. Este es el objetivo principal del modelado. Al poner en cola los paquetes excedentes en lugar de descartarlos, se impone un límite máximo a la tasa de datos, previniendo la congestión y cumpliendo con los acuerdos de nivel de servicio (SLA).\n* **D. Permite el enrutamiento basado en políticas:** Incorrecto. El enrutamiento basado en políticas (Policy-Based Routing - PBR) es una técnica que reenvía paquetes basándose en criterios definidos en políticas (como la IP de origen), en lugar de basarse únicamente en la IP de destino. Es una función de enrutamiento, no una técnica de gestión de ancho de banda como el modelado de tráfico.",
+    "explanation_en": "Traffic shaping is a Quality of Service (QoS) technique that delays traffic exceeding a configured bandwidth rate. Excess packets are not dropped but are instead buffered (queued) and sent later when bandwidth is available. This has the effect of 'smoothing out' traffic bursts to ensure that bandwidth usage does not exceed the defined limit, which is its primary purpose.\n\n### Options Analysis:\n* **A. It provides best-effort service:** Incorrect. 'Best-effort' service is the default behavior of an IP network without any QoS, where there are no delivery guarantees. Traffic shaping is precisely a QoS tool to provide a service *better* than best-effort.\n* **B. It enables dynamic flow identification:** Incorrect. The identification of traffic flows (e.g., recognizing video traffic vs. email) is the job of **classification** mechanisms, such as NBAR (Network Based Application Recognition). Shaping acts *after* the traffic has been classified.\n* **C. It limits bandwidth usage:** Correct. This is the main goal of shaping. By queuing excess packets instead of dropping them, it enforces a maximum data rate, preventing congestion and complying with Service Level Agreements (SLAs).\n* **D. It enables policy-based routing:** Incorrect. Policy-Based Routing (PBR) is a technique that forwards packets based on criteria defined in policies (like the source IP), rather than relying solely on the destination IP. It is a routing function, not a bandwidth management technique like traffic shaping."
   }
 ]
