@@ -326,5 +326,45 @@
     ],
     "explanation_es": "El estado actual muestra una relación 'FULL/DR', lo que indica que se está realizando una elección de Router Designado (DR), típico de redes multiacceso. El estado deseado es 'FULL' sin un rol de DR/BDR. Esto se logra cambiando el tipo de red OSPF en la interfaz a 'point-to-point', ya que en este tipo de red no se realiza la elección de DR/BDR. La prioridad cambia a 0 como resultado de no participar en la elección.",
     "explanation_en": "The current state shows a 'FULL/DR' relationship, which indicates a Designated Router (DR) election is taking place, typical of multi-access networks. The desired state is 'FULL' without a DR/BDR role. This is achieved by changing the OSPF network type on the interface to 'point-to-point', as no DR/BDR election occurs on this network type. The priority changes to 0 as a result of not participating in the election."
+  },
+  {
+    "id": "no_route_match_discard_q1",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "3.1",
+      "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
+      "description_en": "Determine how a router makes a forwarding decision by default",
+      "subtopic_id": "3.1.g",
+      "subtopic_description": "Gateway of last resort"
+    },
+    "question_es": "Consulte la información. ¿Qué acción toma el router cuando un paquete se origina en 10.10.10.2 y está destinado a 10.10.10.16?",
+    "question_en": "Refer to the exhibit. Which action is taken by the router when a packet is sourced from 10.10.10.2 and destined for 10.10.10.16?",
+    "image": null,
+    "code": "Router1#show ip route\nGateway of last resort is not set\n     209.165.200.0/27 is subnetted, 1 subnets\nS    209.165.200.224 [120/0] via 10.10.10.2, 00:09:57\n     10.0.0.0/8 is variably subnetted, 4 subnets, 3 masks\nC    10.10.10.0/28 is directly connected, GigabitEthernet0/0\nC    10.10.11.0/30 is directly connected, FastEthernet2/0\nO    10.10.13.0/24 [110/2] via 10.10.10.1, 00:08:34, GigabitEthernet0/0\nC    10.10.12.0/30 is directly connected, GigabitEthernet0/1",
+    "options": [
+      {
+        "text_es": "Inunda los paquetes a todos los siguientes saltos aprendidos.",
+        "text_en": "It floods packets to all learned next hops.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Descarta los paquetes.",
+        "text_en": "It discards the packets.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Usa una ruta que es similar a la dirección de destino.",
+        "text_en": "It uses a route that is similar to the destination address.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Pone en cola los paquetes esperando que se aprenda la ruta.",
+        "text_en": "It queues the packets waiting for the route to be learned.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "El router busca una ruta para el destino 10.10.10.16. La ruta más cercana, `10.10.10.0/28`, solo cubre el rango de IP de 10.10.10.0 a 10.10.10.15. Ninguna otra ruta en la tabla coincide con el destino. Dado que la tabla de enrutamiento indica `Gateway of last resort is not set` (no hay una ruta por defecto), el router no tiene a dónde enviar el paquete. En esta situación, la única acción posible es descartar el paquete.",
+    "explanation_en": "The router looks for a route to the destination 10.10.10.16. The closest route, `10.10.10.0/28`, only covers the IP range from 10.10.10.0 to 10.10.10.15. No other route in the table matches the destination. Since the routing table states `Gateway of last resort is not set` (there is no default route), the router has nowhere to send the packet. In this situation, the only possible action is to discard the packet."
   }
 ]
