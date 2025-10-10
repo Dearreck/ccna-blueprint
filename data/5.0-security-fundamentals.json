@@ -113,8 +113,8 @@
         "isCorrect": false
       }
     ],
-    "explanation_es": "Una postura de seguridad sólida se basa en múltiples capas. Dos de las prácticas más fundamentales son: 1. **Reducir la superficie de ataque** deshabilitando cualquier puerto o servicio que no sea esencial, ya que cada uno es un punto de entrada potencial para un atacante. 2. **Asegurar el acceso físico** a los equipos, ya que un atacante con acceso físico puede eludir muchas otras medidas de seguridad.",
-    "explanation_en": "A strong security posture relies on multiple layers. Two of the most fundamental practices are: 1. **Reducing the attack surface** by disabling any port or service that is not essential, as each is a potential entry point for an attacker. 2. **Securing physical access** to equipment, as an attacker with physical access can bypass many other security measures."
+    "explanation_es": "Una postura de seguridad sólida se basa en múltiples capas. Dos de las prácticas más fundamentales son: \n1. **Reducir la superficie de ataque** deshabilitando cualquier puerto o servicio que no sea esencial, ya que cada uno es un punto de entrada potencial para un atacante. \n2. **Asegurar el acceso físico** a los equipos, ya que un atacante con acceso físico puede eludir muchas otras medidas de seguridad.",
+    "explanation_en": "A strong security posture relies on multiple layers. Two of the most fundamental practices are: \n1. **Reducing the attack surface** by disabling any port or service that is not essential, as each is a potential entry point for an attacker. \n2. **Securing physical access** to equipment, as an attacker with physical access can bypass many other security measures."
   },
   {
     "id": "wpa3_security_improvement_q1",
