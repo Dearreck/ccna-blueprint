@@ -215,6 +215,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
             actionButton.textContent = i1n.get('btn_next');
             actionButton.onclick = proceedToNextQuestion;
+
+            // Mantenemos el botón "Omitir" deshabilitado, pero el de "Finalizar" activo
+            document.getElementById('skip-question-btn').disabled = true;
         } else {
             // Comportamiento normal para preguntas no respondidas
             actionButton.textContent = buttonText;
@@ -311,7 +314,6 @@ document.addEventListener('DOMContentLoaded', () => {
         actionButton.onclick = proceedToNextQuestion;
         
         document.getElementById('skip-question-btn').disabled = true;
-        document.getElementById('end-exam-btn').disabled = true;
     }
 
     function handleStudyModeAnswer(selectedOptionInput) {
