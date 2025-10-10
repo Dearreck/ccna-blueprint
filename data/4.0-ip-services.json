@@ -261,7 +261,7 @@
   },
   {
     "id": "ccna-qos-shaping-bw-limit-01",
-    "category": "4.0 IP Services",
+    "category": "4.0-ip-services",
     "isMultipleChoice": false,
     "topic": {
       "id": "4.7",
