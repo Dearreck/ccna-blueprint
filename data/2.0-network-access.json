@@ -264,5 +264,45 @@
     ],
     "explanation_es": "El 'etiquetado de VLAN' (VLAN tagging) es el proceso mediante el cual se añade una etiqueta (tag) a una trama de Ethernet. Esta etiqueta, definida por el estándar 802.1Q, contiene el ID de la VLAN a la que pertenece la trama. Esto permite que los enlaces troncales (trunk links) transporten tráfico de múltiples VLANs a través de un único puerto, manteniendo cada VLAN lógicamente separada.",
     "explanation_en": "VLAN tagging is the process by which a tag is added to an Ethernet frame. This tag, defined by the 802.1Q standard, contains the VLAN ID to which the frame belongs. This allows trunk links to carry traffic for multiple VLANs across a single port while keeping each VLAN logically separate."
+  },
+  {
+    "id": "wlc_rogue_ap_friendly_q1",
+    "category": "2.0-network-access",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "2.9",
+      "description_es": "Interpretar la configuración de la GUI de la LAN inalámbrica para la conectividad del cliente",
+      "description_en": "Interpret the wireless LAN GUI configuration for client connectivity",
+      "subtopic_id": "2.9",
+      "subtopic_description": "Rogue AP Management"
+    },
+    "question_es": "Un WLC envía alarmas sobre un AP 'rogue' (intruso), y el administrador de red verifica que las alarmas son causadas por un AP autónomo legítimo. ¿Cómo se deben detener las alarmas para la dirección MAC de este AP?",
+    "question_en": "A WLC sends alarms about a rogue AP, and the network administrator verifies that the alarms are caused by a legitimate autonomous AP. How must the alarms be stopped for the MAC address of the AP?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Establecer el Tipo de Clase del AP a 'Amistoso' (Friendly).",
+        "text_en": "Set the AP Class Type to Friendly.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Eliminar manualmente el AP del estado 'Pendiente' (Pending).",
+        "text_en": "Manually remove the AP from Pending state.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Colocar el AP en contención manual.",
+        "text_en": "Place the AP into manual containment.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Eliminar el AP de la gestión del WLC.",
+        "text_en": "Remove the AP from WLC management.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Cuando un WLC detecta un AP que no gestiona, lo clasifica como 'rogue'. Si un administrador determina que este AP es legítimo (por ejemplo, un AP de una red vecina o un AP autónomo propio), debe clasificarlo como 'Amistoso' (Friendly). Esto le indica al WLC que confíe en el AP y deje de generar alarmas sobre él.",
+    "explanation_en": "When a WLC detects an AP that it does not manage, it classifies it as a 'rogue'. If an administrator determines this AP is legitimate (e.g., an AP from a neighboring network or a known autonomous AP), they must classify it as 'Friendly'. This tells the WLC to trust the AP and stop generating alarms for it."
   }
 ]
