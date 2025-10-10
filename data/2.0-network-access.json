@@ -119,5 +119,30 @@
     ],
     "explanation_es": "La habilitación o deshabilitación de Link Aggregation (LAG) en un Cisco Wireless LAN Controller (WLC) es un cambio fundamental en cómo el sistema maneja sus puertos físicos. Debido a la naturaleza de este cambio a nivel de sistema, el WLC requiere un reinicio para que la nueva configuración de LAG tenga efecto.",
     "explanation_en": "Enabling or disabling Link Aggregation (LAG) on a Cisco Wireless LAN Controller (WLC) is a fundamental change to how the system handles its physical ports. Due to the system-level nature of this change, the WLC requires a reboot for the new LAG configuration to take effect."
+  },
+  {
+    "id": "rstp_states_q1",
+    "category": "2.0-network-access",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "2.5",
+      "description_es": "Interpretar operaciones básicas de Rapid PVST+ Spanning Tree Protocol",
+      "description_en": "Interpret basic operations of Rapid PVST+ Spanning Tree Protocol",
+      "subtopic_id": "2.5.b",
+      "subtopic_description": "Port states and roles"
+    },
+    "question_es": "Además de 'descartando' (discarding), ¿a través de qué dos estados transita el puerto de un switch mientras usa RSTP (802.1w)? (Elija dos.)",
+    "question_en": "Aside from discarding, which two states does the switch port transition through while using RSTP (802.1w)? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "listening (escucha)", "text_en": "listening", "isCorrect": false },
+      { "text_es": "speaking (hablando)", "text_en": "speaking", "isCorrect": false },
+      { "text_es": "blocking (bloqueo)", "text_en": "blocking", "isCorrect": false },
+      { "text_es": "forwarding (reenvío)", "text_en": "forwarding", "isCorrect": true },
+      { "text_es": "learning (aprendizaje)", "text_en": "learning", "isCorrect": true }
+    ],
+    "explanation_es": "RSTP (802.1w) optimiza el STP (802.1D) consolidando los cinco estados originales en tres. Los estados de STP 'disabled', 'blocking' y 'listening' se combinan en un único estado RSTP llamado 'discarding'. Por lo tanto, un puerto en RSTP transita de 'discarding' a 'learning' (aprendizaje) y finalmente a 'forwarding' (reenvío).",
+    "explanation_en": "RSTP (802.1w) streamlines STP (802.1D) by consolidating the original five states into three. The STP states of 'disabled', 'blocking', and 'listening' are all combined into a single RSTP state called 'discarding'. Therefore, a port in RSTP transitions from 'discarding' to 'learning' and finally to 'forwarding'."
   }
 ]
