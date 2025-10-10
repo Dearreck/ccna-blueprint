@@ -224,5 +224,45 @@
     ],
     "explanation_es": "LACP (Link Aggregation Control Protocol) tiene dos modos: 'active' (activo) y 'passive' (pasivo). Un puerto en modo 'active' intenta activamente formar un EtherChannel, mientras que un puerto en modo 'passive' solo responde a las solicitudes. Para que se forme un EtherChannel, al menos un lado debe estar en modo 'active'. En la configuración mostrada, ambos switches están en modo 'passive', por lo que ninguno inicia la negociación. Cambiar Switch2 a 'active' permitirá que se establezca el canal.",
     "explanation_en": "LACP (Link Aggregation Control Protocol) has two modes: 'active' and 'passive'. A port in 'active' mode actively tries to form an EtherChannel, while a port in 'passive' mode only responds to requests. For an EtherChannel to form, at least one side must be in 'active' mode. In the configuration shown, both switches are in 'passive' mode, so neither initiates the negotiation. Changing Switch2 to 'active' will allow the channel to be established."
+  },
+  {
+    "id": "vlan_tagging_q1",
+    "category": "2.0-network-access",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "2.2",
+      "description_es": "Configurar y verificar la conectividad entre switches",
+      "description_en": "Configure and verify interswitch connectivity",
+      "subtopic_id": "2.2.b",
+      "subtopic_description": "802.1Q"
+    },
+    "question_es": "¿Qué función de un switch de Capa 2 encapsula paquetes para diferentes VLANs de modo que los paquetes atraviesen el mismo puerto y mantengan la separación de tráfico entre las VLANs?",
+    "question_en": "Which Layer 2 switch function encapsulates packets for different VLANs so that the packets traverse the same port and maintain traffic separation between the VLANs?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Marcado de VLAN (VLAN marking)",
+        "text_en": "VLAN marking",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Numeración de VLAN (VLAN numbering)",
+        "text_en": "VLAN numbering",
+        "isCorrect": false
+      },
+      {
+        "text_es": "DSCP de VLAN (VLAN DSCP)",
+        "text_en": "VLAN DSCP",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Etiquetado de VLAN (VLAN tagging)",
+        "text_en": "VLAN tagging",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "El 'etiquetado de VLAN' (VLAN tagging) es el proceso mediante el cual se añade una etiqueta (tag) a una trama de Ethernet. Esta etiqueta, definida por el estándar 802.1Q, contiene el ID de la VLAN a la que pertenece la trama. Esto permite que los enlaces troncales (trunk links) transporten tráfico de múltiples VLANs a través de un único puerto, manteniendo cada VLAN lógicamente separada.",
+    "explanation_en": "VLAN tagging is the process by which a tag is added to an Ethernet frame. This tag, defined by the 802.1Q standard, contains the VLAN ID to which the frame belongs. This allows trunk links to carry traffic for multiple VLANs across a single port while keeping each VLAN logically separate."
   }
 ]
