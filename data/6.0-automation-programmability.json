@@ -22,5 +22,29 @@
     ],
     "explanation_es": "En JSON, los datos dentro de un objeto `{}` se organizan en pares de clave-valor con el formato `\"clave\": \"valor\"`. En la línea 2, `\"switch\"` es la clave (o nombre de la propiedad), y `\"3750\"` es el valor asociado a esa clave.",
     "explanation_en": "In JSON, data within an object `{}` is organized into key-value pairs with the format `\"key\": \"value\"`. On line 2, `\"switch\"` is the key (or property name), and `\"3750\"` is the value associated with that key."
+  },
+  {
+    "id": "automation_outcome_q1",
+    "category": "6.0-automation-programmability",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "6.1",
+      "description_es": "Explicar cómo la automatización impacta la gestión de redes",
+      "description_en": "Explain how automation impacts network management",
+      "subtopic_id": "6.1",
+      "subtopic_description": "Impact of Automation"
+    },
+    "question_es": "¿Cuál es un resultado esperado cuando se implementa la automatización de la gestión de redes?",
+    "question_en": "What is an expected outcome when network management automation is deployed?",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "Las actualizaciones de software se realizan desde un controlador central.", "text_en": "Software upgrades are performed from a central controller.", "isCorrect": true },
+      { "text_es": "Se necesitan aplicaciones personalizadas para configurar los dispositivos de red.", "text_en": "Custom applications are needed to configure network devices.", "isCorrect": false },
+      { "text_es": "La complejidad aumenta cuando se agregan nuevas configuraciones de dispositivos.", "text_en": "Complexity increases when new device configurations are added.", "isCorrect": false },
+      { "text_es": "Se debe utilizar un plano de gestión distribuido.", "text_en": "A distributed management plane must be used.", "isCorrect": false }
+    ],
+    "explanation_es": "Uno de los principales beneficios de la automatización y las redes basadas en controladores es la centralización de la gestión. Esto permite a los administradores realizar tareas complejas y repetitivas, como las actualizaciones de software, de manera consistente y eficiente en múltiples dispositivos desde un único punto de control, reduciendo errores y ahorrando tiempo.",
+    "explanation_en": "One of the primary benefits of automation and controller-based networking is the centralization of management. This allows administrators to perform complex and repetitive tasks, such as software upgrades, consistently and efficiently across multiple devices from a single point of control, reducing errors and saving time."
   }
 ]
