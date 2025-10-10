@@ -53,5 +53,45 @@
     ],
     "explanation_es": "SNMPv3 introdujo un Modelo de Seguridad Basado en el Usuario (USM) para proporcionar autenticación y cifrado. El comando `snmp-server user` es específico para crear estos usuarios y definir sus niveles de seguridad. En contraste, el comando `snmp-server community` se utiliza para las versiones más antiguas e inseguras, SNMPv1 y SNMPv2c, que se basan en 'cadenas de comunidad' en texto plano.",
     "explanation_en": "SNMPv3 introduced a User-based Security Model (USM) to provide authentication and encryption. The `snmp-server user` command is specific to creating these users and defining their security levels. In contrast, the `snmp-server community` command is used for the older, insecure versions, SNMPv1 and SNMPv2c, which rely on clear-text 'community strings'."
+  },
+  {
+    "id": "ssh_config_q1",
+    "category": "4.0-ip-services",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "4.8",
+      "description_es": "Configurar dispositivos de red para acceso remoto usando SSH",
+      "description_en": "Configure network devices for remote access using SSH",
+      "subtopic_id": "4.8",
+      "subtopic_description": "SSH Configuration"
+    },
+    "question_es": "Un ingeniero está configurando SSH versión 2 exclusivamente en el router R1. ¿Cuál es la configuración mínima requerida para permitir la gestión remota utilizando el protocolo criptográfico?",
+    "question_en": "An engineer is configuring SSH version 2 exclusively on the R1 router. What is the minimum configuration required to permit remote management using the cryptographic protocol?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "hostname R1\nservice password-encryption\ncrypto key generate rsa general-keys modulus 1024\nusername cisco privilege 15 password 0 cisco123\nip ssh version 2\nline vty 0 15\ntransport input ssh\nlogin local",
+        "text_en": "hostname R1\nservice password-encryption\ncrypto key generate rsa general-keys modulus 1024\nusername cisco privilege 15 password 0 cisco123\nip ssh version 2\nline vty 0 15\ntransport input ssh\nlogin local",
+        "isCorrect": false
+      },
+      {
+        "text_es": "hostname R1\nip domain name cisco\ncrypto key generate rsa general-keys modulus 1024\nusername cisco privilege 15 password 0 cisco123\nip ssh version 2\nline vty 0 15\ntransport input all\nlogin local",
+        "text_en": "hostname R1\nip domain name cisco\ncrypto key generate rsa general-keys modulus 1024\nusername cisco privilege 15 password 0 cisco123\nip ssh version 2\nline vty 0 15\ntransport input all\nlogin local",
+        "isCorrect": false
+      },
+      {
+        "text_es": "hostname R1\ncrypto key generate rsa general-keys modulus 1024\nline vty 0 15\ntransport input all\nlogin local",
+        "text_en": "hostname R1\ncrypto key generate rsa general-keys modulus 1024\nline vty 0 15\ntransport input all\nlogin local",
+        "isCorrect": false
+      },
+      {
+        "text_es": "hostname R1\nip domain name cisco\ncrypto key generate rsa general-keys modulus 1024\nusername cisco privilege 15 password 0 cisco123\nip ssh version 2\nline vty 0 15\ntransport input ssh\nlogin local",
+        "text_en": "hostname R1\nip domain name cisco\ncrypto key generate rsa general-keys modulus 1024\nusername cisco privilege 15 password 0 cisco123\nip ssh version 2\nline vty 0 15\ntransport input ssh\nlogin local",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "Para una configuración mínima y segura de SSHv2, se requieren varios pasos: 1. Establecer un `hostname`. 2. Definir un `ip domain name` para generar las claves criptográficas. 3. Generar las claves RSA con `crypto key generate rsa`. 4. Crear un `username` local para la autenticación. 5. Forzar la versión 2 con `ip ssh version 2`. 6. En las líneas VTY, permitir solo SSH con `transport input ssh` y usar la base de datos local para la autenticación con `login local`. La opción correcta es la única que cumple todos estos requisitos.",
+    "explanation_en": "For a minimal and secure SSHv2 configuration, several steps are required: 1. Set a `hostname`. 2. Define an `ip domain name` to generate cryptographic keys. 3. Generate RSA keys with `crypto key generate rsa`. 4. Create a local `username` for authentication. 5. Force version 2 with `ip ssh version 2`. 6. On the VTY lines, allow only SSH with `transport input ssh` and use the local database for authentication with `login local`. The correct option is the only one that meets all these requirements."
   }
 ]
