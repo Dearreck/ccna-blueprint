@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="${category.id}" id="check-${category.id}" checked>
                         <label class="form-check-label" for="check-${category.id}">
-                            ${i18n.get(category.i18nKey) || category.id}
+                            ${i1n.get(category.i18nKey) || category.id}
                         </label>
                         <span class="badge rounded-pill" style="background-color: ${categoryInfo.color};">${questionCount}</span>
                     </div>
