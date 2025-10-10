@@ -46,5 +46,45 @@
     ],
     "explanation_es": "Las direcciones locales únicas (Unique Local Addresses - ULA), que comienzan con el prefijo FD00::/8, son el equivalente en IPv6 de las direcciones privadas IPv4 (RFC 1918). Están diseñadas para ser enrutables dentro de una red interna pero no en la Internet pública, cumpliendo exactamente con el requisito del cliente.",
     "explanation_en": "Unique Local Addresses (ULA), which begin with the FD00::/8 prefix, are the IPv6 equivalent of private IPv4 addresses (RFC 1918). They are designed to be routable within an internal network but not on the public Internet, precisely meeting the client's requirement."
+  },
+  {
+    "id": "public_cloud_benefit_q1",
+    "category": "1.0-network-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "1.2",
+      "description_es": "Describir las características de las arquitecturas de topología de red",
+      "description_en": "Describe characteristics of network topology architectures",
+      "subtopic_id": "1.2.f",
+      "subtopic_description": "On-premises and cloud"
+    },
+    "question_es": "¿Cuál es un beneficio para los usuarios externos que consumen recursos de la nube pública?",
+    "question_en": "What is a benefit for external users who consume public cloud resources?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "todos están alojados en servidores físicos",
+        "text_en": "all hosted on physical servers",
+        "isCorrect": false
+      },
+      {
+        "text_es": "ubicados en el mismo centro de datos que los usuarios",
+        "text_en": "located in the same data center as the users",
+        "isCorrect": false
+      },
+      {
+        "text_es": "implementados sobre una WAN dedicada",
+        "text_en": "implemented over a dedicated WAN",
+        "isCorrect": false
+      },
+      {
+        "text_es": "se accede a ellos a través de Internet",
+        "text_en": "accessed over the Internet",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "La característica y principal beneficio de la nube pública es que sus recursos (servidores, almacenamiento, aplicaciones) están disponibles para los usuarios a través de la Internet pública. Esto permite un acceso global y flexible desde cualquier lugar con una conexión a Internet.",
+    "explanation_en": "The defining characteristic and main benefit of the public cloud is that its resources (servers, storage, applications) are made available to users over the public Internet. This allows for global and flexible access from any location with an Internet connection."
   }
 ]
