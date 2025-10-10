@@ -526,3 +526,40 @@ html.dark-mode .exam-questions-container .form-check:hover .form-check-label {
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
   background-color: rgba(59, 130, 246, 0.1);
 }
+
+/* --- Estilos Profesionales para Opciones de Respuesta --- */
+
+/* 1. Estructura base para cada opción */
+.exam-questions-container .form-check .form-check-label {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  padding: 0.75rem 1.25rem;
+  padding-left: 2.5rem; /* Espacio para el radio/checkbox */
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.exam-questions-container .form-check .form-check-input {
+  /* Posiciona el input dentro del nuevo padding */
+  margin-top: 0.9rem;
+}
+
+/* 2. Efecto al pasar el ratón (Hover) */
+
+/* Tema Claro */
+.exam-questions-container .form-check:hover .form-check-label {
+  border-color: var(--brand-primary);
+  background-color: #e7f1ff; /* Azul muy claro y sutil */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px); /* Eleva ligeramente la opción */
+}
+
+/* Tema Oscuro */
+html.dark-mode .exam-questions-container .form-check:hover .form-check-label {
+  border-color: var(--brand-primary);
+  background-color: rgba(59, 130, 246, 0.15); /* Azul oscuro sutil */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
