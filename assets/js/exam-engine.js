@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (explanationText) {
             const explanationDiv = document.createElement('div');
             explanationDiv.className = 'alert alert-info mt-4 explanation-box';
-            explanationDiv.innerHTML = `<strong>${i1n.get('explanation_label')}:</strong> ${explanationText}`;
+            explanationDiv.innerHTML = `<strong>${i1n.get('explanation_label')}:</strong> ${marked.parse(explanationText)}`;
             document.querySelector('.card-body #options-container').insertAdjacentElement('afterend', explanationDiv);
         }
     
@@ -531,7 +531,8 @@ function renderReviewPage() {
     });
 
     reviewHTML += `<div class="alert alert-info mt-3 explanation-box">
-                            <strong>${i1n.get('explanation_label')}:</strong> ${explanationText}
+                            <strong>${i1n.get('explanation_label')}:</strong> 
+                            ${marked.parse(explanationText)}
                         </div>
                     </div>
                 </div>
