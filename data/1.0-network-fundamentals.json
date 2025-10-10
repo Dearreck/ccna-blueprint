@@ -126,5 +126,45 @@
     ],
     "explanation_es": "La regla fundamental de una arquitectura spine-leaf es que cada switch leaf debe conectarse a cada switch spine en la topología. No hay conexiones directas entre switches leaf ni entre switches spine. Esto crea una topología de malla completa que optimiza la latencia y el ancho de banda.",
     "explanation_en": "The fundamental rule of a spine-leaf architecture is that every leaf switch must connect to every spine switch in the topology. There are no direct connections between leaf switches or between spine switches. This creates a full-mesh topology that optimizes latency and bandwidth."
+  },
+  {
+    "id": "ifconfig_subnet_calc_q1",
+    "category": "1.0-network-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "1.6",
+      "description_es": "Configurar y verificar el direccionamiento y subnetting de IPv4",
+      "description_en": "Configure and verify IPv4 addressing and subnetting",
+      "subtopic_id": "1.6",
+      "subtopic_description": "Subnet Calculation"
+    },
+    "question_es": "Consulte la información. Un ingeniero de redes debe proporcionar los detalles de direccionamiento IP configurados para investigar un problema con una regla de firewall. ¿Qué subred y máscara identifican lo que está configurado en la interfaz final?",
+    "question_en": "Refer to the exhibit. A network engineer must provide configured IP addressing details to investigate a firewall rule issue. Which subnet and mask identify what is configured on the end interface?",
+    "image": null,
+    "code": "MacOS$ ifconfig\nen0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500\n    options=400<CHANNEL_IO>\n    ether f0:18:98:64:60:32\n    inet6 fe80::492:c09f:57cf:8c36%en0 prefixlen 64 secured scopeid 0x6\n    inet 10.8.138.14 netmask 0xffffe000 broadcast 10.8.159.255\n    nd6 options=201<PERFORMNUD,DAD>\n    media: autoselect\n    status: active",
+    "options": [
+      {
+        "text_es": "10.8.138.0/24",
+        "text_en": "10.8.138.0/24",
+        "isCorrect": false
+      },
+      {
+        "text_es": "10.8.128.0/19",
+        "text_en": "10.8.128.0/19",
+        "isCorrect": true
+      },
+      {
+        "text_es": "10.8.0.0/16",
+        "text_en": "10.8.0.0/16",
+        "isCorrect": false
+      },
+      {
+        "text_es": "10.8.64.0/18",
+        "text_en": "10.8.64.0/18",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "La máscara de red se muestra en formato hexadecimal: `0xffffe000`. Al convertirla a binario, obtenemos `11111111.11111111.11100000.00000000`. El número de bits '1' es 19, por lo que el prefijo es /19. Al aplicar esta máscara a la dirección IP `10.8.138.14` mediante una operación AND a nivel de bits, la dirección de red resultante es `10.8.128.0`.",
+    "explanation_en": "The netmask is shown in hexadecimal format: `0xffffe000`. Converting this to binary gives `11111111.11111111.11100000.00000000`. The number of '1' bits is 19, so the prefix is /19. Applying this mask to the IP address `10.8.138.14` via a bitwise AND operation results in the network address `10.8.128.0`."
   }
 ]
