@@ -675,7 +675,7 @@ function renderReviewPage() {
         examReviewContainer.classList.add('d-none');
         examSetupContainer.classList.remove('d-none');
         
-        loadCategories();
+        loadAndDisplayCategories();
         translateQuestionCountOptions();
     }
 
