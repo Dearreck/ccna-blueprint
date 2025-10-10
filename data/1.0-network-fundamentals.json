@@ -86,5 +86,45 @@
     ],
     "explanation_es": "La característica y principal beneficio de la nube pública es que sus recursos (servidores, almacenamiento, aplicaciones) están disponibles para los usuarios a través de la Internet pública. Esto permite un acceso global y flexible desde cualquier lugar con una conexión a Internet.",
     "explanation_en": "The defining characteristic and main benefit of the public cloud is that its resources (servers, storage, applications) are made available to users over the public Internet. This allows for global and flexible access from any location with an Internet connection."
+  },
+  {
+    "id": "spine_leaf_interconnection_q1",
+    "category": "1.0-network-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "1.2",
+      "description_es": "Describir las características de las arquitecturas de topología de red",
+      "description_en": "Describe characteristics of network topology architectures",
+      "subtopic_id": "1.2.c",
+      "subtopic_description": "Spine-leaf"
+    },
+    "question_es": "¿Cómo están interconectados los switches en una topología spine-and-leaf?",
+    "question_en": "How are the switches in a spine-and-leaf topology interconnected?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Cada switch leaf se conecta a un switch leaf central, y luego se enlaza a un switch spine principal.",
+        "text_en": "Each leaf switch is connected to a central leaf switch, then uplinked to a core spine switch.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Cada switch leaf se conecta a dos switches spine, creando un bucle.",
+        "text_en": "Each leaf switch is connected to two spine switches, making a loop.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Cada switch leaf se conecta a cada switch spine.",
+        "text_en": "Each leaf switch is connected to each spine switch.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Cada switch leaf se conecta a uno de los switches spine.",
+        "text_en": "Each leaf switch is connected to one of the spine switches.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "La regla fundamental de una arquitectura spine-leaf es que cada switch leaf debe conectarse a cada switch spine en la topología. No hay conexiones directas entre switches leaf ni entre switches spine. Esto crea una topología de malla completa que optimiza la latencia y el ancho de banda.",
+    "explanation_en": "The fundamental rule of a spine-leaf architecture is that every leaf switch must connect to every spine switch in the topology. There are no direct connections between leaf switches or between spine switches. This creates a full-mesh topology that optimizes latency and bandwidth."
   }
 ]
