@@ -85,11 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="col-12 col-md-6 mb-2">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="${category.id}" id="check-${category.id}" checked>
-                        <label class="form-check-label" for="check-${category.id}">
-                            ${i1n.get(category.i18nKey) || category.id}
+                        
+                        <label class="form-check-label d-flex justify-content-between align-items-center" for="check-${category.id}">
+                            <span>${i1n.get(category.i18nKey) || category.id}</span>
+                            <span class="badge rounded-pill" style="background-color: ${categoryInfo.color}; min-width: 28px;">${questionCount}</span>
                         </label>
-                        <span class="badge rounded-pill" style="background-color: ${categoryInfo.color};">${questionCount}</span>
-                    </div>
+                        </div>
                 </div>`;
             categorySelectionContainer.innerHTML += categoryHTML;
         });
