@@ -110,5 +110,45 @@
     ],
     "explanation_es": "En una arquitectura SDN, las APIs northbound ('hacia el norte') permiten que las aplicaciones, los sistemas de orquestación y los scripts se comuniquen con el controlador de red para solicitar servicios o enviar políticas. Permiten la abstracción de la red, de modo que las aplicaciones no necesitan conocer los detalles de la infraestructura subyacente.",
     "explanation_en": "In an SDN architecture, northbound APIs ('upwards') allow applications, orchestration systems, and scripts to communicate with the network controller to request services or push policies. They enable network abstraction, so applications do not need to know the details of the underlying infrastructure."
+  },
+  {
+    "id": "json_component_count_objects_q1",
+    "category": "6.0-automation-programmability",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "6.7",
+      "description_es": "Reconocer componentes de datos codificados en JSON",
+      "description_en": "Recognize components of JSON-encoded data",
+      "subtopic_id": "6.7",
+      "subtopic_description": "JSON Components"
+    },
+    "question_es": "Consulte la información. ¿Cuántos objetos están presentes en los datos codificados en JSON proporcionados?",
+    "question_en": "Refer to the exhibit. How many objects are present in the given JSON-encoded data?",
+    "image": null,
+    "code": "{\n  \"aaaUser\": {\n    \"attributes\": {\n      \"pwd\": \"passwordl\",\n      \"firstName\": \"Abraham\",\n      \"lastName\": \"Lincoln\",\n      \"phone\": \"5555551212\",\n      \"email\": \"test@cisco.com\"\n    },\n    \"children\": [\n      {\n        \"aaaUserDomain\": {\n          \"attributes\": {\n            \"name\": \"ExampleCisco\"\n          }\n        }\n      },\n      {\n        \"aaaUserRole\": {\n          \"attributes\": {\n            \"name\": \"admin\"\n          }\n        }\n      }\n    ]\n  }\n}",
+    "options": [
+      {
+        "text_es": "uno",
+        "text_en": "one",
+        "isCorrect": false
+      },
+      {
+        "text_es": "siete",
+        "text_en": "seven",
+        "isCorrect": false
+      },
+      {
+        "text_es": "cuatro",
+        "text_en": "four",
+        "isCorrect": false
+      },
+      {
+        "text_es": "nueve",
+        "text_en": "nine",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "Un objeto JSON es una colección de pares clave-valor encerrada entre llaves `{}`. Contando cada par de llaves en la estructura de datos, encontramos un total de nueve objetos anidados: 1. El objeto raíz. 2. El objeto 'aaaUser'. 3. El objeto 'attributes' dentro de 'aaaUser'. 4. El primer objeto dentro del array 'children'. 5. El objeto 'aaaUserDomain'. 6. El objeto 'attributes' dentro de 'aaaUserDomain'. 7. El segundo objeto dentro del array 'children'. 8. El objeto 'aaaUserRole'. 9. El objeto 'attributes' dentro de 'aaaUserRole'.",
+    "explanation_en": "A JSON object is a collection of key-value pairs enclosed in curly braces `{}`. Counting every pair of braces in the data structure, we find a total of nine nested objects: 1. The root object. 2. The 'aaaUser' object. 3. The 'attributes' object inside 'aaaUser'. 4. The first object inside the 'children' array. 5. The 'aaaUserDomain' object. 6. The 'attributes' object inside 'aaaUserDomain'. 7. The second object inside the 'children' array. 8. The 'aaaUserRole' object. 9. The 'attributes' object inside 'aaaUserRole'."
   }
 ]
