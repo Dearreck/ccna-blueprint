@@ -502,6 +502,7 @@ html.dark-mode .skipped-question-badge {
 }
 
 /* --- Respeta los saltos de línea en las opciones de las preguntas --- */
+.question-text,
 .form-check-label,
 .review-option {
   white-space: pre-wrap;
