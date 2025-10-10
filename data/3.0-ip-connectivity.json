@@ -166,5 +166,45 @@
     ],
     "explanation_es": "El router debe reenviar un paquete a la IP de destino 192.168.1.250. Para ello, busca la ruta más específica en su tabla, aplicando la regla de 'coincidencia de prefijo más larga'. Todas las rutas mostradas coinciden con el destino, pero la ruta EIGRP (D) a `192.168.1.224/27` es la más específica (tiene el prefijo más largo, /27). Por lo tanto, el router elige esta ruta para reenviar el paquete.",
     "explanation_en": "The router must forward a packet to the destination IP 192.168.1.250. To do this, it looks for the most specific route in its table by applying the 'longest prefix match' rule. All the routes shown match the destination, but the EIGRP (D) route to `192.168.1.224/27` is the most specific (it has the longest prefix, /27). Therefore, the router chooses this route to forward the packet."
+  },
+  {
+    "id": "ospf_adjacency_timer_mismatch_q1",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "3.4",
+      "description_es": "Configurar y verificar OSPFv2 de área única",
+      "description_en": "Configure and verify single area OSPFv2",
+      "subtopic_id": "3.4.a",
+      "subtopic_description": "Neighbor adjacencies"
+    },
+    "question_es": "Consulte la información. Un ingeniero de redes está configurando el router R2 como un router de reemplazo. Tras la configuración inicial, se determina que R2 no logra establecer una vecindad con R1. ¿Qué configuración debe aplicarse a R2 para completar la configuración de OSPF y permitir que se establezca la relación de vecindad con R1?",
+    "question_en": "Refer to the exhibit. The network engineer is configuring router R2 as a replacement router on the network. After the initial configuration is applied, it is determined that R2 failed to show R1 as a neighbor. Which configuration must be applied to R2 to complete the OSPF configuration and enable it to establish the neighbor relationship with R1?",
+    "image": null,
+    "code": "R1#show ip ospf interface g0/0/0\nGigabitEthernet0/0 is up, line protocol is up\n Internet address is 192.168.1.2/24, Area 0\n Process ID 1, Router ID 192.168.1.2, Network Type POINT-TO-POINT, Cost: 1\n Timer intervals configured, Hello 10, Dead 40, Wait 40, Retransmit 5\n\nR2#show ip ospf interface g0/0/0\nGigabitEthernet0/0 is up, line protocol is up\n Internet address is 192.168.1.1/24, Area 0\n Process ID 1, Router ID 1.1.1.1, Network Type POINT-TO-POINT, Cost: 1\n Timer intervals configured, Hello 15, Dead 40, Wait 40, Retransmit 5",
+    "options": [
+      {
+        "text_es": "R2(config)# router ospf 1\nR2(config-router)# network 192.168.1.0 255.255.255.0 area 2",
+        "text_en": "R2(config)# router ospf 1\nR2(config-router)# network 192.168.1.0 255.255.255.0 area 2",
+        "isCorrect": false
+      },
+      {
+        "text_es": "R2(config)# interface gi0/0\nR2(config-if)# ip ospf dead-interval 45",
+        "text_en": "R2(config)# interface gi0/0\nR2(config-if)# ip ospf dead-interval 45",
+        "isCorrect": false
+      },
+      {
+        "text_es": "R2(config)# router ospf 1\nR2(config-router)# router-id 192.168.1.1",
+        "text_en": "R2(config)# router ospf 1\nR2(config-router)# router-id 192.168.1.1",
+        "isCorrect": false
+      },
+      {
+        "text_es": "R2(config)# interface gi0/0\nR2(config-if)# ip ospf hello-interval 10",
+        "text_en": "R2(config)# interface gi0/0\nR2(config-if)# ip ospf hello-interval 10",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "Para que dos routers OSPF formen una adyacencia, varios parámetros deben coincidir, incluyendo los intervalos de Hello y Dead. La salida muestra que R1 tiene un intervalo Hello de 10 segundos, mientras que R2 tiene un intervalo Hello de 15 segundos. Esta discrepancia impide la formación de la vecindad. La configuración correcta es cambiar el intervalo Hello de R2 a 10 para que coincida con R1.",
+    "explanation_en": "For two OSPF routers to form an adjacency, several parameters must match, including the Hello and Dead intervals. The output shows that R1 has a Hello interval of 10 seconds, while R2 has a Hello interval of 15 seconds. This mismatch prevents the neighborhood from forming. The correct configuration is to change R2's hello interval to 10 to match R1."
   }
 ]
