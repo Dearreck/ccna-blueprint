@@ -142,5 +142,29 @@
     ],
     "explanation_es": "Para que dos routers formen una adyacencia de vecinos OSPF, sus interfaces conectadas deben estar en la misma área OSPF. La configuración de R1 muestra que su interfaz está en el área 1. Por lo tanto, R2 también debe ser configurado para el área 1 en su interfaz conectada. El comando `ip ospf 1 area 1` en la interfaz GigabitEthernet0/1 de R2 logra esto, cumpliendo con uno de los requisitos fundamentales para la adyacencia.",
     "explanation_en": "For two routers to form an OSPF neighbor adjacency, their connected interfaces must be in the same OSPF area. R1's configuration shows its interface is in area 1. Therefore, R2 must also be configured for area 1 on its connected interface. The command `ip ospf 1 area 1` on R2's GigabitEthernet0/1 interface accomplishes this, meeting one of the fundamental requirements for adjacency."
+  },
+  {
+    "id": "routing_decision_lpm_q4",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "3.2",
+      "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
+      "description_en": "Determine how a router makes a forwarding decision by default",
+      "subtopic_id": "3.2.a",
+      "subtopic_description": "Longest prefix match"
+    },
+    "question_es": "Consulte la información. Todo el tráfico entra al router CPE desde la interfaz Serial0/3 con una dirección IP de 192.168.50.1. El tráfico web desde la WAN está destinado a una red LAN donde los servidores están balanceados en carga. Un paquete con una dirección de destino de la IP virtual HTTP de 192.168.1.250 debe ser reenviado. ¿Qué entrada de la tabla de enrutamiento utiliza el router?",
+    "question_en": "Refer to the exhibit. All traffic enters the CPE router from interface Serial0/3 with an IP address of 192.168.50.1. Web traffic from the WAN is destined for a LAN network where servers are load-balanced. A packet with a destination address of the HTTP virtual IP of 192.168.1.250 must be forwarded. Which routing table entry does the router use?",
+    "image": null,
+    "code": "CPE# show ip route\n...\n     192.168.1.0/24 is variably subnetted, 3 subnets, 3 masks\nC    192.168.1.0/24 [0/1] via 192.168.12.2, 00:00:06\nR    192.168.1.128/25 [120/5] via 192.168.13.3, 00:02:35, Ethernet0/1\nO    192.168.1.192/26 [110/11] via 192.168.14.4, 00:02:23, Ethernet0/2\nD    192.168.1.224/27 [90/1024640] via 192.168.15.5, 00:01:40, Ethernet0/3",
+    "options": [
+      { "text_es": "192.168.1.192/26 vía 192.168.14.4", "text_en": "192.168.1.192/26 via 192.168.14.4", "isCorrect": false },
+      { "text_es": "192.168.1.224/27 vía 192.168.15.5", "text_en": "192.168.1.224/27 via 192.168.15.5", "isCorrect": true },
+      { "text_es": "192.168.1.0/24 vía 192.168.12.2", "text_en": "192.168.1.0/24 via 192.168.12.2", "isCorrect": false },
+      { "text_es": "192.168.1.128/25 vía 192.168.13.3", "text_en": "192.168.1.128/25 via 192.168.13.3", "isCorrect": false }
+    ],
+    "explanation_es": "El router debe reenviar un paquete a la IP de destino 192.168.1.250. Para ello, busca la ruta más específica en su tabla, aplicando la regla de 'coincidencia de prefijo más larga'. Todas las rutas mostradas coinciden con el destino, pero la ruta EIGRP (D) a `192.168.1.224/27` es la más específica (tiene el prefijo más largo, /27). Por lo tanto, el router elige esta ruta para reenviar el paquete.",
+    "explanation_en": "The router must forward a packet to the destination IP 192.168.1.250. To do this, it looks for the most specific route in its table by applying the 'longest prefix match' rule. All the routes shown match the destination, but the EIGRP (D) route to `192.168.1.224/27` is the most specific (it has the longest prefix, /27). Therefore, the router chooses this route to forward the packet."
   }
 ]
