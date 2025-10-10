@@ -366,5 +366,45 @@
     ],
     "explanation_es": "El router busca una ruta para el destino 10.10.10.16. La ruta más cercana, `10.10.10.0/28`, solo cubre el rango de IP de 10.10.10.0 a 10.10.10.15. Ninguna otra ruta en la tabla coincide con el destino. Dado que la tabla de enrutamiento indica `Gateway of last resort is not set` (no hay una ruta por defecto), el router no tiene a dónde enviar el paquete. En esta situación, la única acción posible es descartar el paquete.",
     "explanation_en": "The router looks for a route to the destination 10.10.10.16. The closest route, `10.10.10.0/28`, only covers the IP range from 10.10.10.0 to 10.10.10.15. No other route in the table matches the destination. Since the routing table states `Gateway of last resort is not set` (there is no default route), the router has nowhere to send the packet. In this situation, the only possible action is to discard the packet."
+  },
+  {
+    "id": "longest_prefix_match_q1",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "3.2",
+      "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
+      "description_en": "Determine how a router makes a forwarding decision by default",
+      "subtopic_id": "3.2.a",
+      "subtopic_description": "Longest prefix match"
+    },
+    "question_es": "Consulte la información. ¿Qué entrada es la coincidencia de prefijo más larga para la dirección IP del host 192.168.10.5?",
+    "question_en": "Refer to the exhibit. Which entry is the longest prefix match for host IP address 192.168.10.5?",
+    "image": null,
+    "code": "Entry # | Network        | Subnet Mask\n------- | -------------- | -----------------\n1       | 192.168.10.0   | 255.255.254.0\n2       | 192.168.10.0   | 255.255.255.192\n3       | 192.168.10.0   | 255.255.255.0\n4       | 192.168.10.0   | 255.255.224.0",
+    "options": [
+      {
+        "text_es": "4",
+        "text_en": "4",
+        "isCorrect": false
+      },
+      {
+        "text_es": "3",
+        "text_en": "3",
+        "isCorrect": false
+      },
+      {
+        "text_es": "2",
+        "text_en": "2",
+        "isCorrect": true
+      },
+      {
+        "text_es": "1",
+        "text_en": "1",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "La regla de la 'coincidencia de prefijo más larga' significa que un router elegirá la ruta más específica. Primero, convertimos las máscaras a prefijos: 1) /23, 2) /26, 3) /24, 4) /19. Todas estas redes contienen la IP 192.168.10.5. Al comparar los prefijos (23, 26, 24, 19), el más largo es /26, que corresponde a la Entrada 2. Por lo tanto, esa es la ruta que el router seleccionará.",
+    "explanation_en": "The 'longest prefix match' rule means a router will choose the most specific route. First, we convert the masks to prefixes: 1) /23, 2) /26, 3) /24, 4) /19. All of these networks contain the IP 192.168.10.5. When comparing the prefixes (23, 26, 24, 19), the longest one is /26, which corresponds to Entry 2. Therefore, that is the route the router will select."
   }
 ]
