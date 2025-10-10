@@ -169,7 +169,7 @@
   },
   {
     "id": "ccna-phy-om3-om4-core-01",
-    "category": "1.0 Network Fundamentals",
+    "category": "1.0-network-fundamentals",
     "isMultipleChoice": false,
     "topic": {
       "id": "1.3",
