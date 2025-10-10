@@ -182,8 +182,8 @@
         "isCorrect": false
       }
     ],
-    "explanation_es": "Link Aggregation (LAG) agrupa múltiples puertos físicos en un único enlace lógico (EtherChannel). Sus dos beneficios principales son: 1. **Aumento del rendimiento (throughput)** al sumar el ancho de banda de los enlaces individuales. 2. **Redundancia**, ya que si un enlace falla, el tráfico se redistribuye automáticamente por los enlaces restantes.",
-    "explanation_en": "Link Aggregation (LAG) bundles multiple physical ports into a single logical link (EtherChannel). Its two main benefits are: 1. **Increased throughput** by summing the bandwidth of the individual links. 2. **Redundancy**, because if one link fails, traffic is automatically redistributed over the remaining links."
+    "explanation_es": "Link Aggregation (LAG) agrupa múltiples puertos físicos en un único enlace lógico (EtherChannel). Sus dos beneficios principales son: \n1. **Aumento del rendimiento (throughput)** al sumar el ancho de banda de los enlaces individuales. \n2. **Redundancia**, ya que si un enlace falla, el tráfico se redistribuye automáticamente por los enlaces restantes.",
+    "explanation_en": "Link Aggregation (LAG) bundles multiple physical ports into a single logical link (EtherChannel). Its two main benefits are: \n1. **Increased throughput** by summing the bandwidth of the individual links. \n2. **Redundancy**, because if one link fails, traffic is automatically redistributed over the remaining links."
   },
   {
     "id": "lacp_passive_mode_q1",
