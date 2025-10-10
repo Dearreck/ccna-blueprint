@@ -70,5 +70,45 @@
     ],
     "explanation_es": "La gestión tradicional de redes implica configurar cada dispositivo de forma individual (por dispositivo, orientado a la CLI). Cisco DNA Center introduce un modelo de gestión centralizado, donde las políticas y configuraciones se definen en un controlador único que luego las despliega a todos los dispositivos de la red, simplificando la operación y asegurando la consistencia.",
     "explanation_en": "Traditional network management involves configuring each device individually (per-device, CLI-oriented). Cisco DNA Center introduces a centralized management model, where policies and configurations are defined on a single controller that then deploys them to all network devices, simplifying operations and ensuring consistency."
+  },
+  {
+    "id": "northbound_api_q1",
+    "category": "6.0-automation-programmability",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "6.3",
+      "description_es": "Describir la arquitectura definida por software y basada en controladores",
+      "description_en": "Describe controller-based, software defined architecture",
+      "subtopic_id": "6.3.b",
+      "subtopic_description": "Northbound and Southbound APIs"
+    },
+    "question_es": "¿Cuál es la función de una API northbound?",
+    "question_en": "What is the function of a northbound API?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Soporta el procesamiento distribuido para la configuración.",
+        "text_en": "It supports distributed processing for configuration.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Se basa en el aprovisionamiento y configuración global.",
+        "text_en": "It relies on global provisioning and configuration.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Actualiza el software y restaura archivos.",
+        "text_en": "It upgrades software and restores files.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Proporciona una vía de comunicación entre un controlador SDN y las aplicaciones de red.",
+        "text_en": "It provides a path between an SDN controller and network applications.",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "En una arquitectura SDN, las APIs northbound ('hacia el norte') permiten que las aplicaciones, los sistemas de orquestación y los scripts se comuniquen con el controlador de red para solicitar servicios o enviar políticas. Permiten la abstracción de la red, de modo que las aplicaciones no necesitan conocer los detalles de la infraestructura subyacente.",
+    "explanation_en": "In an SDN architecture, northbound APIs ('upwards') allow applications, orchestration systems, and scripts to communicate with the network controller to request services or push policies. They enable network abstraction, so applications do not need to know the details of the underlying infrastructure."
   }
 ]
