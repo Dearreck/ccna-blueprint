@@ -290,6 +290,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (examMode === 'exam') updateTimerDisplay();
         document.getElementById('skip-question-btn').addEventListener('click', skipQuestion);
         document.getElementById('end-exam-btn').addEventListener('click', finishExam);
+
+        const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+        popoverTriggerList.map(function (popoverTriggerEl) {
+          return new bootstrap.Popover(popoverTriggerEl);
+        });
     }
     
     // Esta función necesita ser reescrita para manejar ambos casos
@@ -564,6 +569,8 @@ function renderReviewPage() {
     questionNavHTML += '</div>';
     // --- FIN DE LA SOLUCIÓN ---
 
+    const headerText = `${i1n.get('question_header')} ${currentReviewIndex + 1}/${currentExamQuestions.length}`;
+    const headerHTML = `<h5 class="mb-0 d-flex align-items-center">${categoryBadgeHTML} <span class="ms-2">${headerText}:</span></h5>`;
     const questionText = question[`question_${lang}`] || question.question_en;
     const explanationText = question[`explanation_${lang}`] || question.explanation_en;
 
@@ -576,9 +583,23 @@ function renderReviewPage() {
     if (question.code) {
         codeHTML = `<pre class="code-block"><code>${question.code}</code></pre>`;
     }
-    // --- FIN DE LA SOLUCIÓN ---
 
     let reviewHTML = `
+        <div class="row">
+            <div class="col-12 col-lg-8 offset-lg-2">
+                <h2 class="text-center mb-4">${i1n.get('review_title')}</h2>
+                ${questionNavHTML}
+                <div class="card review-question-card">
+                    ${skippedBadgeHTML}
+                    <div class="card-header d-flex align-items-center">
+                        ${headerHTML}
+                    </div>
+                    <div class="card-body">
+                        <p class="question-text lead">${questionText}</p> ${imageHTML}
+                        ${codeHTML}
+    `;
+
+    /*let reviewHTML = `
         <div class="row">
             <div class="col-12 col-lg-8 offset-lg-2">
                 <h2 class="text-center mb-4">${i1n.get('review_title')}</h2>
@@ -589,7 +610,7 @@ function renderReviewPage() {
                         <strong>${i1n.get('question_header')} ${currentReviewIndex + 1}/${currentExamQuestions.length}:</strong> ${questionText}
                     </div>
                     <div class="card-body">
-                        ${imageHTML}  ${codeHTML}   `;
+                        ${imageHTML}  ${codeHTML}   `;*/
 
     question.shuffledOptions.forEach((option, optionIndex) => {
         const optionText = option[`text_${lang}`] || option.text_en;
@@ -658,6 +679,11 @@ function renderReviewPage() {
         examReviewContainer.classList.add('d-none');
         examResultsContainer.classList.remove('d-none');
     };
+
+    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+    popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl);
+    });
 }
 
     function resetToSetup() {
