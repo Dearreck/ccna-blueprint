@@ -144,5 +144,45 @@
     ],
     "explanation_es": "RSTP (802.1w) optimiza el STP (802.1D) consolidando los cinco estados originales en tres. Los estados de STP 'disabled', 'blocking' y 'listening' se combinan en un único estado RSTP llamado 'discarding'. Por lo tanto, un puerto en RSTP transita de 'discarding' a 'learning' (aprendizaje) y finalmente a 'forwarding' (reenvío).",
     "explanation_en": "RSTP (802.1w) streamlines STP (802.1D) by consolidating the original five states into three. The STP states of 'disabled', 'blocking', and 'listening' are all combined into a single RSTP state called 'discarding'. Therefore, a port in RSTP transitions from 'discarding' to 'learning' and finally to 'forwarding'."
+  },
+  {
+    "id": "wlc_lag_reason_q1",
+    "category": "2.0-network-access",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "2.7",
+      "description_es": "Describir las conexiones de infraestructura física de los componentes de WLAN (AP, WLC, puertos de acceso/troncales y LAG)",
+      "description_en": "Describe physical infrastructure connections of WLAN components (AP, WLC, access/trunk ports, and LAG)",
+      "subtopic_id": "2.7",
+      "subtopic_description": "LAG on WLC"
+    },
+    "question_es": "¿Cuál es una razón para implementar LAG en un Cisco WLC?",
+    "question_en": "What is a reason to implement LAG on a Cisco WLC?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Aumentar el rendimiento disponible en el enlace.",
+        "text_en": "Increase the available throughput on the link.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Permitir la conmutación por error con estado (stateful failover) entre WLCs.",
+        "text_en": "Allow for stateful failover between WLCs.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Aumentar la seguridad cifrando las tramas de gestión.",
+        "text_en": "Increase security by encrypting management frames.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Habilitar que los puertos del switch conectado usen diferentes configuraciones de Capa 2.",
+        "text_en": "Enable the connected switch ports to use different Layer 2 configurations.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Link Aggregation (LAG) agrupa múltiples puertos físicos en un único enlace lógico (EtherChannel). Sus dos beneficios principales son: 1. **Aumento del rendimiento (throughput)** al sumar el ancho de banda de los enlaces individuales. 2. **Redundancia**, ya que si un enlace falla, el tráfico se redistribuye automáticamente por los enlaces restantes.",
+    "explanation_en": "Link Aggregation (LAG) bundles multiple physical ports into a single logical link (EtherChannel). Its two main benefits are: 1. **Increased throughput** by summing the bandwidth of the individual links. 2. **Redundancy**, because if one link fails, traffic is automatically redistributed over the remaining links."
   }
 ]
