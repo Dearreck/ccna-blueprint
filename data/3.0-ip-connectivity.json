@@ -118,5 +118,29 @@
     ],
     "explanation_es": "El router sigue la regla de la 'coincidencia de prefijo más larga' para elegir la mejor ruta. Para el destino 10.1.2.126, coinciden tres rutas con prefijos /24, /25 y /28. Dado que /28 es el prefijo más largo y, por lo tanto, el más específico, el router elegirá la ruta estática (S) `10.1.2.112/28`. El siguiente salto para esta ruta es `10.165.20.166`.",
     "explanation_en": "The router follows the 'longest prefix match' rule to choose the best path. For the destination 10.1.2.126, three routes match with /24, /25, and /28 prefixes. Since /28 is the longest and therefore most specific prefix, the router will choose the static route (S) `10.1.2.112/28`. The next hop for this route is `10.165.20.166`."
+  },
+  {
+    "id": "ospf_adjacency_config_q1",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "3.4",
+      "description_es": "Configurar y verificar OSPFv2 de área única",
+      "description_en": "Configure and verify single area OSPFv2",
+      "subtopic_id": "3.4.a",
+      "subtopic_description": "Neighbor adjacencies"
+    },
+    "question_es": "Consulte la información. Un ingeniero de redes comenzó a configurar dos routers conectados directamente como se muestra. ¿Qué secuencia de comandos debe configurar el ingeniero en R2 para que los dos routers se conviertan en vecinos OSPF?",
+    "question_en": "Refer to the exhibit. A network engineer started to configure two directly connected routers as shown. Which command sequence must the engineer configure on R2 so that the two routers become OSPF neighbors?",
+    "image": null,
+    "code": "R1\ninterface GigabitEthernet0/1\n ip address 192.168.12.1 255.255.255.128\n no shutdown\n!\nrouter ospf 1\n network 192.168.12.1 0.0.0.0 area 1\n\nR2\ninterface GigabitEthernet0/1\n ip address 192.168.12.2 255.255.255.128\n no shutdown",
+    "options": [
+      { "text_es": "interface GigabitEthernet0/1\n ip ospf 1 area 0", "text_en": "interface GigabitEthernet0/1\n ip ospf 1 area 0", "isCorrect": false },
+      { "text_es": "router ospf 1\n network 192.168.12.10 0.0.0.0 area 1", "text_en": "router ospf 1\n network 192.168.12.10 0.0.0.0 area 1", "isCorrect": false },
+      { "text_es": "router ospf 1\n network 192.168.12.0 0.0.0.127 area 0", "text_en": "router ospf 1\n network 192.168.12.0 0.0.0.127 area 0", "isCorrect": false },
+      { "text_es": "interface GigabitEthernet0/1\n ip ospf 1 area 1", "text_en": "interface GigabitEthernet0/1\n ip ospf 1 area 1", "isCorrect": true }
+    ],
+    "explanation_es": "Para que dos routers formen una adyacencia de vecinos OSPF, sus interfaces conectadas deben estar en la misma área OSPF. La configuración de R1 muestra que su interfaz está en el área 1. Por lo tanto, R2 también debe ser configurado para el área 1 en su interfaz conectada. El comando `ip ospf 1 area 1` en la interfaz GigabitEthernet0/1 de R2 logra esto, cumpliendo con uno de los requisitos fundamentales para la adyacencia.",
+    "explanation_en": "For two routers to form an OSPF neighbor adjacency, their connected interfaces must be in the same OSPF area. R1's configuration shows its interface is in area 1. Therefore, R2 must also be configured for area 1 on its connected interface. The command `ip ospf 1 area 1` on R2's GigabitEthernet0/1 interface accomplishes this, meeting one of the fundamental requirements for adjacency."
   }
 ]
