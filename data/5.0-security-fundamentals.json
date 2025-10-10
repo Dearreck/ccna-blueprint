@@ -195,5 +195,50 @@
     ],
     "explanation_es": "La configuración correcta requiere crear un usuario local (`username ... secret ...`). Luego, en la línea de consola (`line con 0`), el comando `login authentication default` aplica la lista de autenticación AAA por defecto. En un escenario de fallo de RADIUS, este comando funcionará si la lista por defecto está configurada con un método de respaldo, como `local`. Finalmente, `privilege level 15` en la línea de consola otorga acceso privilegiado inmediato al iniciar sesión, lo cual es una práctica común para la gestión de consolas de emergencia.",
     "explanation_en": "The correct configuration requires creating a local user (`username ... secret ...`). Then, on the console line (`line con 0`), the `login authentication default` command applies the default AAA authentication list. In a RADIUS failure scenario, this command will work if the default list is configured with a fallback method, such as `local`. Finally, `privilege level 15` on the console line grants immediate privileged access upon login, which is a common practice for emergency console management."
+  },
+  {
+    "id": "mfa_examples_q1",
+    "category": "5.0-security-fundamentals",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "5.4",
+      "description_es": "Describir los elementos de las políticas de seguridad de contraseñas y sus alternativas (autenticación multifactor, certificados y biometría)",
+      "description_en": "Describe security password policy elements, such as management, complexity, and password alternatives (multifactor authentication, certificates, and biometrics)",
+      "subtopic_id": "5.4",
+      "subtopic_description": "Multifactor Authentication"
+    },
+    "question_es": "¿Cuáles son dos ejemplos de los factores utilizados en la autenticación multifactor? (Elija dos.)",
+    "question_en": "What are two examples of multifactor authentication? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "contraseñas que expiran",
+        "text_en": "passwords that expire",
+        "isCorrect": false
+      },
+      {
+        "text_es": "repositorio de contraseñas compartido",
+        "text_en": "shared password repository",
+        "isCorrect": false
+      },
+      {
+        "text_es": "conocimiento único del usuario",
+        "text_en": "unique user knowledge",
+        "isCorrect": true
+      },
+      {
+        "text_es": "tokens de software (soft tokens)",
+        "text_en": "soft tokens",
+        "isCorrect": true
+      },
+      {
+        "text_es": "inicio de sesión único (single sign-on)",
+        "text_en": "single sign-on",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "La autenticación multifactor (MFA) requiere la combinación de dos o más factores de autenticación. Estos factores se clasifican en: algo que sabes (conocimiento), algo que tienes (posesión) y algo que eres (inherencia). El 'conocimiento único del usuario' (como una contraseña) es el factor de conocimiento. Los 'soft tokens' (como una app de autenticación en tu teléfono) son un ejemplo del factor de posesión. La combinación de ambos constituye MFA.",
+    "explanation_en": "Multifactor authentication (MFA) requires the combination of two or more authentication factors. These factors are categorized as: something you know (knowledge), something you have (possession), and something you are (inherence). 'Unique user knowledge' (like a password) is the knowledge factor. 'Soft tokens' (like an authenticator app on your phone) are an example of the possession factor. Combining both constitutes MFA."
   }
 ]
