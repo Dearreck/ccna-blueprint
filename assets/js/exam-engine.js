@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
     
         _createQuestionBody(question, lang) {
-            const questionText = question[`question_${lang}`] || question.question_en;
+            const questionText = marked.parseInline(question[`question_${lang}`] || question.question_en);
             let imageHTML = '', codeHTML = '';
             if (question.image) imageHTML = `<div class="text-center my-3"><img src="../data/images/${question.image}" class="img-fluid rounded border"></div>`;
             if (question.code) codeHTML = `<pre class="code-block"><code>${question.code}</code></pre>`;
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let optionsHTML = '';
             const inputType = question.isMultipleChoice ? 'checkbox' : 'radio';
             question.shuffledOptions.forEach((option, index) => {
-                const optionText = option[`text_${lang}`] || option.text_en || option.text_es;
+                const optionText = marked.parseInline(option[`text_${lang}`] || option.text_en || option.text_es);
                 optionsHTML += `
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="${inputType}" name="questionOptions" id="option${index}" value="${index}">
@@ -388,14 +388,14 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         
         _createReviewBody(question, lang) {
-            const questionText = question[`question_${lang}`] || question.question_en;
+            const questionText = marked.parseInline(question[`question_${lang}`] || question.question_en);
             let imageHTML = '', codeHTML = '';
             if (question.image) imageHTML = `<div class="text-center my-3"><img src="../data/images/${question.image}" class="img-fluid rounded border"></div>`;
             if (question.code) codeHTML = `<pre class="code-block"><code>${question.code}</code></pre>`;
     
             let optionsHTML = '';
             question.shuffledOptions.forEach((option, index) => {
-                let optionText = option[`text_${lang}`] || option.text_en;
+                let optionText = marked.parseInline(option[`text_${lang}`] || option.text_en);
                 let optionClass = 'review-option';
                 const userSelected = Array.isArray(question.userAnswerIndex) ? question.userAnswerIndex.includes(index) : question.userAnswerIndex === index;
                 if (option.isCorrect) {
