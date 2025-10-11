@@ -198,5 +198,45 @@
     ],
     "explanation_es": "En `JSON`, los datos se estructuran en pares de clave-valor (`key-value`). Según la especificación `JSON`, la **clave** siempre debe ser un tipo de dato **`String`** (cadena de texto), encerrada entre comillas dobles.\n\n### Desglose del Código `JSON`\nEn el fragmento `\"apple\": [\"red\", 1]`, podemos identificar dos componentes principales:\n| Componente | Valor | Tipo de Dato `JSON` |\n|---|---|---|\n| **Clave (Key)** | `\"apple\"` | **`String`** |\n| **Valor (Value)** | `[\"red\", 1]` | `Array` |\n\nLa pregunta se refiere a lo que es `\"apple\"` en sí mismo, que actúa como la clave en el par. Por lo tanto, es un `String`.\n\n* **Array:** Sería la respuesta si la pregunta fuera sobre lo que representa `[\"red\", 1]`.\n* **Object:** Es el tipo de dato que contiene todo el conjunto, delimitado por `{}`.",
     "explanation_en": "In `JSON`, data is structured in `key-value` pairs. According to the `JSON` specification, the **key** must always be a **`String`** data type, enclosed in double quotes.\n\n### Breakdown of the `JSON` Code\nIn the snippet `\"apple\": [\"red\", 1]`, we can identify two main components:\n| Component | Value | `JSON` Data Type |\n|---|---|---|\n| **Key** | `\"apple\"` | **`String`** |\n| **Value** | `[\"red\", 1]` | `Array` |\n\nThe question asks what `\"apple\"` itself represents, which acts as the key in the pair. Therefore, it is a `String`.\n\n* **Array:** This would be the answer if the question asked what `[\"red\", 1]` represents.\n* **Object:** This is the data type that contains the entire structure, enclosed by `{}`."
+  },
+  {
+    "id": "ccna-auto-prog-dna-center-advantage-q1",
+    "category": "6.0-automation-programmability",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "6.2",
+      "description_es": "Comparar redes tradicionales con redes basadas en controladores",
+      "description_en": "Compare traditional networks with controller-based networking",
+      "subtopic_id": "6.2",
+      "subtopic_description": "Controller-based networking"
+    },
+    "question_es": "¿Cuál es una ventaja de `Cisco DNA Center` en comparación con la gestión tradicional de dispositivos de campus?",
+    "question_en": "What is an advantage of `Cisco DNA Center` versus traditional campus device management?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Está diseñado principalmente para proporcionar aseguramiento de la red.",
+        "text_en": "It is designed primarily to provide network assurance.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Soporta alta disponibilidad para funciones de gestión cuando opera en modo clúster.",
+        "text_en": "It supports high availability for management functions when operating in cluster mode.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Soporta numerosas opciones de extensibilidad, incluyendo adaptadores inter-dominios y `SDKs` de terceros.",
+        "text_en": "It supports numerous extensibility options, including cross-domain adapters and third-party `SDKs`.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Permite el autodescubrimiento fácil de elementos de red en un despliegue `brownfield`.",
+        "text_en": "It enables easy autodiscovery of network elements in a brownfield deployment.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "`Cisco DNA Center` es una plataforma de gestión de red centralizada que representa un cambio fundamental respecto a la gestión tradicional, dispositivo por dispositivo. Una de sus ventajas más significativas es su naturaleza abierta y programable.\n\n### Análisis de las Opciones\n* **A:** Incorrecto. El aseguramiento de la red (Assurance) es solo **una** de las funciones principales de `DNA Center`, junto con la automatización y la política. No es su único propósito principal.\n* **B:** Incorrecto. Si bien `DNA Center` soporta alta disponibilidad, muchas soluciones de gestión de red tradicionales también lo hacen. No es una ventaja diferenciadora clave.\n* **C:** Correcto. Esta es una ventaja fundamental. `Cisco DNA Center` está diseñado como una plataforma extensible que puede integrarse con otros sistemas (como `ServiceNow` para `ITSM`, o `Splunk` para `SIEM`) a través de sus `APIs` y `SDKs`. La gestión tradicional carece de esta profunda capacidad de integración programática.\n* **D:** Incorrecto. El autodescubrimiento es una característica de `DNA Center`, pero también es una función común en muchas herramientas de gestión de redes tradicionales (`NMS`).",
+    "explanation_en": "`Cisco DNA Center` is a centralized network management platform that represents a fundamental shift from traditional, device-by-device management. One of its most significant advantages is its open and programmable nature.\n\n### Options Analysis\n* **A:** Incorrect. Network Assurance is only **one** of the main functions of `DNA Center`, along with automation and policy. It is not its sole primary purpose.\n* **B:** Incorrect. While `DNA Center` supports high availability, many traditional network management solutions also do. It is not a key differentiating advantage.\n* **C:** Correct. This is a core advantage. `Cisco DNA Center` is designed as an extensible platform that can integrate with other systems (like `ServiceNow` for `ITSM`, or `Splunk` for `SIEM`) through its `APIs` and `SDKs`. Traditional management lacks this deep programmatic integration capability.\n* **D:** Incorrect. Autodiscovery is a feature of `DNA Center`, but it is also a common function in many traditional Network Management System (`NMS`) tools."
   }
 ]
