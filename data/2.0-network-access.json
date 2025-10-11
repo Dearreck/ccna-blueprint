@@ -10,18 +10,18 @@
       "subtopic_id": "2.6",
       "subtopic_description": "AP Modes"
     },
-    "question_es": "¿Qué modo de punto de acceso depende de un controlador centralizado para la gestión, el roaming y la configuración del SSID?",
-    "question_en": "Which access point mode relies on a centralized controller for management, roaming, and SSID configuration?",
+    "question_es": "¿Qué modo de punto de acceso depende de un **controlador centralizado** para la gestión, el roaming y la configuración del SSID?",
+    "question_en": "Which access point mode relies on a **centralized controller** for management, roaming, and SSID configuration?",
     "image": null,
     "code": null,
     "options": [
       { "text_es": "Modo Bridge", "text_en": "Bridge mode", "isCorrect": false },
       { "text_es": "Modo Repetidor", "text_en": "Repeater mode", "isCorrect": false },
-      { "text_es": "Modo Autónomo", "text_en": "Autonomous mode", "isCorrect": false },
-      { "text_es": "Modo Ligero (Lightweight)", "text_en": "Lightweight mode", "isCorrect": true }
+      { "text_es": "Modo Autónomo (`Autonomous`)", "text_en": "Autonomous mode", "isCorrect": false },
+      { "text_es": "Modo Ligero (`Lightweight`)", "text_en": "Lightweight mode", "isCorrect": true }
     ],
-    "explanation_es": "Los puntos de acceso en modo Ligero (Lightweight) están diseñados para ser gestionados por un Controlador de LAN Inalámbrica (WLC). El WLC centraliza la configuración, la gestión y las decisiones de roaming, lo que simplifica la administración de redes Wi-Fi a gran escala. En contraste, los AP en modo Autónomo se configuran y gestionan individualmente.",
-    "explanation_en": "Lightweight mode access points are designed to be managed by a Wireless LAN Controller (WLC). The WLC centralizes configuration, management, and roaming decisions, which simplifies the administration of large-scale Wi-Fi networks. In contrast, Autonomous mode APs are configured and managed individually."
+    "explanation_es": "Los puntos de acceso en modo **Ligero (`Lightweight`)** están diseñados para ser gestionados por un **Controlador de LAN Inalámbrica (`WLC`)**. El `WLC` centraliza la configuración, la gestión y las decisiones de roaming, lo que simplifica la administración de redes Wi-Fi a gran escala. En contraste, los AP en modo **Autónomo** se configuran y gestionan individualmente.",
+    "explanation_en": "**Lightweight** mode access points are designed to be managed by a **Wireless LAN Controller (`WLC`)**. The `WLC` centralizes configuration, management, and roaming decisions, which simplifies the administration of large-scale Wi-Fi networks. In contrast, **Autonomous** mode APs are configured and managed individually."
   },
   {
     "id": "lldp_config_q1",
@@ -34,18 +34,18 @@
       "subtopic_id": "2.3",
       "subtopic_description": "LLDP Configuration"
     },
-    "question_es": "Consulte la información. Un ingeniero de redes debe actualizar la configuración en Switch2 para que envíe paquetes LLDP cada minuto y la información enviada a través de LLDP se considere válida durante 3 minutos. ¿Qué configuración debe aplicar el ingeniero?",
-    "question_en": "Refer to the exhibit. A network engineer must update the configuration on Switch2 so that it sends LLDP packets every minute and the information sent via LLDP is refreshed every 3 minutes. Which configuration must the engineer apply?",
+    "question_es": "**Consulte la información.** Un ingeniero de redes debe actualizar la configuración en `Switch2` para que envíe paquetes `LLDP` cada **minuto** y la información enviada se considere válida durante **3 minutos**. ¿Qué configuración debe aplicar el ingeniero?",
+    "question_en": "**Refer to the exhibit.** A network engineer must update the configuration on `Switch2` so that it sends `LLDP` packets every **minute** and the information sent is considered valid for **3 minutes**. Which configuration must the engineer apply?",
     "image": null,
     "code": "Switch2# show lldp\n\nGlobal LLDP Information:\nStatus: ACTIVE\nLLDP advertisements are sent every 30 seconds\nLLDP hold time advertised is 120 seconds\nLLDP interface reinitialization delay is 2 seconds",
     "options": [
-      { "text_es": "Switch2(config)# lldp timer 1\nSwitch2(config)# lldp holdtime 3", "text_en": "Switch2(config)# lldp timer 1\nSwitch2(config)# lldp holdtime 3", "isCorrect": false },
-      { "text_es": "Switch2(config)# lldp timer 60\nSwitch2(config)# lldp tlv-select 180", "text_en": "Switch2(config)# lldp timer 60\nSwitch2(config)# lldp tlv-select 180", "isCorrect": false },
-      { "text_es": "Switch2(config)# lldp timer 60\nSwitch2(config)# lldp holdtime 180", "text_en": "Switch2(config)# lldp timer 60\nSwitch2(config)# lldp holdtime 180", "isCorrect": true },
-      { "text_es": "Switch2(config)# lldp timer 1\nSwitch2(config)# lldp tlv-select 3", "text_en": "Switch2(config)# lldp timer 1\nSwitch2(config)# lldp tlv-select 3", "isCorrect": false }
+      { "text_es": "`Switch2(config)# lldp timer 1`\n`Switch2(config)# lldp holdtime 3`", "text_en": "`Switch2(config)# lldp timer 1`\n`Switch2(config)# lldp holdtime 3`", "isCorrect": false },
+      { "text_es": "`Switch2(config)# lldp timer 60`\n`Switch2(config)# lldp tlv-select 180`", "text_en": "`Switch2(config)# lldp timer 60`\n`Switch2(config)# lldp tlv-select 180`", "isCorrect": false },
+      { "text_es": "`Switch2(config)# lldp timer 60`\n`Switch2(config)# lldp holdtime 180`", "text_en": "`Switch2(config)# lldp timer 60`\n`Switch2(config)# lldp holdtime 180`", "isCorrect": true },
+      { "text_es": "`Switch2(config)# lldp timer 1`\n`Switch2(config)# lldp tlv-select 3`", "text_en": "`Switch2(config)# lldp timer 1`\n`Switch2(config)# lldp tlv-select 3`", "isCorrect": false }
     ],
-    "explanation_es": "El comando `lldp timer` establece la frecuencia de envío de los anuncios LLDP en segundos. Para enviar paquetes cada minuto, el valor debe ser 60. El comando `lldp holdtime` establece el multiplicador que, junto con el timer, determina cuánto tiempo un dispositivo receptor debe mantener la información LLDP antes de descartarla; sin embargo, es práctica común y más claro configurarlo directamente en segundos, lo cual se logra al configurar el holdtime con el valor total deseado. Para 3 minutos, el valor es 180 segundos.",
-    "explanation_en": "The `lldp timer` command sets the transmission frequency of LLDP advertisements in seconds. To send packets every minute, the value must be 60. The `lldp holdtime` command sets the multiplier that, along with the timer, determines how long a receiving device should keep LLDP information before discarding it; however, it's common and clearer to set this directly in total seconds by configuring the holdtime with the desired value. For 3 minutes, the value is 180 seconds."
+    "explanation_es": "El comando `lldp timer` establece la frecuencia de envío de los anuncios `LLDP` en segundos. Para enviar paquetes cada minuto, el valor debe ser **60**. El comando `lldp holdtime` establece el tiempo (en segundos) que un dispositivo receptor debe mantener la información `LLDP` antes de descartarla. Para 3 minutos, el valor es **180** segundos.",
+    "explanation_en": "The `lldp timer` command sets the transmission frequency of `LLDP` advertisements in seconds. To send packets every minute, the value must be **60**. The `lldp holdtime` command sets the time (in seconds) that a receiving device should keep `LLDP` information before discarding it. For 3 minutes, the value is **180** seconds."
   },
   {
     "id": "stp_portfast_states_q1",
@@ -58,19 +58,19 @@
       "subtopic_id": "2.5.c",
       "subtopic_description": "PortFast"
     },
-    "question_es": "¿Qué dos estados de spanning-tree se omiten en una interfaz que ejecuta PortFast? (Elija dos.)",
-    "question_en": "Which two spanning-tree states are bypassed on an interface running PortFast? (Choose two.)",
+    "question_es": "¿Qué dos estados de `spanning-tree` se omiten en una interfaz que ejecuta `PortFast`? (Elija dos.)",
+    "question_en": "Which two `spanning-tree` states are bypassed on an interface running `PortFast`? (Choose two.)",
     "image": null,
     "code": null,
     "options": [
-      { "text_es": "blocking (bloqueo)", "text_en": "blocking", "isCorrect": false },
-      { "text_es": "disabled (deshabilitado)", "text_en": "disabled", "isCorrect": false },
-      { "text_es": "learning (aprendizaje)", "text_en": "learning", "isCorrect": true },
-      { "text_es": "listening (escucha)", "text_en": "listening", "isCorrect": true },
-      { "text_es": "forwarding (reenvío)", "text_en": "forwarding", "isCorrect": false }
+      { "text_es": "`blocking` (bloqueo)", "text_en": "`blocking`", "isCorrect": false },
+      { "text_es": "`disabled` (deshabilitado)", "text_en": "`disabled`", "isCorrect": false },
+      { "text_es": "`learning` (aprendizaje)", "text_en": "`learning`", "isCorrect": true },
+      { "text_es": "`listening` (escucha)", "text_en": "`listening`", "isCorrect": true },
+      { "text_es": "`forwarding` (reenvío)", "text_en": "`forwarding`", "isCorrect": false }
     ],
-    "explanation_es": "La función PortFast está diseñada para puertos de acceso conectados a dispositivos finales (como PCs o servidores). Permite que el puerto pase inmediatamente del estado de bloqueo (blocking) al de reenvío (forwarding), omitiendo los estados de escucha (listening) y aprendizaje (learning), que normalmente durarían 30 segundos en total (15s + 15s). Esto acelera la convergencia de la red y evita que los dispositivos finales tengan problemas para obtener una dirección IP a través de DHCP.",
-    "explanation_en": "The PortFast feature is designed for access ports connected to end devices (like PCs or servers). It allows the port to transition immediately from the blocking state to the forwarding state, bypassing the listening and learning states, which would normally take a total of 30 seconds (15s + 15s). This speeds up network convergence and prevents end devices from having issues obtaining an IP address via DHCP."
+    "explanation_es": "La función `PortFast` está diseñada para puertos de acceso conectados a dispositivos finales (como PCs). Permite que el puerto pase inmediatamente del estado de `blocking` al de `forwarding`, omitiendo los estados de **`listening`** y **`learning`**, que normalmente durarían 30 segundos en total. Esto acelera la convergencia y evita problemas de `DHCP` en los hosts.",
+    "explanation_en": "The `PortFast` feature is designed for access ports connected to end devices (like PCs). It allows the port to transition immediately from the `blocking` state to the `forwarding` state, bypassing the **`listening`** and **`learning`** states, which would normally take a total of 30 seconds. This speeds up convergence and prevents `DHCP` issues on hosts."
   },
   {
     "id": "wlc_aaa_override_q1",
@@ -83,18 +83,18 @@
       "subtopic_id": "2.9",
       "subtopic_description": "WLAN Advanced Settings"
     },
-    "question_es": "Después de instalar un nuevo servidor Cisco ISE, ¿qué tarea debe realizar el ingeniero en el Cisco WLC para conectar clientes inalámbricos a una VLAN específica basándose en sus credenciales?",
-    "question_en": "After installing a new Cisco ISE server, which task must the engineer perform on the Cisco WLC to connect wireless clients on a specific VLAN based on their credentials?",
+    "question_es": "Después de instalar un nuevo servidor `Cisco ISE`, ¿qué tarea debe realizar el ingeniero en el `Cisco WLC` para conectar clientes inalámbricos a una `VLAN` específica basándose en sus credenciales?",
+    "question_en": "After installing a new `Cisco ISE` server, which task must the engineer perform on the `Cisco WLC` to connect wireless clients on a specific `VLAN` based on their credentials?",
     "image": null,
     "code": null,
     "options": [
-      { "text_es": "Deshabilitar el Modo LAG en el Próximo Reinicio", "text_en": "Disable the LAG Mode on Next Reboot", "isCorrect": false },
-      { "text_es": "Habilitar la Autorización de APs MIC contra auth-list o AAA", "text_en": "Enable the Authorize MIC APs against auth-list or AAA", "isCorrect": false },
-      { "text_es": "Habilitar el RRM Dirigido por Eventos", "text_en": "Enable the Event Driven RRM", "isCorrect": false },
-      { "text_es": "Habilitar la Sobrescritura de AAA (Allow AAA Override)", "text_en": "Enable the Allow AAA Override", "isCorrect": true }
+      { "text_es": "Deshabilitar el Modo `LAG` en el Próximo Reinicio", "text_en": "Disable the `LAG` Mode on Next Reboot", "isCorrect": false },
+      { "text_es": "Habilitar la Autorización de APs `MIC` contra auth-list o `AAA`", "text_en": "Enable the Authorize `MIC` APs against auth-list or `AAA`", "isCorrect": false },
+      { "text_es": "Habilitar el `RRM` Dirigido por Eventos", "text_en": "Enable the Event Driven `RRM`", "isCorrect": false },
+      { "text_es": "Habilitar la Sobrescritura de `AAA` (`Allow AAA Override`)", "text_en": "Enable the `Allow AAA Override`", "isCorrect": true }
     ],
-    "explanation_es": "Para que un WLC asigne dinámicamente a un cliente a una VLAN específica basada en las credenciales verificadas por un servidor RADIUS (como Cisco ISE), la función 'Allow AAA Override' debe estar habilitada en la configuración de la WLAN (SSID). Esta opción permite que los atributos RADIUS enviados por el servidor ISE (como el ID de la VLAN, ACLs o perfiles de QoS) sobrescriban la configuración por defecto de la WLAN.",
-    "explanation_en": "For a WLC to dynamically assign a client to a specific VLAN based on credentials verified by a RADIUS server (like Cisco ISE), the 'Allow AAA Override' feature must be enabled in the WLAN (SSID) configuration. This option allows the RADIUS attributes sent from the ISE server (such as VLAN ID, ACLs, or QoS profiles) to override the default settings of the WLAN."
+    "explanation_es": "Para que un `WLC` asigne dinámicamente a un cliente a una `VLAN` específica basada en las credenciales verificadas por un servidor `RADIUS` (como `Cisco ISE`), la función **`Allow AAA Override`** debe estar habilitada en la configuración de la `WLAN` (SSID). Esta opción permite que los atributos `RADIUS` enviados por el servidor `ISE` (como el ID de la `VLAN`, `ACLs` o perfiles de `QoS`) sobrescriban la configuración por defecto de la `WLAN`.",
+    "explanation_en": "For a `WLC` to dynamically assign a client to a specific `VLAN` based on credentials verified by a `RADIUS` server (like `Cisco ISE`), the **`Allow AAA Override`** feature must be enabled in the `WLAN` (SSID) configuration. This option allows the `RADIUS` attributes sent from the `ISE` server (such as `VLAN` ID, `ACLs`, or `QoS` profiles) to override the default settings of the `WLAN`."
   },
   {
     "id": "wlc_lag_reboot_q1",
@@ -107,18 +107,18 @@
       "subtopic_id": "2.7",
       "subtopic_description": "LAG on WLC"
     },
-    "question_es": "¿Cuál es un requisito al configurar o eliminar LAG en un WLC?",
-    "question_en": "What is a requirement when configuring or removing LAG on a WLC?",
+    "question_es": "¿Cuál es un requisito al configurar o eliminar `LAG` en un `WLC`?",
+    "question_en": "What is a requirement when configuring or removing `LAG` on a `WLC`?",
     "image": null,
     "code": null,
     "options": [
-      { "text_es": "El controlador debe ser reiniciado después de habilitar o reconfigurar LAG.", "text_en": "The controller must be rebooted after enabling or reconfiguring LAG.", "isCorrect": true },
-      { "text_es": "La interfaz de gestión debe ser reasignada si LAG es deshabilitado.", "text_en": "The management interface must be reassigned if LAG is disabled.", "isCorrect": false },
-      { "text_es": "Los puertos de entrada y salida para el flujo de tráfico deben especificarse si LAG está habilitado.", "text_en": "The incoming and outgoing ports for traffic flow must be specified if LAG is enabled.", "isCorrect": false },
+      { "text_es": "El controlador debe ser **reiniciado** después de habilitar o reconfigurar `LAG`.", "text_en": "The controller must be **rebooted** after enabling or reconfiguring `LAG`.", "isCorrect": true },
+      { "text_es": "La interfaz de gestión debe ser reasignada si `LAG` es deshabilitado.", "text_en": "The management interface must be reassigned if `LAG` is disabled.", "isCorrect": false },
+      { "text_es": "Los puertos de entrada y salida para el flujo de tráfico deben especificarse si `LAG` está habilitado.", "text_en": "The incoming and outgoing ports for traffic flow must be specified if `LAG` is enabled.", "isCorrect": false },
       { "text_es": "Se deben admitir múltiples interfaces sin etiquetar en el mismo puerto.", "text_en": "Multiple untagged interfaces on the same port must be supported.", "isCorrect": false }
     ],
-    "explanation_es": "La habilitación o deshabilitación de Link Aggregation (LAG) en un Cisco Wireless LAN Controller (WLC) es un cambio fundamental en cómo el sistema maneja sus puertos físicos. Debido a la naturaleza de este cambio a nivel de sistema, el WLC requiere un reinicio para que la nueva configuración de LAG tenga efecto.",
-    "explanation_en": "Enabling or disabling Link Aggregation (LAG) on a Cisco Wireless LAN Controller (WLC) is a fundamental change to how the system handles its physical ports. Due to the system-level nature of this change, the WLC requires a reboot for the new LAG configuration to take effect."
+    "explanation_es": "La habilitación o deshabilitación de **Link Aggregation (`LAG`)** en un `Cisco Wireless LAN Controller (WLC)` es un cambio fundamental en cómo el sistema maneja sus puertos físicos. Debido a la naturaleza de este cambio a nivel de sistema, el `WLC` **requiere un reinicio** para que la nueva configuración de `LAG` tenga efecto.",
+    "explanation_en": "Enabling or disabling **Link Aggregation (`LAG`)** on a `Cisco Wireless LAN Controller (WLC)` is a fundamental change to how the system handles its physical ports. Due to the system-level nature of this change, the `WLC` **requires a reboot** for the new `LAG` configuration to take effect."
   },
   {
     "id": "rstp_states_q1",
@@ -131,19 +131,19 @@
       "subtopic_id": "2.5.b",
       "subtopic_description": "Port states and roles"
     },
-    "question_es": "Además de 'descartando' (discarding), ¿a través de qué dos estados transita el puerto de un switch mientras usa RSTP (802.1w)? (Elija dos.)",
-    "question_en": "Aside from discarding, which two states does the switch port transition through while using RSTP (802.1w)? (Choose two.)",
+    "question_es": "Además de `discarding` (descartando), ¿a través de qué dos estados transita el puerto de un switch mientras usa `RSTP` (`802.1w`)? (Elija dos.)",
+    "question_en": "Aside from `discarding`, which two states does the switch port transition through while using `RSTP` (`802.1w`)? (Choose two.)",
     "image": null,
     "code": null,
     "options": [
-      { "text_es": "listening (escucha)", "text_en": "listening", "isCorrect": false },
-      { "text_es": "speaking (hablando)", "text_en": "speaking", "isCorrect": false },
-      { "text_es": "blocking (bloqueo)", "text_en": "blocking", "isCorrect": false },
-      { "text_es": "forwarding (reenvío)", "text_en": "forwarding", "isCorrect": true },
-      { "text_es": "learning (aprendizaje)", "text_en": "learning", "isCorrect": true }
+      { "text_es": "`listening` (escucha)", "text_en": "`listening`", "isCorrect": false },
+      { "text_es": "`speaking` (hablando)", "text_en": "`speaking`", "isCorrect": false },
+      { "text_es": "`blocking` (bloqueo)", "text_en": "`blocking`", "isCorrect": false },
+      { "text_es": "`forwarding` (reenvío)", "text_en": "`forwarding`", "isCorrect": true },
+      { "text_es": "`learning` (aprendizaje)", "text_en": "`learning`", "isCorrect": true }
     ],
-    "explanation_es": "RSTP (802.1w) optimiza el STP (802.1D) consolidando los cinco estados originales en tres. Los estados de STP 'disabled', 'blocking' y 'listening' se combinan en un único estado RSTP llamado 'discarding'. Por lo tanto, un puerto en RSTP transita de 'discarding' a 'learning' (aprendizaje) y finalmente a 'forwarding' (reenvío).",
-    "explanation_en": "RSTP (802.1w) streamlines STP (802.1D) by consolidating the original five states into three. The STP states of 'disabled', 'blocking', and 'listening' are all combined into a single RSTP state called 'discarding'. Therefore, a port in RSTP transitions from 'discarding' to 'learning' and finally to 'forwarding'."
+    "explanation_es": "`RSTP` (`802.1w`) optimiza `STP` (`802.1D`) consolidando los cinco estados originales en tres. Los estados de `STP` 'disabled', 'blocking' y 'listening' se combinan en un único estado `RSTP` llamado **`discarding`**. Por lo tanto, un puerto en `RSTP` transita de `discarding` a **`learning`** y finalmente a **`forwarding`**.",
+    "explanation_en": "`RSTP` (`802.1w`) streamlines `STP` (`802.1D`) by consolidating the original five states into three. The `STP` states of 'disabled', 'blocking', and 'listening' are all combined into a single `RSTP` state called **`discarding`**. Therefore, a port in `RSTP` transitions from `discarding` to **`learning`** and finally to **`forwarding`**."
   },
   {
     "id": "wlc_lag_reason_q1",
@@ -156,34 +156,18 @@
       "subtopic_id": "2.7",
       "subtopic_description": "LAG on WLC"
     },
-    "question_es": "¿Cuál es una razón para implementar LAG en un Cisco WLC?",
-    "question_en": "What is a reason to implement LAG on a Cisco WLC?",
+    "question_es": "¿Cuál es una razón para implementar `LAG` en un `Cisco WLC`?",
+    "question_en": "What is a reason to implement `LAG` on a `Cisco WLC`?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "Aumentar el rendimiento disponible en el enlace.",
-        "text_en": "Increase the available throughput on the link.",
-        "isCorrect": true
-      },
-      {
-        "text_es": "Permitir la conmutación por error con estado (stateful failover) entre WLCs.",
-        "text_en": "Allow for stateful failover between WLCs.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Aumentar la seguridad cifrando las tramas de gestión.",
-        "text_en": "Increase security by encrypting management frames.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Habilitar que los puertos del switch conectado usen diferentes configuraciones de Capa 2.",
-        "text_en": "Enable the connected switch ports to use different Layer 2 configurations.",
-        "isCorrect": false
-      }
+      { "text_es": "Aumentar el rendimiento disponible en el enlace.", "text_en": "Increase the available throughput on the link.", "isCorrect": true },
+      { "text_es": "Permitir la conmutación por error con estado (`stateful failover`) entre WLCs.", "text_en": "Allow for stateful failover between WLCs.", "isCorrect": false },
+      { "text_es": "Aumentar la seguridad cifrando las tramas de gestión.", "text_en": "Increase security by encrypting management frames.", "isCorrect": false },
+      { "text_es": "Habilitar que los puertos del switch conectado usen diferentes configuraciones de Capa 2.", "text_en": "Enable the connected switch ports to use different Layer 2 configurations.", "isCorrect": false }
     ],
-    "explanation_es": "Link Aggregation (LAG) agrupa múltiples puertos físicos en un único enlace lógico (EtherChannel). Sus dos beneficios principales son: \n1. **Aumento del rendimiento (throughput)** al sumar el ancho de banda de los enlaces individuales. \n2. **Redundancia**, ya que si un enlace falla, el tráfico se redistribuye automáticamente por los enlaces restantes.",
-    "explanation_en": "Link Aggregation (LAG) bundles multiple physical ports into a single logical link (EtherChannel). Its two main benefits are: \n1. **Increased throughput** by summing the bandwidth of the individual links. \n2. **Redundancy**, because if one link fails, traffic is automatically redistributed over the remaining links."
+    "explanation_es": "**Link Aggregation (`LAG`)** agrupa múltiples puertos físicos en un único enlace lógico (`EtherChannel`). Sus dos beneficios principales son:\n1. **Aumento del rendimiento (`throughput`)** al sumar el ancho de banda de los enlaces individuales.\n2. **Redundancia**, ya que si un enlace falla, el tráfico se redistribuye automáticamente por los enlaces restantes.",
+    "explanation_en": "**Link Aggregation (`LAG`)** bundles multiple physical ports into a single logical link (`EtherChannel`). Its two main benefits are:\n1. **Increased throughput** by summing the bandwidth of the individual links.\n2. **Redundancy**, because if one link fails, traffic is automatically redistributed over the remaining links."
   },
   {
     "id": "lacp_passive_mode_q1",
@@ -196,34 +180,18 @@
       "subtopic_id": "2.4",
       "subtopic_description": "LACP Negotiation"
     },
-    "question_es": "Consulte la información. ¿Qué cambio en la configuración de Switch2 permite que los dos switches establezcan un EtherChannel?",
-    "question_en": "Refer to the exhibit. Which change to the configuration on Switch2 allows the two switches to establish an EtherChannel?",
+    "question_es": "**Consulte la información.** ¿Qué cambio en la configuración de `Switch2` permite que los dos switches establezcan un `EtherChannel`?",
+    "question_en": "**Refer to the exhibit.** Which change to the configuration on `Switch2` allows the two switches to establish an `EtherChannel`?",
     "image": null,
     "code": "Switch1#show etherchannel summary\nFlags:  D - down        P - in port-channel\n        I - stand-alone s - suspended\n        H - Hot-standby (LACP only)\n        R - Layer3      S - Layer2\n        U - in use      f - failed to allocate aggregator\n\nNumber of channel-groups in use: 1\nNumber of aggregators:           1\n\nGroup  Port-channel  Protocol    Ports\n------+-------------+-----------+-----------------------------------------------\n1      Po1(SD)         LACP        Fa0/2(I) Fa0/1(I)\n\nSwitch1#show run\n!\ninterface FastEthernet0/1\n channel-group 1 mode passive\n!\ninterface FastEthernet0/2\n channel-group 1 mode passive\n!\n\nSwitch2#show run\n!\ninterface FastEthernet0/1\n channel-group 1 mode passive\n!\ninterface FastEthernet0/2\n channel-group 1 mode passive\n!",
     "options": [
-      {
-        "text_es": "Cambiar el protocolo a PAgP y usar el modo 'auto'.",
-        "text_en": "Change the protocol to PAgP and use auto mode.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Cambiar el protocolo a EtherChannel 'on'.",
-        "text_en": "Change the protocol to EtherChannel on.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Cambiar el modo LACP a 'desirable'.",
-        "text_en": "Change the LACP mode to desirable.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Cambiar el modo LACP a 'active'.",
-        "text_en": "Change the LACP mode to active.",
-        "isCorrect": true
-      }
+      { "text_es": "Cambiar el protocolo a `PAgP` y usar el modo `auto`.", "text_en": "Change the protocol to `PAgP` and use `auto` mode.", "isCorrect": false },
+      { "text_es": "Cambiar el protocolo a `EtherChannel on`.", "text_en": "Change the protocol to `EtherChannel on`.", "isCorrect": false },
+      { "text_es": "Cambiar el modo `LACP` a `desirable`.", "text_en": "Change the `LACP` mode to `desirable`.", "isCorrect": false },
+      { "text_es": "Cambiar el modo `LACP` a `active`.", "text_en": "Change the `LACP` mode to `active`.", "isCorrect": true }
     ],
-    "explanation_es": "LACP (Link Aggregation Control Protocol) tiene dos modos: 'active' (activo) y 'passive' (pasivo). Un puerto en modo 'active' intenta activamente formar un EtherChannel, mientras que un puerto en modo 'passive' solo responde a las solicitudes. Para que se forme un EtherChannel, al menos un lado debe estar en modo 'active'. En la configuración mostrada, ambos switches están en modo 'passive', por lo que ninguno inicia la negociación. Cambiar Switch2 a 'active' permitirá que se establezca el canal.",
-    "explanation_en": "LACP (Link Aggregation Control Protocol) has two modes: 'active' and 'passive'. A port in 'active' mode actively tries to form an EtherChannel, while a port in 'passive' mode only responds to requests. For an EtherChannel to form, at least one side must be in 'active' mode. In the configuration shown, both switches are in 'passive' mode, so neither initiates the negotiation. Changing Switch2 to 'active' will allow the channel to be established."
+    "explanation_es": "`LACP` (Link Aggregation Control Protocol) tiene dos modos: **`active`** (activo) y **`passive`** (pasivo). Un puerto en modo `active` intenta activamente formar un `EtherChannel`, mientras que un puerto en modo `passive` solo responde a las solicitudes. Para que se forme un `EtherChannel`, **al menos un lado debe estar en modo `active`**. En la configuración mostrada, ambos switches están en modo `passive`, por lo que ninguno inicia la negociación. Cambiar `Switch2` a `active` permitirá que se establezca el canal.",
+    "explanation_en": "`LACP` (Link Aggregation Control Protocol) has two modes: **`active`** and **`passive`**. A port in `active` mode actively tries to form an `EtherChannel`, while a port in `passive` mode only responds to requests. For an `EtherChannel` to form, **at least one side must be in `active` mode**. In the configuration shown, both switches are in `passive` mode, so neither initiates the negotiation. Changing `Switch2` to `active` will allow the channel to be established."
   },
   {
     "id": "vlan_tagging_q1",
@@ -236,34 +204,18 @@
       "subtopic_id": "2.2.b",
       "subtopic_description": "802.1Q"
     },
-    "question_es": "¿Qué función de un switch de Capa 2 encapsula paquetes para diferentes VLANs de modo que los paquetes atraviesen el mismo puerto y mantengan la separación de tráfico entre las VLANs?",
-    "question_en": "Which Layer 2 switch function encapsulates packets for different VLANs so that the packets traverse the same port and maintain traffic separation between the VLANs?",
+    "question_es": "¿Qué función de un switch de Capa 2 encapsula paquetes para diferentes `VLANs` de modo que los paquetes atraviesen el mismo puerto y mantengan la separación de tráfico entre las `VLANs`?",
+    "question_en": "Which Layer 2 switch function encapsulates packets for different `VLANs` so that the packets traverse the same port and maintain traffic separation between the `VLANs`?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "Marcado de VLAN (VLAN marking)",
-        "text_en": "VLAN marking",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Numeración de VLAN (VLAN numbering)",
-        "text_en": "VLAN numbering",
-        "isCorrect": false
-      },
-      {
-        "text_es": "DSCP de VLAN (VLAN DSCP)",
-        "text_en": "VLAN DSCP",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Etiquetado de VLAN (VLAN tagging)",
-        "text_en": "VLAN tagging",
-        "isCorrect": true
-      }
+      { "text_es": "Marcado de `VLAN` (`VLAN marking`)", "text_en": "`VLAN` marking", "isCorrect": false },
+      { "text_es": "Numeración de `VLAN` (`VLAN numbering`)", "text_en": "`VLAN` numbering", "isCorrect": false },
+      { "text_es": "`DSCP` de `VLAN` (`VLAN DSCP`)", "text_en": "`VLAN DSCP`", "isCorrect": false },
+      { "text_es": "Etiquetado de `VLAN` (`VLAN tagging`)", "text_en": "`VLAN` tagging", "isCorrect": true }
     ],
-    "explanation_es": "El 'etiquetado de VLAN' (VLAN tagging) es el proceso mediante el cual se añade una etiqueta (tag) a una trama de Ethernet. Esta etiqueta, definida por el estándar 802.1Q, contiene el ID de la VLAN a la que pertenece la trama. Esto permite que los enlaces troncales (trunk links) transporten tráfico de múltiples VLANs a través de un único puerto, manteniendo cada VLAN lógicamente separada.",
-    "explanation_en": "VLAN tagging is the process by which a tag is added to an Ethernet frame. This tag, defined by the 802.1Q standard, contains the VLAN ID to which the frame belongs. This allows trunk links to carry traffic for multiple VLANs across a single port while keeping each VLAN logically separate."
+    "explanation_es": "El **'etiquetado de VLAN' (`VLAN tagging`)** es el proceso mediante el cual se añade una etiqueta (`tag`) a una trama de Ethernet. Esta etiqueta, definida por el estándar **`802.1Q`**, contiene el `ID` de la `VLAN` a la que pertenece la trama. Esto permite que los **enlaces troncales (`trunk links`)** transporten tráfico de múltiples `VLANs` a través de un único puerto, manteniendo cada `VLAN` lógicamente separada.",
+    "explanation_en": "**`VLAN tagging`** is the process by which a tag is added to an Ethernet frame. This tag, defined by the **`802.1Q`** standard, contains the `VLAN ID` to which the frame belongs. This allows **`trunk links`** to carry traffic for multiple `VLANs` across a single port while keeping each `VLAN` logically separate."
   },
   {
     "id": "wlc_rogue_ap_friendly_q1",
@@ -276,33 +228,17 @@
       "subtopic_id": "2.9",
       "subtopic_description": "Rogue AP Management"
     },
-    "question_es": "Un WLC envía alarmas sobre un AP 'rogue' (intruso), y el administrador de red verifica que las alarmas son causadas por un AP autónomo legítimo. ¿Cómo se deben detener las alarmas para la dirección MAC de este AP?",
-    "question_en": "A WLC sends alarms about a rogue AP, and the network administrator verifies that the alarms are caused by a legitimate autonomous AP. How must the alarms be stopped for the MAC address of the AP?",
+    "question_es": "Un `WLC` envía alarmas sobre un AP **'rogue'** (intruso), y el administrador de red verifica que las alarmas son causadas por un AP autónomo legítimo. ¿Cómo se deben detener las alarmas para la dirección `MAC` de este AP?",
+    "question_en": "A `WLC` sends alarms about a **'rogue'** AP, and the network administrator verifies that the alarms are caused by a legitimate autonomous AP. How must the alarms be stopped for the `MAC` address of the AP?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "Establecer el Tipo de Clase del AP a 'Amistoso' (Friendly).",
-        "text_en": "Set the AP Class Type to Friendly.",
-        "isCorrect": true
-      },
-      {
-        "text_es": "Eliminar manualmente el AP del estado 'Pendiente' (Pending).",
-        "text_en": "Manually remove the AP from Pending state.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Colocar el AP en contención manual.",
-        "text_en": "Place the AP into manual containment.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Eliminar el AP de la gestión del WLC.",
-        "text_en": "Remove the AP from WLC management.",
-        "isCorrect": false
-      }
+      { "text_es": "Establecer el Tipo de Clase del AP a **'Amistoso' (`Friendly`)**.", "text_en": "Set the AP Class Type to **`Friendly`**.", "isCorrect": true },
+      { "text_es": "Eliminar manualmente el AP del estado 'Pendiente' (`Pending`).", "text_en": "Manually remove the AP from `Pending` state.", "isCorrect": false },
+      { "text_es": "Colocar el AP en contención manual.", "text_en": "Place the AP into manual containment.", "isCorrect": false },
+      { "text_es": "Eliminar el AP de la gestión del `WLC`.", "text_en": "Remove the AP from `WLC` management.", "isCorrect": false }
     ],
-    "explanation_es": "Cuando un WLC detecta un AP que no gestiona, lo clasifica como 'rogue'. Si un administrador determina que este AP es legítimo (por ejemplo, un AP de una red vecina o un AP autónomo propio), debe clasificarlo como 'Amistoso' (Friendly). Esto le indica al WLC que confíe en el AP y deje de generar alarmas sobre él.",
-    "explanation_en": "When a WLC detects an AP that it does not manage, it classifies it as a 'rogue'. If an administrator determines this AP is legitimate (e.g., an AP from a neighboring network or a known autonomous AP), they must classify it as 'Friendly'. This tells the WLC to trust the AP and stop generating alarms for it."
+    "explanation_es": "Cuando un `WLC` detecta un AP que no gestiona, lo clasifica como **'rogue'**. Si un administrador determina que este AP es legítimo (por ejemplo, un AP de una red vecina), debe clasificarlo como **'Amistoso' (`Friendly`)**. Esto le indica al `WLC` que confíe en el AP y deje de generar alarmas sobre él.",
+    "explanation_en": "When a `WLC` detects an AP that it does not manage, it classifies it as a **'rogue'**. If an administrator determines this AP is legitimate (e.g., an AP from a neighboring network), they must classify it as **`Friendly`**. This tells the `WLC` to trust the AP and stop generating alarms for it."
   }
 ]
