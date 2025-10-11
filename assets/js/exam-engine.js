@@ -1,272 +1,352 @@
-// assets/js/exam-engine.js (Versión Final y Completa)
+// assets/js/exam-engine.js (Versión Refactorizada y Completa)
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- REFERENCIAS AL DOM ---
-    const categorySelectionContainer = document.getElementById('category-selection-container');
-    const startExamBtn = document.getElementById('start-exam-btn');
-    const examSetupContainer = document.getElementById('exam-setup-container');
-    const examQuestionsContainer = document.getElementById('exam-questions-container');
-    const questionCountSelect = document.getElementById('question-count-select');
-    const examResultsContainer = document.getElementById('exam-results-container');
-    const examReviewContainer = document.getElementById('exam-review-container');
+    // =================================================================================
+    // MÓDULO DE CONFIGURACIÓN Y ESTADO
+    // =================================================================================
 
-    // --- CONFIGURACIÓN DE CATEGORÍAS ---
-    const CATEGORY_CONFIG = {
-        '1.0-network-fundamentals': { color: '#0d6efd', icon: 'fa-sitemap' },
-        '2.0-network-access': { color: '#198754', icon: 'fa-network-wired' },
-        '3.0-ip-connectivity': { color: '#6f42c1', icon: 'fa-route' },
-        '4.0-ip-services': { color: '#fd7e14', icon: 'fa-cogs' },
-        '5.0-security-fundamentals': { color: '#dc3545', icon: 'fa-shield-alt' },
-        '6.0-automation-programmability': { color: '#0dcaf0', icon: 'fa-code' }
+    const DOM = {
+        setup: document.getElementById('exam-setup-container'),
+        questions: document.getElementById('exam-questions-container'),
+        results: document.getElementById('exam-results-container'),
+        review: document.getElementById('exam-review-container'),
+        categorySelection: document.getElementById('category-selection-container'),
+        startBtn: document.getElementById('start-exam-btn'),
+        questionCountSelect: document.getElementById('question-count-select')
     };
 
-    // --- ESTADO DEL EXAMEN ---
-    let allQuestions = [];
-    let currentExamQuestions = [];
-    let currentQuestionIndex = 0;
-    let examStats = { correct: 0, incorrect: 0, skipped: 0 };
-    let examMode = 'study';
-    let timerInterval = null;
-    let timeRemaining = 0;
+    const CONFIG = {
+        categories: [
+            { id: '1.0-network-fundamentals', i18nKey: 'category_1_0' },
+            { id: '2.0-network-access', i18nKey: 'category_2_0' },
+            { id: '3.0-ip-connectivity', i18nKey: 'category_3_0' },
+            { id: '4.0-ip-services', i18nKey: 'category_4_0' },
+            { id: '5.0-security-fundamentals', i18nKey: 'category_5_0' },
+            { id: '6.0-automation-programmability', i18nKey: 'category_6_0' }
+        ],
+        categoryVisuals: {
+            '1.0-network-fundamentals': { color: '#0d6efd', icon: 'fa-sitemap' },
+            '2.0-network-access': { color: '#198754', icon: 'fa-network-wired' },
+            '3.0-ip-connectivity': { color: '#6f42c1', icon: 'fa-route' },
+            '4.0-ip-services': { color: '#fd7e14', icon: 'fa-cogs' },
+            '5.0-security-fundamentals': { color: '#dc3545', icon: 'fa-shield-alt' },
+            '6.0-automation-programmability': { color: '#0dcaf0', icon: 'fa-code' }
+        },
+        timePerQuestion: 90 // en segundos
+    };
 
-    const examCategories = [
-        { id: '1.0-network-fundamentals', i18nKey: 'category_1_0' },
-        { id: '2.0-network-access', i18nKey: 'category_2_0' },
-        { id: '3.0-ip-connectivity', i18nKey: 'category_3_0' },
-        { id: '4.0-ip-services', i18nKey: 'category_4_0' },
-        { id: '5.0-security-fundamentals', i18nKey: 'category_5_0' },
-        { id: '6.0-automation-programmability', i18nKey: 'category_6_0' }
-    ];
+    let state = {};
 
-    /*function loadCategories() {
-        if (!categorySelectionContainer) return;
-        categorySelectionContainer.innerHTML = '';
-        examCategories.forEach(category => {
-            const colDiv = document.createElement('div');
-            colDiv.className = 'col-12 col-md-6 mb-2';
-            const formCheckDiv = document.createElement('div');
-            formCheckDiv.className = 'form-check';
-            const input = document.createElement('input');
-            input.className = 'form-check-input';
-            input.type = 'checkbox';
-            input.value = category.id;
-            input.id = `check-${category.id}`;
-            input.checked = true;
-            const label = document.createElement('label');
-            label.className = 'form-check-label';
-            label.htmlFor = `check-${category.id}`;
-            label.textContent = i1n.get(category.i18nKey) || category.id;
+    function resetState() {
+        state = {
+            allQuestions: [],
+            currentExamQuestions: [],
+            currentQuestionIndex: 0,
+            currentReviewIndex: 0,
+            stats: { correct: 0, incorrect: 0, skipped: 0 },
+            examMode: 'study',
+            timerInterval: null,
+            timeRemaining: 0
+        };
+    }
+
+    // =================================================================================
+    // MÓDULO DE DATOS
+    // =================================================================================
+
+    const Data = {
+        async fetchQuestions(categoryIds) {
+            const fetchPromises = categoryIds.map(id =>
+                fetch(`../data/${id}.json`).then(response => {
+                    if (!response.ok) throw new Error(`Failed to load: ${id}`);
+                    return response.text().then(text => text ? JSON.parse(text) : []);
+                })
+            );
+
+            const results = await Promise.allSettled(fetchPromises);
+            const allFetchedQuestions = [];
+            results.forEach(result => {
+                if (result.status === 'fulfilled' && Array.isArray(result.value)) {
+                    allFetchedQuestions.push(...result.value);
+                } else if (result.status === 'rejected') {
+                    console.warn(`Skipped file due to error: ${result.reason.message}`);
+                }
+            });
+            return allFetchedQuestions;
+        },
+        shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        },
+        saveAttempt() {
+            const attempt = {
+                date: new Date().toISOString(),
+                stats: state.stats,
+                totalQuestions: state.currentExamQuestions.length,
+                mode: state.examMode
+            };
+            try {
+                const history = JSON.parse(localStorage.getItem('CCNA_examHistory')) || [];
+                history.push(attempt);
+                localStorage.setItem('CCNA_examHistory', JSON.stringify(history));
+            } catch (e) {
+                console.error("Could not save exam result.", e);
+            }
+        }
+    };
+
+    // =================================================================================
+    // MÓDULO DEL TEMPORIZADOR
+    // =================================================================================
+
+    const Timer = {
+        start() {
+            Timer.stop();
+            const timePerQuestion = CONFIG.timePerQuestion;
+            state.timeRemaining = state.currentExamQuestions.length * timePerQuestion;
+            state.timerInterval = setInterval(() => {
+                state.timeRemaining--;
+                UI.updateTimerDisplay();
+                if (state.timeRemaining <= 0) {
+                    Exam.finish();
+                }
+            }, 1000);
+        },
+        stop() {
+            clearInterval(state.timerInterval);
+        }
+    };
+    
+    // =================================================================================
+    // MÓDULO DE UI (MANIPULACIÓN DEL DOM)
+    // =================================================================================
+    const UI = {
+        /**
+         * Oculta todas las pantallas principales y muestra solo la especificada.
+         * @param {string} screenName - El nombre de la pantalla a mostrar ('setup', 'questions', 'results', 'review').
+         */
+        showScreen(screenName) {
+            ['setup', 'questions', 'results', 'review'].forEach(key => {
+                if (DOM[key]) DOM[key].classList.add('d-none');
+            });
+            if (DOM[screenName]) {
+                DOM[screenName].classList.remove('d-none');
+            }
+        },
+    
+        /**
+         * Carga las preguntas para obtener el conteo y muestra las categorías en la pantalla de configuración.
+         */
+        async loadAndDisplayCategories() {
+            if (!DOM.categorySelection) return;
+            DOM.categorySelection.innerHTML = `<p class="text-muted">${i1n.get('loading_questions')}</p>`;
             
-            formCheckDiv.appendChild(input);
-            formCheckDiv.appendChild(label);
-            colDiv.appendChild(formCheckDiv);
-            categorySelectionContainer.appendChild(colDiv);
-        });
-    }*/
-
-    async function loadAndDisplayCategories() {
-        if (!categorySelectionContainer) return;
-        categorySelectionContainer.innerHTML = `<p class="text-muted">Cargando preguntas...</p>`;
-    
-        let totalQuestionsInBank = 0;
-        const allCategoryIds = examCategories.map(cat => cat.id);
-        const allQuestionsData = await fetchQuestions(allCategoryIds); // Carga todas las preguntas de una vez
-    
-        categorySelectionContainer.innerHTML = ''; // Limpia el mensaje de "cargando"
-    
-        examCategories.forEach(category => {
-            const questionCount = allQuestionsData.filter(q => q.category === category.id).length;
-            totalQuestionsInBank += questionCount;
+            const allCategoryIds = CONFIG.categories.map(cat => cat.id);
+            const allQuestionsData = await Data.fetchQuestions(allCategoryIds);
             
-            const categoryInfo = CATEGORY_CONFIG[category.id] || { color: '#6c757d' };
-    
-            const categoryHTML = `
-                <div class="col-12 col-md-6 mb-2">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="${category.id}" id="check-${category.id}" checked>
-                        
-                        <label class="form-check-label d-flex justify-content-between align-items-center" for="check-${category.id}">
-                            <span>${i1n.get(category.i18nKey) || category.id}</span>
-                            <span class="badge rounded-pill" style="background-color: ${categoryInfo.color}; min-width: 28px;">${questionCount}</span>
-                        </label>
+            DOM.categorySelection.innerHTML = '';
+            CONFIG.categories.forEach(category => {
+                const questionCount = allQuestionsData.filter(q => q.category === category.id).length;
+                const categoryInfo = CONFIG.categoryVisuals[category.id] || { color: '#6c757d' };
+                const categoryHTML = `
+                    <div class="col-12 col-md-6 mb-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="${category.id}" id="check-${category.id}" checked>
+                            <label class="form-check-label d-flex justify-content-between align-items-center" for="check-${category.id}">
+                                <span>${i1n.get(category.i18nKey) || category.id}</span>
+                                <span class="badge rounded-pill" style="background-color: ${categoryInfo.color}; min-width: 28px;">${questionCount}</span>
+                            </label>
                         </div>
-                </div>`;
-            categorySelectionContainer.innerHTML += categoryHTML;
-        });
+                    </div>`;
+                DOM.categorySelection.innerHTML += categoryHTML;
+            });
+        },
     
-        // Opcional: Mostrar el total de preguntas en algún lugar
-        console.log(`Total de preguntas en el banco: ${totalQuestionsInBank}`);
-    }
-
-    function translateQuestionCountOptions() {
-        if (!questionCountSelect) return;
-        Array.from(questionCountSelect.options).forEach(option => {
-            const key = `q_count_${option.value}`;
-            const translation = i1n.get(key);
-            if (translation !== key) {
-                option.textContent = translation;
-            }
-        });
-    }
+        /**
+         * Renderiza la vista de la pregunta activa durante el examen.
+         */
+        displayQuestion() {
+            const question = state.currentExamQuestions[state.currentQuestionIndex];
+            const lang = i1n.currentLanguage || 'es';
+            
+            const headerHTML = this._createQuestionHeader(question, lang, state.currentQuestionIndex, state.currentExamQuestions.length);
+            const bodyHTML = this._createQuestionBody(question, lang);
+            const footerHTML = this._createQuestionFooter(lang);
+            const timerHTML = state.examMode === 'exam' ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` : '';
     
-    async function startExam() {
-        const selectedMode = document.querySelector('input[name="examMode"]:checked').value;
-        const selectedCategoryElements = document.querySelectorAll('#category-selection-container input[type="checkbox"]:checked');
-        const questionCount = questionCountSelect.value;
-        
-        if (selectedCategoryElements.length === 0) {
-            alert(i1n.get('alert_select_category'));
-            return;
-        }
-
-        const selectedCategories = Array.from(selectedCategoryElements).map(el => el.value);
-        examMode = selectedMode;
-
-        try {
-            allQuestions = await fetchQuestions(selectedCategories);
-            if (allQuestions.length === 0) {
-                alert(i1n.get('alert_no_questions'));
-                return;
-            }
-        } catch (error) {
-            console.error('Error al cargar las preguntas:', error);
-            alert(i1n.get('alert_load_error'));
-            return;
-        }
-
-        currentExamQuestions = shuffleArray([...allQuestions]);
-        if (questionCount !== 'all') {
-            currentExamQuestions = currentExamQuestions.slice(0, parseInt(questionCount));
-        }
-        
-        // Pre-procesamos TODAS las preguntas para añadirles su lista de opciones barajadas.
-        // Esto evita errores en la revisión si el examen se termina antes de tiempo.
-        currentExamQuestions.forEach(question => {
-            question.shuffledOptions = shuffleArray([...question.options]);
-            question.userAnswerIndex = null; // Inicializamos la respuesta del usuario
-        });
-
-        currentQuestionIndex = 0;
-        examStats = { correct: 0, incorrect: 0, skipped: 0 };
-        
-        examSetupContainer.classList.add('d-none');
-        examResultsContainer.classList.add('d-none');
-        examReviewContainer.classList.add('d-none');
-        examQuestionsContainer.classList.remove('d-none');
-        
-        if (examMode === 'exam') {
-            const timePerQuestion = 90;
-            timeRemaining = currentExamQuestions.length * timePerQuestion;
-            startTimer();
-        }
-        
-        displayQuestion();
-    }
-
-    function displayQuestion() {
-        if (currentQuestionIndex >= currentExamQuestions.length) {
-            finishExam();
-            return;
-        }
-    
-        const question = currentExamQuestions[currentQuestionIndex];
-        const lang = i1n.currentLanguage || 'es';
-
-        const categoryInfo = CATEGORY_CONFIG[question.category] || { color: '#6c757d', icon: 'fa-question-circle' };
-    
-        // Obtenemos el nombre de la categoría del motor de traducción
-        const categoryName = i1n.get(examCategories.find(c => c.id === question.category)?.i18nKey || question.category);
-    
-        // Seleccionamos la descripción del tema en el idioma correcto
-        const topicDescription = question.topic ? (question.topic[`description_${lang}`] || question.topic.description_en) : '';
-    
-        // Definimos el título y contenido del popover
-        const popoverTitle = categoryName; 
-        const popoverContent = question.topic 
-            ? `<strong>${question.topic.id}:</strong> ${topicDescription}<br><small class='text-muted'>${question.topic.subtopic_id}: ${question.topic.subtopic_description}</small>`
-            : 'Subtopic information not available.';
-    
-        // Creamos el HTML de la insignia
-        const categoryBadgeHTML = `
-            <div class="category-badge" 
-                 style="background-color: ${categoryInfo.color};"
-                 data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-html="true"
-                 title="${popoverTitle}" data-bs-content="${popoverContent}">
-                <i class="fas ${categoryInfo.icon}"></i>
-            </div>`;
-    
-        const headerText = `${i1n.get('question_header')} ${currentQuestionIndex + 1} ${i1n.get('question_of')} ${currentExamQuestions.length}`;
-        const headerHTML = `<h5 class="mb-0 d-flex align-items-center">${categoryBadgeHTML} <span class="ms-2">${headerText}</span></h5>`;
-
-        const buttonText = examMode === 'study' ? i1n.get('btn_verify') : i1n.get('btn_next');
-        const skipButtonText = i1n.get('btn_skip');
-        const endButtonText = i1n.get('btn_end_exam');
-        const questionText = question[`question_${lang}`] || question.question_en;
-        const timerHTML = examMode === 'exam' ? `<div id="timer-display" class="fs-5 fw-bold text-primary"></div>` : '';
-    
-        let imageHTML = '', codeHTML = '';
-        if (question.image) {
-            imageHTML = `<div class="text-center my-3"><img src="../data/images/${question.image}" class="img-fluid rounded border" alt="Diagrama de la pregunta"></div>`;
-        }
-        if (question.code) {
-            codeHTML = `<pre class="code-block"><code>${question.code}</code></pre>`;
-        }
-    
-        let cardHTML = `
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-transparent border-0 pt-4 px-4">
-                    <div class="d-flex justify-content-between align-items-center">
-                        ${headerHTML}  ${timerHTML}
+            const cardHTML = `
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            ${headerHTML} ${timerHTML}
+                        </div>
                     </div>
-                </div>
+                    ${bodyHTML}
+                    ${footerHTML}
+                </div>`;
+            DOM.questions.innerHTML = cardHTML;
+    
+            const isAlreadyAnswered = question.userAnswerIndex !== null && state.examMode === 'study';
+            if (isAlreadyAnswered) {
+                this._showAnsweredState(question, lang);
+            } else {
+                document.getElementById('check-answer-btn').textContent = (state.examMode === 'study' ? i1n.get('btn_verify') : i1n.get('btn_next'));
+                document.getElementById('check-answer-btn').onclick = Exam.handleAnswerSubmission;
+            }
+    
+            if (state.examMode === 'exam') this.updateTimerDisplay();
+            this._attachCommonButtonListeners();
+            this._initPopovers();
+        },
+        
+        /**
+         * Renderiza la pantalla de resultados finales del examen.
+         */
+        displayResults() {
+             const stats = state.stats;
+             const totalQuestions = state.currentExamQuestions.length;
+             this.showScreen('results');
+             const scorePercentage = totalQuestions > 0 ? Math.round((stats.correct / totalQuestions) * 100) : 0;
+    
+             document.getElementById('results-score').textContent = `${scorePercentage}%`;
+             document.getElementById('results-summary').textContent = `${i1n.get('results_summary_part1')} ${stats.correct} ${i1n.get('results_summary_part2')} ${totalQuestions} ${i1n.get('results_summary_part3')}`;
+             document.getElementById('results-correct').textContent = stats.correct;
+             document.getElementById('results-incorrect').textContent = stats.incorrect;
+             document.getElementById('results-skipped').textContent = stats.skipped;
+             
+             document.querySelector('#results-correct + small').textContent = i1n.get('results_correct');
+             document.querySelector('#results-incorrect + small').textContent = i1n.get('results_incorrect');
+             document.querySelector('#results-skipped + small').textContent = i1n.get('results_skipped');
+             document.getElementById('review-exam-btn').textContent = i1n.get('btn_review');
+             document.getElementById('restart-exam-btn').textContent = i1n.get('btn_restart');
+             document.querySelector('#exam-results-container a').textContent = i1n.get('btn_back_home');
+    
+             const resultsScoreElement = document.getElementById('results-score');
+             resultsScoreElement.classList.remove('text-success', 'text-danger');
+             if (scorePercentage >= 85) {
+                 resultsScoreElement.classList.add('text-success');
+                 document.getElementById('results-title').textContent = i1n.get('results_title_excellent');
+             } else {
+                 resultsScoreElement.classList.add('text-danger');
+                 document.getElementById('results-title').textContent = i1n.get('results_title_practice');
+             }
+             
+             document.getElementById('review-exam-btn').onclick = () => { state.currentReviewIndex = 0; this.renderReviewPage(); };
+             document.getElementById('restart-exam-btn').onclick = Exam.resetToSetup;
+        },
+    
+        /**
+         * Renderiza la vista de una pregunta específica en la pantalla de revisión.
+         */
+        renderReviewPage() {
+            this.showScreen('review');
+            const question = state.currentExamQuestions[state.currentReviewIndex];
+            const lang = i1n.currentLanguage || 'es';
+    
+            const navHTML = this._createReviewNav();
+            const headerHTML = this._createQuestionHeader(question, lang, state.currentReviewIndex, state.currentExamQuestions.length, true);
+            const bodyHTML = this._createReviewBody(question, lang);
+            const footerHTML = this._createReviewFooter();
+    
+            const reviewHTML = `
+                <div class="row">
+                    <div class="col-12 col-lg-8 offset-lg-2">
+                        <h2 class="text-center mb-4">${i1n.get('review_title')}</h2>
+                        ${navHTML}
+                        <div class="card review-question-card">
+                            ${headerHTML}
+                            ${bodyHTML}
+                        </div>
+                        ${footerHTML}
+                    </div>
+                </div>`;
+            DOM.review.innerHTML = reviewHTML;
+    
+            this._attachReviewNavListeners();
+            this._initPopovers();
+        },
+    
+        // --- MÉTODOS PRIVADOS DE AYUDA PARA UI (NO SE LLAMAN DESDE FUERA) ---
+        
+        _createQuestionHeader(question, lang, index, total, isReview = false) {
+             const categoryInfo = CONFIG.categoryVisuals[question.category] || { color: '#6c757d', icon: 'fa-question-circle' };
+             const categoryName = i1n.get(CONFIG.categories.find(c => c.id === question.category)?.i18nKey || question.category);
+             const topicDescription = question.topic ? (question.topic[`description_${lang}`] || question.topic.description_en) : '';
+             const popoverTitle = categoryName;
+             const popoverContent = question.topic
+                 ? `<strong>${question.topic.id}:</strong> ${topicDescription}<br><small class='text-muted'>${question.topic.subtopic_id}: ${question.topic.subtopic_description}</small>`
+                 : 'Subtopic information not available.';
+             
+             const categoryBadgeHTML = `
+                 <div class="category-badge" style="background-color: ${categoryInfo.color};"
+                      data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-html="true"
+                      title="${popoverTitle}" data-bs-content="${popoverContent}">
+                     <i class="fas ${categoryInfo.icon}"></i>
+                 </div>`;
+             
+             const headerText = `${i1n.get('question_header')} ${index + 1}/${total}`;
+             const finalHeaderText = isReview ? `${headerText}:` : headerText;
+             const headerContent = `<h5 class="mb-0 d-flex align-items-center">${categoryBadgeHTML} <span class="ms-2">${finalHeaderText}</span></h5>`;
+    
+             if (isReview) {
+                 const skippedBadge = (question.userAnswerIndex === 'skipped') ? `<div class="skipped-question-badge">${i1n.get('review_skipped_badge')}</div>` : '';
+                 return `${skippedBadge}<div class="card-header d-flex align-items-center">${headerContent}</div>`;
+             }
+             return headerContent;
+        },
+    
+        _createQuestionBody(question, lang) {
+            const questionText = question[`question_${lang}`] || question.question_en;
+            let imageHTML = '', codeHTML = '';
+            if (question.image) imageHTML = `<div class="text-center my-3"><img src="../data/images/${question.image}" class="img-fluid rounded border"></div>`;
+            if (question.code) codeHTML = `<pre class="code-block"><code>${question.code}</code></pre>`;
+    
+            let optionsHTML = '';
+            const inputType = question.isMultipleChoice ? 'checkbox' : 'radio';
+            question.shuffledOptions.forEach((option, index) => {
+                const optionText = option[`text_${lang}`] || option.text_en || option.text_es;
+                optionsHTML += `
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="${inputType}" name="questionOptions" id="option${index}" value="${index}">
+                        <label class="form-check-label" for="option${index}">${optionText}</label>
+                    </div>`;
+            });
+    
+            return `
                 <div class="card-body p-4 p-md-5">
                     <p class="question-text lead">${questionText}</p>
                     ${imageHTML}
                     ${codeHTML}
-                    <div id="options-container" class="mt-4">`;
-
-        // Determina el tipo de input a usar
-        const inputType = question.isMultipleChoice ? 'checkbox' : 'radio';
-        
-        question.shuffledOptions.forEach((option, index) => {
-            const optionText = option[`text_${lang}`] || option.text_en || option.text_es;
-            cardHTML += `
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="${inputType}" name="questionOptions" id="option${index}" value="${index}">
-                    <label class="form-check-label" for="option${index}">${optionText}</label>
+                    <div id="options-container" class="mt-4">${optionsHTML}</div>
                 </div>`;
-        });
+        },
         
-        cardHTML += `
-                    </div>
-                </div>
+        _createQuestionFooter(lang) {
+            const skipButtonText = i1n.get('btn_skip');
+            const endButtonText = i1n.get('btn_end_exam');
+            return `
                 <div class="card-footer bg-transparent border-0 pb-4 px-4 d-flex justify-content-between align-items-center">
                     <div><button id="end-exam-btn" class="btn btn-sm btn-outline-danger">${endButtonText}</button></div>
                     <div>
                         <button id="skip-question-btn" class="btn btn-secondary me-2">${skipButtonText}</button>
                         <button id="check-answer-btn" class="btn btn-primary"></button>
                     </div>
-                </div>
-            </div>`;
+                </div>`;
+        },
         
-        examQuestionsContainer.innerHTML = cardHTML;
-    
-        const isAlreadyAnsweredInStudyMode = question.userAnswerIndex !== null && examMode === 'study';
-        const actionButton = document.getElementById('check-answer-btn');
-    
-        if (isAlreadyAnsweredInStudyMode) {
-            // La pregunta ya fue respondida, así que la renderizamos en su estado final
+        _showAnsweredState(question, lang) {
             document.querySelectorAll('#options-container .form-check-input').forEach(input => input.disabled = true);
-    
             question.shuffledOptions.forEach((option, index) => {
                 const label = document.querySelector(`label[for="option${index}"]`);
+                const userSelectedThis = Array.isArray(question.userAnswerIndex) ? question.userAnswerIndex.includes(index) : question.userAnswerIndex === index;
                 if (option.isCorrect) {
                     label.classList.add('correct');
-                    if (question.userAnswerIndex === index) { // Si el usuario acertó, marcamos su selección
-                        document.getElementById(`option${index}`).checked = true;
-                    }
-                } else if (index === question.userAnswerIndex) {
+                    if (userSelectedThis) document.getElementById(`option${index}`).checked = true;
+                } else if (userSelectedThis) {
                     label.classList.add('incorrect');
                     document.getElementById(`option${index}`).checked = true;
                 }
@@ -276,502 +356,306 @@ document.addEventListener('DOMContentLoaded', () => {
             if (explanationText) {
                 const explanationDiv = document.createElement('div');
                 explanationDiv.className = 'alert alert-info mt-4 explanation-box';
-                
                 explanationDiv.innerHTML = `<strong>${i1n.get('explanation_label')}:</strong> ${marked.parse(explanationText)}`;
                 document.querySelector('.card-body #options-container').insertAdjacentElement('afterend', explanationDiv);
             }
     
-            actionButton.textContent = i1n.get('btn_next');
-            actionButton.onclick = proceedToNextQuestion;
-
-            // Mantenemos el botón "Omitir" deshabilitado, pero el de "Finalizar" activo
+            document.getElementById('check-answer-btn').textContent = i1n.get('btn_next');
+            document.getElementById('check-answer-btn').onclick = Exam.proceedToNextQuestion;
             document.getElementById('skip-question-btn').disabled = true;
-        } else {
-            // Comportamiento normal para preguntas no respondidas
-            actionButton.textContent = buttonText;
-            actionButton.onclick = handleAnswerSubmission;
-        }
-    
-        if (examMode === 'exam') updateTimerDisplay();
-        document.getElementById('skip-question-btn').addEventListener('click', skipQuestion);
-        document.getElementById('end-exam-btn').addEventListener('click', finishExam);
-
-        const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-        popoverTriggerList.map(function (popoverTriggerEl) {
-            return new bootstrap.Popover(popoverTriggerEl);
-        });
-    }
-    
-    // Esta función necesita ser reescrita para manejar ambos casos
-    function handleAnswerSubmission() {
-        const selectedInputs = document.querySelectorAll('input[name="questionOptions"]:checked');
-        if (selectedInputs.length === 0) {
-            alert(i1n.get('alert_select_answer'));
-            return;
-        }
-    
-        // Guardamos un array de índices seleccionados
-        const selectedIndices = Array.from(selectedInputs).map(input => parseInt(input.value, 10));
+        },
         
-        const question = currentExamQuestions[currentQuestionIndex];
-        // Guardamos el array para preguntas de selección múltiple, o solo el número para las de selección única
-        question.userAnswerIndex = question.isMultipleChoice ? selectedIndices : selectedIndices[0];
-    
-        // Lógica de Verificación
-        let isCompletelyCorrect = false;
-        if (question.isMultipleChoice) {
-            const correctIndices = new Set(
-                question.shuffledOptions.map((opt, i) => opt.isCorrect ? i : -1).filter(i => i !== -1)
-            );
-            const selectedIndicesSet = new Set(selectedIndices);
-            
-            // La respuesta es correcta si ambos conjuntos son idénticos en tamaño y contenido
-            isCompletelyCorrect = correctIndices.size === selectedIndicesSet.size && 
-                                  [...correctIndices].every(i => selectedIndicesSet.has(i));
-        } else {
-            // Lógica original para preguntas de selección única
-            const selectedOption = question.shuffledOptions[selectedIndices[0]];
-            isCompletelyCorrect = selectedOption.isCorrect;
-        }
-    
-        if (examMode === 'study') {
-            // En modo estudio, mostramos la explicación y el feedback
-            if (isCompletelyCorrect) {
-                examStats.correct++;
-            } else {
-                examStats.incorrect++;
-            }
-            showStudyModeFeedback(); // Nueva función para encapsular el feedback visual
-        } else {
-            // En modo examen, solo contamos y avanzamos
-            if (isCompletelyCorrect) {
-                examStats.correct++;
-            } else {
-                examStats.incorrect++;
-            }
-            proceedToNextQuestion();
-        }
-    }
-
-    // Nueva función para el feedback visual en Modo Estudio
-    function showStudyModeFeedback() {
-        const question = currentExamQuestions[currentQuestionIndex];
-        const lang = i1n.currentLanguage || 'es';
-    
-        document.querySelectorAll('#options-container .form-check-input').forEach(input => input.disabled = true);
-        
-        question.shuffledOptions.forEach((option, index) => {
-            const label = document.querySelector(`label[for="option${index}"]`);
-            const userSelectedThis = Array.isArray(question.userAnswerIndex) 
-                ? question.userAnswerIndex.includes(index)
-                : question.userAnswerIndex === index;
-    
-            if (option.isCorrect) {
-                label.classList.add('correct');
-            } else if (userSelectedThis && !option.isCorrect) {
-                label.classList.add('incorrect');
-            }
-        });
-    
-        const explanationText = question[`explanation_${lang}`] || question.explanation_en;
-        if (explanationText) {
-            const explanationDiv = document.createElement('div');
-            explanationDiv.className = 'alert alert-info mt-4 explanation-box';
-            explanationDiv.innerHTML = `<strong>${i1n.get('explanation_label')}:</strong> ${marked.parse(explanationText)}`;
-            document.querySelector('.card-body #options-container').insertAdjacentElement('afterend', explanationDiv);
-        }
-    
-        const actionButton = document.getElementById('check-answer-btn');
-        actionButton.textContent = i1n.get('btn_next');
-        actionButton.onclick = proceedToNextQuestion;
-        
-        document.getElementById('skip-question-btn').disabled = true;
-    }
-
-    function handleStudyModeAnswer(selectedOptionInput) {
-        const question = currentExamQuestions[currentQuestionIndex];
-        const selectedOptionIndex = parseInt(selectedOptionInput.value);
-        question.userAnswerIndex = selectedOptionIndex;
-        
-        document.getElementById('skip-question-btn').disabled = true;
-        document.getElementById('end-exam-btn').disabled = true;
-        
-        const lang = i1n.currentLanguage || 'es';
-        const selectedOption = question.shuffledOptions[selectedOptionIndex];
-        
-        if (selectedOption.isCorrect) examStats.correct++;
-        else examStats.incorrect++;
-        
-        document.querySelectorAll('#options-container .form-check-input').forEach(input => input.disabled = true);
-        question.shuffledOptions.forEach((option, index) => {
-            const label = document.querySelector(`label[for="option${index}"]`);
-            if (option.isCorrect) {
-                label.classList.add('correct');
-            } else if (index === selectedOptionIndex) {
-                label.classList.add('incorrect');
-            }
-        });
-        
-        const explanationText = question[`explanation_${lang}`] || question.explanation_en;
-        if (explanationText) {
-            const explanationDiv = document.createElement('div');
-            explanationDiv.className = 'alert alert-info mt-4 explanation-box';
-            explanationDiv.innerHTML = `<strong>${i1n.get('explanation_label')}:</strong> ${explanationText}`;
-            document.querySelector('.card-body #options-container').insertAdjacentElement('afterend', explanationDiv);
-        }
-
-        const actionButton = document.getElementById('check-answer-btn');
-        actionButton.textContent = i1n.get('btn_next');
-        actionButton.onclick = proceedToNextQuestion;
-    }
-
-    function handleExamModeAnswer(selectedOptionInput) {
-        const question = currentExamQuestions[currentQuestionIndex];
-        const selectedOptionIndex = parseInt(selectedOptionInput.value);
-        question.userAnswerIndex = selectedOptionIndex;
-
-        const selectedOption = question.shuffledOptions[selectedOptionIndex];
-
-        if (selectedOption.isCorrect) examStats.correct++;
-        else examStats.incorrect++;
-        
-        proceedToNextQuestion();
-    }
-    
-    function skipQuestion() {
-        currentExamQuestions[currentQuestionIndex].userAnswerIndex = 'skipped'; 
-        examStats.skipped++;
-        proceedToNextQuestion();
-    }
-    
-    function proceedToNextQuestion() {
-        currentQuestionIndex++;
-        displayQuestion();
-    }
-    
-    function finishExam() {
-        stopTimer();
-        examQuestionsContainer.classList.add('d-none');
-
-        // Se recorren las preguntas desde el índice actual hasta el final.
-        for (let i = currentQuestionIndex; i < currentExamQuestions.length; i++) {
-            const question = currentExamQuestions[i];
-            
-            // Si una pregunta no ha sido respondida (su estado es null),
-            // se actualiza su estado individual a 'skipped'.
-            if (question.userAnswerIndex === null) {
-                question.userAnswerIndex = 'skipped';
-                
-                // También se actualiza la estadística general para mantener la consistencia.
-                examStats.skipped++; 
-            }
-        }
-        
-        saveExamAttempt();
-        displayResults(examStats, currentExamQuestions.length);
-    }
-
-    function displayResults(stats, totalQuestions) {
-        examResultsContainer.classList.remove('d-none');
-        const scorePercentage = totalQuestions > 0 ? Math.round((stats.correct / totalQuestions) * 100) : 0;
-
-        document.getElementById('results-score').textContent = `${scorePercentage}%`;
-        document.getElementById('results-summary').textContent = `${i1n.get('results_summary_part1')} ${stats.correct} ${i1n.get('results_summary_part2')} ${totalQuestions} ${i1n.get('results_summary_part3')}`;
-        document.getElementById('results-correct').textContent = stats.correct;
-        document.getElementById('results-incorrect').textContent = stats.incorrect;
-        document.getElementById('results-skipped').textContent = stats.skipped;
-        
-        document.querySelector('#results-correct + small').textContent = i1n.get('results_correct');
-        document.querySelector('#results-incorrect + small').textContent = i1n.get('results_incorrect');
-        document.querySelector('#results-skipped + small').textContent = i1n.get('results_skipped');
-        document.getElementById('review-exam-btn').textContent = i1n.get('btn_review');
-        document.getElementById('restart-exam-btn').textContent = i1n.get('btn_restart');
-        document.querySelector('#exam-results-container a').textContent = i1n.get('btn_back_home');
-
-        const resultsScoreElement = document.getElementById('results-score');
-        resultsScoreElement.classList.remove('text-success', 'text-danger');
-        if (scorePercentage >= 85) {
-            resultsScoreElement.classList.add('text-success');
-            document.getElementById('results-title').textContent = i1n.get('results_title_excellent');
-        } else {
-            resultsScoreElement.classList.add('text-danger');
-            document.getElementById('results-title').textContent = i1n.get('results_title_practice');
-        }
-        
-        document.getElementById('review-exam-btn').onclick = displayExamReview;
-        document.getElementById('restart-exam-btn').onclick = resetToSetup;
-    }
-
-    // Variable para el índice de la pregunta a revisar
-let currentReviewIndex = 0;
-
-function displayExamReview() {
-    examResultsContainer.classList.add('d-none');
-    examReviewContainer.classList.remove('d-none');
-    currentReviewIndex = 0; // Inicia en la primera pregunta
-    renderReviewPage(); // Llama a la nueva función de renderizado
-}
-
-function renderReviewPage() {
-    if (currentReviewIndex < 0 || currentReviewIndex >= currentExamQuestions.length) {
-        return; // Índice fuera de rango, no hacer nada.
-    }
-
-    const question = currentExamQuestions[currentReviewIndex];
-    const lang = i1n.currentLanguage || 'es';
-
-    // --- Lógica para construir los componentes visuales ---
-
-    // 1. Navegador de Círculos
-    let questionNavHTML = '<div id="question-nav-container" class="d-flex flex-wrap justify-content-center gap-2 mb-4">';
-    currentExamQuestions.forEach((q, index) => {
-        let statusClass = 'status-skipped';
-        if (q.userAnswerIndex !== null && q.userAnswerIndex !== 'skipped') {
-            let isCompletelyCorrect = false;
-            if (q.isMultipleChoice) {
-                const correctIndices = new Set(q.shuffledOptions.map((opt, i) => opt.isCorrect ? i : -1).filter(i => i !== -1));
-                const selectedIndicesSet = new Set(q.userAnswerIndex);
-                isCompletelyCorrect = correctIndices.size === selectedIndicesSet.size && [...correctIndices].every(i => selectedIndicesSet.has(i));
-            } else {
-                const selectedOption = q.shuffledOptions[q.userAnswerIndex];
-                isCompletelyCorrect = selectedOption && selectedOption.isCorrect;
-            }
-            statusClass = isCompletelyCorrect ? 'status-correct' : 'status-incorrect';
-        }
-        const activeClass = (index === currentReviewIndex) ? 'active' : '';
-        questionNavHTML += `<div class="question-nav-circle ${statusClass} ${activeClass}" data-index="${index}">${index + 1}</div>`;
-    });
-    questionNavHTML += '</div>';
-
-    // 2. Insignia de "Omitida" (si aplica)
-    let skippedBadgeHTML = '';
-    if (question.userAnswerIndex === 'skipped') {
-        skippedBadgeHTML = `<div class="skipped-question-badge">${i1n.get('review_skipped_badge')}</div>`;
-    }
-
-    // 3. Insignia de Categoría y Popover (AQUÍ SE DEFINEN LAS VARIABLES)
-    const categoryInfo = CATEGORY_CONFIG[question.category] || { color: '#6c757d', icon: 'fa-question-circle' };
-    const categoryName = i1n.get(examCategories.find(c => c.id === question.category)?.i18nKey || question.category);
-    const topicDescription = question.topic ? (question.topic[`description_${lang}`] || question.topic.description_en) : '';
-    const popoverTitle = categoryName;
-    const popoverContent = question.topic
-        ? `<strong>${question.topic.id}:</strong> ${topicDescription}<br><small class='text-muted'>${question.topic.subtopic_id}: ${question.topic.subtopic_description}</small>`
-        : 'Subtopic information not available.';
-    const categoryBadgeHTML = `
-        <div class="category-badge" 
-             style="background-color: ${categoryInfo.color};"
-             data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-html="true"
-             title="${popoverTitle}" data-bs-content="${popoverContent}">
-            <i class="fas ${categoryInfo.icon}"></i>
-        </div>`;
-
-    // 4. Encabezado de la Pregunta
-    const headerText = `${i1n.get('question_header')} ${currentReviewIndex + 1}/${currentExamQuestions.length}`;
-    const headerHTML = `<h5 class="mb-0 d-flex align-items-center">${categoryBadgeHTML} <span class="ms-2">${headerText}:</span></h5>`;
-
-    // 5. Contenido de la pregunta (Texto, Imagen, Código)
-    const questionText = question[`question_${lang}`] || question.question_en;
-    let imageHTML = '', codeHTML = '';
-    if (question.image) {
-        imageHTML = `<div class="text-center my-3"><img src="../data/images/${question.image}" class="img-fluid rounded border" alt="Diagrama de la pregunta"></div>`;
-    }
-    if (question.code) {
-        codeHTML = `<pre class="code-block"><code>${question.code}</code></pre>`;
-    }
-
-    // --- Construcción del HTML Final ---
-    let reviewHTML = `
-        <div class="row">
-            <div class="col-12 col-lg-8 offset-lg-2">
-                <h2 class="text-center mb-4">${i1n.get('review_title')}</h2>
-                ${questionNavHTML}
-                <div class="card review-question-card">
-                    ${skippedBadgeHTML}
-                    <div class="card-header d-flex align-items-center">
-                        ${headerHTML}
-                    </div>
-                    <div class="card-body">
-                        <p class="question-text lead">${questionText}</p>
-                        ${imageHTML}
-                        ${codeHTML}`;
-
-    question.shuffledOptions.forEach((option, optionIndex) => {
-        let optionText = option[`text_${lang}`] || option.text_en;
-        optionText = optionText.replace(/ ! /g, '<br>');
-        let optionClass = 'review-option';
-        const userSelectedThisOption = Array.isArray(question.userAnswerIndex)
-            ? question.userAnswerIndex.includes(optionIndex)
-            : question.userAnswerIndex === optionIndex;
-
-        if (option.isCorrect) {
-            optionClass += ' correct-answer';
-        } else if (userSelectedThisOption) {
-            optionClass += ' incorrect-answer';
-        }
-        reviewHTML += `<div class="${optionClass}">${optionText}</div>`;
-    });
-
-    const explanationText = question[`explanation_${lang}`] || question.explanation_en;
-    if (explanationText) {
-        reviewHTML += `
-            <div class="alert alert-info mt-3 explanation-box">
-                <strong>${i1n.get('explanation_label')}:</strong> 
-                ${marked.parse(explanationText)}
-            </div>`;
-    }
-
-    reviewHTML += `
-                    </div>
-                </div>
-                <div class="d-flex justify-content-between mt-4">
-                    <button id="prev-review-btn" class="btn btn-secondary" ${currentReviewIndex === 0 ? 'disabled' : ''}>&laquo; ${i1n.get('btn_previous')}</button>
-                    <button id="back-to-results-btn" class="btn btn-outline-primary">${i1n.get('review_back_button')}</button>
-                    <button id="next-review-btn" class="btn btn-secondary" ${currentReviewIndex === currentExamQuestions.length - 1 ? 'disabled' : ''}>${i1n.get('btn_next')} &raquo;</button>
-                </div>
-            </div>
-        </div>`;
-
-    examReviewContainer.innerHTML = reviewHTML;
-
-    // --- Inicialización de Eventos y Componentes ---
-    const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-    popoverTriggerList.map(function (popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl);
-    });
-
-    document.getElementById('question-nav-container').addEventListener('click', (e) => {
-        if (e.target && e.target.classList.contains('question-nav-circle')) {
-            const newIndex = parseInt(e.target.dataset.index, 10);
-            if (newIndex !== currentReviewIndex) {
-                currentReviewIndex = newIndex;
-                renderReviewPage();
-            }
-        }
-    });
-
-    document.getElementById('prev-review-btn').addEventListener('click', () => {
-        if (currentReviewIndex > 0) {
-            currentReviewIndex--;
-            renderReviewPage();
-        }
-    });
-
-    document.getElementById('next-review-btn').addEventListener('click', () => {
-        if (currentReviewIndex < currentExamQuestions.length - 1) {
-            currentReviewIndex++;
-            renderReviewPage();
-        }
-    });
-
-    document.getElementById('back-to-results-btn').onclick = () => {
-        examReviewContainer.classList.add('d-none');
-        examResultsContainer.classList.remove('d-none');
-    };
-}
-
-    function resetToSetup() {
-        examResultsContainer.classList.add('d-none');
-        examQuestionsContainer.classList.add('d-none');
-        examReviewContainer.classList.add('d-none');
-        examSetupContainer.classList.remove('d-none');
-        
-        loadAndDisplayCategories();
-        translateQuestionCountOptions();
-    }
-
-    function saveExamAttempt() {
-        const attempt = {
-            date: new Date().toISOString(),
-            stats: examStats,
-            totalQuestions: currentExamQuestions.length,
-            mode: examMode
-        };
-        try {
-            const history = JSON.parse(localStorage.getItem('CCNA_examHistory')) || [];
-            history.push(attempt);
-            localStorage.setItem('CCNA_examHistory', JSON.stringify(history));
-        } catch (e) { console.error("No se pudo guardar el resultado del examen.", e); }
-    }
-
-    function startTimer() {
-        stopTimer();
-        timerInterval = setInterval(() => {
-            timeRemaining--;
-            updateTimerDisplay();
-            if (timeRemaining <= 0) {
-                finishExam();
-            }
-        }, 1000);
-    }
-
-    function stopTimer() {
-        clearInterval(timerInterval);
-    }
-
-    function updateTimerDisplay() {
-        const minutes = Math.floor(timeRemaining / 60);
-        const seconds = timeRemaining % 60;
-        const timerDisplay = document.getElementById('timer-display');
-        if (timerDisplay) {
-            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-    }
-    
-    async function fetchQuestions(categories) {
-        const fetchPromises = categories.map(category => {
-            const path = `../data/${category}.json`;
-            return fetch(path).then(response => {
-                if (!response.ok) throw new Error(`Fallo al cargar: ${path}`);
-                return response.text().then(text => text ? JSON.parse(text) : []);
+        _createReviewNav() {
+            let navHTML = '<div id="question-nav-container" class="d-flex flex-wrap justify-content-center gap-2 mb-4">';
+            state.currentExamQuestions.forEach((q, index) => {
+                let statusClass = 'status-skipped';
+                if (q.userAnswerIndex !== null && q.userAnswerIndex !== 'skipped') {
+                    let isCorrect = false;
+                    if (q.isMultipleChoice) {
+                        const correct = new Set(q.shuffledOptions.map((o, i) => o.isCorrect ? i : -1).filter(i => i !== -1));
+                        const selected = new Set(q.userAnswerIndex);
+                        isCorrect = correct.size === selected.size && [...correct].every(i => selected.has(i));
+                    } else {
+                        const selectedOpt = q.shuffledOptions[q.userAnswerIndex];
+                        isCorrect = selectedOpt && selectedOpt.isCorrect;
+                    }
+                    statusClass = isCorrect ? 'status-correct' : 'status-incorrect';
+                }
+                const activeClass = (index === state.currentReviewIndex) ? 'active' : '';
+                navHTML += `<div class="question-nav-circle ${statusClass} ${activeClass}" data-index="${index}">${index + 1}</div>`;
             });
-        });
-
-        const results = await Promise.allSettled(fetchPromises);
-        const successfulQuestions = [];
-        results.forEach(result => {
-            if (result.status === 'fulfilled' && Array.isArray(result.value)) {
-                successfulQuestions.push(...result.value);
-            } else if (result.status === 'rejected') {
-                console.warn(`Se omitió un archivo: ${result.reason.message}`);
+            return navHTML + '</div>';
+        },
+        
+        _createReviewBody(question, lang) {
+            const questionText = question[`question_${lang}`] || question.question_en;
+            let imageHTML = '', codeHTML = '';
+            if (question.image) imageHTML = `<div class="text-center my-3"><img src="../data/images/${question.image}" class="img-fluid rounded border"></div>`;
+            if (question.code) codeHTML = `<pre class="code-block"><code>${question.code}</code></pre>`;
+    
+            let optionsHTML = '';
+            question.shuffledOptions.forEach((option, index) => {
+                let optionText = option[`text_${lang}`] || option.text_en;
+                let optionClass = 'review-option';
+                const userSelected = Array.isArray(question.userAnswerIndex) ? question.userAnswerIndex.includes(index) : question.userAnswerIndex === index;
+                if (option.isCorrect) {
+                    optionClass += ' correct-answer';
+                } else if (userSelected) {
+                    optionClass += ' incorrect-answer';
+                }
+                optionsHTML += `<div class="${optionClass}">${optionText}</div>`;
+            });
+    
+            const explanationText = question[`explanation_${lang}`] || question.explanation_en;
+            const explanationHTML = explanationText ? `
+                <div class="alert alert-info mt-3 explanation-box">
+                    <strong>${i1n.get('explanation_label')}:</strong> ${marked.parse(explanationText)}
+                </div>` : '';
+    
+            return `
+                <div class="card-body">
+                    <p class="question-text lead">${questionText}</p>
+                    ${imageHTML} ${codeHTML}
+                    ${optionsHTML}
+                    ${explanationHTML}
+                </div>`;
+        },
+    
+        _createReviewFooter() {
+            const prevDisabled = state.currentReviewIndex === 0 ? 'disabled' : '';
+            const nextDisabled = state.currentReviewIndex === state.currentExamQuestions.length - 1 ? 'disabled' : '';
+            return `
+                <div class="d-flex justify-content-between mt-4">
+                    <button id="prev-review-btn" class="btn btn-secondary" ${prevDisabled}>&laquo; ${i1n.get('btn_previous')}</button>
+                    <button id="back-to-results-btn" class="btn btn-outline-primary">${i1n.get('review_back_button')}</button>
+                    <button id="next-review-btn" class="btn btn-secondary" ${nextDisabled}>${i1n.get('btn_next')} &raquo;</button>
+                </div>`;
+        },
+    
+        _attachReviewNavListeners() {
+            document.getElementById('question-nav-container').addEventListener('click', (e) => {
+                if (e.target && e.target.classList.contains('question-nav-circle')) {
+                    state.currentReviewIndex = parseInt(e.target.dataset.index, 10);
+                    this.renderReviewPage();
+                }
+            });
+            document.getElementById('prev-review-btn').onclick = () => { if(state.currentReviewIndex > 0) { state.currentReviewIndex--; this.renderReviewPage(); } };
+            document.getElementById('next-review-btn').onclick = () => { if(state.currentReviewIndex < state.currentExamQuestions.length - 1) { state.currentReviewIndex++; this.renderReviewPage(); } };
+            document.getElementById('back-to-results-btn').onclick = () => this.showScreen('results');
+        },
+    
+        _initPopovers() {
+            const popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+            popoverTriggerList.map(el => new bootstrap.Popover(el));
+        },
+        
+        _attachCommonButtonListeners() {
+            const skipBtn = document.getElementById('skip-question-btn');
+            const endBtn = document.getElementById('end-exam-btn');
+            if(skipBtn) skipBtn.addEventListener('click', Exam.skipQuestion);
+            if(endBtn) endBtn.addEventListener('click', Exam.finish);
+        },
+    
+        translateQuestionCountOptions() {
+            if (!DOM.questionCountSelect) return;
+            Array.from(DOM.questionCountSelect.options).forEach(option => {
+                const key = `q_count_${option.value}`;
+                const translation = i1n.get(key);
+                if (translation !== key) {
+                    option.textContent = translation;
+                }
+            });
+        },
+        
+        updateTimerDisplay() {
+            const minutes = Math.floor(state.timeRemaining / 60);
+            const seconds = state.timeRemaining % 60;
+            const timerDisplay = document.getElementById('timer-display');
+            if (timerDisplay) {
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }
-        });
-        return successfulQuestions.flat();
-    }
-
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
         }
-        return array;
-    }
+    };
 
+    // =================================================================================
+    // MÓDULO DEL EXAMEN (LÓGICA PRINCIPAL)
+    // =================================================================================
+    const Exam = {
+        /**
+         * Inicia el examen basándose en la configuración del usuario.
+         */
+        async start() {
+            const selectedMode = document.querySelector('input[name="examMode"]:checked').value;
+            const selectedCats = document.querySelectorAll('#category-selection-container input:checked');
+            const questionCount = DOM.questionCountSelect.value;
+            
+            if (selectedCats.length === 0) {
+                return alert(i1n.get('alert_select_category'));
+            }
+    
+            resetState(); // Prepara un nuevo estado limpio para el examen
+            state.examMode = selectedMode;
+            const selectedCategoryIds = Array.from(selectedCats).map(el => el.value);
+    
+            try {
+                const questions = await Data.fetchQuestions(selectedCategoryIds);
+                if (questions.length === 0) return alert(i1n.get('alert_no_questions'));
+                state.allQuestions = questions;
+            } catch (error) {
+                console.error('Error loading questions:', error);
+                return alert(i1n.get('alert_load_error'));
+            }
+    
+            let examPool = Data.shuffleArray([...state.allQuestions]);
+            if (questionCount !== 'all') {
+                examPool = examPool.slice(0, parseInt(questionCount));
+            }
+            
+            // Pre-procesa todas las preguntas para asegurar que tengan lo necesario
+            examPool.forEach(q => {
+                q.shuffledOptions = Data.shuffleArray([...q.options]);
+                q.userAnswerIndex = null;
+            });
+            state.currentExamQuestions = examPool;
+            
+            UI.showScreen('questions');
+            if (state.examMode === 'exam') Timer.start();
+            UI.displayQuestion();
+        },
+    
+        /**
+         * Avanza al siguiente índice de pregunta y decide si mostrarla o finalizar el examen.
+         */
+        proceedToNextQuestion() {
+            state.currentQuestionIndex++;
+            if (state.currentQuestionIndex >= state.currentExamQuestions.length) {
+                this.finish();
+            } else {
+                UI.displayQuestion();
+            }
+        },
+    
+        /**
+         * Finaliza el examen, calcula las preguntas omitidas, guarda y muestra los resultados.
+         */
+        finish() {
+            Timer.stop();
+            // Marca como omitidas las preguntas restantes no respondidas
+            for (let i = state.currentQuestionIndex; i < state.currentExamQuestions.length; i++) {
+                const q = state.currentExamQuestions[i];
+                if (q.userAnswerIndex === null) {
+                    q.userAnswerIndex = 'skipped';
+                    state.stats.skipped++;
+                }
+            }
+            Data.saveAttempt();
+            UI.displayResults();
+        },
+    
+        /**
+         * Procesa la respuesta del usuario, la califica y actualiza el estado.
+         */
+        handleAnswerSubmission() {
+            const selectedInputs = document.querySelectorAll('input[name="questionOptions"]:checked');
+            if (selectedInputs.length === 0) return alert(i1n.get('alert_select_answer'));
+    
+            const selectedIndices = Array.from(selectedInputs).map(input => parseInt(input.value, 10));
+            const question = state.currentExamQuestions[state.currentQuestionIndex];
+            question.userAnswerIndex = question.isMultipleChoice ? selectedIndices : selectedIndices[0];
+    
+            let isCorrect = false;
+            if (question.isMultipleChoice) {
+                const correct = new Set(question.shuffledOptions.map((o, i) => o.isCorrect ? i : -1).filter(i => i !== -1));
+                const selected = new Set(selectedIndices);
+                isCorrect = correct.size === selected.size && [...correct].every(i => selected.has(i));
+            } else {
+                isCorrect = question.shuffledOptions[selectedIndices[0]].isCorrect;
+            }
+    
+            // Actualiza las estadísticas
+            state.stats[isCorrect ? 'correct' : 'incorrect']++;
+            
+            if (state.examMode === 'study') {
+                // En modo estudio, le pide a la UI que muestre el feedback
+                UI._showAnsweredState(question, i1n.currentLanguage || 'es');
+            } else {
+                // En modo examen, simplemente avanza
+                this.proceedToNextQuestion();
+            }
+        },
+    
+        /**
+         * Marca la pregunta actual como omitida y avanza a la siguiente.
+         */
+        skipQuestion() {
+            state.currentExamQuestions[state.currentQuestionIndex].userAnswerIndex = 'skipped';
+            state.stats.skipped++;
+            this.proceedToNextQuestion();
+        },
+        
+        /**
+         * Resetea la interfaz a la pantalla de configuración inicial.
+         */
+        resetToSetup() {
+            UI.showScreen('setup');
+            UI.loadAndDisplayCategories();
+            UI.translateQuestionCountOptions();
+        }
+    };
+
+    // =================================================================================
+    // INICIALIZACIÓN DE LA APLICACIÓN
+    // =================================================================================
+    
+    /**
+     * Función principal que se ejecuta al cargar el script para inicializar la aplicación.
+     */
     function init() {
-        document.addEventListener('i18n-loaded', () => {
-            loadAndDisplayCategories();
-            translateQuestionCountOptions();
-        });
-
-        i1n.registerDynamicRenderer(() => {
-            if (!examQuestionsContainer.classList.contains('d-none')) {
-                displayQuestion();
-            }
-            else if (!examResultsContainer.classList.contains('d-none')) {
-                displayResults(examStats, currentExamQuestions.length);
-            }
-            else if (!examReviewContainer.classList.contains('d-none')) {
-                renderReviewPage();
-            }
-            else {
-                loadCategories();
-                translateQuestionCountOptions();
-            }
-        });
-
-        if (startExamBtn) {
-            startExamBtn.addEventListener('click', startExam);
+        // 1. Establece el estado inicial por defecto.
+        resetState();
+    
+        // 2. Asigna los manejadores de eventos principales a los botones.
+        if (DOM.startBtn) {
+            DOM.startBtn.addEventListener('click', Exam.start);
         }
+    
+        // 3. Espera a que el motor de internacionalización (i18n) esté listo.
+        document.addEventListener('i18n-loaded', () => {
+            // Una vez cargado, muestra y traduce los elementos de la pantalla de inicio.
+            UI.loadAndDisplayCategories();
+            UI.translateQuestionCountOptions();
+        });
+    
+        // 4. Registra un "renderizador dinámico" que se activa cada vez que cambia el idioma.
+        i1n.registerDynamicRenderer(() => {
+            // Busca cuál de las pantallas principales está visible actualmente.
+            const currentScreen = document.body.querySelector(
+                '#exam-setup-container:not(.d-none), #exam-questions-container:not(.d-none), #exam-results-container:not(.d-none), #exam-review-container:not(.d-none)'
+            );
+    
+            // Si no hay ninguna pantalla activa, no hace nada.
+            if (!currentScreen) return;
+    
+            // Según la pantalla activa, llama a la función de UI correspondiente para redibujarla.
+            switch (currentScreen.id) {
+                case 'exam-questions-container':
+                    UI.displayQuestion();
+                    break;
+                case 'exam-results-container':
+                    UI.displayResults();
+                    break;
+                case 'exam-review-container':
+                    UI.renderReviewPage();
+                    break;
+                case 'exam-setup-container':
+                default:
+                    UI.loadAndDisplayCategories();
+                    UI.translateQuestionCountOptions();
+                    break;
+            }
+        });
     }
-
+    
+    // Llama a la función de inicialización para arrancar la aplicación.
     init();
 });
