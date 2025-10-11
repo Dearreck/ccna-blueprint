@@ -240,5 +240,50 @@
     ],
     "explanation_es": "Cuando un `WLC` detecta un AP que no gestiona, lo clasifica como **'rogue'**. Si un administrador determina que este AP es legítimo (por ejemplo, un AP de una red vecina), debe clasificarlo como **'Amistoso' (`Friendly`)**. Esto le indica al `WLC` que confíe en el AP y deje de generar alarmas sobre él.",
     "explanation_en": "When a `WLC` detects an AP that it does not manage, it classifies it as a **'rogue'**. If an administrator determines this AP is legitimate (e.g., an AP from a neighboring network), they must classify it as **`Friendly`**. This tells the `WLC` to trust the AP and stop generating alarms for it."
+  },
+  {
+    "id": "ccna-ap-admin-auth-protocols-q1",
+    "category": "2.0-network-access",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "2.8",
+      "description_es": "Describir el acceso de gestión de dispositivos de red (Telnet, SSH, HTTP, HTTPS, consola, TACACS+/RADIUS y gestión en la nube)",
+      "description_en": "Describe network device management access (Telnet, SSH, HTTP, HTTPS, console, TACACS+/RADIUS, and cloud managed)",
+      "subtopic_id": "2.8",
+      "subtopic_description": "TACACS+/RADIUS"
+    },
+    "question_es": "¿Qué **dos** protocolos utiliza un administrador para la **autenticación y configuración** en puntos de acceso? (Elija dos.)",
+    "question_en": "Which **two** protocols are used by an administrator for **authentication and configuration** on access points? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`RADIUS`",
+        "text_en": "`RADIUS`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`802.1Q`",
+        "text_en": "`802.1Q`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`Kerberos`",
+        "text_en": "`Kerberos`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`802.1X`",
+        "text_en": "`802.1X`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`TACACS+`",
+        "text_en": "`TACACS+`",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "La pregunta se refiere a los protocolos para la **gestión de dispositivos** por parte de un administrador, no para la autenticación de clientes que se conectan a la red. Los protocolos estándar para **Autenticación, Autorización y Contabilidad (AAA)** de administradores de red son `RADIUS` y `TACACS+`.\n\n### Comparación de Protocolos Relevantes\n| Protocolo | Propósito Principal y Razón |\n|---|---|\n| **`RADIUS`** | **(Correcto)** Es un protocolo AAA que se utiliza para centralizar la autenticación de administradores que intentan acceder a dispositivos de red como routers, switches y puntos de acceso para configurarlos. |\n| **`TACACS+`** | **(Correcto)** Es un protocolo AAA propietario de Cisco que ofrece más flexibilidad y seguridad que `RADIUS`. Separa la Autenticación, Autorización y Contabilidad, y cifra el paquete completo. Es una opción común para la gestión de dispositivos. |\n| `802.1Q` | **(Incorrecto)** Este es el estándar para el **etiquetado de VLANs** en redes Ethernet. No tiene ninguna función de autenticación. |\n| `802.1X` | **(Incorrecto)** Este es un estándar para el **control de acceso a la red basado en puertos (PNAC)**. Se usa para autenticar a los **clientes** (ej. un portátil) que intentan conectarse a la red a través de un switch o un punto de acceso, no para autenticar al **administrador** que gestiona el dispositivo. |\n| `Kerberos` | **(Incorrecto)** Aunque es un protocolo de autenticación robusto, es más común en entornos de dominio de Windows y no es el estándar principal para la gestión de dispositivos de red en el contexto de Cisco, donde `RADIUS` y `TACACS+` son los preferidos. |",
+    "explanation_en": "The question asks for protocols for **device management** by an administrator, not for authenticating clients connecting to the network. The standard protocols for administrator **Authentication, Authorization, and Accounting (AAA)** are `RADIUS` and `TACACS+`.\n\n### Comparison of Relevant Protocols\n| Protocol | Main Purpose and Rationale |\n|---|---|\n| **`RADIUS`** | **(Correct)** It's an AAA protocol used to centralize the authentication of administrators trying to access network devices like routers, switches, and access points for configuration. |\n| **`TACACS+`** | **(Correct)** It's a Cisco-proprietary AAA protocol that offers more flexibility and security than `RADIUS`. It separates Authentication, Authorization, and Accounting, and encrypts the entire packet. It's a common choice for device management. |\n| `802.1Q` | **(Incorrect)** This is the standard for **VLAN tagging** on Ethernet networks. It has no authentication function. |\n| `802.1X` | **(Incorrect)** This is a standard for **Port-Based Network Access Control (PNAC)**. It is used to authenticate **clients** (e.g., a laptop) trying to connect to the network through a switch or an access point, not to authenticate the **administrator** managing the device. |\n| `Kerberos` | **(Incorrect)** While it is a robust authentication protocol, it is more common in Windows domain environments and is not the primary standard for network device management in a Cisco context, where `RADIUS` and `TACACS+` are preferred. |"
   }
 ]
