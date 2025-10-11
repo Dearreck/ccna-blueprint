@@ -405,5 +405,45 @@
     ],
     "explanation_es": "En el **modo local**, que es el modo de operación por defecto, un `AP` ligero establece un túnel `CAPWAP` con su `WLC` (Wireless LAN Controller). Todo el tráfico de los clientes inalámbricos, así como el tráfico de gestión del `AP`, se encapsula y se envía a través de este túnel hacia el `WLC`.\n\n### Razonamiento\n* Como todo el tráfico está dentro del túnel `CAPWAP` en una única `VLAN` (la `VLAN` de gestión), el `AP` no necesita distinguir entre diferentes `VLANs` de clientes en su puerto físico.\n* Por lo tanto, el puerto del switch al que se conecta el `AP` solo necesita pertenecer a esa `VLAN` de gestión única.\n* El tipo de puerto que asigna un puerto de switch a una **única `VLAN`** es un puerto de **acceso (access)**.\n\n### Análisis de Opciones Incorrectas\n* **Troncal (Trunk):** Se usaría en modos más avanzados como `FlexConnect` con conmutación local, donde el `AP` necesita enviar tráfico de diferentes `WLANs` a diferentes `VLANs` directamente en la red local. No es el caso del modo local estándar.\n* **`EtherChannel` / `LAG`:** Estos son términos para la agregación de enlaces (bundling de múltiples puertos físicos). Un `AP` estándar se conecta con un solo cable, por lo que esto no aplica.",
     "explanation_en": "In **local mode**, which is the default mode of operation, a lightweight `AP` establishes a `CAPWAP` tunnel with its `WLC` (Wireless LAN Controller). All wireless client traffic, as well as the AP's management traffic, is encapsulated and sent through this tunnel to the `WLC`.\n\n### Rationale\n* Since all traffic is inside the `CAPWAP` tunnel on a single `VLAN` (the management `VLAN`), the `AP` does not need to distinguish between different client `VLANs` on its physical port.\n* Therefore, the switch port to which the `AP` connects only needs to belong to that single management `VLAN`.\n* The port type that assigns a switch port to a **single `VLAN`** is an **access** port.\n\n### Incorrect Options Analysis\n* **Trunk:** This would be used in more advanced modes like `FlexConnect` with local switching, where the `AP` needs to send traffic from different `WLANs` to different `VLANs` directly on the local network. This is not the case for standard local mode.\n* **`EtherChannel` / `LAG`:** These are terms for link aggregation (bundling multiple physical ports). A standard `AP` connects with a single cable, so this does not apply."
+  },
+  {
+    "id": "ccna-net-access-autonomous-ap-trunk-q1",
+    "category": "2.0-network-access",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "2.7",
+      "description_es": "Describir las conexiones de infraestructura física de los componentes WLAN (AP, WLC, puertos de acceso/troncales y LAG)",
+      "description_en": "Describe physical infrastructure connections of WLAN components (AP, WLC, access/trunk ports, and LAG)",
+      "subtopic_id": "2.7",
+      "subtopic_description": "access/trunk ports"
+    },
+    "question_es": "¿Qué tipo de puerto se utiliza para conectar a la red cableada cuando un `AP autónomo` mapea dos `VLANs` a sus `WLANs`?",
+    "question_en": "Which type of port is used to connect to the wired network when an `autonomous AP` maps two `VLANs` to its `WLANs`?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Troncal (Trunk)",
+        "text_en": "Trunk",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`LAG`",
+        "text_en": "LAG",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`EtherChannel`",
+        "text_en": "EtherChannel",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Acceso (Access)",
+        "text_en": "Access",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Un `AP autónomo` gestiona todas sus funciones localmente, incluyendo el mapeo de `WLANs` (redes inalámbricas) a `VLANs` (redes cableadas). Cuando un `AP` necesita soportar múltiples `WLANs`, y cada una debe estar en una `VLAN` diferente, el puerto del switch al que se conecta debe ser capaz de manejar tráfico de múltiples `VLANs`.\n\n### Análisis de Tipos de Puerto\n| Tipo de Puerto | Función | Aplicabilidad |\n|---|---|---|\n| **Troncal (Trunk)** | Está diseñado para transportar tráfico de **múltiples `VLANs`** entre dispositivos de red. Utiliza el etiquetado `802.1Q` para identificar a qué `VLAN` pertenece cada trama. | **Correcto**. Esta es la configuración necesaria para que el `AP` pueda enviar y recibir tráfico etiquetado para las dos `VLANs` diferentes. |\n| **Acceso (Access)** | Asigna el puerto a una **única `VLAN`**. El tráfico que pasa por este puerto no está etiquetado. | **Incorrecto**. Un puerto de acceso solo podría manejar una de las dos `VLANs` requeridas. |\n| `LAG` / `EtherChannel`| Son tecnologías de agregación de enlaces que agrupan múltiples puertos físicos en uno lógico. | **Incorrecto**. Estos términos describen cómo se agrupan los puertos, no cómo manejan las `VLANs`. Un `EtherChannel` puede ser configurado como troncal o de acceso, pero la función fundamental requerida aquí es la de troncal. |",
+    "explanation_en": "An `autonomous AP` manages all its functions locally, including mapping `WLANs` (wireless networks) to `VLANs` (wired networks). When an `AP` needs to support multiple `WLANs`, and each must be on a different `VLAN`, the switch port it connects to must be able to handle traffic from multiple `VLANs`.\n\n### Port Type Analysis\n| Port Type | Function | Applicability |\n|---|---|---|\n| **Trunk** | Designed to carry traffic for **multiple `VLANs`** between network devices. It uses `802.1Q` tagging to identify which `VLAN` each frame belongs to. | **Correct**. This is the necessary configuration for the `AP` to send and receive tagged traffic for the two different `VLANs`. |\n| **Access** | Assigns the port to a **single `VLAN`**. Traffic passing through this port is untagged. | **Incorrect**. An access port could only handle one of the two required `VLANs`. |\n| `LAG` / `EtherChannel`| These are link aggregation technologies that bundle multiple physical ports into a single logical one. | **Incorrect**. These terms describe how ports are grouped, not how they handle `VLANs`. An `EtherChannel` can be configured as either a trunk or an access port, but the fundamental function required here is trunking. |"
   }
 ]
