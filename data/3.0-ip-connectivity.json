@@ -550,5 +550,50 @@
     ],
     "explanation_es": "Cuando un router aprende la misma ruta desde múltiples protocolos de enrutamiento, utiliza la **Distancia Administrativa (AD)** para decidir qué ruta es más confiable. La ruta del protocolo con la AD **más baja** es la que se instala en la tabla de enrutamiento.\n\n### Comparación de Distancias Administrativas (por defecto)\n| Protocolo de Enrutamiento | Distancia Administrativa (AD) |\n|---|---|\n| **`Internal EIGRP`** | **90** |\n| `OSPF` | 110 |\n| `IS-IS` | 115 |\n| `RIP` | 120 |\n\nDado que `Internal EIGRP` tiene la distancia administrativa más baja (90), el router lo considera la fuente más confiable y, por lo tanto, instalará la ruta aprendida a través de `EIGRP`.",
     "explanation_en": "When a router learns the same route from multiple routing protocols, it uses the **Administrative Distance (AD)** to decide which route is more trustworthy. The route from the protocol with the **lowest** AD is the one installed in the routing table.\n\n### Administrative Distance Comparison (Default)\n| Routing Protocol | Administrative Distance (AD) |\n|---|---|\n| **`Internal EIGRP`** | **90** |\n| `OSPF` | 110 |\n| `IS-IS` | 115 |\n| `RIP` | 120 |\n\nSince `Internal EIGRP` has the lowest administrative distance (90), the router considers it the most trustworthy source and will therefore install the route learned via `EIGRP`."
+  },
+  {
+    "id": "ccna-ip-conn-hsrp-behaviors-q1",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "3.5",
+      "description_es": "Describir el propósito, las funciones y los conceptos de los protocolos de redundancia de primer salto",
+      "description_en": "Describe the purpose, functions, and concepts of first hop redundancy protocols",
+      "subtopic_id": "3.5",
+      "subtopic_description": "First Hop Redundancy Protocols"
+    },
+    "question_es": "¿Cuáles son **dos** resultados predecibles para el comportamiento de `HSRP`? (Elija dos.)",
+    "question_en": "Which **two** outcomes are predictable behaviors for `HSRP`? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Cada router tiene una dirección IP diferente, ambos actúan como gateway por defecto en la LAN y el tráfico se balancea entre ellos.",
+        "text_en": "Each router has a different IP address, both routers act as the default gateway on the LAN, and traffic is load-balanced between them.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Los dos routers sincronizan las configuraciones para proporcionar un reenvío de paquetes consistente.",
+        "text_en": "The two routers synchronize configurations to provide consistent packet forwarding.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Los dos routers negocian uno como el router activo y el otro como el router en espera.",
+        "text_en": "The two routers negotiate one router as the active router and the other as the standby router.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Los dos routers comparten una dirección IP virtual que se utiliza como gateway por defecto para los dispositivos en la LAN.",
+        "text_en": "The two routers share a virtual IP address that is used as the default gateway for devices on the LAN.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Los dos routers comparten la misma dirección IP de interfaz y el tráfico del gateway por defecto se balancea entre ellos.",
+        "text_en": "The two routers share the same interface IP address, and default gateway traffic is load-balanced between them.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "`HSRP` (Hot Standby Router Protocol) es un protocolo de redundancia que proporciona una puerta de enlace tolerante a fallos. Sus dos comportamientos fundamentales son la elección de roles y el uso de una dirección virtual.\n\n### Comportamientos Fundamentales de `HSRP`\n* **Elección de Roles (Correcto):** Los routers en un grupo `HSRP` se comunican para elegir un router **activo** (que reenvía activamente el tráfico) y un router **en espera** (que monitorea al activo y toma su lugar si falla). Esto asegura que siempre haya un gateway disponible.\n* **IP Virtual Compartida (Correcto):** Los routers del grupo comparten una **dirección IP virtual** y una **dirección MAC virtual**. Los hosts de la red se configuran con esta IP virtual como su gateway por defecto, sin necesidad de saber qué router físico está activo.\n\n### Análisis de Opciones Incorrectas\n* **A y E:** `HSRP` **no** realiza balanceo de carga. Solo un router (el activo) maneja el tráfico a la vez. El protocolo que sí balancea la carga es `GLBP`. Además, los routers tienen sus propias direcciones IP de interfaz únicas; solo la IP virtual es compartida.\n* **B:** Los routers `HSRP` no sincronizan sus configuraciones de enrutamiento o reenvío. Solo intercambian mensajes `hello` para monitorear el estado del otro.",
+    "explanation_en": "`HSRP` (Hot Standby Router Protocol) is a redundancy protocol that provides a fault-tolerant default gateway. Its two fundamental behaviors are the election of roles and the use of a virtual address.\n\n### Fundamental `HSRP` Behaviors\n* **Role Election (Correct):** Routers in an `HSRP` group communicate to elect one **active** router (which actively forwards traffic) and one **standby** router (which monitors the active one and takes over if it fails). This ensures a gateway is always available.\n* **Shared Virtual IP (Correct):** The routers in the group share a **virtual IP address** and a **virtual MAC address**. Hosts on the network are configured with this virtual IP as their default gateway, without needing to know which physical router is active.\n\n### Incorrect Options Analysis\n* **A & E:** `HSRP` does **not** perform load balancing. Only one router (the active one) handles traffic at a time. A protocol that does perform load balancing is `GLBP`. Furthermore, routers have their own unique interface IP addresses; only the virtual IP is shared.\n* **B:** `HSRP` routers do not synchronize their routing or forwarding configurations. They only exchange `hello` messages to monitor each other's status."
   }
 ]
