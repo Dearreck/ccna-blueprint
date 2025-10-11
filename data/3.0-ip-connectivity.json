@@ -470,5 +470,85 @@
     ],
     "explanation_es": "Los **Protocolos de Redundancia de Primer Salto** (`FHRPs`), como `HSRP`, `VRRP` y `GLBP`, están diseñados para resolver un único punto de fallo crítico en la mayoría de las redes: el **gateway por defecto**.\n\n### Propósito de un FHRP\nEn una red típica, todos los hosts en una subred apuntan a una única dirección IP como su gateway para alcanzar redes externas. Si ese router o switch de Capa 3 falla, todos los hosts pierden la conectividad. Un `FHRP` permite que dos o más routers trabajen juntos para presentar una única dirección IP de gateway virtual. Si el router activo falla, un router en espera asume el control de manera transparente para los hosts.\n\n### Análisis de las Opciones\n* **A y B:** Los bucles de `Spanning Tree` y la pérdida del `root-bridge` son problemas de **Capa 2** que son gestionados por el propio `Spanning Tree Protocol` (`STP`), no por un `FHRP`.\n* **C:** Correcto. Este es precisamente el problema que los `FHRPs` están diseñados para mitigar, proporcionando una puerta de enlace por defecto tolerante a fallos.\n* **D:** La inestabilidad de un vecino `BGP` es un problema de enrutamiento externo entre sistemas autónomos. No tiene relación con la redundancia del primer salto dentro de una red local (`LAN`).",
     "explanation_en": "**First-Hop Redundancy Protocols** (`FHRPs`), such as `HSRP`, `VRRP`, and `GLBP`, are designed to solve a critical single point of failure in most networks: the **default gateway**.\n\n### Purpose of an FHRP\nIn a typical network, all hosts on a subnet point to a single IP address as their gateway to reach external networks. If that router or Layer 3 switch fails, all hosts lose connectivity. An `FHRP` allows two or more routers to work together to present a single virtual gateway IP address. If the active router fails, a standby router takes over transparently to the end hosts.\n\n### Options Analysis\n* **A & B:** `Spanning Tree` loops and the loss of the `root-bridge` are **Layer 2** issues that are managed by the `Spanning Tree Protocol` (`STP`) itself, not by an `FHRP`.\n* **C:** Correct. This is precisely the problem `FHRPs` are designed to mitigate by providing a fault-tolerant default gateway.\n* **D:** `BGP` neighbor flapping is an external routing issue between autonomous systems. It is unrelated to first-hop redundancy within a local area network (`LAN`)."
+  },
+  {
+    "id": "ccna-ip-conn-ospf-metric-cost-q1",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "3.2",
+      "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
+      "description_en": "Determine how a router makes a forwarding decision by default",
+      "subtopic_id": "3.2.c",
+      "subtopic_description": "Routing protocol metric"
+    },
+    "question_es": "Cuando `OSPF` aprende múltiples rutas hacia una red, ¿cómo selecciona una ruta?",
+    "question_en": "When `OSPF` learns multiple paths to a network, how does it select a route?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Cuenta el número de saltos entre el router de origen y el de destino para determinar la ruta con la métrica más baja.",
+        "text_en": "It counts the number of hops between the source router and the destination to determine the route with the lowest metric.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Multiplica los valores K activos por 256 para calcular la ruta con la métrica más baja.",
+        "text_en": "It multiplies the active K values by 256 to calculate the route with the lowest metric.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Para cada interfaz existente, suma la métrica desde el router de origen al de destino para calcular la ruta con el ancho de banda más bajo.",
+        "text_en": "For each existing interface, it adds the metric from the source router to the destination to calculate the route with the lowest bandwidth.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Divide un ancho de banda de referencia de `100 Mbps` por el ancho de banda real de la interfaz de salida para calcular la ruta con el costo más bajo.",
+        "text_en": "It divides a reference bandwidth of `100 Mbps` by the actual bandwidth of the exiting interface to calculate the route with the lowest cost.",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "`OSPF` es un protocolo de enrutamiento de estado de enlace que utiliza el **costo** como su métrica para determinar la mejor ruta. La ruta con el costo total más bajo se instala en la tabla de enrutamiento.\n\n### Cálculo del Costo OSPF\nLa fórmula para calcular el costo de una interfaz es:\n`Costo = Ancho de Banda de Referencia / Ancho de Banda de la Interfaz`\n\nPor defecto, el **ancho de banda de referencia es `100 Mbps`**. El router calcula el costo para cada enlace en la ruta y suma los costos para obtener el costo total de la ruta.\n\n### Análisis de las Opciones\n* **A:** Incorrecto. El conteo de saltos es la métrica utilizada por `RIP` (Routing Information Protocol).\n* **B:** Incorrecto. Los valores `K` son utilizados por `EIGRP` para su métrica compuesta, que incluye ancho de banda, retardo, carga y fiabilidad.\n* **C:** Incorrecto. Esta descripción es confusa; `OSPF` suma los **costos** de las interfaces, no las métricas, para encontrar la ruta de menor costo, no de menor ancho de banda.\n* **D:** Correcto. Esta es la descripción precisa de cómo `OSPF` calcula el costo de un enlace, que es el componente fundamental de su métrica.",
+    "explanation_en": "`OSPF` is a link-state routing protocol that uses **cost** as its metric to determine the best path. The path with the lowest total cost is installed in the routing table.\n\n### OSPF Cost Calculation\nThe formula to calculate the cost of an interface is:\n`Cost = Reference Bandwidth / Interface Bandwidth`\n\nBy default, the **reference bandwidth is `100 Mbps`**. The router calculates the cost for each link in the path and sums the costs to get the total path cost.\n\n### Options Analysis\n* **A:** Incorrect. Hop count is the metric used by `RIP` (Routing Information Protocol).\n* **B:** Incorrect. The `K` values are used by `EIGRP` for its composite metric, which includes bandwidth, delay, load, and reliability.\n* **C:** Incorrect. This description is confusing; `OSPF` sums the **costs** of the interfaces, not metrics, to find the lowest-cost path, not the lowest-bandwidth path.\n* **D:** Correct. This is the precise description of how `OSPF` calculates the cost of a link, which is the fundamental component of its metric."
+  },
+  {
+    "id": "ccna-ip-conn-admin-distance-q1",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "3.2",
+      "description_es": "Determinar cómo un router toma una decisión de reenvío por defecto",
+      "description_en": "Determine how a router makes a forwarding decision by default",
+      "subtopic_id": "3.2.b",
+      "subtopic_description": "Administrative distance"
+    },
+    "question_es": "`R1` ha aprendido la ruta `192.168.12.0/24` a través de `IS-IS`, `OSPF`, `RIP` e `Internal EIGRP`. En condiciones normales de operación, ¿qué protocolo de enrutamiento instala la ruta en la tabla de enrutamiento?",
+    "question_en": "`R1` has learned route `192.168.12.0/24` via `IS-IS`, `OSPF`, `RIP`, and `Internal EIGRP`. Under normal operating conditions, which routing protocol is installed in the routing table?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`RIP`",
+        "text_en": "`RIP`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`OSPF`",
+        "text_en": "`OSPF`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`IS-IS`",
+        "text_en": "`IS-IS`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`Internal EIGRP`",
+        "text_en": "`Internal EIGRP`",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "Cuando un router aprende la misma ruta desde múltiples protocolos de enrutamiento, utiliza la **Distancia Administrativa (AD)** para decidir qué ruta es más confiable. La ruta del protocolo con la AD **más baja** es la que se instala en la tabla de enrutamiento.\n\n### Comparación de Distancias Administrativas (por defecto)\n| Protocolo de Enrutamiento | Distancia Administrativa (AD) |\n|---|---|\n| **`Internal EIGRP`** | **90** |\n| `OSPF` | 110 |\n| `IS-IS` | 115 |\n| `RIP` | 120 |\n\nDado que `Internal EIGRP` tiene la distancia administrativa más baja (90), el router lo considera la fuente más confiable y, por lo tanto, instalará la ruta aprendida a través de `EIGRP`.",
+    "explanation_en": "When a router learns the same route from multiple routing protocols, it uses the **Administrative Distance (AD)** to decide which route is more trustworthy. The route from the protocol with the **lowest** AD is the one installed in the routing table.\n\n### Administrative Distance Comparison (Default)\n| Routing Protocol | Administrative Distance (AD) |\n|---|---|\n| **`Internal EIGRP`** | **90** |\n| `OSPF` | 110 |\n| `IS-IS` | 115 |\n| `RIP` | 120 |\n\nSince `Internal EIGRP` has the lowest administrative distance (90), the router considers it the most trustworthy source and will therefore install the route learned via `EIGRP`."
   }
 ]
