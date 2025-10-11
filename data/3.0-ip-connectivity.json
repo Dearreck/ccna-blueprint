@@ -430,5 +430,45 @@
     ],
     "explanation_es": "El problema es que las interfaces Ethernet utilizan por defecto el tipo de red `OSPF` **`broadcast`**. En este tipo de red, los routers deben pasar por un proceso de elección de **Router Designado (DR)** y **Router Designado de Respaldo (BDR)**. Este proceso de elección y la espera del `Wait Timer` (que es igual al `Dead Interval`, por defecto 40 segundos) es lo que causa el retraso antes de alcanzar el estado `FULL`.\n\nDado que solo hay dos routers conectados directamente, no es necesario un DR/BDR.\n\n### Análisis de las Opciones:\n* **A. `ip ospf network broadcast`:** Incorrecto. Este es el comportamiento predeterminado que está causando el problema.\n* **B. `ip ospf priority 0`:** Incorrecto. Este comando evitaría que un router participe en la elección de DR/BDR, pero no elimina el proceso de elección en sí, por lo que el retraso persistiría.\n* **C. `ip ospf dead-interval 40`:** Incorrecto. Esto simplemente establece el intervalo muerto al valor predeterminado para Ethernet, lo que no cambiaría (y si se aumentara, empeoraría) el tiempo de espera.\n* **D. `ip ospf network point-to-point`:** Correcto. Al cambiar el tipo de red a `point-to-point`, se **elimina por completo** el proceso de elección de DR/BDR. Los routers formarán una adyacencia completa mucho más rápido, ya que no necesitan esperar el `Wait Timer`.",
     "explanation_en": "The issue is that Ethernet interfaces default to the `OSPF` network type **`broadcast`**. On this network type, routers must go through a **Designated Router (DR)** and **Backup Designated Router (BDR)** election process. This election process and the wait for the `Wait Timer` (which is equal to the `Dead Interval`, 40 seconds by default) is what causes the delay before reaching the `FULL` state.\n\nSince there are only two routers connected directly, a DR/BDR is unnecessary.\n\n### Options Analysis:\n* **A. `ip ospf network broadcast`:** Incorrect. This is the default behavior that is causing the problem.\n* **B. `ip ospf priority 0`:** Incorrect. This command would prevent a router from participating in the DR/BDR election, but it does not eliminate the election process itself, so the delay would persist.\n* **C. `ip ospf dead-interval 40`:** Incorrect. This simply sets the dead interval to the default value for Ethernet, which would not change (and if increased, would worsen) the wait time.\n* **D. `ip ospf network point-to-point`:** Correct. By changing the network type to `point-to-point`, the DR/BDR election process is **completely bypassed**. The routers will form a full adjacency much faster as they do not need to wait for the `Wait Timer`."
+  },
+  {
+    "id": "ccna-ip-conn-fhrp-default-gateway-fail-q1",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "3.5",
+      "description_es": "Describir el propósito, las funciones y los conceptos de los protocolos de redundancia de primer salto",
+      "description_en": "Describe the purpose, functions, and concepts of first hop redundancy protocols",
+      "subtopic_id": "3.5",
+      "subtopic_description": "First Hop Redundancy Protocols"
+    },
+    "question_es": "¿Contra qué protege la implementación de un protocolo de redundancia de primer salto en una red?",
+    "question_en": "What does the implementation of a first-hop redundancy protocol protect against on a network?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "bucles de spanning-tree",
+        "text_en": "spanning-tree loops",
+        "isCorrect": false
+      },
+      {
+        "text_es": "pérdida del root-bridge",
+        "text_en": "root-bridge loss",
+        "isCorrect": false
+      },
+      {
+        "text_es": "fallo del gateway por defecto",
+        "text_en": "default gateway failure",
+        "isCorrect": true
+      },
+      {
+        "text_es": "inestabilidad de un vecino BGP (flapping)",
+        "text_en": "BGP neighbor flapping",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Los **Protocolos de Redundancia de Primer Salto** (`FHRPs`), como `HSRP`, `VRRP` y `GLBP`, están diseñados para resolver un único punto de fallo crítico en la mayoría de las redes: el **gateway por defecto**.\n\n### Propósito de un FHRP\nEn una red típica, todos los hosts en una subred apuntan a una única dirección IP como su gateway para alcanzar redes externas. Si ese router o switch de Capa 3 falla, todos los hosts pierden la conectividad. Un `FHRP` permite que dos o más routers trabajen juntos para presentar una única dirección IP de gateway virtual. Si el router activo falla, un router en espera asume el control de manera transparente para los hosts.\n\n### Análisis de las Opciones\n* **A y B:** Los bucles de `Spanning Tree` y la pérdida del `root-bridge` son problemas de **Capa 2** que son gestionados por el propio `Spanning Tree Protocol` (`STP`), no por un `FHRP`.\n* **C:** Correcto. Este es precisamente el problema que los `FHRPs` están diseñados para mitigar, proporcionando una puerta de enlace por defecto tolerante a fallos.\n* **D:** La inestabilidad de un vecino `BGP` es un problema de enrutamiento externo entre sistemas autónomos. No tiene relación con la redundancia del primer salto dentro de una red local (`LAN`).",
+    "explanation_en": "**First-Hop Redundancy Protocols** (`FHRPs`), such as `HSRP`, `VRRP`, and `GLBP`, are designed to solve a critical single point of failure in most networks: the **default gateway**.\n\n### Purpose of an FHRP\nIn a typical network, all hosts on a subnet point to a single IP address as their gateway to reach external networks. If that router or Layer 3 switch fails, all hosts lose connectivity. An `FHRP` allows two or more routers to work together to present a single virtual gateway IP address. If the active router fails, a standby router takes over transparently to the end hosts.\n\n### Options Analysis\n* **A & B:** `Spanning Tree` loops and the loss of the `root-bridge` are **Layer 2** issues that are managed by the `Spanning Tree Protocol` (`STP`) itself, not by an `FHRP`.\n* **C:** Correct. This is precisely the problem `FHRPs` are designed to mitigate by providing a fault-tolerant default gateway.\n* **D:** `BGP` neighbor flapping is an external routing issue between autonomous systems. It is unrelated to first-hop redundancy within a local area network (`LAN`)."
   }
 ]
