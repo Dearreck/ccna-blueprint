@@ -700,5 +700,45 @@
     ],
     "explanation_es": "El protocolo **LLDP (Link Layer Discovery Protocol)** utiliza mensajes llamados **TLV (Type-Length-Value)** para anunciar información sobre sí mismo a los dispositivos vecinos. Para controlar qué TLVs específicos se envían, se utilizan comandos en el modo de configuración global.\n\n#### Opción Correcta\n- **`switch(config)#lldp port-description`**: Este es el comando correcto. Se introduce en el **modo de configuración global** (`config`) y le indica al switch que incluya el TLV de *descripción de puerto* en sus anuncios LLDP. Este es un control a nivel de dispositivo sobre los TLVs que se anuncian.\n\n#### Opciones Incorrectas\n- **`switch(config-if)#lldp port description`**: Esta opción es incorrecta por dos razones. Primero, el comando correcto utiliza un guion (`port-description`), no un espacio. Segundo, aunque algunos comandos de LLDP (como `lldp transmit` o `lldp receive`) se configuran por interfaz (`config-if`), el comando para habilitar o deshabilitar la publicidad de TLVs específicos es un comando **global**.\n\n- **`switch(config-line)#lldp port-description`**: El modo de configuración de línea (`config-line`) se utiliza para configurar las líneas de acceso de la consola (`con 0`) y virtuales (`vty`). **No** tiene ninguna relación con la configuración de protocolos de capa 2 como LLDP.\n\n- **`switch#lldp port-description`**: El prompt `switch#` indica el **modo EXEC privilegiado**. Desde este modo, no se pueden ejecutar comandos de configuración. Para ello, primero se debe entrar en el modo de configuración global usando el comando `configure terminal`.",
     "explanation_en": "The **Link Layer Discovery Protocol (LLDP)** uses messages called **TLVs (Type-Length-Value)** to advertise information about itself to neighboring devices. To control which specific TLVs are sent, commands are used in global configuration mode.\n\n#### Correct Option\n- **`switch(config)#lldp port-description`**: This is the correct command. It is entered in **global configuration mode** (`config`) and instructs the switch to include the *port description* TLV in its LLDP advertisements. This is a device-level control over which TLVs are advertised.\n\n#### Incorrect Options\n- **`switch(config-if)#lldp port description`**: This option is incorrect for two reasons. First, the correct command uses a hyphen (`port-description`), not a space. Second, while some LLDP commands (like `lldp transmit` or `lldp receive`) are configured on a per-interface basis (`config-if`), the command to enable or disable the advertisement of specific TLVs is a **global** command.\n\n- **`switch(config-line)#lldp port-description`**: The line configuration mode (`config-line`) is used to configure console (`con 0`) and virtual terminal (`vty`) access lines. It has **no** relation to the configuration of Layer 2 protocols like LLDP.\n\n- **`switch#lldp port-description`**: The `switch#` prompt indicates **privileged EXEC mode**. Configuration commands cannot be run from this mode. To do so, you must first enter global configuration mode using the `configure terminal` command."
+  },
+  {
+    "id": "cisco-ccna-wlan-band-select-01",
+    "category": "2.0-network-access",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "2.9",
+      "description_es": "Interpretar la configuración de la GUI de la LAN inalámbrica para la conectividad del cliente, como la creación de WLAN, la configuración de seguridad, los perfiles de QoS y la configuración avanzada.",
+      "description_en": "Interpret the wireless LAN GUI configuration for client connectivity, such as WLAN creation, security settings, QoS profiles, and advanced settings.",
+      "subtopic_id": "2.9",
+      "subtopic_description": "Wireless LAN GUI configuration for client connectivity"
+    },
+    "question_es": "Un administrador inalámbrico ha configurado una WLAN; sin embargo, los clientes necesitan acceso a una red de **5 GHz** menos congestionada para su calidad de voz. ¿Qué medida debe tomarse para cumplir este requisito?",
+    "question_en": "A wireless administrator has configured a WLAN, however, the clients need access to a less congested **5-GHz** network for their voice quality. What action must be taken to meet the requirement?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Habilitar la anulación de `AAA`",
+        "text_en": "enable `AAA` override",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Habilitar `DTM`",
+        "text_en": "enable `DTM`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Habilitar `RX-SOP`",
+        "text_en": "enable `RX-SOP`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Habilitar `Band Select`",
+        "text_en": "enable `Band Select`",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "### Explicación Detallada\n\nLa pregunta busca una solución para dirigir a los clientes a la banda de **5 GHz**, que generalmente está menos congestionada y ofrece un mejor rendimiento para aplicaciones sensibles a la latencia como la voz sobre IP (VoIP).\n\n### Opción Correcta\n\n* **D. Habilitar `Band Select`**: Esta es la respuesta correcta. `Band Select` es una función en los puntos de acceso (APs) de Cisco que anima activamente a los clientes con capacidad de doble banda (2.4 GHz y 5 GHz) a conectarse a la red de 5 GHz. El AP logra esto retrasando las respuestas a las solicitudes de sondeo (probe requests) de los clientes en la banda de 2.4 GHz, haciendo que la banda de 5 GHz parezca una opción más atractiva y rápida para el cliente.\n\n### Opciones Incorrectas\n\n* **A. Habilitar la anulación de `AAA`**: La anulación de `AAA` (Authentication, Authorization, and Accounting) es una función que permite asignar políticas específicas a un cliente (como una `VLAN` o una lista de control de acceso) después de una autenticación exitosa a través de un servidor `RADIUS`. No tiene relación con la selección de la banda de frecuencia del cliente.\n\n* **B. Habilitar `DTM`**: `DTM` significa `Dynamic Transmit Power Management`. Es una función que ajusta dinámicamente la potencia de transmisión de la radio de un AP. Se utiliza para optimizar la cobertura y minimizar la interferencia, pero no influye directamente en la banda que un cliente elige para conectarse.\n\n* **C. Habilitar `RX-SOP`**: `RX-SOP` son las siglas de `Receiver Start of Packet Detection Threshold`. Esta configuración ajusta la sensibilidad de la radio del AP. Al aumentar el umbral, se le indica al AP que ignore las señales de bajo nivel, lo que ayuda a reducir el impacto de la interferencia de celdas coexistentes (co-channel interference) y a mejorar el rendimiento en entornos de alta densidad. Sin embargo, no dirige a los clientes a una banda específica.",
+    "explanation_en": "### Detailed Explanation\n\nThe question asks for a solution to steer clients to the **5 GHz** band, which is generally less congested and provides better performance for latency-sensitive applications like Voice over IP (VoIP).\n\n### Correct Option\n\n* **D. enable `Band Select`**: This is the correct answer. `Band Select` is a feature on Cisco Access Points (APs) that actively encourages dual-band capable clients (2.4 GHz and 5 GHz) to connect to the 5 GHz network. The AP achieves this by delaying responses to client probe requests on the 2.4 GHz band, making the 5 GHz band appear as a more attractive and faster option for the client.\n\n### Incorrect Options\n\n* **A. enable `AAA` override**: `AAA` (Authentication, Authorization, and Accounting) override is a feature that allows for specific policies (like a `VLAN` or an access control list) to be assigned to a client after successful authentication via a `RADIUS` server. It is not related to the client's frequency band selection.\n\n* **B. enable `DTM`**: `DTM` stands for `Dynamic Transmit Power Management`. This is a feature that dynamically adjusts an AP's radio transmit power. It is used to optimize coverage and minimize interference, but it does not directly influence which band a client chooses to connect to.\n\n* **C. enable `RX-SOP`**: `RX-SOP` stands for `Receiver Start of Packet Detection Threshold`. This setting adjusts the sensitivity of the AP's radio. By increasing the threshold, you tell the AP to ignore low-level signals, which helps reduce the impact of co-channel interference and improve performance in high-density environments. However, it does not steer clients to a specific band."
   }
 ]
