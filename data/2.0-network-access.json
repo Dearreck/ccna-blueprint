@@ -285,5 +285,45 @@
     ],
     "explanation_es": "La pregunta se refiere a los protocolos para la **gestión de dispositivos** por parte de un administrador, no para la autenticación de clientes que se conectan a la red. Los protocolos estándar para **Autenticación, Autorización y Contabilidad (AAA)** de administradores de red son `RADIUS` y `TACACS+`.\n\n### Comparación de Protocolos Relevantes\n| Protocolo | Propósito Principal y Razón |\n|---|---|\n| **`RADIUS`** | **(Correcto)** Es un protocolo AAA que se utiliza para centralizar la autenticación de administradores que intentan acceder a dispositivos de red como routers, switches y puntos de acceso para configurarlos. |\n| **`TACACS+`** | **(Correcto)** Es un protocolo AAA propietario de Cisco que ofrece más flexibilidad y seguridad que `RADIUS`. Separa la Autenticación, Autorización y Contabilidad, y cifra el paquete completo. Es una opción común para la gestión de dispositivos. |\n| `802.1Q` | **(Incorrecto)** Este es el estándar para el **etiquetado de VLANs** en redes Ethernet. No tiene ninguna función de autenticación. |\n| `802.1X` | **(Incorrecto)** Este es un estándar para el **control de acceso a la red basado en puertos (PNAC)**. Se usa para autenticar a los **clientes** (ej. un portátil) que intentan conectarse a la red a través de un switch o un punto de acceso, no para autenticar al **administrador** que gestiona el dispositivo. |\n| `Kerberos` | **(Incorrecto)** Aunque es un protocolo de autenticación robusto, es más común en entornos de dominio de Windows y no es el estándar principal para la gestión de dispositivos de red en el contexto de Cisco, donde `RADIUS` y `TACACS+` son los preferidos. |",
     "explanation_en": "The question asks for protocols for **device management** by an administrator, not for authenticating clients connecting to the network. The standard protocols for administrator **Authentication, Authorization, and Accounting (AAA)** are `RADIUS` and `TACACS+`.\n\n### Comparison of Relevant Protocols\n| Protocol | Main Purpose and Rationale |\n|---|---|\n| **`RADIUS`** | **(Correct)** It's an AAA protocol used to centralize the authentication of administrators trying to access network devices like routers, switches, and access points for configuration. |\n| **`TACACS+`** | **(Correct)** It's a Cisco-proprietary AAA protocol that offers more flexibility and security than `RADIUS`. It separates Authentication, Authorization, and Accounting, and encrypts the entire packet. It's a common choice for device management. |\n| `802.1Q` | **(Incorrect)** This is the standard for **VLAN tagging** on Ethernet networks. It has no authentication function. |\n| `802.1X` | **(Incorrect)** This is a standard for **Port-Based Network Access Control (PNAC)**. It is used to authenticate **clients** (e.g., a laptop) trying to connect to the network through a switch or an access point, not to authenticate the **administrator** managing the device. |\n| `Kerberos` | **(Incorrect)** While it is a robust authentication protocol, it is more common in Windows domain environments and is not the primary standard for network device management in a Cisco context, where `RADIUS` and `TACACS+` are preferred. |"
+  },
+  {
+    "id": "ccna-net-access-lightweight-ap-q1",
+    "category": "2.0-network-access",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "2.6",
+      "description_es": "Describir las arquitecturas inalámbricas de Cisco y los modos de AP",
+      "description_en": "Describe Cisco Wireless Architectures and AP modes",
+      "subtopic_id": "2.6",
+      "subtopic_description": "AP modes"
+    },
+    "question_es": "Se necesita un punto de acceso inalámbrico que debe cumplir estos requisitos:\n1. Despliegue **\"zero-touch\"** y gestionado por un `WLC`\n2. Procesar **únicamente** la funcionalidad `MAC` en tiempo real\n3. Utilizado en una arquitectura **split-MAC**\n\n¿Qué tipo de punto de acceso se debe utilizar?",
+    "question_en": "A wireless access point is needed and must meet these requirements:\n1. **\"zero-touch\"** deployed and managed by a `WLC`\n2. process **only** real-time `MAC` functionality\n3. used in a **split-MAC** architecture\n\nWhich access point type must be used?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "autónomo (autonomous)",
+        "text_en": "autonomous",
+        "isCorrect": false
+      },
+      {
+        "text_es": "basado en la nube (cloud-based)",
+        "text_en": "cloud-based",
+        "isCorrect": false
+      },
+      {
+        "text_es": "ligero (lightweight)",
+        "text_en": "lightweight",
+        "isCorrect": true
+      },
+      {
+        "text_es": "malla (mesh)",
+        "text_en": "mesh",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Un punto de acceso **ligero (lightweight)** es el único tipo que cumple con todos los requisitos, ya que está diseñado para funcionar en una arquitectura centralizada controlada por un `WLC` (Wireless LAN Controller).\n\n### Arquitectura Split-MAC\nEsta es la clave de la pregunta. La arquitectura `split-MAC` divide las funciones de la capa `MAC` entre el `AP` ligero y el `WLC`:\n| Dispositivo | Funciones MAC | Descripción |\n|---|---|---|\n| **`Lightweight AP`** | **Tiempo real** | Gestiona tareas sensibles al tiempo como el envío de balizas (beacons), sondeo de clientes y acuses de recibo de tramas. Esto cumple el **requisito 2**. |\n| **`WLC`** | **Gestión** | Maneja funciones complejas y no tan urgentes como la autenticación de usuarios, la asociación de clientes y el roaming. |\n\n### Cumplimiento de los Requisitos\n1.  **\"Zero-touch\" y gestionado por WLC:** Los APs ligeros se conectan a la red, descubren el `WLC` y descargan toda su configuración de él. Esto cumple el **requisito 1**.\n2.  **Solo funcionalidad MAC en tiempo real:** Como se ve en la tabla, esta es la función principal del AP ligero en una arquitectura `split-MAC`, cumpliendo el **requisito 2 y 3**.\n\n### Opciones Incorrectas\n* **Autónomo:** Es un AP independiente que se gestiona individualmente y realiza todas las funciones `MAC`. No usa `WLC` ni `split-MAC`.\n* **Mesh:** Describe una topología para extender la cobertura, no el modo de operación fundamental del AP con un controlador.\n* **Basado en la nube:** Aunque es una forma de gestión centralizada, \"ligero\" es el término técnico específico para la arquitectura `WLC` / `split-MAC` descrita.",
+    "explanation_en": "A **lightweight** access point is the only type that meets all requirements, as it is designed to operate in a centralized architecture controlled by a `WLC` (Wireless LAN Controller).\n\n### Split-MAC Architecture\nThis is the key to the question. The `split-MAC` architecture divides the `MAC` layer functions between the lightweight `AP` and the `WLC`:\n| Device | MAC Functions | Description |\n|---|---|---|\n| **`Lightweight AP`** | **Real-time** | Manages time-sensitive tasks like sending beacons, probing clients, and acknowledging frames. This meets **requirement 2**. |\n| **`WLC`** | **Management** | Handles complex, non-urgent functions like user authentication, client association, and roaming. |\n\n### Meeting the Requirements\n1.  **\"Zero-touch\" & WLC Managed:** Lightweight APs connect to the network, discover the `WLC`, and download their entire configuration from it. This meets **requirement 1**.\n2.  **Only real-time MAC functionality:** As seen in the table, this is the primary role of the lightweight AP in a `split-MAC` architecture, fulfilling **requirements 2 and 3**.\n\n### Incorrect Options\n* **Autonomous:** A standalone AP that is managed individually and performs all `MAC` functions. It does not use a `WLC` or `split-MAC`.\n* **Mesh:** Describes a topology for extending coverage, not the AP's fundamental operating mode with a controller.\n* **Cloud-based:** While a form of centralized management, \"lightweight\" is the specific technical term for the `WLC` / `split-MAC` architecture described."
   }
 ]
