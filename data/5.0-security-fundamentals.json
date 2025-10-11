@@ -392,5 +392,50 @@
     ],
     "explanation_es": "El problema principal en esta configuración es un error de sintaxis en el comando utilizado para aplicar la `ACL` a la interfaz.\n\n### Análisis del Comando\nEl comando correcto para aplicar una lista de control de acceso a una interfaz es `ip access-group`, no `ip access-list`.\n\n| Comando Correcto | Comando Incorrecto (Usado) |\n|---|---|\n| `ip access-group 10 in` | `ip access-list 10 in` |\n\nDebido a que el comando `ip access-list 10 in` no es válido en el modo de configuración de interfaz, el `IOS` de Cisco lo rechazará, y la `ACL` no se aplicará en absoluto.\n\n### Evaluación de las Opciones\n* **A:** Incorrecto. La `ACL` nunca se aplica exitosamente a la interfaz, por lo que no puede permitir ningún tráfico.\n* **B:** Incorrecto. Esto es una mala interpretación de la máscara wildcard `0.0.0.255`, que en realidad coincide con cualquier valor en el último octeto, no solo `0`.\n* **C:** Correcto. El router rechazará el comando `ip access-list 10 in` por ser sintácticamente incorrecto en este contexto, resultando en un fallo al aplicar la `ACL`.\n* **D:** Incorrecto. El comando `access-list 10 permit ...` (el comando `permit`) en sí es válido y se aceptaría en el modo de configuración global. El error ocurre al intentar **aplicar** la lista a la interfaz con el comando incorrecto.",
     "explanation_en": "The primary issue in this configuration is a syntax error in the command used to apply the `ACL` to the interface.\n\n### Command Analysis\nThe correct command to apply an access control list to an interface is `ip access-group`, not `ip access-list`.\n\n| Correct Command | Incorrect Command (Used) |\n|---|---|\n| `ip access-group 10 in` | `ip access-list 10 in` |\n\nBecause the `ip access-list 10 in` command is not valid in interface configuration mode, the Cisco `IOS` will reject it, and the `ACL` will not be applied at all.\n\n### Options Evaluation\n* **A:** Incorrect. The `ACL` is never successfully applied to the interface, so it cannot permit any traffic.\n* **B:** Incorrect. This is a misinterpretation of the `0.0.0.255` wildcard mask, which actually matches any value in the last octet, not just `0`.\n* **C:** Correct. The router will reject the `ip access-list 10 in` command as syntactically incorrect in this context, resulting in a failure to apply the `ACL`.\n* **D:** Incorrect. The `access-list 10 permit ...` command (the `permit` command) itself is valid and would be accepted in global configuration mode. The error occurs when attempting to **apply** the list to the interface with the wrong command."
+  },
+  {
+    "id": "ccna-sec-fund-ipsec-suite-protocols-q1",
+    "category": "5.0-security-fundamentals",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "5.5",
+      "description_es": "Describir las VPNs de acceso remoto y de sitio a sitio IPsec",
+      "description_en": "Describe IPsec remote access and site-to-site VPNs",
+      "subtopic_id": "5.5",
+      "subtopic_description": "IPsec Protocols"
+    },
+    "question_es": "¿Cuáles son **dos** protocolos dentro de la suite `IPsec`? (Elija dos.)",
+    "question_en": "What are **two** protocols within the `IPsec` suite? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`AH`",
+        "text_en": "`AH`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`AES`",
+        "text_en": "`AES`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`3DES`",
+        "text_en": "`3DES`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`TLS`",
+        "text_en": "`TLS`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`ESP`",
+        "text_en": "`ESP`",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "`IPsec` no es un único protocolo, sino un **framework o suite de protocolos** que trabajan juntos para proporcionar seguridad en la capa de red. Los dos protocolos principales que definen cómo se aseguran los datos son `AH` y `ESP`.\n\n### Análisis de las Opciones\n| Opción | Descripción y Razón |\n|---|---|\n| **`AH` (Authentication Header)** | **(Correcto)** Este protocolo proporciona **autenticación** e **integridad** para los paquetes IP. Asegura que los datos no han sido modificados en tránsito y que provienen del remitente correcto, pero **no proporciona cifrado (confidencialidad)**. |\n| **`ESP` (Encapsulating Security Payload)** | **(Correcto)** Este protocolo proporciona **confidencialidad (cifrado)** y, opcionalmente, también puede proporcionar **autenticación** e **integridad**. Es el protocolo más comúnmente utilizado en las implementaciones de `IPsec` modernas. |\n| `AES` y `3DES` | **(Incorrecto)** Estos son **algoritmos de cifrado**, no protocolos. Son utilizados *por* el protocolo `ESP` para realizar la encriptación de los datos. |\n| `TLS` | **(Incorrecto)** `Transport Layer Security` es un protocolo de seguridad que opera en la capa de transporte, comúnmente usado para `HTTPS`. Es una tecnología de `VPN` alternativa a `IPsec` (VPNs SSL/TLS), pero no forma parte de la suite `IPsec`. |",
+    "explanation_en": "`IPsec` is not a single protocol, but rather a **framework or suite of protocols** that work together to provide security at the network layer. The two main protocols that define how data is secured are `AH` and `ESP`.\n\n### Options Analysis\n| Option | Description and Rationale |\n|---|---|\n| **`AH` (Authentication Header)** | **(Correct)** This protocol provides **authentication** and **integrity** for IP packets. It ensures that data has not been modified in transit and that it comes from the correct sender, but it **does not provide encryption (confidentiality)**. |\n| **`ESP` (Encapsulating Security Payload)** | **(Correct)** This protocol provides **confidentiality (encryption)** and, optionally, can also provide **authentication** and **integrity**. It is the most commonly used protocol in modern `IPsec` implementations. |\n| `AES` and `3DES` | **(Incorrect)** These are **encryption algorithms**, not protocols. They are used *by* the `ESP` protocol to perform the data encryption. |\n| `TLS` | **(Incorrect)** `Transport Layer Security` is a security protocol that operates at the transport layer, commonly used for `HTTPS`. It is an alternative `VPN` technology to `IPsec` (SSL/TLS VPNs), but it is not part of the `IPsec` suite. |"
   }
 ]
