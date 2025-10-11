@@ -302,5 +302,45 @@
     ],
     "explanation_es": "Una topología de **núcleo colapsado** es una variación del diseño jerárquico de tres capas (Núcleo, Distribución, Acceso). En redes más pequeñas donde no se justifica tener capas de núcleo y distribución separadas, sus funciones se combinan en una sola capa. Esto crea un diseño de dos capas más simple y económico.\n\n### Comparación de Arquitecturas\n| Arquitectura | Capas |\n|---|---|\n| **Tres Capas** | `Núcleo` (Core), `Distribución` (Distribution), `Acceso` (Access) |\n| **Núcleo Colapsado (Dos Capas)** | [cite_start]`Núcleo/Distribución` (combinadas), `Acceso` (Access) |\n\n### Análisis de las Opciones\n* **A:** Esto describe una red `SOHO` (Small Office/Home Office), que es una topología muy simple, no una de núcleo colapsado. [cite: 36]\n* **B:** En un diseño jerárquico adecuado, los dispositivos finales (incluidos los inalámbricos) **siempre** se conectan a la capa de `Acceso`. Conectar dispositivos directamente al núcleo es una mala práctica de diseño.\n* **C:** Esta descripción es confusa y no representa correctamente la arquitectura. El núcleo y el acceso no se conectan directamente en un diseño de tres capas, y en un núcleo colapsado, la capa de núcleo y distribución ya son una sola.\n* **D:** Esta es la definición precisa de una arquitectura de núcleo colapsado. [cite_start]Las funciones de la capa de núcleo (conmutación de alta velocidad) y la capa de distribución (aplicación de políticas, enrutamiento entre `VLANs`) se ejecutan en el mismo conjunto de dispositivos. [cite: 30, 32]",
     "explanation_en": "A **collapsed-core** topology is a variation of the three-tier hierarchical design (Core, Distribution, Access). In smaller networks where having separate core and distribution layers is not justified, their functions are combined into a single layer. This creates a simpler and more cost-effective two-tier design.\n\n### Architecture Comparison\n| Architecture | Layers |\n|---|---|\n| **Three-Tier** | `Core`, `Distribution`, `Access` |\n| **Collapsed-Core (Two-Tier)** | [cite_start]`Core/Distribution` (combined), `Access` |\n\n### Options Analysis\n* **A:** This describes a `SOHO` (Small Office/Home Office) network, which is a very simple topology, not a collapsed-core one. [cite: 36]\n* **B:** In a proper hierarchical design, end devices (including wireless) **always** connect to the `Access` layer. Connecting devices directly to the core is poor design practice.\n* **C:** This description is confusing and does not accurately represent the architecture. The core and access do not connect directly in a three-tier design, and in a collapsed-core, the core and distribution layer are already one.\n* **D:** This is the precise definition of a collapsed-core architecture. [cite_start]The functions of the core layer (high-speed switching) and the distribution layer (policy enforcement, inter-`VLAN` routing) are performed on the same set of devices. [cite: 30, 32]"
+  },
+  {
+    "id": "ccna-net-fund-unknown-unicast-flood-q1",
+    "category": "1.0-network-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "1.13",
+      "description_es": "Describir los conceptos de conmutación",
+      "description_en": "Describe switching concepts",
+      "subtopic_id": "1.13.c",
+      "subtopic_description": "Frame flooding"
+    },
+    "question_es": "¿Qué hace un switch cuando recibe una trama cuya dirección MAC de destino **no se encuentra** en la tabla de direcciones MAC?",
+    "question_en": "What does a switch do when it receives a frame whose destination `MAC` address is **missing** from the `MAC` address table?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Cambia la suma de comprobación (checksum) de la trama a un valor que indica una trama inválida.",
+        "text_en": "It changes the checksum of the frame to a value that indicates an invalid frame.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Inunda la trama sin cambios por todos los puertos restantes en la `VLAN` de entrada.",
+        "text_en": "It floods the frame unchanged across all remaining ports in the incoming `VLAN`.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Añade a la tabla una entrada estática para la `MAC` y apaga el puerto.",
+        "text_en": "It appends the table with a static entry for the `MAC` and shuts down the port.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Actualiza la tabla `CAM` con la dirección `MAC` de destino de la trama.",
+        "text_en": "It updates the `CAM` table with the destination `MAC` address of the frame.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Cuando un switch recibe una trama destinada a una dirección MAC que no conoce (es decir, no está en su tabla de direcciones MAC), el switch trata la trama como un **\"unknown unicast\"** (unicast desconocido). Su comportamiento predeterminado en este caso es **inundar (flood)** la trama.\n\n### Proceso del Switch:\n1.  [cite_start]**MAC de Origen:** El switch primero examina la dirección `MAC` de origen y la aprende, asociándola al puerto de entrada en su tabla `MAC`. [cite: 75]\n2.  [cite_start]**MAC de Destino:** Luego busca la `MAC` de destino en la tabla. [cite: 78]\n3.  [cite_start]**Acción:** Si no encuentra una coincidencia, reenvía la trama por **todos los puertos** dentro de la misma `VLAN`, excepto el puerto por el que la recibió. [cite: 79] [cite_start]Este proceso se llama **`frame flooding`**. [cite: 79]\n\n### Análisis de Opciones Incorrectas:\n* **A:** Los switches no alteran el checksum de las tramas; simplemente las reenvían. Una trama con un checksum inválido sería descartada.\n* **C:** Esta acción describe una posible consecuencia de una violación de `port security`, no el comportamiento de reenvío estándar.\n* **D:** El switch actualiza su tabla `CAM` (o tabla `MAC`) con la dirección `MAC` de **origen**, no la de destino. [cite_start]Este es el proceso de aprendizaje (`MAC learning`). [cite: 75]",
+    "explanation_en": "When a switch receives a frame destined for a MAC address it does not know (i.e., it's not in its MAC address table), the switch treats the frame as an **unknown unicast**. Its default behavior in this case is to **flood** the frame.\n\n### Switch Process:\n1.  [cite_start]**Source MAC:** The switch first examines the source `MAC` address and learns it, associating it with the incoming port in its `MAC` table. [cite: 75]\n2.  [cite_start]**Destination MAC:** It then looks up the destination `MAC` in the table. [cite: 78]\n3.  [cite_start]**Action:** If no match is found, it forwards the frame out of **all ports** within the same `VLAN`, except for the port it was received on. [cite: 79] [cite_start]This process is called **`frame flooding`**. [cite: 79]\n\n### Incorrect Options Analysis:\n* **A:** Switches do not alter the frame's checksum; they simply forward it. A frame with an invalid checksum would be dropped.\n* **C:** This action describes a possible consequence of a `port security` violation, not standard forwarding behavior.\n* **D:** The switch updates its `CAM` table (or `MAC` table) with the **source** `MAC` address, not the destination one. [cite_start]This is the `MAC learning` process. [cite: 75]"
   }
 ]
