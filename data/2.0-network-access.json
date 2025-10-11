@@ -445,5 +445,45 @@
     ],
     "explanation_es": "Un `AP autónomo` gestiona todas sus funciones localmente, incluyendo el mapeo de `WLANs` (redes inalámbricas) a `VLANs` (redes cableadas). Cuando un `AP` necesita soportar múltiples `WLANs`, y cada una debe estar en una `VLAN` diferente, el puerto del switch al que se conecta debe ser capaz de manejar tráfico de múltiples `VLANs`.\n\n### Análisis de Tipos de Puerto\n| Tipo de Puerto | Función | Aplicabilidad |\n|---|---|---|\n| **Troncal (Trunk)** | Está diseñado para transportar tráfico de **múltiples `VLANs`** entre dispositivos de red. Utiliza el etiquetado `802.1Q` para identificar a qué `VLAN` pertenece cada trama. | **Correcto**. Esta es la configuración necesaria para que el `AP` pueda enviar y recibir tráfico etiquetado para las dos `VLANs` diferentes. |\n| **Acceso (Access)** | Asigna el puerto a una **única `VLAN`**. El tráfico que pasa por este puerto no está etiquetado. | **Incorrecto**. Un puerto de acceso solo podría manejar una de las dos `VLANs` requeridas. |\n| `LAG` / `EtherChannel`| Son tecnologías de agregación de enlaces que agrupan múltiples puertos físicos en uno lógico. | **Incorrecto**. Estos términos describen cómo se agrupan los puertos, no cómo manejan las `VLANs`. Un `EtherChannel` puede ser configurado como troncal o de acceso, pero la función fundamental requerida aquí es la de troncal. |",
     "explanation_en": "An `autonomous AP` manages all its functions locally, including mapping `WLANs` (wireless networks) to `VLANs` (wired networks). When an `AP` needs to support multiple `WLANs`, and each must be on a different `VLAN`, the switch port it connects to must be able to handle traffic from multiple `VLANs`.\n\n### Port Type Analysis\n| Port Type | Function | Applicability |\n|---|---|---|\n| **Trunk** | Designed to carry traffic for **multiple `VLANs`** between network devices. It uses `802.1Q` tagging to identify which `VLAN` each frame belongs to. | **Correct**. This is the necessary configuration for the `AP` to send and receive tagged traffic for the two different `VLANs`. |\n| **Access** | Assigns the port to a **single `VLAN`**. Traffic passing through this port is untagged. | **Incorrect**. An access port could only handle one of the two required `VLANs`. |\n| `LAG` / `EtherChannel`| These are link aggregation technologies that bundle multiple physical ports into a single logical one. | **Incorrect**. These terms describe how ports are grouped, not how they handle `VLANs`. An `EtherChannel` can be configured as either a trunk or an access port, but the fundamental function required here is trunking. |"
+  },
+  {
+    "id": "ccna-net-access-flexconnect-wlc-fail-q1",
+    "category": "2.0-network-access",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "2.6",
+      "description_es": "Describir las arquitecturas inalámbricas de Cisco y los modos de AP",
+      "description_en": "Describe Cisco Wireless Architectures and AP modes",
+      "subtopic_id": "2.6",
+      "subtopic_description": "AP modes"
+    },
+    "question_es": "¿Qué modo de punto de acceso unificado continúa sirviendo a los clientes inalámbricos después de perder la conectividad con el `Cisco Wireless LAN Controller`?",
+    "question_en": "Which unified access point mode continues to serve wireless clients after losing connectivity to the `Cisco Wireless LAN Controller`?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "sniffer",
+        "text_en": "sniffer",
+        "isCorrect": false
+      },
+      {
+        "text_es": "malla (mesh)",
+        "text_en": "mesh",
+        "isCorrect": false
+      },
+      {
+        "text_es": "flexconnect",
+        "text_en": "flexconnect",
+        "isCorrect": true
+      },
+      {
+        "text_es": "local",
+        "text_en": "local",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "El modo **`FlexConnect`** está diseñado específicamente para sucursales o ubicaciones remotas donde la conexión `WAN` con el `WLC` (Wireless LAN Controller) podría no ser completamente estable. Su característica principal es la capacidad de operar de forma independiente si se pierde la conexión con el controlador.\n\n### Modos de Operación de AP\n| Modo | Comportamiento sin `WLC` | Descripción |\n|---|---|---|\n| **`FlexConnect`** | **Sigue funcionando (Correcto)** | En estado `standalone` (autónomo), puede continuar conmutando el tráfico de los clientes ya conectados directamente a la red local y autenticar nuevos clientes (dependiendo de la configuración de seguridad). Proporciona supervivencia de la red inalámbrica. |\n| `Local` | Deja de funcionar | Este es el modo por defecto. Todo el tráfico (gestión y datos) se envía a través de un túnel `CAPWAP` al `WLC`. Si el túnel se cae, el `AP` deja de servir a los clientes. |\n| `Sniffer` | No aplica | En este modo, el `AP` no sirve a clientes. Su única función es capturar tráfico `802.11` para su análisis. |\n| `Mesh` | Depende del Root AP | Este modo se utiliza para formar un backhaul inalámbrico. Si el `Root Access Point (RAP)` pierde la conexión con el `WLC`, todo el árbol de la malla que depende de él también pierde la conectividad de servicio. |",
+    "explanation_en": "**`FlexConnect`** mode is specifically designed for branch or remote locations where the `WAN` connection to the `WLC` (Wireless LAN Controller) might not be completely stable. Its key feature is the ability to operate independently if the connection to the controller is lost.\n\n### AP Modes of Operation\n| Mode | Behavior without `WLC` | Description |\n|---|---|---|\n| **`FlexConnect`** | **Continues to function (Correct)** | In `standalone` state, it can continue to switch traffic for already connected clients directly onto the local network and authenticate new clients (depending on the security configuration). It provides wireless network survivability. |\n| `Local` | Stops functioning | This is the default mode. All traffic (management and data) is sent through a `CAPWAP` tunnel to the `WLC`. If the tunnel goes down, the `AP` stops serving clients. |\n| `Sniffer` | Not applicable | In this mode, the `AP` does not serve clients. Its sole function is to capture `802.11` traffic for analysis. |\n| `Mesh` | Depends on the Root AP | This mode is used to form a wireless backhaul. If the `Root Access Point (RAP)` loses its connection to the `WLC`, the entire mesh tree depending on it also loses service connectivity. |"
   }
 ]
