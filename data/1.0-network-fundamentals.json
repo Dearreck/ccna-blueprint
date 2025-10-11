@@ -182,5 +182,45 @@
     ],
     "explanation_es": "El propósito **fundamental** de las direcciones IPv4 privadas, definidas en el `RFC 1918`, es **conservar el limitado suministro de direcciones IPv4 públicas y globalmente únicas**. Al permitir que miles de redes privadas (corporativas, domésticas, etc.) reutilicen los mismos rangos de direcciones internamente, se reduce drásticamente la necesidad de que cada dispositivo tenga una dirección IP pública única.\n\n### Análisis de las Opciones:\n* **A y D. Reducir/Simplificar la complejidad:** Incorrecto. El uso de direccionamiento privado a menudo **aumenta** la complejidad de la red debido a la necesidad de implementar `NAT` (Network Address Translation) para permitir la comunicación con Internet.\n* **B. Limitar el número de nodos accesibles:** Incorrecto. Si bien es cierto que los nodos con direcciones privadas no son directamente accesibles desde Internet (lo que proporciona un beneficio de seguridad), este es un **efecto secundario**, no el propósito principal. El objetivo principal es la conservación de direcciones, no la seguridad o la limitación de la accesibilidad.\n* **C. Conservar el espacio de direcciones globalmente único:** Correcto. Esta es la razón principal por la que se creó el espacio de direcciones privadas. Sin él, el espacio de direcciones IPv4 se habría agotado mucho más rápido.",
     "explanation_en": "The **fundamental** purpose of private IPv4 addresses, as defined in `RFC 1918`, is to **conserve the limited supply of globally unique public IPv4 addresses**. By allowing thousands of private networks (corporate, home, etc.) to reuse the same address ranges internally, the need for every device to have a unique public IP address is drastically reduced.\n\n### Options Analysis:\n* **A & D. Reduce/Simplify complexity:** Incorrect. The use of private addressing often **increases** network complexity due to the need to implement `NAT` (Network Address Translation) to allow communication with the Internet.\n* **B. Limit the number of nodes reachable:** Incorrect. While it is true that nodes with private addresses are not directly reachable from the Internet (which provides a security benefit), this is a **side effect**, not the primary purpose. The main goal is address conservation, not security or limiting reachability.\n* **C. Conserve globally unique address space:** Correct. This is the primary reason why the private address space was created. Without it, the IPv4 address space would have been depleted much more quickly."
+  },
+  {
+    "id": "ccna-wireless-ssid-case-sensitive-q1",
+    "category": "1.0-network-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "1.11",
+      "description_es": "Describir los principios inalámbricos",
+      "description_en": "Describe wireless principles",
+      "subtopic_id": "1.11.b",
+      "subtopic_description": "SSID"
+    },
+    "question_es": "¿Cuál es una especificación para los `SSIDs`?",
+    "question_en": "What is a specification for `SSIDs`?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Definen la `VLAN` en un switch.",
+        "text_en": "They define the `VLAN` on a switch.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Deben incluir un número y una letra.",
+        "text_en": "They must include one number and one letter.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Son sensibles a mayúsculas y minúsculas (case-sensitive).",
+        "text_en": "They are case sensitive.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Son una característica de seguridad propietaria de Cisco.",
+        "text_en": "They are a Cisco proprietary security feature.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Un **`SSID`** (Service Set Identifier) es el nombre público de una red inalámbrica (`WLAN`). Una de sus características clave es que **distingue entre mayúsculas y minúsculas**.\n\n### Análisis de las Opciones:\n* **A. Definen la `VLAN` en un switch:** Incorrecto. Un `SSID` se **mapea** a una `VLAN` en la configuración de un punto de acceso (`AP`) o un controlador inalámbrico (`WLC`), pero no la define. El `SSID` es el nombre de la red Wi-Fi, mientras que la `VLAN` es un dominio de broadcast de Capa 2.\n* **B. Deben incluir un número y una letra:** Incorrecto. No existe ninguna regla que exija una combinación específica de caracteres. Un `SSID` puede tener entre 1 y 32 caracteres y puede consistir solo en letras, solo en números o una combinación.\n* **C. Son sensibles a mayúsculas y minúsculas:** Correcto. Esta es una especificación fundamental. Un dispositivo que intente conectarse a un `SSID` llamado `MiWiFi` no podrá conectarse si introduce `miwifi`.\n* **D. Son una característica de seguridad propietaria de Cisco:** Incorrecto. El `SSID` es un estándar de la industria definido en la norma `IEEE 802.11` y es utilizado por todos los fabricantes de equipos inalámbricos, no es exclusivo de Cisco.",
+    "explanation_en": "An **`SSID`** (Service Set Identifier) is the public name of a wireless network (`WLAN`). One of its key characteristics is that it is **case-sensitive**.\n\n### Options Analysis:\n* **A. They define the `VLAN` on a switch:** Incorrect. An `SSID` is **mapped** to a `VLAN` in the configuration of an access point (`AP`) or a wireless LAN controller (`WLC`), but it does not define it. The `SSID` is the Wi-Fi network's name, whereas the `VLAN` is a Layer 2 broadcast domain.\n* **B. They must include one number and one letter:** Incorrect. There is no rule requiring a specific combination of characters. An `SSID` can be 1 to 32 characters long and can consist of only letters, only numbers, or a combination.\n* **C. They are case sensitive:** Correct. This is a fundamental specification. A device trying to connect to an `SSID` named `MyWiFi` will fail to connect if it enters `mywifi`.\n* **D. They are a Cisco proprietary security feature:** Incorrect. The `SSID` is an industry standard defined in the `IEEE 802.11` standard and is used by all wireless equipment vendors, it is not proprietary to Cisco."
   }
 ]
