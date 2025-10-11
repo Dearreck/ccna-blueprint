@@ -342,5 +342,45 @@
     ],
     "explanation_es": "Cuando un switch recibe una trama destinada a una dirección MAC que no conoce (es decir, no está en su tabla de direcciones MAC), el switch trata la trama como un **\"unknown unicast\"** (unicast desconocido). Su comportamiento predeterminado en este caso es **inundar (flood)** la trama.\n\n### Proceso del Switch:\n1.  [cite_start]**MAC de Origen:** El switch primero examina la dirección `MAC` de origen y la aprende, asociándola al puerto de entrada en su tabla `MAC`. [cite: 75]\n2.  [cite_start]**MAC de Destino:** Luego busca la `MAC` de destino en la tabla. [cite: 78]\n3.  [cite_start]**Acción:** Si no encuentra una coincidencia, reenvía la trama por **todos los puertos** dentro de la misma `VLAN`, excepto el puerto por el que la recibió. [cite: 79] [cite_start]Este proceso se llama **`frame flooding`**. [cite: 79]\n\n### Análisis de Opciones Incorrectas:\n* **A:** Los switches no alteran el checksum de las tramas; simplemente las reenvían. Una trama con un checksum inválido sería descartada.\n* **C:** Esta acción describe una posible consecuencia de una violación de `port security`, no el comportamiento de reenvío estándar.\n* **D:** El switch actualiza su tabla `CAM` (o tabla `MAC`) con la dirección `MAC` de **origen**, no la de destino. [cite_start]Este es el proceso de aprendizaje (`MAC learning`). [cite: 75]",
     "explanation_en": "When a switch receives a frame destined for a MAC address it does not know (i.e., it's not in its MAC address table), the switch treats the frame as an **unknown unicast**. Its default behavior in this case is to **flood** the frame.\n\n### Switch Process:\n1.  [cite_start]**Source MAC:** The switch first examines the source `MAC` address and learns it, associating it with the incoming port in its `MAC` table. [cite: 75]\n2.  [cite_start]**Destination MAC:** It then looks up the destination `MAC` in the table. [cite: 78]\n3.  [cite_start]**Action:** If no match is found, it forwards the frame out of **all ports** within the same `VLAN`, except for the port it was received on. [cite: 79] [cite_start]This process is called **`frame flooding`**. [cite: 79]\n\n### Incorrect Options Analysis:\n* **A:** Switches do not alter the frame's checksum; they simply forward it. A frame with an invalid checksum would be dropped.\n* **C:** This action describes a possible consequence of a `port security` violation, not standard forwarding behavior.\n* **D:** The switch updates its `CAM` table (or `MAC` table) with the **source** `MAC` address, not the destination one. [cite_start]This is the `MAC learning` process. [cite: 75]"
+  },
+  {
+    "id": "ccna-net-fund-tcp-udp-query-response-q1",
+    "category": "1.0-network-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "1.5",
+      "description_es": "Comparar TCP con UDP",
+      "description_en": "Compare TCP to UDP",
+      "subtopic_id": "1.5",
+      "subtopic_description": "Compare TCP to UDP"
+    },
+    "question_es": "¿Cómo encajan `TCP` y `UDP` en un modelo de consulta-respuesta?",
+    "question_en": "How do `TCP` and `UDP` fit into a query-response model?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`TCP` fomenta la entrega de paquetes fuera de orden, y `UDP` previene la reordenación.",
+        "text_en": "`TCP` encourages out-of-order packet delivery, and `UDP` prevents re-ordering.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`TCP` evita el uso de secuenciación, y `UDP` evita el uso de acuses de recibo.",
+        "text_en": "`TCP` avoids using sequencing, and `UDP` avoids using acknowledgments.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`TCP` utiliza detección de errores para paquetes, y `UDP` utiliza recuperación de errores.",
+        "text_en": "`TCP` uses error detection for packets, and `UDP` uses error recovery.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`TCP` establece una conexión antes de enviar datos, y `UDP` los envía inmediatamente.",
+        "text_en": "`TCP` establishes a connection prior to sending data, and `UDP` sends immediately.",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "La diferencia fundamental entre `TCP` y `UDP` radica en cómo inician la comunicación. `TCP` es **orientado a la conexión**, mientras que `UDP` es **sin conexión**.\n\n### Análisis de las Opciones\n* **A:** Esta afirmación es incorrecta. `TCP` **asegura** la entrega ordenada de paquetes mediante números de secuencia, mientras que `UDP` no garantiza el orden.\n* **B:** Esto es lo contrario de la realidad. `TCP` es un protocolo fiable **precisamente porque** utiliza secuenciación y acuses de recibo (`ACKs`). `UDP` no utiliza ninguno de los dos.\n* **C:** Esta afirmación es engañosa. Ambos protocolos utilizan un checksum para la **detección** de errores. Sin embargo, solo `TCP` proporciona **recuperación** de errores (solicitando la retransmisión de segmentos perdidos o corruptos). `UDP` simplemente descarta los datagramas con errores.\n* **D:** Esta es la descripción **correcta**. `TCP` realiza un saludo de tres vías (`three-way handshake`) para establecer una conexión fiable antes de que se transfiera cualquier dato. `UDP` no establece ninguna conexión; simplemente envía los datagramas al destino, lo que lo hace ideal para aplicaciones rápidas de consulta-respuesta como `DNS`.",
+    "explanation_en": "The fundamental difference between `TCP` and `UDP` lies in how they initiate communication. `TCP` is **connection-oriented**, while `UDP` is **connectionless**.\n\n### Options Analysis\n* **A:** This statement is incorrect. `TCP` **ensures** in-order packet delivery using sequence numbers, while `UDP` does not guarantee order.\n* **B:** This is the opposite of reality. `TCP` is a reliable protocol **precisely because** it uses sequencing and acknowledgments (`ACKs`). `UDP` uses neither.\n* **C:** This statement is misleading. Both protocols use a checksum for error **detection**. However, only `TCP` provides error **recovery** (by requesting retransmission of lost or corrupt segments). `UDP` simply discards datagrams with errors.\n* **D:** This is the **correct** description. `TCP` performs a three-way handshake to establish a reliable connection before any data is transferred. `UDP` establishes no connection; it simply sends the datagrams to the destination, which makes it ideal for quick query-response applications like `DNS`."
   }
 ]
