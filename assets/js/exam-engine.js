@@ -164,6 +164,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>`;
                 DOM.categorySelection.innerHTML += categoryHTML;
             });
+
+            const totalCount = allQuestionsData.length;
+            const countDisplay = totalCount > 999 ? '999+' : totalCount;
+        
+            const badgeCountElement = document.getElementById('total-questions-count');
+            if (badgeCountElement) {
+                badgeCountElement.textContent = countDisplay;
+            }
         },
     
         /**
