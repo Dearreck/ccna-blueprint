@@ -382,5 +382,45 @@
     ],
     "explanation_es": "La diferencia fundamental entre `TCP` y `UDP` radica en cómo inician la comunicación. `TCP` es **orientado a la conexión**, mientras que `UDP` es **sin conexión**.\n\n### Análisis de las Opciones\n* **A:** Esta afirmación es incorrecta. `TCP` **asegura** la entrega ordenada de paquetes mediante números de secuencia, mientras que `UDP` no garantiza el orden.\n* **B:** Esto es lo contrario de la realidad. `TCP` es un protocolo fiable **precisamente porque** utiliza secuenciación y acuses de recibo (`ACKs`). `UDP` no utiliza ninguno de los dos.\n* **C:** Esta afirmación es engañosa. Ambos protocolos utilizan un checksum para la **detección** de errores. Sin embargo, solo `TCP` proporciona **recuperación** de errores (solicitando la retransmisión de segmentos perdidos o corruptos). `UDP` simplemente descarta los datagramas con errores.\n* **D:** Esta es la descripción **correcta**. `TCP` realiza un saludo de tres vías (`three-way handshake`) para establecer una conexión fiable antes de que se transfiera cualquier dato. `UDP` no establece ninguna conexión; simplemente envía los datagramas al destino, lo que lo hace ideal para aplicaciones rápidas de consulta-respuesta como `DNS`.",
     "explanation_en": "The fundamental difference between `TCP` and `UDP` lies in how they initiate communication. `TCP` is **connection-oriented**, while `UDP` is **connectionless**.\n\n### Options Analysis\n* **A:** This statement is incorrect. `TCP` **ensures** in-order packet delivery using sequence numbers, while `UDP` does not guarantee order.\n* **B:** This is the opposite of reality. `TCP` is a reliable protocol **precisely because** it uses sequencing and acknowledgments (`ACKs`). `UDP` uses neither.\n* **C:** This statement is misleading. Both protocols use a checksum for error **detection**. However, only `TCP` provides error **recovery** (by requesting retransmission of lost or corrupt segments). `UDP` simply discards datagrams with errors.\n* **D:** This is the **correct** description. `TCP` performs a three-way handshake to establish a reliable connection before any data is transferred. `UDP` establishes no connection; it simply sends the datagrams to the destination, which makes it ideal for quick query-response applications like `DNS`."
+  },
+  {
+    "id": "ccna-net-fund-hypervisor-shared-component-q1",
+    "category": "1.0-network-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "1.12",
+      "description_es": "Explicar los fundamentos de la virtualización (virtualización de servidores, contenedores y VRFs)",
+      "description_en": "Explain virtualization fundamentals (server virtualization, containers, and VRFs)",
+      "subtopic_id": "1.12",
+      "subtopic_description": "server virtualization"
+    },
+    "question_es": "¿Qué componente físico se distribuye entre múltiples `máquinas virtuales` que se ejecutan en el mismo `hipervisor`?",
+    "question_en": "Which physical component is distributed among multiple `virtual machines` running on the same `hypervisor`?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "almacenamiento externo",
+        "text_en": "external storage",
+        "isCorrect": false
+      },
+      {
+        "text_es": "red de backplane",
+        "text_en": "backplane network",
+        "isCorrect": false
+      },
+      {
+        "text_es": "interfaces de red",
+        "text_en": "network interfaces",
+        "isCorrect": true
+      },
+      {
+        "text_es": "recursos de hardware",
+        "text_en": "hardware resources",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Un `hipervisor` es responsable de abstraer los recursos físicos de un servidor y asignarlos a múltiples máquinas virtuales (`VMs`).\n\nEl componente físico que se comparte para la conectividad de red son las **interfaces de red** (también conocidas como `NICs` o tarjetas de red).\n\n### Funcionamiento\nEl `hipervisor` crea un **switch virtual** (`vSwitch`) que permite a las `VMs` comunicarse entre sí. Para la comunicación externa, el `hipervisor` asigna una **interfaz de red virtual** (`vNIC`) a cada `VM` y mapea el tráfico de todas estas `vNICs` a través de la(s) **interfaz(ces) de red física(s)** (`pNIC`) del servidor. De esta manera, una sola `pNIC` física es compartida por múltiples `VMs`.\n\n### Análisis de las Opciones\n* **A. almacenamiento externo:** Incorrecto. Aunque el almacenamiento externo (como una `SAN`) puede ser compartido, no es un componente físico *del* servidor que se distribuye, sino un recurso de red.\n* **B. red de backplane:** Incorrecto. Este término se refiere al bus interno de un switch o router modular, no a un componente de un servidor estándar.\n* **D. recursos de hardware:** Incorrecto. Si bien es cierto que el `hipervisor` distribuye recursos de hardware como `CPU` y `RAM`, esta respuesta es demasiado genérica. \"Interfaces de red\" es un componente físico específico y la respuesta más precisa.",
+    "explanation_en": "A `hypervisor` is responsible for abstracting a server's physical resources and allocating them to multiple virtual machines (`VMs`).\n\nThe physical component that is shared for network connectivity is the **network interfaces** (also known as `NICs` or network cards).\n\n### How it Works\nThe `hypervisor` creates a **virtual switch** (`vSwitch`) that allows `VMs` to communicate with each other. For external communication, the `hypervisor` assigns a **virtual network interface** (`vNIC`) to each `VM` and maps the traffic from all these `vNICs` through the server's physical **network interface(s)** (`pNIC`). In this way, a single physical `pNIC` is shared by multiple `VMs`.\n\n### Options Analysis\n* **A. external storage:** Incorrect. While external storage (like a `SAN`) can be shared, it's not a physical component *of* the server being distributed, but rather a network resource.\n* **B. backplane network:** Incorrect. This term refers to the internal bus of a modular switch or router, not a component of a standard server.\n* **D. hardware resources:** Incorrect. While it's true that the `hypervisor` distributes hardware resources like `CPU` and `RAM`, this answer is too generic. \"Network interfaces\" is a specific physical component and the most precise answer."
   }
 ]
