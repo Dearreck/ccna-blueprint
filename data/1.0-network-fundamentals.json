@@ -222,5 +222,85 @@
     ],
     "explanation_es": "Un **`SSID`** (Service Set Identifier) es el nombre público de una red inalámbrica (`WLAN`). Una de sus características clave es que **distingue entre mayúsculas y minúsculas**.\n\n### Análisis de las Opciones:\n* **A. Definen la `VLAN` en un switch:** Incorrecto. Un `SSID` se **mapea** a una `VLAN` en la configuración de un punto de acceso (`AP`) o un controlador inalámbrico (`WLC`), pero no la define. El `SSID` es el nombre de la red Wi-Fi, mientras que la `VLAN` es un dominio de broadcast de Capa 2.\n* **B. Deben incluir un número y una letra:** Incorrecto. No existe ninguna regla que exija una combinación específica de caracteres. Un `SSID` puede tener entre 1 y 32 caracteres y puede consistir solo en letras, solo en números o una combinación.\n* **C. Son sensibles a mayúsculas y minúsculas:** Correcto. Esta es una especificación fundamental. Un dispositivo que intente conectarse a un `SSID` llamado `MiWiFi` no podrá conectarse si introduce `miwifi`.\n* **D. Son una característica de seguridad propietaria de Cisco:** Incorrecto. El `SSID` es un estándar de la industria definido en la norma `IEEE 802.11` y es utilizado por todos los fabricantes de equipos inalámbricos, no es exclusivo de Cisco.",
     "explanation_en": "An **`SSID`** (Service Set Identifier) is the public name of a wireless network (`WLAN`). One of its key characteristics is that it is **case-sensitive**.\n\n### Options Analysis:\n* **A. They define the `VLAN` on a switch:** Incorrect. An `SSID` is **mapped** to a `VLAN` in the configuration of an access point (`AP`) or a wireless LAN controller (`WLC`), but it does not define it. The `SSID` is the Wi-Fi network's name, whereas the `VLAN` is a Layer 2 broadcast domain.\n* **B. They must include one number and one letter:** Incorrect. There is no rule requiring a specific combination of characters. An `SSID` can be 1 to 32 characters long and can consist of only letters, only numbers, or a combination.\n* **C. They are case sensitive:** Correct. This is a fundamental specification. A device trying to connect to an `SSID` named `MyWiFi` will fail to connect if it enters `mywifi`.\n* **D. They are a Cisco proprietary security feature:** Incorrect. The `SSID` is an industry standard defined in the `IEEE 802.11` standard and is used by all wireless equipment vendors, it is not proprietary to Cisco."
+  },
+  {
+    "id": "ccna-ipv6-anycast-address-q1",
+    "category": "1.0-network-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "1.9",
+      "description_es": "Describir los tipos de direcciones IPv6",
+      "description_en": "Describe IPv6 address types",
+      "subtopic_id": "1.9.b",
+      "subtopic_description": "Anycast"
+    },
+    "question_es": "¿Qué rango de direcciones `IPv6` es adecuado para direcciones anycast para servicios distribuidos como `DHCP` o `DNS`?",
+    "question_en": "Which `IPv6` address range is suitable for anycast addresses for distributed services such as `DHCP` or `DNS`?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`2002:db8:XXXX::/64`",
+        "text_en": "`2002:db8:XXXX::/64`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`2001:db8:0234:ca3e::/128`",
+        "text_en": "`2001:db8:0234:ca3e::/128`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`FF00::/12`",
+        "text_en": "`FF00::/12`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`FE80::/10`",
+        "text_en": "`FE80::/10`",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Una dirección **anycast** en `IPv6` es una dirección `unicast` que se asigna a múltiples interfaces (generalmente en diferentes dispositivos). Los paquetes enviados a una dirección anycast son enrutados por la red al dispositivo **más cercano** (según la métrica del protocolo de enrutamiento) que tenga esa dirección.\n\nCrucialmente, las direcciones anycast se toman del mismo espacio de direcciones que las direcciones unicast y no tienen un formato o prefijo especial que las identifique.\n\n### Análisis de las Opciones\n| Opción | Tipo de Dirección | Razón |\n|---|---|---|\n| `2002:db8:XXXX::/64` | Unicast (6to4 - Obsoleto) | Aunque es un rango unicast, representa un prefijo de red (`/64`), no una dirección de host específica que se usaría para un servicio. La opción B es más precisa. |\n| **`2001:db8:0234:ca3e::/128`** | **Unicast Global (GUA)** | **(Correcto)** Esta es una dirección de host `unicast` específica (`/128`). Es el formato perfecto para ser configurado como una dirección anycast en múltiples servidores que ofrecen el mismo servicio. |\n| `FF00::/12` | Multicast | [cite_start]**(Incorrecto)** El prefijo `FF00::/8` está reservado para direcciones `multicast`[cite: 62], que envían paquetes a un grupo de dispositivos, no al más cercano. |\n| `FE80::/10` | Unicast Link-Local | [cite_start]**(Incorrecto)** Estas direcciones solo son válidas en el enlace local y no son enrutables a través de Internet[cite: 59]. Los servicios distribuidos como `DNS` generalmente requieren alcanzabilidad a través de múltiples redes, por lo que se usan direcciones Unicast Globales. |",
+    "explanation_en": "An **anycast** address in `IPv6` is a `unicast` address that is assigned to multiple interfaces (usually on different devices). Packets sent to an anycast address are routed by the network to the **nearest** device (according to the routing protocol's metric) that has that address.\n\nCrucially, anycast addresses are allocated from the same address space as unicast addresses and have no special format or prefix to identify them.\n\n### Options Analysis\n| Option | Address Type | Rationale |\n|---|---|---|\n| `2002:db8:XXXX::/64` | Unicast (6to4 - Obsolete) | Although this is a unicast range, it represents a network prefix (`/64`), not a specific host address that would be used for a service. Option B is more precise. |\n| **`2001:db8:0234:ca3e::/128`** | **Global Unicast (GUA)** | **(Correct)** This is a specific `unicast` host address (`/128`). It is the perfect format to be configured as an anycast address on multiple servers offering the same service. |\n| `FF00::/12` | Multicast | [cite_start]**(Incorrect)** The `FF00::/8` prefix is reserved for `multicast` addresses[cite: 62], which send packets to a group of devices, not the nearest one. |\n| `FE80::/10` | Link-Local Unicast | [cite_start]**(Incorrect)** These addresses are only valid on the local link and are not routable across the internet[cite: 59]. Distributed services like `DNS` typically require reachability across multiple networks, so Global Unicast Addresses are used. |"
+  },
+  {
+    "id": "ccna-net-fund-collapsed-core-q1",
+    "category": "1.0-network-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "1.2",
+      "description_es": "Describir las características de las arquitecturas de topología de red",
+      "description_en": "Describe characteristics of network topology architectures",
+      "subtopic_id": "1.2.a",
+      "subtopic_description": "Two-tier"
+    },
+    "question_es": "¿Cuál es una característica de una topología de red de **núcleo colapsado**?",
+    "question_en": "What is a characteristic of a **collapsed-core** network topology?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Permite que todas las estaciones de trabajo en un entorno `SOHO` se conecten a un único switch con acceso a Internet.",
+        "text_en": "It enables all workstations in a `SOHO` environment to connect on a single switch with internet access.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Permite que los dispositivos inalámbricos se conecten directamente a la capa de núcleo, lo que permite una transmisión de datos más rápida.",
+        "text_en": "It allows wireless devices to connect directly to the core layer, which enables faster data transmission.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Permite que las capas de núcleo y acceso se conecten a un dispositivo de distribución lógico a través de un `EtherChannel`.",
+        "text_en": "It enables the core and access layers to connect to one logical distribution device over an `EtherChannel`.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Permite que las capas de núcleo y distribución funcionen como una única capa combinada.",
+        "text_en": "It allows the core and distribution layers to run as a single combined layer.",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "Una topología de **núcleo colapsado** es una variación del diseño jerárquico de tres capas (Núcleo, Distribución, Acceso). En redes más pequeñas donde no se justifica tener capas de núcleo y distribución separadas, sus funciones se combinan en una sola capa. Esto crea un diseño de dos capas más simple y económico.\n\n### Comparación de Arquitecturas\n| Arquitectura | Capas |\n|---|---|\n| **Tres Capas** | `Núcleo` (Core), `Distribución` (Distribution), `Acceso` (Access) |\n| **Núcleo Colapsado (Dos Capas)** | [cite_start]`Núcleo/Distribución` (combinadas), `Acceso` (Access) |\n\n### Análisis de las Opciones\n* **A:** Esto describe una red `SOHO` (Small Office/Home Office), que es una topología muy simple, no una de núcleo colapsado. [cite: 36]\n* **B:** En un diseño jerárquico adecuado, los dispositivos finales (incluidos los inalámbricos) **siempre** se conectan a la capa de `Acceso`. Conectar dispositivos directamente al núcleo es una mala práctica de diseño.\n* **C:** Esta descripción es confusa y no representa correctamente la arquitectura. El núcleo y el acceso no se conectan directamente en un diseño de tres capas, y en un núcleo colapsado, la capa de núcleo y distribución ya son una sola.\n* **D:** Esta es la definición precisa de una arquitectura de núcleo colapsado. [cite_start]Las funciones de la capa de núcleo (conmutación de alta velocidad) y la capa de distribución (aplicación de políticas, enrutamiento entre `VLANs`) se ejecutan en el mismo conjunto de dispositivos. [cite: 30, 32]",
+    "explanation_en": "A **collapsed-core** topology is a variation of the three-tier hierarchical design (Core, Distribution, Access). In smaller networks where having separate core and distribution layers is not justified, their functions are combined into a single layer. This creates a simpler and more cost-effective two-tier design.\n\n### Architecture Comparison\n| Architecture | Layers |\n|---|---|\n| **Three-Tier** | `Core`, `Distribution`, `Access` |\n| **Collapsed-Core (Two-Tier)** | [cite_start]`Core/Distribution` (combined), `Access` |\n\n### Options Analysis\n* **A:** This describes a `SOHO` (Small Office/Home Office) network, which is a very simple topology, not a collapsed-core one. [cite: 36]\n* **B:** In a proper hierarchical design, end devices (including wireless) **always** connect to the `Access` layer. Connecting devices directly to the core is poor design practice.\n* **C:** This description is confusing and does not accurately represent the architecture. The core and access do not connect directly in a three-tier design, and in a collapsed-core, the core and distribution layer are already one.\n* **D:** This is the precise definition of a collapsed-core architecture. [cite_start]The functions of the core layer (high-speed switching) and the distribution layer (policy enforcement, inter-`VLAN` routing) are performed on the same set of devices. [cite: 30, 32]"
   }
 ]
