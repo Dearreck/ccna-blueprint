@@ -624,3 +624,22 @@ html.dark-mode .explanation-box code {
   margin-right: 0.75rem; /* Espacio entre la insignia y el texto */
 }
 
+/* --- Insignia de Conteo Total de Preguntas --- */
+.total-questions-badge {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background-color: var(--brand-primary);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+
