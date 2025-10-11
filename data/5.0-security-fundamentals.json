@@ -517,5 +517,50 @@
     ],
     "explanation_es": "`WPA3` introdujo **`SAE` (Simultaneous Authentication of Equals)** como un reemplazo para el método de Clave Pre-compartida (`PSK`) utilizado en `WPA2`. `SAE` es la mejora clave que protege contra la visualización de tráfico por parte de atacantes.\n\n### Análisis de las Opciones\n| Opción | Razón |\n|---|---|\n| **`SAE` (Correcto)** | `SAE` proporciona **confidencialidad directa** (forward secrecy). Esto significa que incluso si un atacante captura todo el tráfico cifrado y luego descubre la contraseña de la red, **no podrá descifrar el tráfico capturado previamente**. Esto protege eficazmente contra el espionaje pasivo. |\n| `TKIP` | **(Incorrecto)** `Temporal Key Integrity Protocol` es un protocolo de cifrado antiguo y vulnerable asociado con `WPA`. Fue reemplazado por `AES` en `WPA2` y está obsoleto. |\n| `AES` | **(Incorrecto)** `Advanced Encryption Standard` es el **algoritmo** de cifrado utilizado tanto en `WPA2` como en `WPA3`. Si bien `AES` realiza el cifrado, no es la **mejora** específica de `WPA3` que previene la visualización del tráfico; esa mejora es el método de intercambio de claves, que es `SAE`. |\n| `scrambled encryption key` | **(Incorrecto)** Este es un término genérico y no técnico; no describe un protocolo o estándar de seguridad específico. |",
     "explanation_en": "`WPA3` introduced **`SAE` (Simultaneous Authentication of Equals)** as a replacement for the Pre-Shared Key (`PSK`) method used in `WPA2`. `SAE` is the key enhancement that protects against attackers viewing traffic.\n\n### Options Analysis\n| Option | Rationale |\n|---|---|\n| **`SAE` (Correct)** | `SAE` provides **forward secrecy**. This means that even if an attacker captures all the encrypted traffic and later discovers the network's password, they **will not be able to decrypt the previously captured traffic**. This effectively protects against passive eavesdropping. |\n| `TKIP` | **(Incorrect)** `Temporal Key Integrity Protocol` is an old and vulnerable encryption protocol associated with `WPA`. It was replaced by `AES` in `WPA2` and is obsolete. |\n| `AES` | **(Incorrect)** `Advanced Encryption Standard` is the encryption **algorithm** used in both `WPA2` and `WPA3`. While `AES` performs the encryption, it is not the specific `WPA3` **enhancement** that prevents traffic viewing; that enhancement is the key exchange method, which is `SAE`. |\n| `scrambled encryption key` | **(Incorrect)** This is a generic and non-technical term; it does not describe a specific security protocol or standard. |"
+  },
+  {
+    "id": "cisco-ccna-acl-implicit-behavior-01",
+    "category": "5.0-security-fundamentals",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "5.6",
+      "description_es": "Configurar y verificar las listas de control de acceso",
+      "description_en": "Configure and verify access control lists",
+      "subtopic_id": "5.6",
+      "subtopic_description": "Access Control Lists"
+    },
+    "question_es": "Al examinar el tráfico excesivo en la red, se observa que todos los paquetes entrantes en una interfaz parecen ser permitidos, aunque una **ACL IPv4** está aplicada a dicha interfaz. ¿Cuáles **dos** configuraciones erróneas podrían causar este comportamiento? (Elija dos.)",
+    "question_en": "While examining excessive traffic on the network, it is noted that all incoming packets on an interface appear to be allowed even though an IPv4 ACL is applied to the interface. Which two misconfigurations cause this behavior? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "La ACL está vacía.",
+        "text_en": "The ACL is empty.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Una declaración `deny` coincidente está demasiado arriba en la lista de acceso.",
+        "text_en": "A matching deny statement is too high in the access list.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Una declaración `permit` coincidente está definida de manera demasiado amplia.",
+        "text_en": "A matching permit statement is too broadly defined.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Los paquetes no coinciden con ninguna declaración `permit`.",
+        "text_en": "The packets fail to match any permit statement.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Una declaración `permit` coincidente está demasiado arriba en la lista de acceso.",
+        "text_en": "A matching permit statement is too high in the access list.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "El comportamiento descrito es que todo el tráfico está siendo **permitido**, a pesar de tener una ACL aplicada. Las ACL en Cisco IOS se procesan secuencialmente de arriba hacia abajo. La primera coincidencia determina la acción. Si no hay coincidencias, se aplica una regla invisible al final llamada **`deny any` implícito** que bloquea todo.\n\n### Opciones Correctas\n\n* **A. La ACL está vacía:** Este es un caso especial y un comportamiento contra-intuitivo de Cisco IOS. Si se crea una ACL (por ejemplo, con `access-list 101`) pero no se le añade ninguna sentencia `permit` o `deny`, y luego se aplica a una interfaz, la ACL **no bloqueará nada**. En lugar de aplicar el `deny any` implícito, permitirá todo el tráfico. Por lo tanto, una ACL vacía permite el paso de todos los paquetes.\n\n* **C. Una declaración `permit` coincidente está definida de manera demasiado amplia:** Esta es la causa más común de fallos en ACLs. Si la primera línea de la ACL es `access-list 101 permit ip any any`, esta regla coincidirá con **todo el tráfico IP**. Como es la primera coincidencia, el router permitirá el paquete y dejará de procesar el resto de la ACL. Esto efectivamente permite todo el tráfico.\n\n### Opciones Incorrectas\n\n* **B. Una declaración `deny` coincidente está demasiado arriba en la lista de acceso:** Si una declaración `deny` coincidiera con el tráfico, el resultado sería el **bloqueo** de los paquetes, lo cual es contrario a lo que se observa en el escenario.\n\n* **D. Los paquetes no coinciden con ninguna declaración `permit`:** Si un paquete no coincide con ninguna línea en una ACL (que no esté vacía), será capturado por el `deny any` implícito al final y será **bloqueado**, no permitido.\n\n* **E. Una declaración `permit` coincidente está demasiado arriba en la lista de acceso:** La posición alta de una declaración `permit` no es un error en sí mismo; es como funcionan las ACLs. El problema no es la posición, sino que la declaración sea **demasiado amplia** (como se describe en la opción C).",
+    "explanation_en": "The behavior described is that all traffic is being **permitted**, despite having an ACL applied. ACLs in Cisco IOS are processed sequentially from top to bottom. The first match determines the action. If no matches are found, an invisible rule at the end called the **implicit `deny any`** is applied, which blocks everything.\n\n### Correct Options\n\n* **A. The ACL is empty:** This is a special case and a counter-intuitive behavior of Cisco IOS. If you create an ACL (e.g., with `access-list 101`) but do not add any `permit` or `deny` statements to it, and then apply it to an interface, the ACL **will not block anything**. Instead of applying the implicit `deny any`, it will permit all traffic. Therefore, an empty ACL allows all packets to pass.\n\n* **C. A matching `permit` statement is too broadly defined:** This is the most common cause of ACL failures. If the first line of the ACL is `access-list 101 permit ip any any`, this rule will match **all IP traffic**. As it's the first match, the router will permit the packet and stop processing the rest of the ACL. This effectively allows all traffic.\n\n### Incorrect Options\n\n* **B. A matching deny statement is too high in the access list:** If a `deny` statement matched the traffic, the result would be that the packets are **blocked**, which is contrary to what is observed in the scenario.\n\n* **D. The packets fail to match any permit statement:** If a packet doesn't match any line in a non-empty ACL, it will be caught by the implicit `deny any` at the end and will be **blocked**, not permitted.\n\n* **E. A matching permit statement is too high in the access list:** The high position of a `permit` statement is not an error in itself; it's how ACLs are designed to work. The problem is not the position, but that the statement is **too broad** (as described in option C)."
   }
 ]
