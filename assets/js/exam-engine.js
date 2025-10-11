@@ -580,7 +580,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 UI._showAnsweredState(question, i1n.currentLanguage || 'es');
             } else {
                 // En modo examen, simplemente avanza
-                this.proceedToNextQuestion();
+                Exam.proceedToNextQuestion();
             }
         },
     
