@@ -10,18 +10,18 @@
       "subtopic_id": "1.1.g",
       "subtopic_description": "Servers"
     },
-    "question_es": "¿Cuál es una función realizada por un servidor web?",
-    "question_en": "What is a function performed by a web server?",
+    "question_es": "¿Cuál es una función realizada por un **servidor web**?",
+    "question_en": "What is a function performed by a **web server**?",
     "image": null,
     "code": null,
     "options": [
       { "text_es": "autenticar y autorizar la identidad de un usuario", "text_en": "authenticate and authorize a user's identity", "isCorrect": false },
-      { "text_es": "proporcionar una aplicación que se transmite a través de HTTP", "text_en": "provide an application that is transmitted over HTTP", "isCorrect": true },
-      { "text_es": "almacenar de forma segura archivos para acceso FTP", "text_en": "securely store files for FTP access", "isCorrect": false },
+      { "text_es": "proporcionar una aplicación que se transmite a través de `HTTP`", "text_en": "provide an application that is transmitted over `HTTP`", "isCorrect": true },
+      { "text_es": "almacenar de forma segura archivos para acceso `FTP`", "text_en": "securely store files for `FTP` access", "isCorrect": false },
       { "text_es": "enviar y recibir correo electrónico desde dispositivos cliente", "text_en": "send and retrieve email from client devices", "isCorrect": false }
     ],
-    "explanation_es": "La función principal de un servidor web es escuchar las solicitudes HTTP de los clientes (como los navegadores web) y responder entregando los recursos solicitados, que pueden ser páginas web, imágenes o aplicaciones completas. Las otras opciones describen las funciones de servidores de autenticación, FTP o de correo electrónico.",
-    "explanation_en": "The primary function of a web server is to listen for HTTP requests from clients (like web browsers) and respond by delivering the requested resources, which can be web pages, images, or entire applications. The other options describe the functions of authentication, FTP, or email servers."
+    "explanation_es": "La función principal de un **servidor web** es escuchar las solicitudes `HTTP` de los clientes (como los navegadores web) y responder entregando los recursos solicitados. Las otras opciones describen las funciones de servidores de `autenticación`, `FTP` o de `correo electrónico`.",
+    "explanation_en": "The primary function of a **web server** is to listen for `HTTP` requests from clients (like web browsers) and respond by delivering the requested resources. The other options describe the functions of `authentication`, `FTP`, or `email` servers."
   },
   {
     "id": "ipv6_address_type_ula_q1",
@@ -34,18 +34,18 @@
       "subtopic_id": "1.9.a",
       "subtopic_description": "Unicast (global, unique local, and link local)"
     },
-    "question_es": "Un ingeniero de redes está instalando un dispositivo con capacidad solo para IPv6. El cliente ha solicitado que la dirección IP del dispositivo sea alcanzable únicamente desde la red interna. ¿Qué tipo de dirección IPv6 debe asignar el ingeniero?",
-    "question_en": "A network engineer is installing an IPv6-only capable device. The client has requested that the device IP address be reachable only from the internal network. Which type of IPv6 address must the engineer assign?",
+    "question_es": "Un ingeniero de redes está instalando un dispositivo con capacidad solo para `IPv6`. El cliente ha solicitado que la dirección IP del dispositivo sea alcanzable **únicamente desde la red interna**. ¿Qué tipo de dirección `IPv6` debe asignar el ingeniero?",
+    "question_en": "A network engineer is installing an `IPv6`-only capable device. The client has requested that the device IP address be reachable **only from the internal network**. Which type of `IPv6` address must the engineer assign?",
     "image": null,
     "code": null,
     "options": [
       { "text_es": "dirección global agregable", "text_en": "aggregatable global address", "isCorrect": false },
-      { "text_es": "dirección IPv4-compatible IPv6", "text_en": "IPv4-compatible IPv6 address", "isCorrect": false },
+      { "text_es": "dirección `IPv4`-compatible `IPv6`", "text_en": "IPv4-compatible IPv6 address", "isCorrect": false },
       { "text_es": "dirección link-local", "text_en": "link-local address", "isCorrect": false },
       { "text_es": "dirección local única (unique local)", "text_en": "unique local address", "isCorrect": true }
     ],
-    "explanation_es": "Las direcciones locales únicas (Unique Local Addresses - ULA), que comienzan con el prefijo FD00::/8, son el equivalente en IPv6 de las direcciones privadas IPv4 (RFC 1918). Están diseñadas para ser enrutables dentro de una red interna pero no en la Internet pública, cumpliendo exactamente con el requisito del cliente.",
-    "explanation_en": "Unique Local Addresses (ULA), which begin with the FD00::/8 prefix, are the IPv6 equivalent of private IPv4 addresses (RFC 1918). They are designed to be routable within an internal network but not on the public Internet, precisely meeting the client's requirement."
+    "explanation_es": "Las **direcciones locales únicas** (`Unique Local Addresses - ULA`), que comienzan con el prefijo `FD00::/8`, son el equivalente en `IPv6` de las direcciones privadas `IPv4` (`RFC 1918`). Están diseñadas para ser enrutables dentro de una red interna pero **no en la Internet pública**, cumpliendo exactamente con el requisito del cliente.",
+    "explanation_en": "Unique Local Addresses (`ULA`), which begin with the `FD00::/8` prefix, are the `IPv6` equivalent of private `IPv4` addresses (`RFC 1918`). They are designed to be routable within an internal network but **not on the public Internet**, precisely meeting the client's requirement."
   },
   {
     "id": "public_cloud_benefit_q1",
@@ -58,34 +58,18 @@
       "subtopic_id": "1.2.f",
       "subtopic_description": "On-premises and cloud"
     },
-    "question_es": "¿Cuál es un beneficio para los usuarios externos que consumen recursos de la nube pública?",
-    "question_en": "What is a benefit for external users who consume public cloud resources?",
+    "question_es": "¿Cuál es un beneficio para los usuarios externos que consumen recursos de la **nube pública**?",
+    "question_en": "What is a benefit for external users who consume **public cloud** resources?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "todos están alojados en servidores físicos",
-        "text_en": "all hosted on physical servers",
-        "isCorrect": false
-      },
-      {
-        "text_es": "ubicados en el mismo centro de datos que los usuarios",
-        "text_en": "located in the same data center as the users",
-        "isCorrect": false
-      },
-      {
-        "text_es": "implementados sobre una WAN dedicada",
-        "text_en": "implemented over a dedicated WAN",
-        "isCorrect": false
-      },
-      {
-        "text_es": "se accede a ellos a través de Internet",
-        "text_en": "accessed over the Internet",
-        "isCorrect": true
-      }
+      { "text_es": "todos están alojados en servidores físicos", "text_en": "all hosted on physical servers", "isCorrect": false },
+      { "text_es": "ubicados en el mismo centro de datos que los usuarios", "text_en": "located in the same data center as the users", "isCorrect": false },
+      { "text_es": "implementados sobre una `WAN` dedicada", "text_en": "implemented over a dedicated `WAN`", "isCorrect": false },
+      { "text_es": "se accede a ellos a través de Internet", "text_en": "accessed over the Internet", "isCorrect": true }
     ],
-    "explanation_es": "La característica y principal beneficio de la nube pública es que sus recursos (servidores, almacenamiento, aplicaciones) están disponibles para los usuarios a través de la Internet pública. Esto permite un acceso global y flexible desde cualquier lugar con una conexión a Internet.",
-    "explanation_en": "The defining characteristic and main benefit of the public cloud is that its resources (servers, storage, applications) are made available to users over the public Internet. This allows for global and flexible access from any location with an Internet connection."
+    "explanation_es": "La característica y principal beneficio de la **nube pública** es que sus recursos (servidores, almacenamiento, aplicaciones) están disponibles para los usuarios a través de la **Internet pública**. Esto permite un acceso global y flexible desde cualquier lugar con una conexión a Internet.",
+    "explanation_en": "The defining characteristic and main benefit of the **public cloud** is that its resources (servers, storage, applications) are made available to users over the **public Internet**. This allows for global and flexible access from any location with an Internet connection."
   },
   {
     "id": "spine_leaf_interconnection_q1",
@@ -98,34 +82,18 @@
       "subtopic_id": "1.2.c",
       "subtopic_description": "Spine-leaf"
     },
-    "question_es": "¿Cómo están interconectados los switches en una topología spine-and-leaf?",
-    "question_en": "How are the switches in a spine-and-leaf topology interconnected?",
+    "question_es": "¿Cómo están interconectados los switches en una topología `spine-and-leaf`?",
+    "question_en": "How are the switches in a `spine-and-leaf` topology interconnected?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "Cada switch leaf se conecta a un switch leaf central, y luego se enlaza a un switch spine principal.",
-        "text_en": "Each leaf switch is connected to a central leaf switch, then uplinked to a core spine switch.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Cada switch leaf se conecta a dos switches spine, creando un bucle.",
-        "text_en": "Each leaf switch is connected to two spine switches, making a loop.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Cada switch leaf se conecta a cada switch spine.",
-        "text_en": "Each leaf switch is connected to each spine switch.",
-        "isCorrect": true
-      },
-      {
-        "text_es": "Cada switch leaf se conecta a uno de los switches spine.",
-        "text_en": "Each leaf switch is connected to one of the spine switches.",
-        "isCorrect": false
-      }
+      { "text_es": "Cada switch `leaf` se conecta a un switch `leaf` central, y luego se enlaza a un switch `spine` principal.", "text_en": "Each `leaf` switch is connected to a central `leaf` switch, then uplinked to a core `spine` switch.", "isCorrect": false },
+      { "text_es": "Cada switch `leaf` se conecta a dos switches `spine`, creando un bucle.", "text_en": "Each `leaf` switch is connected to two `spine` switches, making a loop.", "isCorrect": false },
+      { "text_es": "Cada switch `leaf` se conecta a **cada** switch `spine`.", "text_en": "Each `leaf` switch is connected to **each** `spine` switch.", "isCorrect": true },
+      { "text_es": "Cada switch `leaf` se conecta a **uno** de los switches `spine`.", "text_en": "Each `leaf` switch is connected to **one** of the `spine` switches.", "isCorrect": false }
     ],
-    "explanation_es": "La regla fundamental de una arquitectura spine-leaf es que cada switch leaf debe conectarse a cada switch spine en la topología. No hay conexiones directas entre switches leaf ni entre switches spine. Esto crea una topología de malla completa que optimiza la latencia y el ancho de banda.",
-    "explanation_en": "The fundamental rule of a spine-leaf architecture is that every leaf switch must connect to every spine switch in the topology. There are no direct connections between leaf switches or between spine switches. This creates a full-mesh topology that optimizes latency and bandwidth."
+    "explanation_es": "La regla fundamental de una arquitectura `spine-leaf` es que **cada switch `leaf` debe conectarse a cada switch `spine`** en la topología. No hay conexiones directas entre switches `leaf` ni entre switches `spine`. Esto crea una topología de malla completa que optimiza la latencia y el ancho de banda.",
+    "explanation_en": "The fundamental rule of a `spine-leaf` architecture is that **every `leaf` switch must connect to every `spine` switch** in the topology. There are no direct connections between `leaf` switches or between `spine` switches. This creates a full-mesh topology that optimizes latency and bandwidth."
   },
   {
     "id": "ifconfig_subnet_calc_q1",
@@ -138,34 +106,18 @@
       "subtopic_id": "1.6",
       "subtopic_description": "Subnet Calculation"
     },
-    "question_es": "Consulte la información. Un ingeniero de redes debe proporcionar los detalles de direccionamiento IP configurados para investigar un problema con una regla de firewall. ¿Qué subred y máscara identifican lo que está configurado en la interfaz final?",
-    "question_en": "Refer to the exhibit. A network engineer must provide configured IP addressing details to investigate a firewall rule issue. Which subnet and mask identify what is configured on the end interface?",
+    "question_es": "**Consulte la información.** Un ingeniero de redes debe proporcionar los detalles de direccionamiento IP configurados para investigar un problema con una regla de firewall. ¿Qué subred y máscara identifican lo que está configurado en la interfaz final?",
+    "question_en": "**Refer to the exhibit.** A network engineer must provide configured IP addressing details to investigate a firewall rule issue. Which subnet and mask identify what is configured on the end interface?",
     "image": null,
     "code": "MacOS$ ifconfig\nen0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500\n    options=400<CHANNEL_IO>\n    ether f0:18:98:64:60:32\n    inet6 fe80::492:c09f:57cf:8c36%en0 prefixlen 64 secured scopeid 0x6\n    inet 10.8.138.14 netmask 0xffffe000 broadcast 10.8.159.255\n    nd6 options=201<PERFORMNUD,DAD>\n    media: autoselect\n    status: active",
     "options": [
-      {
-        "text_es": "10.8.138.0/24",
-        "text_en": "10.8.138.0/24",
-        "isCorrect": false
-      },
-      {
-        "text_es": "10.8.128.0/19",
-        "text_en": "10.8.128.0/19",
-        "isCorrect": true
-      },
-      {
-        "text_es": "10.8.0.0/16",
-        "text_en": "10.8.0.0/16",
-        "isCorrect": false
-      },
-      {
-        "text_es": "10.8.64.0/18",
-        "text_en": "10.8.64.0/18",
-        "isCorrect": false
-      }
+      { "text_es": "`10.8.138.0/24`", "text_en": "`10.8.138.0/24`", "isCorrect": false },
+      { "text_es": "`10.8.128.0/19`", "text_en": "`10.8.128.0/19`", "isCorrect": true },
+      { "text_es": "`10.8.0.0/16`", "text_en": "`10.8.0.0/16`", "isCorrect": false },
+      { "text_es": "`10.8.64.0/18`", "text_en": "`10.8.64.0/18`", "isCorrect": false }
     ],
-    "explanation_es": "La máscara de red se muestra en formato hexadecimal: `0xffffe000`. Al convertirla a binario, obtenemos `11111111.11111111.11100000.00000000`. El número de bits '1' es 19, por lo que el prefijo es /19. Al aplicar esta máscara a la dirección IP `10.8.138.14` mediante una operación AND a nivel de bits, la dirección de red resultante es `10.8.128.0`.",
-    "explanation_en": "The netmask is shown in hexadecimal format: `0xffffe000`. Converting this to binary gives `11111111.11111111.11100000.00000000`. The number of '1' bits is 19, so the prefix is /19. Applying this mask to the IP address `10.8.138.14` via a bitwise AND operation results in the network address `10.8.128.0`."
+    "explanation_es": "La máscara de red se muestra en formato hexadecimal: `0xffffe000`. Al convertirla a binario, obtenemos `11111111.11111111.11100000.00000000`. El número de bits '1' es **19**, por lo que el prefijo es `/19`. Al aplicar esta máscara a la dirección IP `10.8.138.14` mediante una operación `AND` a nivel de bits, la dirección de red resultante es `10.8.128.0`.",
+    "explanation_en": "The netmask is shown in hexadecimal format: `0xffffe000`. Converting this to binary gives `11111111.11111111.11100000.00000000`. The number of '1' bits is **19**, so the prefix is `/19`. Applying this mask to the IP address `10.8.138.14` via a bitwise `AND` operation results in the network address `10.8.128.0`."
   },
   {
     "id": "ccna-phy-om3-om4-core-01",
@@ -178,33 +130,17 @@
       "subtopic_id": "1.3.a",
       "subtopic_description": "Single-mode fiber, multimode fiber, copper"
     },
-    "question_es": "¿Cuál es una similitud entre los cables de fibra óptica OM3 y OM4?",
-    "question_en": "What is a similarity between OM3 and OM4 fiber optic cable?",
+    "question_es": "¿Cuál es una similitud entre los cables de fibra óptica `OM3` y `OM4`?",
+    "question_en": "What is a similarity between `OM3` and `OM4` fiber optic cable?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "Ambos tienen un diámetro de núcleo de 50 micrones.",
-        "text_en": "Both have a 50 micron core diameter.",
-        "isCorrect": true
-      },
-      {
-        "text_es": "Ambos tienen un diámetro de núcleo de 100 micrones.",
-        "text_en": "Both have a 100 micron core diameter.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Ambos tienen un diámetro de núcleo de 62.5 micrones.",
-        "text_en": "Both have a 62.5 micron core diameter.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Ambos tienen un diámetro de núcleo de 9 micrones.",
-        "text_en": "Both have a 9 micron core diameter.",
-        "isCorrect": false
-      }
+      { "text_es": "Ambos tienen un diámetro de núcleo de **50 micrones**.", "text_en": "Both have a **50 micron** core diameter.", "isCorrect": true },
+      { "text_es": "Ambos tienen un diámetro de núcleo de 100 micrones.", "text_en": "Both have a 100 micron core diameter.", "isCorrect": false },
+      { "text_es": "Ambos tienen un diámetro de núcleo de 62.5 micrones.", "text_en": "Both have a 62.5 micron core diameter.", "isCorrect": false },
+      { "text_es": "Ambos tienen un diámetro de núcleo de 9 micrones.", "text_en": "Both have a 9 micron core diameter.", "isCorrect": false }
     ],
-    "explanation_es": "Tanto OM3 como OM4 son tipos de fibra óptica multimodo optimizada para láser (LOMMF - Laser-Optimized Multimode Fiber), utilizadas comúnmente en centros de datos para velocidades de 10 Gbps y superiores. Aunque tienen diferencias en rendimiento, comparten una característica física fundamental.\n\n### Fibra OM3\n* **Propósito:** Diseñada para soportar 10 Gigabit Ethernet hasta 300 metros.\n* **Ancho de banda modal:** 2000 MHz·km.\n* **Diámetro del núcleo:** **50 micrones**.\n* **Diámetro del revestimiento (cladding):** 125 micrones.\n* **Color de la cubierta:** Generalmente Aqua (turquesa).\n\n### Fibra OM4\n* **Propósito:** Es una mejora de OM3, diseñada para mayores distancias y velocidades. Soporta 10 Gigabit Ethernet hasta 550 metros y 40/100 Gigabit Ethernet hasta 150 metros.\n* **Ancho de banda modal:** 4700 MHz·km.\n* **Diámetro del núcleo:** **50 micrones**.\n* **Diámetro del revestimiento (cladding):** 125 micrones.\n* **Color de la cubierta:** Generalmente Violeta (o Aqua, lo que puede requerir marcado adicional para distinguirla de OM3).\n\n### Similitud Clave y Análisis de Opciones\nLa similitud más importante es que **ambas, OM3 y OM4, utilizan un núcleo de vidrio con un diámetro de 50 micrones (µm)**. La diferencia principal no está en su tamaño físico, sino en la calidad de fabricación del núcleo, lo que le da a OM4 un mayor ancho de banda modal y le permite mantener la integridad de la señal a mayores distancias y velocidades.\n\n* **Opción A (Correcta):** Ambas comparten el diámetro de núcleo de 50 µm.\n* **Opción C (Incorrecta):** Un núcleo de 62.5 µm corresponde a fibras multimodo más antiguas como OM1.\n* **Opción D (Incorrecta):** Un núcleo de 9 µm es el estándar para la fibra monomodo (Single-Mode Fiber), como OS1/OS2.",
-    "explanation_en": "Both OM3 and OM4 are types of Laser-Optimized Multimode Fiber (LOMMF), commonly used in data centers for speeds of 10 Gbps and higher. Although they have performance differences, they share a fundamental physical characteristic.\n\n### OM3 Fiber\n* **Purpose:** Designed to support 10 Gigabit Ethernet up to 300 meters.\n* **Modal Bandwidth:** 2000 MHz·km.\n* **Core Diameter:** **50 microns**.\n* **Cladding Diameter:** 125 microns.\n* **Jacket Color:** Typically Aqua.\n\n### OM4 Fiber\n* **Purpose:** An improvement over OM3, designed for longer distances and higher speeds. It supports 10 Gigabit Ethernet up to 550 meters and 40/100 Gigabit Ethernet up to 150 meters.\n* **Modal Bandwidth:** 4700 MHz·km.\n* **Core Diameter:** **50 microns**.\n* **Cladding Diameter:** 125 microns.\n* **Jacket Color:** Typically Violet (or Aqua, which may require additional markings to distinguish it from OM3).\n\n### Key Similarity and Options Analysis\nThe most important similarity is that **both OM3 and OM4 use a glass core with a diameter of 50 microns (µm)**. The main difference is not in their physical size but in the manufacturing quality of the core, which gives OM4 a higher modal bandwidth, allowing it to maintain signal integrity over longer distances and at higher speeds.\n\n* **Option A (Correct):** Both share the 50 µm core diameter.\n* **Option C (Incorrect):** A 62.5 µm core corresponds to older multimode fibers like OM1.\n* **Option D (Incorrect):** A 9 µm core is the standard for Single-Mode Fiber, such as OS1/OS2."
+    "explanation_es": "Tanto `OM3` como `OM4` son tipos de fibra óptica multimodo optimizada para láser (`LOMMF`), utilizadas comúnmente en centros de datos para velocidades de `10 Gbps` y superiores. Aunque tienen diferencias en rendimiento, comparten una característica física fundamental.\n\n### Fibra OM3\n* **Propósito:** Diseñada para soportar `10 Gigabit Ethernet` hasta **300 metros**.\n* **Ancho de banda modal:** `2000 MHz·km`.\n* **Diámetro del núcleo:** **50 micrones**.\n* **Diámetro del revestimiento (cladding):** 125 micrones.\n* **Color de la cubierta:** Generalmente `Aqua` (turquesa).\n\n### Fibra OM4\n* **Propósito:** Es una mejora de `OM3`, diseñada para mayores distancias y velocidades. Soporta `10 Gigabit Ethernet` hasta **550 metros** y `40/100 Gigabit Ethernet` hasta **150 metros**.\n* **Ancho de banda modal:** `4700 MHz·km`.\n* **Diámetro del núcleo:** **50 micrones**.\n* **Diámetro del revestimiento (cladding):** 125 micrones.\n* **Color de la cubierta:** Generalmente `Violeta` (o `Aqua`).\n\n### Similitud Clave y Análisis de Opciones\nLa similitud más importante es que **ambas, `OM3` y `OM4`, utilizan un núcleo de vidrio con un diámetro de 50 micrones (µm)**. La diferencia principal no está en su tamaño físico, sino en la calidad de fabricación del núcleo.\n\n* **Opción A (Correcta):** Ambas comparten el diámetro de núcleo de `50 µm`.\n* **Opción C (Incorrecta):** Un núcleo de `62.5 µm` corresponde a fibras más antiguas como `OM1`.\n* **Opción D (Incorrecta):** Un núcleo de `9 µm` es el estándar para la fibra **monomodo** (`Single-Mode Fiber`), como `OS1/OS2`.",
+    "explanation_en": "Both `OM3` and `OM4` are types of Laser-Optimized Multimode Fiber (`LOMMF`), commonly used in data centers for speeds of `10 Gbps` and higher. Although they have performance differences, they share a fundamental physical characteristic.\n\n### OM3 Fiber\n* **Purpose:** Designed to support `10 Gigabit Ethernet` up to **300 meters**.\n* **Modal Bandwidth:** `2000 MHz·km`.\n* **Core Diameter:** **50 microns**.\n* **Cladding Diameter:** 125 microns.\n* **Jacket Color:** Typically `Aqua`.\n\n### OM4 Fiber\n* **Purpose:** An improvement over `OM3`, designed for longer distances and higher speeds. It supports `10 Gigabit Ethernet` up to **550 meters** and `40/100 Gigabit Ethernet` up to **150 meters**.\n* **Modal Bandwidth:** `4700 MHz·km`.\n* **Core Diameter:** **50 microns**.\n* **Cladding Diameter:** 125 microns.\n* **Jacket Color:** Typically `Violet` (or `Aqua`).\n\n### Key Similarity and Options Analysis\nThe most important similarity is that **both `OM3` and `OM4` use a glass core with a diameter of 50 microns (µm)**. The main difference is not in their physical size but in the manufacturing quality of the core.\n\n* **Option A (Correct):** Both share the `50 µm` core diameter.\n* **Option C (Incorrect):** A `62.5 µm` core corresponds to older multimode fibers like `OM1`.\n* **Option D (Incorrect):** A `9 µm` core is the standard for **Single-Mode Fiber**, such as `OS1/OS2`."
   }
 ]
