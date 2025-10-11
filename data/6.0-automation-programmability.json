@@ -158,5 +158,45 @@
     ],
     "explanation_es": "El método `HTTP PUT` se utiliza para **crear o reemplazar** un recurso en un URI de destino específico. Una característica clave de `PUT` es que es **idempotente**, lo que significa que realizar la misma solicitud `PUT` varias veces produce el mismo resultado que realizarla una sola vez.\n\n### Análisis de las Opciones\n* **A. cuando se necesita una operación no idempotente:** Incorrecto. Esto describe al método `POST`. `PUT` es, por definición, idempotente.\n* **B. para actualizar un servidor DNS:** Correcto. Aunque es un ejemplo muy específico, es el único que describe una operación de **actualización/reemplazo**. En una `API RESTful` para la gestión de `DNS`, se podría usar una solicitud `PUT` a un endpoint como `/api/zones/example.com/records/myrecord` para actualizar ese registro `DNS` específico.\n* **C. cuando se requiere una operación de solo lectura:** Incorrecto. Las operaciones de solo lectura, como solicitar datos, se realizan con el método `GET`.\n* **D. para mostrar un sitio web:** Incorrecto. Esto es una forma de solicitar un recurso para su lectura, lo cual se hace con el método `GET`.",
     "explanation_en": "The `HTTP PUT` method is used to **create or replace** a resource at a specific target URI. A key characteristic of `PUT` is that it is **idempotent**, meaning that making the same `PUT` request multiple times produces the same result as making it once.\n\n### Options Analysis\n* **A. when a nonidempotent operation is needed:** Incorrect. This describes the `POST` method. `PUT` is, by definition, idempotent.\n* **B. to update a DNS server:** Correct. Although this is a very specific example, it is the only one that describes an **update/replacement** operation. In a `RESTful API` for `DNS` management, you could use a `PUT` request to an endpoint like `/api/zones/example.com/records/myrecord` to update that specific `DNS` record.\n* **C. when a read-only operation is required:** Incorrect. Read-only operations, such as requesting data, are performed with the `GET` method.\n* **D. to display a web site:** Incorrect. This is a form of requesting a resource for reading, which is done with the `GET` method."
+  },
+  {
+    "id": "ccna-auto-prog-json-key-type-q1",
+    "category": "6.0-automation-programmability",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "6.7",
+      "description_es": "Reconocer componentes de datos codificados en JSON",
+      "description_en": "Recognize components of JSON-encoded data",
+      "subtopic_id": "6.7",
+      "subtopic_description": "JSON components"
+    },
+    "question_es": "Consulte la imagen. ¿Qué representa `apple` dentro de los datos `JSON`?",
+    "question_en": "Refer to the exhibit. What does `apple` represent within the `JSON` data?",
+    "image": null,
+    "code": "{\"apple\": [\"red\", 1], \"ripe\": true}",
+    "options": [
+      {
+        "text_es": "Array",
+        "text_en": "Array",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Objeto",
+        "text_en": "Object",
+        "isCorrect": false
+      },
+      {
+        "text_es": "String",
+        "text_en": "String",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Número",
+        "text_en": "Number",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "En `JSON`, los datos se estructuran en pares de clave-valor (`key-value`). Según la especificación `JSON`, la **clave** siempre debe ser un tipo de dato **`String`** (cadena de texto), encerrada entre comillas dobles.\n\n### Desglose del Código `JSON`\nEn el fragmento `\"apple\": [\"red\", 1]`, podemos identificar dos componentes principales:\n| Componente | Valor | Tipo de Dato `JSON` |\n|---|---|---|\n| **Clave (Key)** | `\"apple\"` | **`String`** |\n| **Valor (Value)** | `[\"red\", 1]` | `Array` |\n\nLa pregunta se refiere a lo que es `\"apple\"` en sí mismo, que actúa como la clave en el par. Por lo tanto, es un `String`.\n\n* **Array:** Sería la respuesta si la pregunta fuera sobre lo que representa `[\"red\", 1]`.\n* **Object:** Es el tipo de dato que contiene todo el conjunto, delimitado por `{}`.",
+    "explanation_en": "In `JSON`, data is structured in `key-value` pairs. According to the `JSON` specification, the **key** must always be a **`String`** data type, enclosed in double quotes.\n\n### Breakdown of the `JSON` Code\nIn the snippet `\"apple\": [\"red\", 1]`, we can identify two main components:\n| Component | Value | `JSON` Data Type |\n|---|---|---|\n| **Key** | `\"apple\"` | **`String`** |\n| **Value** | `[\"red\", 1]` | `Array` |\n\nThe question asks what `\"apple\"` itself represents, which acts as the key in the pair. Therefore, it is a `String`.\n\n* **Array:** This would be the answer if the question asked what `[\"red\", 1]` represents.\n* **Object:** This is the data type that contains the entire structure, enclosed by `{}`."
   }
 ]
