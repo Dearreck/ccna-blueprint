@@ -595,5 +595,50 @@
     ],
     "explanation_es": "`HSRP` (Hot Standby Router Protocol) es un protocolo de redundancia que proporciona una puerta de enlace tolerante a fallos. Sus dos comportamientos fundamentales son la elección de roles y el uso de una dirección virtual.\n\n### Comportamientos Fundamentales de `HSRP`\n* **Elección de Roles (Correcto):** Los routers en un grupo `HSRP` se comunican para elegir un router **activo** (que reenvía activamente el tráfico) y un router **en espera** (que monitorea al activo y toma su lugar si falla). Esto asegura que siempre haya un gateway disponible.\n* **IP Virtual Compartida (Correcto):** Los routers del grupo comparten una **dirección IP virtual** y una **dirección MAC virtual**. Los hosts de la red se configuran con esta IP virtual como su gateway por defecto, sin necesidad de saber qué router físico está activo.\n\n### Análisis de Opciones Incorrectas\n* **A y E:** `HSRP` **no** realiza balanceo de carga. Solo un router (el activo) maneja el tráfico a la vez. El protocolo que sí balancea la carga es `GLBP`. Además, los routers tienen sus propias direcciones IP de interfaz únicas; solo la IP virtual es compartida.\n* **B:** Los routers `HSRP` no sincronizan sus configuraciones de enrutamiento o reenvío. Solo intercambian mensajes `hello` para monitorear el estado del otro.",
     "explanation_en": "`HSRP` (Hot Standby Router Protocol) is a redundancy protocol that provides a fault-tolerant default gateway. Its two fundamental behaviors are the election of roles and the use of a virtual address.\n\n### Fundamental `HSRP` Behaviors\n* **Role Election (Correct):** Routers in an `HSRP` group communicate to elect one **active** router (which actively forwards traffic) and one **standby** router (which monitors the active one and takes over if it fails). This ensures a gateway is always available.\n* **Shared Virtual IP (Correct):** The routers in the group share a **virtual IP address** and a **virtual MAC address**. Hosts on the network are configured with this virtual IP as their default gateway, without needing to know which physical router is active.\n\n### Incorrect Options Analysis\n* **A & E:** `HSRP` does **not** perform load balancing. Only one router (the active one) handles traffic at a time. A protocol that does perform load balancing is `GLBP`. Furthermore, routers have their own unique interface IP addresses; only the virtual IP is shared.\n* **B:** `HSRP` routers do not synchronize their routing or forwarding configurations. They only exchange `hello` messages to monitor each other's status."
+  },
+  {
+    "id": "Q_0001_OSPF_NEIGHBOR",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "3.4",
+      "description_es": "Configurar y verificar OSPFv2 en área única",
+      "description_en": "Configure and verify single area OSPFv2",
+      "subtopic_id": "3.4.a",
+      "subtopic_description": "Neighbor adjacencies (OSPF)"
+    },
+    "question_es": "Un ingeniero debe configurar una relación de vecino OSPF entre los routers `R1` y `R3`. La **autenticación** ya se ha configurado y las interfaces conectadas están en la misma subred `192.168.1.0/30`. ¿Cuáles son los siguientes **dos** pasos para completar la configuración? (Elija dos.)",
+    "question_en": "An engineer must configure an OSPF neighbor relationship between router `R1` and `R3`. The authentication configuration has been configured and the connecting interfaces are in the same `192.168.1.0/30` subnet. What are the next **two** steps to complete the configuration? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Configurar el mismo `router ID` en ambos procesos de enrutamiento",
+        "text_en": "configure the same router ID on both routing processes",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Configurar el mismo `process ID` para el proceso OSPF en los routers",
+        "text_en": "configure the same process ID for the router OSPF process",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Configurar los temporizadores `hello` y `dead` para que coincidan en ambos lados",
+        "text_en": "configure the hello and dead timers to match on both sides",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Configurar ambas interfaces con el mismo `area ID`",
+        "text_en": "configure both interfaces with the same area ID",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Configurar las interfaces como OSPF activas en ambos lados (habilitar OSPF en las interfaces)",
+        "text_en": "configure the interfaces as OSPF active on both sides",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "### Resumen breve\nLas **adyacencias OSPF** requieren varias condiciones: las interfaces deben pertenecer a la **misma área**, la autenticación debe coincidir, las interfaces deben estar habilitadas en OSPF en ambos extremos y ciertos parámetros (p. ej. tipo de red, temporizadores) deben coincidir si han sido modificados. En esta pregunta ya se indica que la **autenticación** y la **subred** (`192.168.1.0/30`) están correctas, por lo que los siguientes pasos inmediatos son habilitar OSPF en las interfaces y asegurarse de que estén en la misma área.\n\n### Por qué las opciones **D** y **E** son correctas\n- **D — \"Configurar ambas interfaces con el mismo `area ID`\"**: Para que dos routers formen adyacencia OSPF deben compartir la misma **área** (a menos que se use un mecanismo especial como un *virtual link*). Si las interfaces están en diferentes áreas no se formará la adyacencia directamente.\n- **E — \"Configurar las interfaces como OSPF activas en ambos lados\"**: Es imprescindible **habilitar OSPF** en las interfaces involucradas (por ejemplo con `interface <if>` + `ip ospf <process-id> area <area-id>` o mediante un comando `network` que incluya esa subred). Si no se habilita OSPF en una de las interfaces, no habrá intercambio de paquetes OSPF y por tanto no habrá adyacencia.\n\n### Por qué las otras opciones son incorrectas\n- **A — \"Configurar el mismo `router ID` en ambos procesos\"**: El `router ID` debe ser **único** por router. Usar el **mismo** `router ID` en dos routers causa conflictos y no es un requisito para formar adyacencia; de hecho, puede impedir un funcionamiento correcto.\n- **B — \"Configurar el mismo `process ID` para el proceso OSPF\"**: El `process ID` en Cisco es **local** al router y no tiene que coincidir en los routers vecinos. Dos routers pueden formar adyacencia aunque tengan diferentes `process-id` en la configuración local.\n- **C — \"Configurar los temporizadores `hello` y `dead` para que coincidan\"**: Si los temporizadores han sido modificados en uno de los lados, **deben** coincidir para que la adyacencia se forme. **Sin embargo**, si ambos lados usan los valores por defecto, no es necesario cambiarlos explicitamente: ya coinciden. Dado que la pregunta pide los **siguientes** dos pasos inmediatos (y la autenticación y la subred ya están correctas), las acciones más necesarias son habilitar OSPF en las interfaces y asignar la misma área. Configurar timers sería necesario **solo si** se detecta que difieren de los valores por defecto.\n\n### Nota práctica\nComandos típicos en Cisco IOS para completar los pasos correctos:\n```text\nrouter ospf 1\n network 192.168.1.0 0.0.0.3 area 0\n```\nO en interfaz:\n```text\ninterface GigabitEthernet0/1\n ip address 192.168.1.1 255.255.255.252\n ip ospf 1 area 0\n```\nEstas configuraciones **habilitan OSPF en la interfaz** y la colocan en la **misma área**, que son las dos acciones requeridas.",
+    "explanation_en": "### Brief summary\nOSPF adjacencies require several matching conditions: interfaces must be in the **same area**, authentication must match, the interfaces must be OSPF-enabled on both ends, and parameters such as network type and timers must match if changed. The question states that **authentication** and the **subnet** (`192.168.1.0/30`) are already configured, so the immediate next steps are to enable OSPF on the interfaces and make sure both interfaces are in the same area.\n\n### Why options **D** and **E** are correct\n- **D — \"configure both interfaces with the same `area ID`\"**: Two routers must be in the same OSPF area (unless using a virtual link) to form a direct adjacency. Different areas will not form a neighbor relationship across the directly connected interfaces.\n- **E — \"configure the interfaces as OSPF active on both sides\"**: OSPF must be enabled on the involved interfaces (for example via `ip ospf <process-id> area <area-id>` on the interface, or by using a `network` command that covers the interface). If OSPF is not enabled on one side, there will be no OSPF packets exchanged and no adjacency.\n\n### Why the other options are incorrect\n- **A — \"configure the same router ID on both routing processes\"**: The `router ID` must be unique per router. Using the same `router ID` on two routers is incorrect and can cause problems; it is not required for adjacency.\n- **B — \"configure the same process ID for the router OSPF process\"**: Cisco `process-id` values are local to each router configuration and do not have to match on neighbors. Adjacency does not depend on matching `process-id` values.\n- **C — \"configure the hello and dead timers to match on both sides\"**: Timers **must** match if they were changed from defaults. However, if both sides use the default hello/dead values they already match and no change is necessary. Given the question asks for the *next* two steps (with authentication and subnet already done), enabling OSPF on the interfaces and assigning the same area are the most immediate required steps.\n\n### Practical CLI examples\n```text\nrouter ospf 1\n network 192.168.1.0 0.0.0.3 area 0\n```\nOr per-interface:\n```text\ninterface GigabitEthernet0/1\n ip address 192.168.1.1 255.255.255.252\n ip ospf 1 area 0\n```\nThese commands enable OSPF on the interface and place it in the same area — the two actions required to form the adjacency."
   }
 ]
