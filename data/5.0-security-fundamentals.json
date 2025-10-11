@@ -352,5 +352,45 @@
     ],
     "explanation_es": "Un ataque `man-in-the-middle` (MitM) ocurre cuando un atacante intercepta la comunicación entre dos partes. Para mitigar esto, los protocolos de seguridad como `IPsec` implementan varias defensas.\n\nAunque la **autenticación** es fundamental para verificar la identidad de los comunicantes y prevenir la suplantación inicial, la **protección anti-repetición (anti-replay)** es una técnica de mitigación específica que frustra una acción común del atacante MitM.\n\n### Análisis de las Opciones\n* **Anti-repetición (Correcto):** Esta técnica evita que un atacante capture paquetes legítimos y los reenvíe más tarde para intentar obtener acceso o interrumpir el servicio. Utiliza números de secuencia para asegurar que cada paquete sea único y solo se acepte una vez. Esto es crucial en túneles `VPN`, donde un atacante podría estar en medio de la comunicación.\n* **Autenticación (Incorrecto en este contexto):** Es el proceso de verificar la identidad. Si bien es la **primera línea de defensa** contra MitM, la pregunta busca un método de seguridad específico. En el contexto de las opciones, anti-replay es una técnica de mitigación más específica contra las acciones de un atacante ya posicionado.\n* **Autorización y Contabilidad (Incorrecto):** Estos son los otros dos componentes del framework `AAA`. La autorización determina a qué recursos puede acceder un usuario autenticado, y la contabilidad registra lo que hizo. Ninguno previene directamente un ataque MitM.",
     "explanation_en": "A `man-in-the-middle` (MitM) attack occurs when an attacker intercepts the communication between two parties. To mitigate this, security protocols like `IPsec` implement several defenses.\n\nAlthough **authentication** is fundamental to verifying the identities of the communicants and preventing the initial impersonation, **anti-replay protection** is a specific mitigation technique that thwarts a common action of a MitM attacker.\n\n### Options Analysis\n* **Anti-replay (Correct):** This technique prevents an attacker from capturing legitimate packets and retransmitting them later to try to gain access or disrupt service. It uses sequence numbers to ensure that each packet is unique and accepted only once. This is crucial in `VPN` tunnels, where an attacker might be in the middle of the communication.\n* **Authentication (Incorrect in this context):** This is the process of verifying identity. While it is the **first line of defense** against MitM, the question asks for a specific security method. In the context of the choices, anti-replay is a more specific mitigation technique against the actions of an attacker already in position.\n* **Authorization and Accounting (Incorrect):** These are the other two components of the `AAA` framework. Authorization determines what resources an authenticated user can access, and accounting records what they did. Neither directly prevents a MitM attack."
+  },
+  {
+    "id": "ccna-sec-fund-acl-application-error-q1",
+    "category": "5.0-security-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "5.6",
+      "description_es": "Configurar y verificar listas de control de acceso",
+      "description_en": "Configure and verify access control lists",
+      "subtopic_id": "5.6",
+      "subtopic_description": "ACL Application"
+    },
+    "question_es": "Consulte la imagen. Un administrador de red debe permitir el tráfico desde la subred `10.0.0.0/24` hacia la `WAN` en la interfaz `Serial0`. ¿Cuál es el efecto de la configuración cuando el administrador aplica el comando?",
+    "question_en": "Refer to the exhibit. A network administrator must permit traffic from the `10.0.0.0/24` subnet to the `WAN` on interface `Serial0`. What is the effect of the configuration as the administrator applies the command?",
+    "image": null,
+    "code": "access-list 10 permit 10.0.0.0 0.0.0.255\n!\ninterface Serial0\nip access-list 10 in",
+    "options": [
+      {
+        "text_es": "El tráfico originado desde el rango IP `10.0.0.0-10.0.0.255` se permite en `Serial0`.",
+        "text_en": "The sourced traffic from IP range `10.0.0.0-10.0.0.255` is allowed on `Serial0`.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "El router acepta todo el tráfico entrante a `Serial0` con el último octeto de la IP de origen establecido en 0.",
+        "text_en": "The router accepts all incoming traffic to `Serial0` with the last octet of the source IP set to 0.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "El router no logra aplicar la lista de acceso a la interfaz.",
+        "text_en": "The router fails to apply the access list to the interface.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "El comando `permit` falla y devuelve un código de error.",
+        "text_en": "The `permit` command fails and returns an error code.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "El problema principal en esta configuración es un error de sintaxis en el comando utilizado para aplicar la `ACL` a la interfaz.\n\n### Análisis del Comando\nEl comando correcto para aplicar una lista de control de acceso a una interfaz es `ip access-group`, no `ip access-list`.\n\n| Comando Correcto | Comando Incorrecto (Usado) |\n|---|---|\n| `ip access-group 10 in` | `ip access-list 10 in` |\n\nDebido a que el comando `ip access-list 10 in` no es válido en el modo de configuración de interfaz, el `IOS` de Cisco lo rechazará, y la `ACL` no se aplicará en absoluto.\n\n### Evaluación de las Opciones\n* **A:** Incorrecto. La `ACL` nunca se aplica exitosamente a la interfaz, por lo que no puede permitir ningún tráfico.\n* **B:** Incorrecto. Esto es una mala interpretación de la máscara wildcard `0.0.0.255`, que en realidad coincide con cualquier valor en el último octeto, no solo `0`.\n* **C:** Correcto. El router rechazará el comando `ip access-list 10 in` por ser sintácticamente incorrecto en este contexto, resultando en un fallo al aplicar la `ACL`.\n* **D:** Incorrecto. El comando `access-list 10 permit ...` (el comando `permit`) en sí es válido y se aceptaría en el modo de configuración global. El error ocurre al intentar **aplicar** la lista a la interfaz con el comando incorrecto.",
+    "explanation_en": "The primary issue in this configuration is a syntax error in the command used to apply the `ACL` to the interface.\n\n### Command Analysis\nThe correct command to apply an access control list to an interface is `ip access-group`, not `ip access-list`.\n\n| Correct Command | Incorrect Command (Used) |\n|---|---|\n| `ip access-group 10 in` | `ip access-list 10 in` |\n\nBecause the `ip access-list 10 in` command is not valid in interface configuration mode, the Cisco `IOS` will reject it, and the `ACL` will not be applied at all.\n\n### Options Evaluation\n* **A:** Incorrect. The `ACL` is never successfully applied to the interface, so it cannot permit any traffic.\n* **B:** Incorrect. This is a misinterpretation of the `0.0.0.255` wildcard mask, which actually matches any value in the last octet, not just `0`.\n* **C:** Correct. The router will reject the `ip access-list 10 in` command as syntactically incorrect in this context, resulting in a failure to apply the `ACL`.\n* **D:** Incorrect. The `access-list 10 permit ...` command (the `permit` command) itself is valid and would be accepted in global configuration mode. The error occurs when attempting to **apply** the list to the interface with the wrong command."
   }
 ]
