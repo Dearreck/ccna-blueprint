@@ -437,5 +437,45 @@
     ],
     "explanation_es": "`IPsec` no es un único protocolo, sino un **framework o suite de protocolos** que trabajan juntos para proporcionar seguridad en la capa de red. Los dos protocolos principales que definen cómo se aseguran los datos son `AH` y `ESP`.\n\n### Análisis de las Opciones\n| Opción | Descripción y Razón |\n|---|---|\n| **`AH` (Authentication Header)** | **(Correcto)** Este protocolo proporciona **autenticación** e **integridad** para los paquetes IP. Asegura que los datos no han sido modificados en tránsito y que provienen del remitente correcto, pero **no proporciona cifrado (confidencialidad)**. |\n| **`ESP` (Encapsulating Security Payload)** | **(Correcto)** Este protocolo proporciona **confidencialidad (cifrado)** y, opcionalmente, también puede proporcionar **autenticación** e **integridad**. Es el protocolo más comúnmente utilizado en las implementaciones de `IPsec` modernas. |\n| `AES` y `3DES` | **(Incorrecto)** Estos son **algoritmos de cifrado**, no protocolos. Son utilizados *por* el protocolo `ESP` para realizar la encriptación de los datos. |\n| `TLS` | **(Incorrecto)** `Transport Layer Security` es un protocolo de seguridad que opera en la capa de transporte, comúnmente usado para `HTTPS`. Es una tecnología de `VPN` alternativa a `IPsec` (VPNs SSL/TLS), pero no forma parte de la suite `IPsec`. |",
     "explanation_en": "`IPsec` is not a single protocol, but rather a **framework or suite of protocols** that work together to provide security at the network layer. The two main protocols that define how data is secured are `AH` and `ESP`.\n\n### Options Analysis\n| Option | Description and Rationale |\n|---|---|\n| **`AH` (Authentication Header)** | **(Correct)** This protocol provides **authentication** and **integrity** for IP packets. It ensures that data has not been modified in transit and that it comes from the correct sender, but it **does not provide encryption (confidentiality)**. |\n| **`ESP` (Encapsulating Security Payload)** | **(Correct)** This protocol provides **confidentiality (encryption)** and, optionally, can also provide **authentication** and **integrity**. It is the most commonly used protocol in modern `IPsec` implementations. |\n| `AES` and `3DES` | **(Incorrect)** These are **encryption algorithms**, not protocols. They are used *by* the `ESP` protocol to perform the data encryption. |\n| `TLS` | **(Incorrect)** `Transport Layer Security` is a security protocol that operates at the transport layer, commonly used for `HTTPS`. It is an alternative `VPN` technology to `IPsec` (SSL/TLS VPNs), but it is not part of the `IPsec` suite. |"
+  },
+  {
+    "id": "ccna-sec-fund-mfa-factors-q1",
+    "category": "5.0-security-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "5.4",
+      "description_es": "Describir los elementos de una política de contraseñas de seguridad, como la gestión, la complejidad y las alternativas a las contraseñas (autenticación multifactor, certificados y biometría)",
+      "description_en": "Describe security password policy elements, such as management, complexity, and password alternatives (multifactor authentication, certificates, and biometrics)",
+      "subtopic_id": "5.4",
+      "subtopic_description": "multifactor authentication"
+    },
+    "question_es": "¿Qué conjunto de acciones satisface el requisito de la **autenticación multifactor**?",
+    "question_en": "Which set of actions satisfy the requirement for **multifactor authentication**?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "El usuario desliza un llavero electrónico (`key fob`) y luego hace clic en un enlace de correo electrónico.",
+        "text_en": "The user swipes a key fob, then clicks through an email link.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "El usuario introduce un `PIN` en un token `RSA` y luego introduce la clave `RSA` mostrada en una pantalla de inicio de sesión.",
+        "text_en": "The user enters a `PIN` into an `RSA` token, and then enters the displayed `RSA` key on a login screen.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "El usuario introduce un nombre de usuario y una contraseña, y luego vuelve a introducir las credenciales en una segunda pantalla.",
+        "text_en": "The user enters a user name and password, and then re-enters the credentials on a second screen.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "El usuario introduce un nombre de usuario y una contraseña, y luego hace clic en una notificación en una aplicación de autenticación en un dispositivo móvil.",
+        "text_en": "The user enters a user name and password, and then clicks a notification an authentication app on a mobile device.",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "La **Autenticación Multifactor (MFA)** requiere que un usuario proporcione **dos o más** tipos diferentes de credenciales de categorías distintas para verificar su identidad. Estas categorías son:\n\n* **Conocimiento:** Algo que solo el usuario sabe (ej. una contraseña, un `PIN`).\n* **Posesión:** Algo que solo el usuario tiene (ej. un teléfono móvil, un token de seguridad).\n* **Inherencia:** Algo que el usuario es (ej. una huella dactilar, reconocimiento facial).\n\n### Análisis de las Opciones\n* **A:** Un `key fob` es posesión. Un enlace en un email se recibe en un dispositivo (como un PC o un teléfono), que también es posesión. Esto no combina diferentes factores.\n* **B:** El `PIN` se introduce en el token, no en el servicio de autenticación. Para el servicio, el único factor que se presenta es el código generado por el token (posesión). Por lo tanto, es de un solo factor.\n* **C:** Introducir una contraseña dos veces sigue siendo un solo factor: conocimiento.\n* **D:** Correcto. La contraseña es un factor de **conocimiento**. La notificación en la app de un dispositivo móvil es un factor de **posesión**. Como se utilizan dos factores de categorías diferentes, esto cumple con el requisito de `MFA`.",
+    "explanation_en": "**Multifactor Authentication (MFA)** requires a user to provide **two or more** different types of credentials from distinct categories to verify their identity. These categories are:\n\n* **Knowledge:** Something only the user knows (e.g., a password, a `PIN`).\n* **Possession:** Something only the user has (e.g., a mobile phone, a security token).\n* **Inherence:** Something the user is (e.g., a fingerprint, facial recognition).\n\n### Options Analysis\n* **A:** A key fob is possession. An email link is received on a device (like a PC or phone), which is also possession. This does not combine different factors.\n* **B:** The `PIN` is entered into the token, not the authenticating service. For the service, the only factor presented is the code generated by the token (possession). Therefore, it is single-factor.\n* **C:** Entering a password twice is still only a single factor: knowledge.\n* **D:** Correct. The password is a **knowledge** factor. The notification on an app on a mobile device is a **possession** factor. Since two factors from different categories are used, this satisfies the `MFA` requirement."
   }
 ]
