@@ -529,7 +529,7 @@ document.addEventListener('DOMContentLoaded', () => {
         proceedToNextQuestion() {
             state.currentQuestionIndex++;
             if (state.currentQuestionIndex >= state.currentExamQuestions.length) {
-                this.finish();
+                Exam.finish();
             } else {
                 UI.displayQuestion();
             }
