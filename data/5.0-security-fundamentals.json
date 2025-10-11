@@ -232,5 +232,85 @@
     ],
     "explanation_es": "El escenario describe una medida para **limitar el acceso físico** a un lugar específico (el centro de datos) mediante un método de autenticación (tarjetas de identificación). Esto corresponde directamente a la definición de **control de acceso físico**.\n\n### Elementos de un Programa de Seguridad\n| Elemento | Descripción |\n|---|---|\n| **Control de Acceso Físico** | **(Correcto)** Incluye todas las medidas utilizadas para restringir el acceso a instalaciones, equipos y recursos físicos. Ejemplos claros son las cerraduras, guardias de seguridad, sistemas de videovigilancia y, como en este caso, sistemas de autenticación con tarjetas. |\n| Verificación de Vulnerabilidades | **(Incorrecto)** Este es un proceso **técnico** para identificar y evaluar debilidades en sistemas, redes o aplicaciones. No se relaciona con el acceso físico a un edificio. |\n| Concienciación del Usuario | **(Incorrecto)** Se enfoca en educar a los empleados sobre las políticas de seguridad y las amenazas existentes para que puedan tomar decisiones seguras. Por ejemplo, enseñarles a reconocer correos de `phishing`. |\n| Formación del Usuario | **(Incorrecto)** Es similar a la concienciación pero a menudo más formal y estructurada, enseñando habilidades específicas de seguridad. Ambos conceptos se centran en el **comportamiento humano**, no en barreras físicas. |",
     "explanation_en": "The scenario describes a measure to **limit physical access** to a specific location (the data center) using an authentication method (badge authentication). This directly corresponds to the definition of **physical access control**.\n\n### Security Program Elements\n| Element | Description |\n|---|---|\n| **Physical Access Control** | **(Correct)** Includes all measures used to restrict access to facilities, equipment, and physical resources. Clear examples are locks, security guards, CCTV systems, and, as in this case, badge authentication systems. |\n| Vulnerability Verification | **(Incorrect)** This is a **technical** process to identify and assess weaknesses in systems, networks, or applications. It is not related to physical access to a building. |\n| User Awareness | **(Incorrect)** Focuses on educating employees about security policies and existing threats so they can make secure decisions. For example, teaching them to recognize `phishing` emails. |\n| User Training | **(Incorrect)** This is similar to awareness but often more formal and structured, teaching specific security skills. Both concepts focus on **human behavior**, not physical barriers. |"
+  },
+  {
+    "id": "ccna-sec-fund-ipsec-tunnel-mode-q1",
+    "category": "5.0-security-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "5.5",
+      "description_es": "Describir las VPNs de acceso remoto y de sitio a sitio IPsec",
+      "description_en": "Describe IPsec remote access and site-to-site VPNs",
+      "subtopic_id": "5.5",
+      "subtopic_description": "IPsec Modes"
+    },
+    "question_es": "¿Qué modo de `IPsec` cifra la cabecera IP y la carga útil (payload)?",
+    "question_en": "Which `IPsec` mode encrypts the IP header and the payload?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`pipe`",
+        "text_en": "`pipe`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`tunnel`",
+        "text_en": "`tunnel`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`transport`",
+        "text_en": "`transport`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`control`",
+        "text_en": "`control`",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "`IPsec` tiene dos modos de operación principales: modo túnel y modo transporte. La diferencia clave radica en qué parte del paquete IP original se cifra.\n\n### Comparación de Modos `IPsec`\n| Modo | Parte Cifrada | Cabecera IP | Uso Típico |\n|---|---|---|---|\n| **`Tunnel` (Túnel)** | La cabecera IP **original** y la carga útil (payload). | Se crea una **nueva** cabecera IP exterior. | VPNs de sitio a sitio (entre gateways). |\n| **`Transport` (Transporte)** | **Únicamente** la carga útil (payload). | La cabecera IP **original** se mantiene intacta. | Comunicaciones de extremo a extremo (host a host). |\n\n### Análisis de las Opciones\n* **`tunnel`:** Correcto. Este modo encapsula el paquete IP original completo, lo cifra, y luego le añade una nueva cabecera IP. Por lo tanto, es el modo que cifra tanto la cabecera IP original como su payload.\n* **`transport`:** Incorrecto. Este modo solo cifra el payload (los datos de la capa de transporte), dejando la cabecera IP original sin cifrar.\n* **`pipe` y `control`:** Incorrecto. Estos no son modos de operación válidos en el framework de `IPsec`.",
+    "explanation_en": "`IPsec` has two primary modes of operation: tunnel mode and transport mode. The key difference lies in what part of the original IP packet is encrypted.\n\n### `IPsec` Mode Comparison\n| Mode | Encrypted Portion | IP Header | Typical Use Case |\n|---|---|---|---|\n| **`Tunnel`** | The **original** IP header and the payload. | A **new**, outer IP header is created. | Site-to-site VPNs (between gateways). |\n| **`Transport`** | **Only** the payload. | The **original** IP header is kept intact. | End-to-end communications (host-to-host). |\n\n### Options Analysis\n* **`tunnel`:** Correct. This mode encapsulates the entire original IP packet, encrypts it, and then adds a new IP header. Therefore, it is the mode that encrypts both the original IP header and its payload.\n* **`transport`:** Incorrect. This mode only encrypts the payload (the transport layer data), leaving the original IP header unencrypted.\n* **`pipe` and `control`:** Incorrect. These are not valid modes of operation within the `IPsec` framework."
+  },
+  {
+    "id": "ccna-sec-fund-port-sec-voice-vlan-q1",
+    "category": "5.0-security-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "5.7",
+      "description_es": "Configurar y verificar las características de seguridad de Capa 2 (DHCP snooping, inspección ARP dinámica y seguridad de puertos)",
+      "description_en": "Configure and verify Layer 2 security features (DHCP snooping, dynamic ARP inspection, and port security)",
+      "subtopic_id": "5.7",
+      "subtopic_description": "port security"
+    },
+    "question_es": "Un ingeniero está configurando el puerto de un switch conectado a un teléfono `VoIP`. ¿Qué comando debe configurar para habilitar la seguridad de puerto con una dirección MAC asignada manualmente de `abcd.abcd.abcd` en la `VLAN` de voz?",
+    "question_en": "An engineer is configuring a switch port that is connected to a `VoIP` handset. Which command must the engineer configure to enable port security with a manually assigned `MAC` address of `abcd.abcd.abcd` on the voice `VLAN`?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`switchport port-security mac-address abcd.abcd.abcd vlan 4`",
+        "text_en": "`switchport port-security mac-address abcd.abcd.abcd vlan 4`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`switchport port-security mac-address sticky abcd.abcd.abcd vlan 4`",
+        "text_en": "`switchport port-security mac-address sticky abcd.abcd.abcd vlan 4`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`switchport port-security mac-address abcd.abcd.abcd vlan voice`",
+        "text_en": "`switchport port-security mac-address abcd.abcd.abcd vlan voice`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`switchport port-security mac-address abcd.abcd.abcd`",
+        "text_en": "`switchport port-security mac-address abcd.abcd.abcd`",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Cuando un puerto está configurado con una `VLAN` de datos y una `VLAN` de voz, es necesario especificar a qué `VLAN` pertenece una dirección MAC segura. Para la `VLAN` de voz, se utiliza una palabra clave específica en lugar del número de la `VLAN`.\n\n### Análisis de Sintaxis\n| Comando | Keyword | Propósito |\n|---|---|---|\n| `... vlan <vlan-id>` | `vlan` | Asocia la MAC segura a la `VLAN` de **acceso (datos)**. |\n| **`... vlan voice`** | **`vlan voice`** | **(Correcto)** Asocia la MAC segura a la `VLAN` de **voz**. Esta es la sintaxis requerida. |\n| `...` (sin keyword de vlan) | Ninguno | Por defecto, asocia la MAC segura a la `VLAN` de **acceso (datos)**. |\n\n### Evaluación de Opciones\n* **A y B:** Son incorrectos porque intentan usar el número de `VLAN` (`4`) para la `VLAN` de voz. La sintaxis correcta requiere la palabra clave `voice`.\n* **C:** Es la respuesta **correcta**. Utiliza la palabra clave `vlan voice` para asignar estáticamente la dirección MAC del teléfono `VoIP` a la `VLAN` de voz en ese puerto.\n* **D:** Es incorrecto porque, al no especificar ninguna `VLAN`, la dirección MAC se aseguraría en la `VLAN` de datos (acceso), no en la de voz.",
+    "explanation_en": "When a port is configured with both a data `VLAN` and a voice `VLAN`, it is necessary to specify which `VLAN` a secure MAC address belongs to. For the voice `VLAN`, a specific keyword is used instead of the `VLAN` number.\n\n### Syntax Analysis\n| Command | Keyword | Purpose |\n|---|---|---|\n| `... vlan <vlan-id>` | `vlan` | Associates the secure MAC with the **access (data) `VLAN`**. |\n| **`... vlan voice`** | **`vlan voice`** | **(Correct)** Associates the secure MAC with the **voice `VLAN`**. This is the required syntax. |\n| `...` (no vlan keyword) | None | By default, associates the secure MAC with the **access (data) `VLAN`**. |\n\n### Options Evaluation\n* **A & B:** These are incorrect because they attempt to use the `VLAN` number (`4`) for the voice `VLAN`. The correct syntax requires the `voice` keyword.\n* **C:** This is the **correct** answer. It uses the `vlan voice` keyword to statically assign the `VoIP` phone's MAC address to the voice `VLAN` on that port.\n* **D:** This is incorrect because, by not specifying any `VLAN`, the MAC address would be secured on the data (access) `VLAN`, not the voice `VLAN`."
   }
 ]
