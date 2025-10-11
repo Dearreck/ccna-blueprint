@@ -10,18 +10,18 @@
       "subtopic_id": "6.7",
       "subtopic_description": "JSON Components"
     },
-    "question_es": "Consulte la información. ¿Qué se identifica con la palabra \"switch\" dentro de la línea 2 del esquema JSON?",
-    "question_en": "Refer to the exhibit. What is identified by the word \"switch\" within line 2 of the JSON Schema?",
+    "question_es": "**Consulte la información.** ¿Qué se identifica con la palabra `\"switch\"` dentro de la línea 2 del esquema `JSON`?",
+    "question_en": "**Refer to the exhibit.** What is identified by the word `\"switch\"` within line 2 of the `JSON` Schema?",
     "image": null,
     "code": "[\n  {\"switch\": \"3750\", \"port\": \"e2\"},\n  {\"router\": \"2951\", \"port\": \"e20\"},\n  {\"switch\": \"3750\", \"port\": \"e23\"}\n]",
     "options": [
-      { "text_es": "Valor (Value)", "text_en": "Value", "isCorrect": false },
-      { "text_es": "Objeto (Object)", "text_en": "Object", "isCorrect": false },
-      { "text_es": "Clave (Key)", "text_en": "Key", "isCorrect": true },
+      { "text_es": "Valor (`Value`)", "text_en": "Value", "isCorrect": false },
+      { "text_es": "Objeto (`Object`)", "text_en": "Object", "isCorrect": false },
+      { "text_es": "Clave (`Key`)", "text_en": "Key", "isCorrect": true },
       { "text_es": "Array", "text_en": "Array", "isCorrect": false }
     ],
-    "explanation_es": "En JSON, los datos dentro de un objeto `{}` se organizan en pares de clave-valor con el formato `\"clave\": \"valor\"`. En la línea 2, `\"switch\"` es la clave (o nombre de la propiedad), y `\"3750\"` es el valor asociado a esa clave.",
-    "explanation_en": "In JSON, data within an object `{}` is organized into key-value pairs with the format `\"key\": \"value\"`. On line 2, `\"switch\"` is the key (or property name), and `\"3750\"` is the value associated with that key."
+    "explanation_es": "En `JSON`, los datos dentro de un objeto `{}` se organizan en pares de **clave-valor** con el formato `\"clave\": \"valor\"`. En la línea 2, `\"switch\"` es la **clave** (o nombre de la propiedad), y `\"3750\"` es el **valor** asociado a esa clave.",
+    "explanation_en": "In `JSON`, data within an object `{}` is organized into **key-value** pairs with the format `\"key\": \"value\"`. On line 2, `\"switch\"` is the **key** (or property name), and `\"3750\"` is the **value** associated with that key."
   },
   {
     "id": "automation_outcome_q1",
@@ -34,18 +34,18 @@
       "subtopic_id": "6.1",
       "subtopic_description": "Impact of Automation"
     },
-    "question_es": "¿Cuál es un resultado esperado cuando se implementa la automatización de la gestión de redes?",
-    "question_en": "What is an expected outcome when network management automation is deployed?",
+    "question_es": "¿Cuál es un resultado esperado cuando se implementa la **automatización** de la gestión de redes?",
+    "question_en": "What is an expected outcome when network management **automation** is deployed?",
     "image": null,
     "code": null,
     "options": [
-      { "text_es": "Las actualizaciones de software se realizan desde un controlador central.", "text_en": "Software upgrades are performed from a central controller.", "isCorrect": true },
-      { "text_es": "Se necesitan aplicaciones personalizadas para configurar los dispositivos de red.", "text_en": "Custom applications are needed to configure network devices.", "isCorrect": false },
-      { "text_es": "La complejidad aumenta cuando se agregan nuevas configuraciones de dispositivos.", "text_en": "Complexity increases when new device configurations are added.", "isCorrect": false },
+      { "text_es": "Las actualizaciones de software se realizan desde un **controlador central**.", "text_en": "Software upgrades are performed from a **central controller**.", "isCorrect": true },
+      { "text_es": "Se necesitan aplicaciones personalizadas para configurar los dispositivos.", "text_en": "Custom applications are needed to configure network devices.", "isCorrect": false },
+      { "text_es": "La complejidad aumenta cuando se agregan nuevas configuraciones.", "text_en": "Complexity increases when new device configurations are added.", "isCorrect": false },
       { "text_es": "Se debe utilizar un plano de gestión distribuido.", "text_en": "A distributed management plane must be used.", "isCorrect": false }
     ],
-    "explanation_es": "Uno de los principales beneficios de la automatización y las redes basadas en controladores es la centralización de la gestión. Esto permite a los administradores realizar tareas complejas y repetitivas, como las actualizaciones de software, de manera consistente y eficiente en múltiples dispositivos desde un único punto de control, reduciendo errores y ahorrando tiempo.",
-    "explanation_en": "One of the primary benefits of automation and controller-based networking is the centralization of management. This allows administrators to perform complex and repetitive tasks, such as software upgrades, consistently and efficiently across multiple devices from a single point of control, reducing errors and saving time."
+    "explanation_es": "Uno de los principales beneficios de la automatización es la **centralización de la gestión**. Esto permite a los administradores realizar tareas complejas y repetitivas, como las actualizaciones de software, de manera consistente y eficiente en múltiples dispositivos desde un **único punto de control**.",
+    "explanation_en": "One of the primary benefits of automation is the **centralization of management**. This allows administrators to perform complex and repetitive tasks, such as software upgrades, consistently and efficiently across multiple devices from a **single point of control**."
   },
   {
     "id": "dna_center_vs_traditional_q1",
@@ -58,18 +58,18 @@
       "subtopic_id": "6.2",
       "subtopic_description": "Controller-based vs. Traditional Networking"
     },
-    "question_es": "¿Qué diferencia la gestión de dispositivos habilitada por Cisco DNA Center de la gestión tradicional de dispositivos de campus?",
-    "question_en": "What differentiates device management enabled by Cisco DNA Center from traditional campus device management?",
+    "question_es": "¿Qué diferencia la gestión de dispositivos habilitada por `Cisco DNA Center` de la gestión **tradicional** de dispositivos de campus?",
+    "question_en": "What differentiates device management enabled by `Cisco DNA Center` from **traditional** campus device management?",
     "image": null,
     "code": null,
     "options": [
       { "text_es": "centralizada", "text_en": "centralized", "isCorrect": true },
-      { "text_es": "orientada a la CLI del dispositivo", "text_en": "CLI-oriented device", "isCorrect": false },
+      { "text_es": "orientada a la `CLI` del dispositivo", "text_en": "`CLI`-oriented device", "isCorrect": false },
       { "text_es": "manual dispositivo por dispositivo", "text_en": "device-by-device hands-on", "isCorrect": false },
       { "text_es": "por dispositivo", "text_en": "per-device", "isCorrect": false }
     ],
-    "explanation_es": "La gestión tradicional de redes implica configurar cada dispositivo de forma individual (por dispositivo, orientado a la CLI). Cisco DNA Center introduce un modelo de gestión centralizado, donde las políticas y configuraciones se definen en un controlador único que luego las despliega a todos los dispositivos de la red, simplificando la operación y asegurando la consistencia.",
-    "explanation_en": "Traditional network management involves configuring each device individually (per-device, CLI-oriented). Cisco DNA Center introduces a centralized management model, where policies and configurations are defined on a single controller that then deploys them to all network devices, simplifying operations and ensuring consistency."
+    "explanation_es": "La gestión **tradicional** implica configurar cada dispositivo de forma individual (por dispositivo, orientado a la `CLI`). `Cisco DNA Center` introduce un modelo de gestión **centralizado**, donde las políticas se definen en un controlador único que luego las despliega a todos los dispositivos.",
+    "explanation_en": "**Traditional** management involves configuring each device individually (per-device, `CLI`-oriented). `Cisco DNA Center` introduces a **centralized** management model, where policies are defined on a single controller that then deploys them to all network devices."
   },
   {
     "id": "northbound_api_q1",
@@ -82,34 +82,18 @@
       "subtopic_id": "6.3.b",
       "subtopic_description": "Northbound and Southbound APIs"
     },
-    "question_es": "¿Cuál es la función de una API northbound?",
-    "question_en": "What is the function of a northbound API?",
+    "question_es": "¿Cuál es la función de una **API northbound**?",
+    "question_en": "What is the function of a **northbound API**?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "Soporta el procesamiento distribuido para la configuración.",
-        "text_en": "It supports distributed processing for configuration.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Se basa en el aprovisionamiento y configuración global.",
-        "text_en": "It relies on global provisioning and configuration.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Actualiza el software y restaura archivos.",
-        "text_en": "It upgrades software and restores files.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Proporciona una vía de comunicación entre un controlador SDN y las aplicaciones de red.",
-        "text_en": "It provides a path between an SDN controller and network applications.",
-        "isCorrect": true
-      }
+      { "text_es": "Soporta el procesamiento distribuido para la configuración.", "text_en": "It supports distributed processing for configuration.", "isCorrect": false },
+      { "text_es": "Se basa en el aprovisionamiento y configuración global.", "text_en": "It relies on global provisioning and configuration.", "isCorrect": false },
+      { "text_es": "Actualiza el software y restaura archivos.", "text_en": "It upgrades software and restores files.", "isCorrect": false },
+      { "text_es": "Proporciona una vía de comunicación entre un **controlador `SDN`** y las **aplicaciones de red**.", "text_en": "It provides a path between an **`SDN` controller** and **network applications**.", "isCorrect": true }
     ],
-    "explanation_es": "En una arquitectura SDN, las APIs northbound ('hacia el norte') permiten que las aplicaciones, los sistemas de orquestación y los scripts se comuniquen con el controlador de red para solicitar servicios o enviar políticas. Permiten la abstracción de la red, de modo que las aplicaciones no necesitan conocer los detalles de la infraestructura subyacente.",
-    "explanation_en": "In an SDN architecture, northbound APIs ('upwards') allow applications, orchestration systems, and scripts to communicate with the network controller to request services or push policies. They enable network abstraction, so applications do not need to know the details of the underlying infrastructure."
+    "explanation_es": "En una arquitectura `SDN`, las **APIs northbound** ('hacia el norte') permiten que las **aplicaciones**, sistemas de orquestación y scripts se comuniquen con el **controlador de red** para solicitar servicios. Permiten la abstracción de la red, de modo que las aplicaciones no necesitan conocer los detalles de la infraestructura.",
+    "explanation_en": "In an `SDN` architecture, **northbound APIs** ('upwards') allow **applications**, orchestration systems, and scripts to communicate with the **network controller** to request services. They enable network abstraction, so applications do not need to know the details of the infrastructure."
   },
   {
     "id": "json_component_count_objects_q1",
@@ -122,33 +106,17 @@
       "subtopic_id": "6.7",
       "subtopic_description": "JSON Components"
     },
-    "question_es": "Consulte la información. ¿Cuántos objetos están presentes en los datos codificados en JSON proporcionados?",
-    "question_en": "Refer to the exhibit. How many objects are present in the given JSON-encoded data?",
+    "question_es": "**Consulte la información.** ¿Cuántos **objetos** están presentes en los datos codificados en `JSON` proporcionados?",
+    "question_en": "**Refer to the exhibit.** How many **objects** are present in the given `JSON`-encoded data?",
     "image": null,
     "code": "{\n  \"aaaUser\": {\n    \"attributes\": {\n      \"pwd\": \"passwordl\",\n      \"firstName\": \"Abraham\",\n      \"lastName\": \"Lincoln\",\n      \"phone\": \"5555551212\",\n      \"email\": \"test@cisco.com\"\n    },\n    \"children\": [\n      {\n        \"aaaUserDomain\": {\n          \"attributes\": {\n            \"name\": \"ExampleCisco\"\n          }\n        }\n      },\n      {\n        \"aaaUserRole\": {\n          \"attributes\": {\n            \"name\": \"admin\"\n          }\n        }\n      }\n    ]\n  }\n}",
     "options": [
-      {
-        "text_es": "uno",
-        "text_en": "one",
-        "isCorrect": false
-      },
-      {
-        "text_es": "siete",
-        "text_en": "seven",
-        "isCorrect": false
-      },
-      {
-        "text_es": "cuatro",
-        "text_en": "four",
-        "isCorrect": false
-      },
-      {
-        "text_es": "nueve",
-        "text_en": "nine",
-        "isCorrect": true
-      }
+      { "text_es": "uno", "text_en": "one", "isCorrect": false },
+      { "text_es": "siete", "text_en": "seven", "isCorrect": false },
+      { "text_es": "cuatro", "text_en": "four", "isCorrect": false },
+      { "text_es": "nueve", "text_en": "nine", "isCorrect": true }
     ],
-    "explanation_es": "Un objeto JSON es una colección de pares clave-valor encerrada entre llaves `{}`. Contando cada par de llaves en la estructura de datos, encontramos un total de nueve objetos anidados: 1. El objeto raíz. 2. El objeto 'aaaUser'. 3. El objeto 'attributes' dentro de 'aaaUser'. 4. El primer objeto dentro del array 'children'. 5. El objeto 'aaaUserDomain'. 6. El objeto 'attributes' dentro de 'aaaUserDomain'. 7. El segundo objeto dentro del array 'children'. 8. El objeto 'aaaUserRole'. 9. El objeto 'attributes' dentro de 'aaaUserRole'.",
-    "explanation_en": "A JSON object is a collection of key-value pairs enclosed in curly braces `{}`. Counting every pair of braces in the data structure, we find a total of nine nested objects: 1. The root object. 2. The 'aaaUser' object. 3. The 'attributes' object inside 'aaaUser'. 4. The first object inside the 'children' array. 5. The 'aaaUserDomain' object. 6. The 'attributes' object inside 'aaaUserDomain'. 7. The second object inside the 'children' array. 8. The 'aaaUserRole' object. 9. The 'attributes' object inside 'aaaUserRole'."
+    "explanation_es": "Un **objeto `JSON`** es una colección de pares clave-valor encerrada entre llaves `{}`. Contando cada par de llaves, encontramos un total de **nueve** objetos anidados:\n1. El objeto raíz `{...}`\n2. `aaaUser: {...}`\n3. `attributes: {...}` (dentro de `aaaUser`)\n4. El primer `{...}` del array `children`\n5. `aaaUserDomain: {...}`\n6. `attributes: {...}` (dentro de `aaaUserDomain`)\n7. El segundo `{...}` del array `children`\n8. `aaaUserRole: {...}`\n9. `attributes: {...}` (dentro de `aaaUserRole`)",
+    "explanation_en": "A **`JSON` object** is a collection of key-value pairs enclosed in curly braces `{}`. Counting every pair of braces, we find a total of **nine** nested objects:\n1. The root object `{...}`\n2. `aaaUser: {...}`\n3. `attributes: {...}` (inside `aaaUser`)\n4. The first `{...}` in the `children` array\n5. `aaaUserDomain: {...}`\n6. `attributes: {...}` (inside `aaaUserDomain`)\n7. The second `{...}` in the `children` array\n8. `aaaUserRole: {...}`\n9. `attributes: {...}` (inside `aaaUserRole`)"
   }
 ]
