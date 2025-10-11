@@ -312,5 +312,45 @@
     ],
     "explanation_es": "Cuando un puerto está configurado con una `VLAN` de datos y una `VLAN` de voz, es necesario especificar a qué `VLAN` pertenece una dirección MAC segura. Para la `VLAN` de voz, se utiliza una palabra clave específica en lugar del número de la `VLAN`.\n\n### Análisis de Sintaxis\n| Comando | Keyword | Propósito |\n|---|---|---|\n| `... vlan <vlan-id>` | `vlan` | Asocia la MAC segura a la `VLAN` de **acceso (datos)**. |\n| **`... vlan voice`** | **`vlan voice`** | **(Correcto)** Asocia la MAC segura a la `VLAN` de **voz**. Esta es la sintaxis requerida. |\n| `...` (sin keyword de vlan) | Ninguno | Por defecto, asocia la MAC segura a la `VLAN` de **acceso (datos)**. |\n\n### Evaluación de Opciones\n* **A y B:** Son incorrectos porque intentan usar el número de `VLAN` (`4`) para la `VLAN` de voz. La sintaxis correcta requiere la palabra clave `voice`.\n* **C:** Es la respuesta **correcta**. Utiliza la palabra clave `vlan voice` para asignar estáticamente la dirección MAC del teléfono `VoIP` a la `VLAN` de voz en ese puerto.\n* **D:** Es incorrecto porque, al no especificar ninguna `VLAN`, la dirección MAC se aseguraría en la `VLAN` de datos (acceso), no en la de voz.",
     "explanation_en": "When a port is configured with both a data `VLAN` and a voice `VLAN`, it is necessary to specify which `VLAN` a secure MAC address belongs to. For the voice `VLAN`, a specific keyword is used instead of the `VLAN` number.\n\n### Syntax Analysis\n| Command | Keyword | Purpose |\n|---|---|---|\n| `... vlan <vlan-id>` | `vlan` | Associates the secure MAC with the **access (data) `VLAN`**. |\n| **`... vlan voice`** | **`vlan voice`** | **(Correct)** Associates the secure MAC with the **voice `VLAN`**. This is the required syntax. |\n| `...` (no vlan keyword) | None | By default, associates the secure MAC with the **access (data) `VLAN`**. |\n\n### Options Evaluation\n* **A & B:** These are incorrect because they attempt to use the `VLAN` number (`4`) for the voice `VLAN`. The correct syntax requires the `voice` keyword.\n* **C:** This is the **correct** answer. It uses the `vlan voice` keyword to statically assign the `VoIP` phone's MAC address to the voice `VLAN` on that port.\n* **D:** This is incorrect because, by not specifying any `VLAN`, the MAC address would be secured on the data (access) `VLAN`, not the voice `VLAN`."
+  },
+  {
+    "id": "ccna-sec-fund-mitm-prevention-q1",
+    "category": "5.0-security-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "5.1",
+      "description_es": "Definir conceptos clave de seguridad (amenazas, vulnerabilidades, exploits y técnicas de mitigación)",
+      "description_en": "Define key security concepts (threats, vulnerabilities, exploits, and mitigation techniques)",
+      "subtopic_id": "5.1",
+      "subtopic_description": "Mitigation Techniques"
+    },
+    "question_es": "¿Qué método de seguridad se utiliza para prevenir ataques de tipo `man-in-the-middle`?",
+    "question_en": "Which security method is used to prevent `man-in-the-middle` attacks?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Autorización",
+        "text_en": "Authorization",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Contabilidad (Accounting)",
+        "text_en": "Accounting",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Anti-repetición (Anti-replay)",
+        "text_en": "Anti-replay",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Autenticación",
+        "text_en": "Authentication",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Un ataque `man-in-the-middle` (MitM) ocurre cuando un atacante intercepta la comunicación entre dos partes. Para mitigar esto, los protocolos de seguridad como `IPsec` implementan varias defensas.\n\nAunque la **autenticación** es fundamental para verificar la identidad de los comunicantes y prevenir la suplantación inicial, la **protección anti-repetición (anti-replay)** es una técnica de mitigación específica que frustra una acción común del atacante MitM.\n\n### Análisis de las Opciones\n* **Anti-repetición (Correcto):** Esta técnica evita que un atacante capture paquetes legítimos y los reenvíe más tarde para intentar obtener acceso o interrumpir el servicio. Utiliza números de secuencia para asegurar que cada paquete sea único y solo se acepte una vez. Esto es crucial en túneles `VPN`, donde un atacante podría estar en medio de la comunicación.\n* **Autenticación (Incorrecto en este contexto):** Es el proceso de verificar la identidad. Si bien es la **primera línea de defensa** contra MitM, la pregunta busca un método de seguridad específico. En el contexto de las opciones, anti-replay es una técnica de mitigación más específica contra las acciones de un atacante ya posicionado.\n* **Autorización y Contabilidad (Incorrecto):** Estos son los otros dos componentes del framework `AAA`. La autorización determina a qué recursos puede acceder un usuario autenticado, y la contabilidad registra lo que hizo. Ninguno previene directamente un ataque MitM.",
+    "explanation_en": "A `man-in-the-middle` (MitM) attack occurs when an attacker intercepts the communication between two parties. To mitigate this, security protocols like `IPsec` implement several defenses.\n\nAlthough **authentication** is fundamental to verifying the identities of the communicants and preventing the initial impersonation, **anti-replay protection** is a specific mitigation technique that thwarts a common action of a MitM attacker.\n\n### Options Analysis\n* **Anti-replay (Correct):** This technique prevents an attacker from capturing legitimate packets and retransmitting them later to try to gain access or disrupt service. It uses sequence numbers to ensure that each packet is unique and accepted only once. This is crucial in `VPN` tunnels, where an attacker might be in the middle of the communication.\n* **Authentication (Incorrect in this context):** This is the process of verifying identity. While it is the **first line of defense** against MitM, the question asks for a specific security method. In the context of the choices, anti-replay is a more specific mitigation technique against the actions of an attacker already in position.\n* **Authorization and Accounting (Incorrect):** These are the other two components of the `AAA` framework. Authorization determines what resources an authenticated user can access, and accounting records what they did. Neither directly prevents a MitM attack."
   }
 ]
