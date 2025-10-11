@@ -192,5 +192,45 @@
     ],
     "explanation_es": "El requisito es usar la contraseña **más fuerte** posible. La opción que utiliza `algorithm-type scrypt` configura un hash de **Tipo 9**, que está diseñado para ser computacionalmente intensivo y resistente a los ataques de fuerza bruta modernos, lo que lo convierte en el método más seguro disponible en los `IOS` de Cisco actuales.\n\n### Palabras Clave del Comando `username`\n| Keyword | Significado y Nivel de Seguridad |\n|---|---|\n| `password` | Cifrado **Tipo 7**, muy débil y reversible. **(Baja Seguridad)** |\n| `secret` | Hash `MD5` no reversible (**Tipo 5**). **(Seguridad Media-Alta)** |\n| `algorithm-type scrypt` | Algoritmo **`scrypt`** (**Tipo 9**). Resistente a ataques de GPU/ASIC. **(Máxima Seguridad)** |\n| `algorithm-type sha256` | Algoritmo **`SHA-256`** (**Tipo 8**). Más fuerte que `MD5`. **(Alta Seguridad)** |",
     "explanation_en": "The requirement is to use the **strongest** possible password. The option using `algorithm-type scrypt` configures a **Type 9** hash, which is designed to be computationally intensive and resistant to modern brute-force attacks, making it the most secure method available on current Cisco `IOS`.\n\n### Keywords of the `username` Command\n| Keyword | Meaning and Security Level |\n|---|---|\n| `password` | **Type 7** encryption, very weak and reversible. **(Low Security)** |\n| `secret` | Non-reversible `MD5` hash (**Type 5**). **(Medium-High Security)** |\n| `algorithm-type scrypt` | **`scrypt`** algorithm (**Type 9**). Resistant to GPU/ASIC attacks. **(Maximum Security)** |\n| `algorithm-type sha256` | **`SHA-256`** algorithm (**Type 8**). Stronger than `MD5`. **(High Security)** |"
+  },
+  {
+    "id": "ccna-sec-fund-physical-access-q1",
+    "category": "5.0-security-fundamentals",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "5.2",
+      "description_es": "Describir los elementos de un programa de seguridad (concienciación del usuario, formación y control de acceso físico)",
+      "description_en": "Describe security program elements (user awareness, training, and physical access control)",
+      "subtopic_id": "5.2",
+      "subtopic_description": "physical access control"
+    },
+    "question_es": "Para mejorar la seguridad corporativa, una organización planea implementar autenticación con tarjetas de identificación para limitar el acceso al centro de datos. ¿Qué elemento de un programa de seguridad se está implementando?",
+    "question_en": "To improve corporate security, an organization is planning to implement badge authentication to limit access to the data center. Which element of a security program is being deployed?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "control de acceso físico",
+        "text_en": "physical access control",
+        "isCorrect": true
+      },
+      {
+        "text_es": "verificación de vulnerabilidades",
+        "text_en": "vulnerability verification",
+        "isCorrect": false
+      },
+      {
+        "text_es": "concienciación del usuario",
+        "text_en": "user awareness",
+        "isCorrect": false
+      },
+      {
+        "text_es": "formación del usuario",
+        "text_en": "user training",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "El escenario describe una medida para **limitar el acceso físico** a un lugar específico (el centro de datos) mediante un método de autenticación (tarjetas de identificación). Esto corresponde directamente a la definición de **control de acceso físico**.\n\n### Elementos de un Programa de Seguridad\n| Elemento | Descripción |\n|---|---|\n| **Control de Acceso Físico** | **(Correcto)** Incluye todas las medidas utilizadas para restringir el acceso a instalaciones, equipos y recursos físicos. Ejemplos claros son las cerraduras, guardias de seguridad, sistemas de videovigilancia y, como en este caso, sistemas de autenticación con tarjetas. |\n| Verificación de Vulnerabilidades | **(Incorrecto)** Este es un proceso **técnico** para identificar y evaluar debilidades en sistemas, redes o aplicaciones. No se relaciona con el acceso físico a un edificio. |\n| Concienciación del Usuario | **(Incorrecto)** Se enfoca en educar a los empleados sobre las políticas de seguridad y las amenazas existentes para que puedan tomar decisiones seguras. Por ejemplo, enseñarles a reconocer correos de `phishing`. |\n| Formación del Usuario | **(Incorrecto)** Es similar a la concienciación pero a menudo más formal y estructurada, enseñando habilidades específicas de seguridad. Ambos conceptos se centran en el **comportamiento humano**, no en barreras físicas. |",
+    "explanation_en": "The scenario describes a measure to **limit physical access** to a specific location (the data center) using an authentication method (badge authentication). This directly corresponds to the definition of **physical access control**.\n\n### Security Program Elements\n| Element | Description |\n|---|---|\n| **Physical Access Control** | **(Correct)** Includes all measures used to restrict access to facilities, equipment, and physical resources. Clear examples are locks, security guards, CCTV systems, and, as in this case, badge authentication systems. |\n| Vulnerability Verification | **(Incorrect)** This is a **technical** process to identify and assess weaknesses in systems, networks, or applications. It is not related to physical access to a building. |\n| User Awareness | **(Incorrect)** Focuses on educating employees about security policies and existing threats so they can make secure decisions. For example, teaching them to recognize `phishing` emails. |\n| User Training | **(Incorrect)** This is similar to awareness but often more formal and structured, teaching specific security skills. Both concepts focus on **human behavior**, not physical barriers. |"
   }
 ]
