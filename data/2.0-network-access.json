@@ -485,5 +485,95 @@
     ],
     "explanation_es": "El modo **`FlexConnect`** está diseñado específicamente para sucursales o ubicaciones remotas donde la conexión `WAN` con el `WLC` (Wireless LAN Controller) podría no ser completamente estable. Su característica principal es la capacidad de operar de forma independiente si se pierde la conexión con el controlador.\n\n### Modos de Operación de AP\n| Modo | Comportamiento sin `WLC` | Descripción |\n|---|---|---|\n| **`FlexConnect`** | **Sigue funcionando (Correcto)** | En estado `standalone` (autónomo), puede continuar conmutando el tráfico de los clientes ya conectados directamente a la red local y autenticar nuevos clientes (dependiendo de la configuración de seguridad). Proporciona supervivencia de la red inalámbrica. |\n| `Local` | Deja de funcionar | Este es el modo por defecto. Todo el tráfico (gestión y datos) se envía a través de un túnel `CAPWAP` al `WLC`. Si el túnel se cae, el `AP` deja de servir a los clientes. |\n| `Sniffer` | No aplica | En este modo, el `AP` no sirve a clientes. Su única función es capturar tráfico `802.11` para su análisis. |\n| `Mesh` | Depende del Root AP | Este modo se utiliza para formar un backhaul inalámbrico. Si el `Root Access Point (RAP)` pierde la conexión con el `WLC`, todo el árbol de la malla que depende de él también pierde la conectividad de servicio. |",
     "explanation_en": "**`FlexConnect`** mode is specifically designed for branch or remote locations where the `WAN` connection to the `WLC` (Wireless LAN Controller) might not be completely stable. Its key feature is the ability to operate independently if the connection to the controller is lost.\n\n### AP Modes of Operation\n| Mode | Behavior without `WLC` | Description |\n|---|---|---|\n| **`FlexConnect`** | **Continues to function (Correct)** | In `standalone` state, it can continue to switch traffic for already connected clients directly onto the local network and authenticate new clients (depending on the security configuration). It provides wireless network survivability. |\n| `Local` | Stops functioning | This is the default mode. All traffic (management and data) is sent through a `CAPWAP` tunnel to the `WLC`. If the tunnel goes down, the `AP` stops serving clients. |\n| `Sniffer` | Not applicable | In this mode, the `AP` does not serve clients. Its sole function is to capture `802.11` traffic for analysis. |\n| `Mesh` | Depends on the Root AP | This mode is used to form a wireless backhaul. If the `Root Access Point (RAP)` loses its connection to the `WLC`, the entire mesh tree depending on it also loses service connectivity. |"
+  },
+  {
+    "id": "ccna-net-access-rstp-root-port-q1",
+    "category": "2.0-network-access",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "2.5",
+      "description_es": "Interpretar las operaciones básicas de Rapid PVST+ Spanning Tree Protocol",
+      "description_en": "Interpret basic operations of Rapid PVST+ Spanning Tree Protocol",
+      "subtopic_id": "2.5.a",
+      "subtopic_description": "Root port, root bridge (primary/secondary), and other port names"
+    },
+    "question_es": "Consulte la imagen. ¿Qué **dos** conclusiones se deben sacar sobre esta configuración? (Elija dos.)",
+    "question_en": "Refer to the exhibit. What **two** conclusions should be made about this configuration? (Choose two.)",
+    "image": null,
+    "code": "SW1#show spanning-tree vlan 30\n\nVLAN0030\n  Spanning-tree enabled protocol rstp\n  Root ID    Priority    2798\n             Address     0025.63e9.c800\n             Cost        19\n             Port        1 (FastEthernet 2/1)\n             Hello Time   2 sec\n             Max Age     20 sec\n             Forward Delay 20 sec\n\n  [Output suppressed]",
+    "options": [
+      {
+        "text_es": "El modo de spanning-tree es `Rapid PVST+`.",
+        "text_en": "The spanning-tree mode is `Rapid PVST+`.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Este es un `root bridge`.",
+        "text_en": "This is a `root bridge`.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "El puerto designado es `FastEthernet 2/1`.",
+        "text_en": "The designated port is `FastEthernet 2/1`.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "El puerto raíz es `FastEthernet 2/1`.",
+        "text_en": "The root port is `FastEthernet 2/1`.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "El modo de spanning-tree es `PVST+`.",
+        "text_en": "The spanning-tree mode is `PVST+`.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Analizando la salida del comando, podemos sacar dos conclusiones claras:\n\n1.  **El Puerto Raíz es `FastEthernet 2/1`**: La salida del comando indica explícitamente `Root ID ... Port 1 (FastEthernet 2/1)`. En la sección de ID de Raíz, el campo `Port` indica el puerto raíz del switch local, que es el puerto con la ruta de menor costo hacia el `root bridge`.\n2.  **El Modo es `Rapid PVST+`**: La línea `Spanning-tree enabled protocol rstp` indica que el protocolo en uso es `RSTP` (Rapid Spanning Tree Protocol). Dado que el comando es específico para una `VLAN` (`show spanning-tree vlan 30`), se trata de la implementación por `VLAN` de `RSTP` de Cisco, que es `Rapid PVST+`.\n\n### Análisis de Opciones Incorrectas\n* **No es un `root bridge`**: Un switch es el `root bridge` si su `Bridge ID` es el mismo que el `Root ID`. Aunque el `Bridge ID` de `SW1` está suprimido en la salida, el hecho de que tenga un **puerto raíz** (`Root Port`) confirma que **no** es el `root bridge`. El `root bridge` nunca tiene puertos raíz.\n* **`FastEthernet 2/1` no es un puerto designado**: El resultado identifica este puerto como el puerto raíz. Un puerto no puede ser a la vez raíz y designado.\n* **No es `PVST+`**: El protocolo es `rstp`, que es la versión rápida, no el `PVST+` original basado en el estándar `802.1D`.",
+    "explanation_en": "Analyzing the command output, we can draw two clear conclusions:\n\n1.  **The Root Port is `FastEthernet 2/1`**: The command output explicitly states `Root ID ... Port 1 (FastEthernet 2/1)`. In the Root ID section, the `Port` field indicates the local switch's root port, which is the port with the lowest cost path to the `root bridge`.\n2.  **The Mode is `Rapid PVST+`**: The line `Spanning-tree enabled protocol rstp` indicates that the protocol in use is `RSTP` (Rapid Spanning Tree Protocol). Since the command is `VLAN`-specific (`show spanning-tree vlan 30`), this is Cisco's per-`VLAN` implementation of `RSTP`, which is `Rapid PVST+`.\n\n### Incorrect Options Analysis\n* **It is not a `root bridge`**: A switch is the `root bridge` if its `Bridge ID` is the same as the `Root ID`. Although `SW1`'s `Bridge ID` is suppressed in the output, the fact that it has a **root port** confirms that it is **not** the `root bridge`. The `root bridge` never has root ports.\n* **`FastEthernet 2/1` is not a designated port**: The output identifies this port as the root port. A port cannot be both a root and a designated port.\n* **It is not `PVST+`**: The protocol is `rstp`, which is the rapid version, not the original `PVST+` based on the `802.1D` standard."
+  },
+  {
+    "id": "ccna-net-access-lacp-modes-q1",
+    "category": "2.0-network-access",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "2.4",
+      "description_es": "Configurar y verificar EtherChannel (Layer 2/Layer 3) (LACP)",
+      "description_en": "Configure and verify (Layer 2/Layer 3) EtherChannel (LACP)",
+      "subtopic_id": "2.4",
+      "subtopic_description": "LACP"
+    },
+    "question_es": "Consulte la imagen. ¿Qué dos configuraciones de comandos crearían el `port channel 10`? (Elija dos.)",
+    "question_en": "Refer to the exhibit. Which two commands when used together create port channel 10? (Choose two.)",
+    "image": null,
+    "code": "Switch#show etherchannel summary\n[output omitted]\nGroup  Port-channel  Protocol    Ports\n------+-------------+-----------+-----------------------------------------------\n10     Po10(SU)      LACP        Gi0/0(P)   Gi0/1(P)\n20     Po20(SU)      LACP        Gi0/2(P)   Gi0/3(P)",
+    "options": [
+      {
+        "text_es": "`int range g0/0-1`\n`channel-group 10 mode auto`",
+        "text_en": "`int range g0/0-1`\n`channel-group 10 mode auto`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`int range g0/0-1`\n`channel-group 10 mode passive`",
+        "text_en": "`int range g0/0-1`\n`channel-group 10 mode passive`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`int range g0/0-1`\n`channel-group 10 mode on`",
+        "text_en": "`int range g0/0-1`\n`channel-group 10 mode on`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`int range g0/0-1`\n`channel-group 10 mode active`",
+        "text_en": "`int range g0/0-1`\n`channel-group 10 mode active`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`int range g0/0-1`\n`channel-group 10 mode desirable`",
+        "text_en": "`int range g0/0-1`\n`channel-group 10 mode desirable`",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "La salida del comando `show etherchannel summary` muestra claramente que el **protocolo** utilizado para el `Port-channel 10` es **`LACP`**. Por lo tanto, debemos seleccionar los modos de configuración que habilitan `LACP`.\n\n### Modos de Negociación de EtherChannel\n| Protocolo | Modo Activo (Inicia) | Modo Pasivo (Escucha) |\n|---|---|---|\n| **`LACP`** | **`active`** | **`passive`** |\n| `PAgP` | `desirable` | `auto` |\n\n* El modo **`on`** fuerza la creación del canal sin ningún protocolo de negociación (canal estático).\n\n### Análisis de las Opciones\n* **A (`auto`):** Incorrecto. Este modo habilita `PAgP`, no `LACP`.\n* **B (`passive`):** Correcto. Este es el modo pasivo de `LACP`. Formará un canal si el otro extremo está en modo `active`.\n* **C (`on`):** Incorrecto. Esto crea un canal estático sin protocolo, lo cual contradice la salida que muestra `LACP`.\n* **D (`active`):** Correcto. Este es el modo activo de `LACP`. Inicia activamente la negociación y formará un canal con un par en modo `active` o `passive`.\n* **E (`desirable`):** Incorrecto. Este modo habilita `PAgP`, no `LACP`.",
+    "explanation_en": "The output of the `show etherchannel summary` command clearly shows that the **protocol** used for `Port-channel 10` is **`LACP`**. Therefore, we must select the configuration modes that enable `LACP`.\n\n### EtherChannel Negotiation Modes\n| Protocol | Active Mode (Initiates) | Passive Mode (Listens) |\n|---|---|---|\n| **`LACP`** | **`active`** | **`passive`** |\n| `PAgP` | `desirable` | `auto` |\n\n* The **`on`** mode forces the channel creation without any negotiation protocol (static channel).\n\n### Options Analysis\n* **A (`auto`):** Incorrect. This mode enables `PAgP`, not `LACP`.\n* **B (`passive`):** Correct. This is the passive mode for `LACP`. It will form a channel if the other side is in `active` mode.\n* **C (`on`):** Incorrect. This creates a static channel with no protocol, which contradicts the output showing `LACP`.\n* **D (`active`):** Correct. This is the active mode for `LACP`. It actively initiates negotiation and will form a channel with a peer in either `active` or `passive` mode.\n* **E (`desirable`):** Incorrect. This mode enables `PAgP`, not `LACP`."
   }
 ]
