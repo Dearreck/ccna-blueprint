@@ -10,18 +10,18 @@
       "subtopic_id": "5.3",
       "subtopic_description": "Local Passwords Configuration"
     },
-    "question_es": "Un ingeniero de Cisco está configurando un router con valores de fábrica con estas tres contraseñas:\n1. La contraseña de EXEC de usuario para acceso por consola es 'p4ssw0rd1'.\n2. La contraseña de EXEC de usuario para acceso por Telnet es 's3cr3t2'.\n3. La contraseña para el modo EXEC privilegiado es 'priv4t3p4ss'.\n¿Qué secuencia de comandos debe configurar el ingeniero?",
-    "question_en": "A Cisco engineer is configuring a factory-default router with these three passwords:\n1. The user EXEC password for console access is 'p4ssw0rd1'.\n2. The user EXEC password for Telnet access is 's3cr3t2'.\n3. The password for privileged EXEC mode is 'priv4t3p4ss'.\nWhich command sequence must the engineer configure?",
+    "question_es": "Un ingeniero está configurando un router con estas tres contraseñas:\n1. La contraseña de `EXEC` de usuario para acceso por **consola** es `p4ssw0rd1`.\n2. La contraseña de `EXEC` de usuario para acceso por **Telnet** es `s3cr3t2`.\n3. La contraseña para el modo **`EXEC privilegiado`** es `priv4t3p4ss`.\n¿Qué secuencia de comandos debe configurar el ingeniero?",
+    "question_en": "A Cisco engineer is configuring a router with these three passwords:\n1. The user `EXEC` password for **console** access is `p4ssw0rd1`.\n2. The user `EXEC` password for **Telnet** access is `s3cr3t2`.\n3. The password for **privileged `EXEC` mode** is `priv4t3p4ss`.\nWhich command sequence must the engineer configure?",
     "image": null,
     "code": null,
     "options": [
-      { "text_es": "enable secret privilege 15 priv4t3p4ss\n!\nline con0\npassword p4ssw0rd1\nlogin\n!\nline vty 0 15\npassword s3cr3t2\nlogin", "text_en": "enable secret privilege 15 priv4t3p4ss\n!\nline con0\npassword p4ssw0rd1\nlogin\n!\nline vty 0 15\npassword s3cr3t2\nlogin", "isCorrect": false },
-      { "text_es": "enable secret priv4t3p4ss\n!\nline con 0\npassword login p4ssw0rd1\nlogin\n!\nline vty 0 15\npassword login s3cr3t2\nlogin", "text_en": "enable secret priv4t3p4ss\n!\nline con 0\npassword login p4ssw0rd1\nlogin\n!\nline vty 0 15\npassword login s3cr3t2\nlogin", "isCorrect": false },
-      { "text_es": "enable secret priv4t3p4ss\n!\nline con0\npassword p4ssw0rd1\n!\nline vty 0 15\npassword s3cr3t2\nlogin", "text_en": "enable secret priv4t3p4ss\n!\nline con0\npassword p4ssw0rd1\n!\nline vty 0 15\npassword s3cr3t2\nlogin", "isCorrect": false },
-      { "text_es": "enable secret priv4t3p4ss\n!\nline con0\npassword p4ssw0rd1\nlogin\n!\nline vty 0 15\npassword s3cr3t2\nlogin", "text_en": "enable secret priv4t3p4ss\n!\nline con0\npassword p4ssw0rd1\nlogin\n!\nline vty 0 15\npassword s3cr3t2\nlogin", "isCorrect": true }
+      { "text_es": "`enable secret privilege 15 priv4t3p4ss`\n`!`\n`line con0`\n`password p4ssw0rd1`\n`login`\n`!`\n`line vty 0 15`\n`password s3cr3t2`\n`login`", "text_en": "`enable secret privilege 15 priv4t3p4ss`\n`!`\n`line con0`\n`password p4ssw0rd1`\n`login`\n`!`\n`line vty 0 15`\n`password s3cr3t2`\n`login`", "isCorrect": false },
+      { "text_es": "`enable secret priv4t3p4ss`\n`!`\n`line con 0`\n`password login p4ssw0rd1`\n`login`\n`!`\n`line vty 0 15`\n`password login s3cr3t2`\n`login`", "text_en": "`enable secret priv4t3p4ss`\n`!`\n`line con 0`\n`password login p4ssw0rd1`\n`login`\n`!`\n`line vty 0 15`\n`password login s3cr3t2`\n`login`", "isCorrect": false },
+      { "text_es": "`enable secret priv4t3p4ss`\n`!`\n`line con0`\n`password p4ssw0rd1`\n`!`\n`line vty 0 15`\n`password s3cr3t2`\n`login`", "text_en": "`enable secret priv4t3p4ss`\n`!`\n`line con0`\n`password p4ssw0rd1`\n`!`\n`line vty 0 15`\n`password s3cr3t2`\n`login`", "isCorrect": false },
+      { "text_es": "`enable secret priv4t3p4ss`\n`!`\n`line con0`\n`password p4ssw0rd1`\n`login`\n`!`\n`line vty 0 15`\n`password s3cr3t2`\n`login`", "text_en": "`enable secret priv4t3p4ss`\n`!`\n`line con0`\n`password p4ssw0rd1`\n`login`\n`!`\n`line vty 0 15`\n`password s3cr3t2`\n`login`", "isCorrect": true }
     ],
-    "explanation_es": "La configuración correcta requiere tres pasos: \n1. `enable secret priv4t3p4ss` para establecer la contraseña del modo privilegiado. \n2. Bajo `line con 0`, se usa `password p4ssw0rd1` para definir la contraseña de la consola y `login` para que se solicite. \n3. Bajo `line vty 0 15`, se usa `password s3cr3t2` para definir la contraseña de Telnet/SSH y `login` para que se solicite. Las otras opciones tienen sintaxis incorrecta o les falta el comando `login` crucial en la línea de consola.",
-    "explanation_en": "The correct configuration requires three steps: \n1. `enable secret priv4t3p4ss` to set the privileged mode password. \n2. Under `line con 0`, `password p4ssw0rd1` is used to define the console password and `login` is used to enforce it. \n3. Under `line vty 0 15`, `password s3cr3t2` defines the Telnet/SSH password and `login` enforces it. The other options have incorrect syntax or are missing the crucial `login` command on the console line."
+    "explanation_es": "La configuración correcta requiere tres pasos:\n1. `enable secret priv4t3p4ss` para el modo privilegiado.\n2. Bajo `line con 0`, se usa `password p4ssw0rd1` y `login` para que se solicite.\n3. Bajo `line vty 0 15`, se usa `password s3cr3t2` y `login` para que se solicite. Las otras opciones tienen sintaxis incorrecta o les falta el comando `login` en la línea de consola.",
+    "explanation_en": "The correct configuration requires three steps:\n1. `enable secret priv4t3p4ss` for privileged mode.\n2. Under `line con 0`, `password p4ssw0rd1` defines the password and `login` enforces it.\n3. Under `line vty 0 15`, `password s3cr3t2` defines the password and `login` enforces it. The other options have incorrect syntax or are missing the `login` command on the console line."
   },
   {
     "id": "acl_for_ssh_q1",
@@ -34,18 +34,18 @@
       "subtopic_id": "5.6",
       "subtopic_description": "ACL for VTY access"
     },
-    "question_es": "Un ingeniero está configurando el acceso remoto a un router desde la subred IP 10.139.58.0/28. El nombre de dominio, las claves criptográficas y SSH ya han sido configurados. ¿Qué configuración habilita este tráfico en el router de destino?",
-    "question_en": "An engineer is configuring remote access to a router from IP subnet 10.139.58.0/28. The domain name, crypto keys, and SSH have been configured. Which configuration enables the traffic on the destination router?",
+    "question_es": "Un ingeniero está configurando el acceso remoto a un router desde la subred IP `10.139.58.0/28`. `SSH` ya ha sido configurado. ¿Qué configuración habilita este tráfico en el router de destino?",
+    "question_en": "An engineer is configuring remote access to a router from IP subnet `10.139.58.0/28`. `SSH` has been configured. Which configuration enables the traffic on the destination router?",
     "image": null,
     "code": null,
     "options": [
-      { "text_es": "interface FastEthernet0/0\n ip address 10.122.49.1 255.255.255.252\n ip access-group 110 in\n!\nip access-list standard 110\n permit tcp 10.139.58.0 0.0.0.15 eq 22 host 10.122.49.1", "text_en": "interface FastEthernet0/0\n ip address 10.122.49.1 255.255.255.252\n ip access-group 110 in\n!\nip access-list standard 110\n permit tcp 10.139.58.0 0.0.0.15 eq 22 host 10.122.49.1", "isCorrect": false },
-      { "text_es": "line vty 0 15\n access-group 120 in\n!\nip access-list extended 120\n permit tcp 10.139.58.0 0.0.0.15 any eq 22", "text_en": "line vty 0 15\n access-group 120 in\n!\nip access-list extended 120\n permit tcp 10.139.58.0 0.0.0.15 any eq 22", "isCorrect": false },
-      { "text_es": "interface FastEthernet0/0\n ip address 10.122.49.1 255.255.255.252\n ip access-group 10 in\n!\nip access-list standard 10\n permit udp 10.139.58.0 0.0.0.7 host 10.122.49.1 eq 22", "text_en": "interface FastEthernet0/0\n ip address 10.122.49.1 255.255.255.252\n ip access-group 10 in\n!\nip access-list standard 10\n permit udp 10.139.58.0 0.0.0.7 host 10.122.49.1 eq 22", "isCorrect": false },
-      { "text_es": "line vty 0 16\n access-class 120 in\n!\nip access-list extended 120\n permit tcp 10.139.58.0 0.0.0.15 any eq 22", "text_en": "line vty 0 16\n access-class 120 in\n!\nip access-list extended 120\n permit tcp 10.139.58.0 0.0.0.15 any eq 22", "isCorrect": true }
+      { "text_es": "`interface FastEthernet0/0`\n`ip access-group 110 in`\n`!`\n`ip access-list standard 110`\n`permit tcp 10.139.58.0 0.0.0.15 eq 22 host 10.122.49.1`", "text_en": "`interface FastEthernet0/0`\n`ip access-group 110 in`\n`!`\n`ip access-list standard 110`\n`permit tcp 10.139.58.0 0.0.0.15 eq 22 host 10.122.49.1`", "isCorrect": false },
+      { "text_es": "`line vty 0 15`\n`access-group 120 in`\n`!`\n`ip access-list extended 120`\n`permit tcp 10.139.58.0 0.0.0.15 any eq 22`", "text_en": "`line vty 0 15`\n`access-group 120 in`\n`!`\n`ip access-list extended 120`\n`permit tcp 10.139.58.0 0.0.0.15 any eq 22`", "isCorrect": false },
+      { "text_es": "`interface FastEthernet0/0`\n`ip access-group 10 in`\n`!`\n`ip access-list standard 10`\n`permit udp 10.139.58.0 0.0.0.7 host 10.122.49.1 eq 22`", "text_en": "`interface FastEthernet0/0`\n`ip access-group 10 in`\n`!`\n`ip access-list standard 10`\n`permit udp 10.139.58.0 0.0.0.7 host 10.122.49.1 eq 22`", "isCorrect": false },
+      { "text_es": "`line vty 0 16`\n`access-class 120 in`\n`!`\n`ip access-list extended 120`\n`permit tcp 10.139.58.0 0.0.0.15 any eq 22`", "text_en": "`line vty 0 16`\n`access-class 120 in`\n`!`\n`ip access-list extended 120`\n`permit tcp 10.139.58.0 0.0.0.15 any eq 22`", "isCorrect": true }
     ],
-    "explanation_es": "La configuración correcta requiere varios elementos: 1. Para filtrar el acceso a las líneas VTY (acceso remoto como SSH), se utiliza el comando `access-class in` bajo la configuración de `line vty`, no `access-group` en una interfaz. 2. Dado que SSH usa TCP puerto 22, se necesita una ACL extendida para poder filtrar por protocolo y puerto. 3. La ACL `permit tcp 10.139.58.0 0.0.0.15 any eq 22` permite correctamente el tráfico TCP desde la subred de origen /28 (cuya wildcard es 0.0.0.15) a cualquier destino (las interfaces del router) en el puerto 22 (SSH).",
-    "explanation_en": "The correct configuration requires several elements: 1. To filter access to the VTY lines (remote access like SSH), the `access-class in` command is used under the `line vty` configuration, not `access-group` on an interface. 2. Since SSH uses TCP port 22, an extended ACL is required to filter by protocol and port. 3. The ACL `permit tcp 10.139.58.0 0.0.0.15 any eq 22` correctly permits TCP traffic from the source /28 subnet (which has a wildcard of 0.0.0.15) to any destination (the router's interfaces) on port 22 (SSH)."
+    "explanation_es": "1. Para filtrar el acceso a las líneas `VTY` (acceso remoto), se utiliza el comando **`access-class in`** bajo `line vty`, no `access-group` en una interfaz.\n2. Como `SSH` usa `TCP` puerto `22`, se necesita una `ACL extendida` para filtrar por protocolo y puerto.\n3. La `ACL` `permit tcp 10.139.58.0 0.0.0.15 any eq 22` permite correctamente el tráfico `TCP` desde la subred de origen `/28` (wildcard `0.0.0.15`) a cualquier destino en el puerto `22` (`SSH`).",
+    "explanation_en": "1. To filter access to the `VTY` lines (remote access), the **`access-class in`** command is used under `line vty`, not `access-group` on an interface.\n2. Since `SSH` uses `TCP` port `22`, an `extended ACL` is required to filter by protocol and port.\n3. The `ACL` `permit tcp 10.139.58.0 0.0.0.15 any eq 22` correctly permits `TCP` traffic from the source `/28` subnet (wildcard `0.0.0.15`) to any destination on port `22` (`SSH`)."
   },
   {
     "id": "wpa3_encryption_q1",
@@ -58,18 +58,18 @@
       "subtopic_id": "5.9",
       "subtopic_description": "WPA3"
     },
-    "question_es": "¿Qué método de cifrado es utilizado por WPA3?",
-    "question_en": "Which encryption method is used by WPA3?",
+    "question_es": "¿Qué método de **cifrado** es utilizado por `WPA3`?",
+    "question_en": "Which **encryption** method is used by `WPA3`?",
     "image": null,
     "code": null,
     "options": [
-      { "text_es": "TKIP", "text_en": "TKIP", "isCorrect": false },
-      { "text_es": "SAE", "text_en": "SAE", "isCorrect": false },
-      { "text_es": "PSK", "text_en": "PSK", "isCorrect": false },
-      { "text_es": "AES", "text_en": "AES", "isCorrect": true }
+      { "text_es": "`TKIP`", "text_en": "`TKIP`", "isCorrect": false },
+      { "text_es": "`SAE`", "text_en": "`SAE`", "isCorrect": false },
+      { "text_es": "`PSK`", "text_en": "`PSK`", "isCorrect": false },
+      { "text_es": "`AES`", "text_en": "`AES`", "isCorrect": true }
     ],
-    "explanation_es": "WPA3 continúa utilizando el robusto cifrado AES (Advanced Encryption Standard) para la confidencialidad de los datos, al igual que WPA2. Aunque WPA3 introduce un nuevo método de intercambio de claves llamado SAE (Simultaneous Authentication of Equals) para reemplazar a PSK, el algoritmo de cifrado subyacente para el tráfico de datos sigue siendo AES.",
-    "explanation_en": "WPA3 continues to use the robust AES (Advanced Encryption Standard) cipher for data confidentiality, just like WPA2. Although WPA3 introduces a new key exchange method called SAE (Simultaneous Authentication of Equals) to replace PSK, the underlying encryption algorithm for the data traffic remains AES."
+    "explanation_es": "`WPA3` continúa utilizando el robusto cifrado **`AES` (Advanced Encryption Standard)** para la confidencialidad de los datos, al igual que `WPA2`. Aunque `WPA3` introduce un nuevo método de intercambio de claves llamado `SAE` (Simultaneous Authentication of Equals) para reemplazar a `PSK`, el algoritmo de cifrado subyacente sigue siendo `AES`.",
+    "explanation_en": "`WPA3` continues to use the robust **`AES` (Advanced Encryption Standard)** cipher for data confidentiality, just like `WPA2`. Although `WPA3` introduces a new key exchange method called `SAE` (Simultaneous Authentication of Equals) to replace `PSK`, the underlying encryption algorithm remains `AES`."
   },
   {
     "id": "security_posture_best_practices_q1",
@@ -82,39 +82,19 @@
       "subtopic_id": "5.2",
       "subtopic_description": "Security Best Practices"
     },
-    "question_es": "¿Cuáles dos prácticas son recomendadas para una postura de seguridad aceptable en una red? (Elija dos.)",
-    "question_en": "Which two practices are recommended for an acceptable security posture in a network? (Choose two.)",
+    "question_es": "¿Cuáles **dos** prácticas son recomendadas para una postura de seguridad aceptable en una red? (Elija dos.)",
+    "question_en": "Which **two** practices are recommended for an acceptable security posture in a network? (Choose two.)",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "Deshabilitar puertos, interfaces y servicios no utilizados o innecesarios.",
-        "text_en": "Disable unused or unnecessary ports, interfaces, and services.",
-        "isCorrect": true
-      },
-      {
-        "text_es": "Mantener el equipo de red en una ubicación segura.",
-        "text_en": "Maintain network equipment in a secure location.",
-        "isCorrect": true
-      },
-      {
-        "text_es": "Usar un llavero criptográfico (cryptographic keychain) para autenticar en los dispositivos de red.",
-        "text_en": "Use a cryptographic keychain to authenticate to network devices.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Colocar los servidores internos de correo y archivos en una DMZ designada.",
-        "text_en": "Place internal email and file servers in a designated DMZ.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Hacer copias de seguridad de las configuraciones de los dispositivos en unidades USB cifradas para una recuperación segura.",
-        "text_en": "Back up device configurations to encrypted USB drives for secure retrieval.",
-        "isCorrect": false
-      }
+      { "text_es": "**Deshabilitar** puertos, interfaces y servicios no utilizados.", "text_en": "**Disable** unused ports, interfaces, and services.", "isCorrect": true },
+      { "text_es": "Mantener el equipo de red en una **ubicación segura**.", "text_en": "Maintain network equipment in a **secure location**.", "isCorrect": true },
+      { "text_es": "Usar un llavero criptográfico para autenticar en los dispositivos.", "text_en": "Use a cryptographic keychain to authenticate to network devices.", "isCorrect": false },
+      { "text_es": "Colocar los servidores internos de correo y archivos en una `DMZ`.", "text_en": "Place internal email and file servers in a `DMZ`.", "isCorrect": false },
+      { "text_es": "Hacer copias de seguridad de las configuraciones en unidades `USB` cifradas.", "text_en": "Back up configurations to encrypted `USB` drives.", "isCorrect": false }
     ],
-    "explanation_es": "Una postura de seguridad sólida se basa en múltiples capas. Dos de las prácticas más fundamentales son: \n1. **Reducir la superficie de ataque** deshabilitando cualquier puerto o servicio que no sea esencial, ya que cada uno es un punto de entrada potencial para un atacante. \n2. **Asegurar el acceso físico** a los equipos, ya que un atacante con acceso físico puede eludir muchas otras medidas de seguridad.",
-    "explanation_en": "A strong security posture relies on multiple layers. Two of the most fundamental practices are: \n1. **Reducing the attack surface** by disabling any port or service that is not essential, as each is a potential entry point for an attacker. \n2. **Securing physical access** to equipment, as an attacker with physical access can bypass many other security measures."
+    "explanation_es": "Una postura de seguridad sólida se basa en múltiples capas. Dos de las prácticas más fundamentales son:\n1. **Reducir la superficie de ataque** deshabilitando cualquier puerto o servicio que no sea esencial.\n2. **Asegurar el acceso físico** a los equipos, ya que un atacante con acceso físico puede eludir muchas otras medidas de seguridad.",
+    "explanation_en": "A strong security posture relies on multiple layers. Two of the most fundamental practices are:\n1. **Reducing the attack surface** by disabling any non-essential port or service.\n2. **Securing physical access** to equipment, as an attacker with physical access can bypass many other security measures."
   },
   {
     "id": "wpa3_security_improvement_q1",
@@ -127,34 +107,18 @@
       "subtopic_id": "5.9",
       "subtopic_description": "WPA3"
     },
-    "question_es": "¿Cómo mejora la seguridad WPA3?",
-    "question_en": "How does WPA3 improve security?",
+    "question_es": "¿Cómo mejora la seguridad **`WPA3`**?",
+    "question_en": "How does **`WPA3`** improve security?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "Usa TKIP para el cifrado.",
-        "text_en": "It uses TKIP for encryption.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Usa un '4-way handshake' para la autenticación.",
-        "text_en": "It uses a 4-way handshake for authentication.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Usa SAE para la autenticación.",
-        "text_en": "It uses SAE for authentication.",
-        "isCorrect": true
-      },
-      {
-        "text_es": "Usa RC4 para el cifrado.",
-        "text_en": "It uses RC4 for encryption.",
-        "isCorrect": false
-      }
+      { "text_es": "Usa `TKIP` para el cifrado.", "text_en": "It uses `TKIP` for encryption.", "isCorrect": false },
+      { "text_es": "Usa un '4-way handshake' para la autenticación.", "text_en": "It uses a '4-way handshake' for authentication.", "isCorrect": false },
+      { "text_es": "Usa `SAE` para la autenticación.", "text_en": "It uses `SAE` for authentication.", "isCorrect": true },
+      { "text_es": "Usa `RC4` para el cifrado.", "text_en": "It uses `RC4` for encryption.", "isCorrect": false }
     ],
-    "explanation_es": "La principal mejora de seguridad en WPA3-Personal es la sustitución del método de autenticación PSK (Pre-Shared Key) por SAE (Simultaneous Authentication of Equals). SAE es mucho más resistente a los ataques de diccionario fuera de línea, que eran una vulnerabilidad significativa en WPA2. El '4-way handshake' es característico de WPA2, y TKIP/RC4 son protocolos de cifrado antiguos e inseguros.",
-    "explanation_en": "The primary security improvement in WPA3-Personal is replacing the PSK (Pre-Shared Key) authentication method with SAE (Simultaneous Authentication of Equals). SAE is much more resistant to offline dictionary attacks, which were a significant vulnerability in WPA2. The 4-way handshake is characteristic of WPA2, and TKIP/RC4 are old and insecure encryption protocols."
+    "explanation_es": "La principal mejora de seguridad en `WPA3-Personal` es la sustitución del método de autenticación `PSK` por **`SAE` (Simultaneous Authentication of Equals)**. `SAE` es mucho más resistente a los ataques de diccionario fuera de línea, que eran una vulnerabilidad significativa en `WPA2`. El '4-way handshake' es de `WPA2`, y `TKIP`/`RC4` son protocolos antiguos e inseguros.",
+    "explanation_en": "The primary security improvement in `WPA3-Personal` is replacing the `PSK` authentication method with **`SAE` (Simultaneous Authentication of Equals)**. `SAE` is much more resistant to offline dictionary attacks, a significant vulnerability in `WPA2`. The '4-way handshake' is from `WPA2`, and `TKIP`/`RC4` are old, insecure protocols."
   },
   {
     "id": "aaa_console_fallback_q1",
@@ -167,34 +131,18 @@
       "subtopic_id": "5.8",
       "subtopic_description": "AAA Authentication Methods"
     },
-    "question_es": "Después de una brecha de seguridad reciente y un fallo de RADIUS, un ingeniero debe asegurar el puerto de consola de cada router empresarial con un nombre de usuario y contraseña locales. ¿Qué configuración debe aplicar el ingeniero para realizar esta tarea?",
-    "question_en": "After a recent security breach and a RADIUS failure, an engineer must secure the console port of each enterprise router with a local username and password. Which configuration must the engineer apply to accomplish this task?",
+    "question_es": "Después de un fallo de `RADIUS`, un ingeniero debe asegurar el puerto de **consola** con un nombre de usuario y contraseña **locales**. ¿Qué configuración debe aplicar?",
+    "question_en": "After a `RADIUS` failure, an engineer must secure the **console** port with a **local** username and password. Which configuration must the engineer apply?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "aaa new-model\naaa authorization exec default local\naaa authentication login default radius\nusername localuser privilege 15 secret plaintextpassword",
-        "text_en": "aaa new-model\naaa authorization exec default local\naaa authentication login default radius\nusername localuser privilege 15 secret plaintextpassword",
-        "isCorrect": false
-      },
-      {
-        "text_es": "username localuser secret plaintextpassword\nline con 0\nlogin authentication default\nprivilege level 15",
-        "text_en": "username localuser secret plaintextpassword\nline con 0\nlogin authentication default\nprivilege level 15",
-        "isCorrect": true
-      },
-      {
-        "text_es": "username localuser secret plaintextpassword\nline con 0\nno login local\nprivilege level 15",
-        "text_en": "username localuser secret plaintextpassword\nline con 0\nno login local\nprivilege level 15",
-        "isCorrect": false
-      },
-      {
-        "text_es": "aaa new-model\nline con 0\npassword plaintextpassword\nprivilege level 15",
-        "text_en": "aaa new-model\nline con 0\npassword plaintextpassword\nprivilege level 15",
-        "isCorrect": false
-      }
+      { "text_es": "`aaa new-model`\n`aaa authorization exec default local`\n`aaa authentication login default radius`\n`username localuser privilege 15 secret plaintextpassword`", "text_en": "`aaa new-model`\n`aaa authorization exec default local`\n`aaa authentication login default radius`\n`username localuser privilege 15 secret plaintextpassword`", "isCorrect": false },
+      { "text_es": "`username localuser secret plaintextpassword`\n`line con 0`\n`login authentication default`\n`privilege level 15`", "text_en": "`username localuser secret plaintextpassword`\n`line con 0`\n`login authentication default`\n`privilege level 15`", "isCorrect": true },
+      { "text_es": "`username localuser secret plaintextpassword`\n`line con 0`\n`no login local`\n`privilege level 15`", "text_en": "`username localuser secret plaintextpassword`\n`line con 0`\n`no login local`\n`privilege level 15`", "isCorrect": false },
+      { "text_es": "`aaa new-model`\n`line con 0`\n`password plaintextpassword`\n`privilege level 15`", "text_en": "`aaa new-model`\n`line con 0`\n`password plaintextpassword`\n`privilege level 15`", "isCorrect": false }
     ],
-    "explanation_es": "La configuración correcta requiere crear un usuario local (`username ... secret ...`). Luego, en la línea de consola (`line con 0`), el comando `login authentication default` aplica la lista de autenticación AAA por defecto. En un escenario de fallo de RADIUS, este comando funcionará si la lista por defecto está configurada con un método de respaldo, como `local`. Finalmente, `privilege level 15` en la línea de consola otorga acceso privilegiado inmediato al iniciar sesión, lo cual es una práctica común para la gestión de consolas de emergencia.",
-    "explanation_en": "The correct configuration requires creating a local user (`username ... secret ...`). Then, on the console line (`line con 0`), the `login authentication default` command applies the default AAA authentication list. In a RADIUS failure scenario, this command will work if the default list is configured with a fallback method, such as `local`. Finally, `privilege level 15` on the console line grants immediate privileged access upon login, which is a common practice for emergency console management."
+    "explanation_es": "La configuración correcta requiere crear un usuario local (`username ... secret ...`). Luego, en la línea de consola (`line con 0`), el comando `login authentication default` aplica la lista de autenticación `AAA` por defecto. En un escenario de fallo de `RADIUS`, este comando funcionará si la lista por defecto está configurada con un método de respaldo, como `local`. Finalmente, `privilege level 15` otorga acceso privilegiado inmediato al iniciar sesión.",
+    "explanation_en": "The correct configuration requires creating a local user (`username ... secret ...`). Then, on the console line (`line con 0`), the `login authentication default` command applies the default `AAA` authentication list. In a `RADIUS` failure scenario, this command will work if the default list is configured with a fallback method, such as `local`. Finally, `privilege level 15` grants immediate privileged access upon login."
   },
   {
     "id": "mfa_examples_q1",
@@ -207,39 +155,19 @@
       "subtopic_id": "5.4",
       "subtopic_description": "Multifactor Authentication"
     },
-    "question_es": "¿Cuáles son dos ejemplos de los factores utilizados en la autenticación multifactor? (Elija dos.)",
-    "question_en": "What are two examples of multifactor authentication? (Choose two.)",
+    "question_es": "¿Cuáles son dos ejemplos de los factores utilizados en la **autenticación multifactor**? (Elija dos.)",
+    "question_en": "What are two examples of **multifactor authentication** factors? (Choose two.)",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "contraseñas que expiran",
-        "text_en": "passwords that expire",
-        "isCorrect": false
-      },
-      {
-        "text_es": "repositorio de contraseñas compartido",
-        "text_en": "shared password repository",
-        "isCorrect": false
-      },
-      {
-        "text_es": "conocimiento único del usuario",
-        "text_en": "unique user knowledge",
-        "isCorrect": true
-      },
-      {
-        "text_es": "tokens de software (soft tokens)",
-        "text_en": "soft tokens",
-        "isCorrect": true
-      },
-      {
-        "text_es": "inicio de sesión único (single sign-on)",
-        "text_en": "single sign-on",
-        "isCorrect": false
-      }
+      { "text_es": "contraseñas que expiran", "text_en": "passwords that expire", "isCorrect": false },
+      { "text_es": "repositorio de contraseñas compartido", "text_en": "shared password repository", "isCorrect": false },
+      { "text_es": "algo que solo el usuario **sabe**", "text_en": "something only the user **knows**", "isCorrect": true },
+      { "text_es": "algo que el usuario **tiene** (ej. tokens de software)", "text_en": "something the user **has** (e.g., soft tokens)", "isCorrect": true },
+      { "text_es": "inicio de sesión único (`single sign-on`)", "text_en": "`single sign-on`", "isCorrect": false }
     ],
-    "explanation_es": "La autenticación multifactor (MFA) requiere la combinación de dos o más factores de autenticación. Estos factores se clasifican en: algo que sabes (conocimiento), algo que tienes (posesión) y algo que eres (inherencia). El 'conocimiento único del usuario' (como una contraseña) es el factor de conocimiento. Los 'soft tokens' (como una app de autenticación en tu teléfono) son un ejemplo del factor de posesión. La combinación de ambos constituye MFA.",
-    "explanation_en": "Multifactor authentication (MFA) requires the combination of two or more authentication factors. These factors are categorized as: something you know (knowledge), something you have (possession), and something you are (inherence). 'Unique user knowledge' (like a password) is the knowledge factor. 'Soft tokens' (like an authenticator app on your phone) are an example of the possession factor. Combining both constitutes MFA."
+    "explanation_es": "La **autenticación multifactor (MFA)** requiere la combinación de dos o más factores de autenticación distintos. Estos factores se clasifican en:\n* **Algo que sabes** (Conocimiento), como una contraseña o un PIN.\n* **Algo que tienes** (Posesión), como un teléfono con una app de autenticación (soft token) o una tarjeta física.\n* **Algo que eres** (Inherencia), como una huella dactilar o reconocimiento facial.",
+    "explanation_en": "**Multifactor authentication (MFA)** requires the combination of two or more distinct authentication factors. These factors are categorized as:\n* **Something you know** (Knowledge), like a password or PIN.\n* **Something you have** (Possession), like a phone with an authenticator app (soft token) or a physical card.\n* **Something you are** (Inherence), like a fingerprint or facial recognition."
   },
   {
     "id": "local_user_strongest_password_q1",
@@ -252,33 +180,17 @@
       "subtopic_id": "5.3",
       "subtopic_description": "Local User Configuration"
     },
-    "question_es": "Un ingeniero debe configurar R1 para una nueva cuenta de usuario. La cuenta debe cumplir estos requisitos:\n1. Debe configurarse en la base de datos local.\n2. El nombre de usuario es 'engineer2'.\n3. Debe utilizar la contraseña configurable más fuerte.\n¿Qué comando debe configurar el ingeniero en el router?",
-    "question_en": "An engineer must configure R1 for a new user account. The account must meet these requirements:\n1. It must be configured in the local database.\n2. The username is engineer2.\n3. It must use the strongest password configurable.\nWhich command must the engineer configure on the router?",
+    "question_es": "Un ingeniero debe configurar `R1` para una nueva cuenta de usuario con la **contraseña configurable más fuerte**. ¿Qué comando debe configurar?",
+    "question_en": "An engineer must configure `R1` for a new user account with the **strongest configurable password**. Which command must the engineer configure?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "R1(config)# username engineer2 privilege 1 password 7 test2021",
-        "text_en": "R1(config)# username engineer2 privilege 1 password 7 test2021",
-        "isCorrect": false
-      },
-      {
-        "text_es": "R1(config)# username engineer2 secret 4 XXXXXXXX",
-        "text_en": "R1(config)# username engineer2 secret 4 XXXXXXXX",
-        "isCorrect": false
-      },
-      {
-        "text_es": "R1(config)# username engineer2 secret 5 password XXXXXXXX",
-        "text_en": "R1(config)# username engineer2 secret 5 password XXXXXXXX",
-        "isCorrect": false
-      },
-      {
-        "text_es": "R1(config)# username engineer2 algorithm-type scrypt secret test2021",
-        "text_en": "R1(config)# username engineer2 algorithm-type scrypt secret test2021",
-        "isCorrect": true
-      }
+      { "text_es": "`R1(config)# username engineer2 privilege 1 password 7 test2021`", "text_en": "`R1(config)# username engineer2 privilege 1 password 7 test2021`", "isCorrect": false },
+      { "text_es": "`R1(config)# username engineer2 secret 4 XXXXXXXX`", "text_en": "`R1(config)# username engineer2 secret 4 XXXXXXXX`", "isCorrect": false },
+      { "text_es": "`R1(config)# username engineer2 secret 5 password XXXXXXXX`", "text_en": "`R1(config)# username engineer2 secret 5 password XXXXXXXX`", "isCorrect": false },
+      { "text_es": "`R1(config)# username engineer2 algorithm-type scrypt secret test2021`", "text_en": "`R1(config)# username engineer2 algorithm-type scrypt secret test2021`", "isCorrect": true }
     ],
-    "explanation_es": "El requisito es usar la contraseña más fuerte posible. La opción que utiliza `algorithm-type scrypt` configura un hash de Tipo 9, que está diseñado para ser computacionalmente intensivo y resistente a los ataques de fuerza bruta modernos, lo que lo convierte en el método más seguro disponible en los IOS de Cisco actuales.\n\n### Palabras Clave del Comando `username`\n| Keyword | Significado y Nivel de Seguridad |\n|---|---|\n| `privilege` | Asigna un nivel de privilegio al usuario (0-15). 15 es el nivel más alto (acceso total). |\n| `password` | Almacena la contraseña en texto plano. Si `service password-encryption` está activo, usa un cifrado **Tipo 7**, que es muy débil y fácilmente reversible. **(Baja Seguridad)** |\n| `secret` | Almacena la contraseña usando un hash MD5 no reversible (**Tipo 5**). Es mucho más seguro que `password`. **(Seguridad Media-Alta)** |\n| `algorithm-type` | Permite especificar un algoritmo de hash más moderno y fuerte que el MD5 por defecto. |\n| `scrypt` | Usa el algoritmo **scrypt** (**Tipo 9**) para crear el hash. Es la opción más segura, diseñada para resistir ataques de GPU/ASIC. **(Máxima Seguridad)** |\n| `sha256` | Usa el algoritmo **SHA-256** (**Tipo 8**) para crear el hash. Es más fuerte que MD5. **(Alta Seguridad)** |",
-    "explanation_en": "The requirement is to use the strongest possible password. The option using `algorithm-type scrypt` configures a Type 9 hash, which is designed to be computationally intensive and resistant to modern brute-force attacks, making it the most secure method available on current Cisco IOS.\n\n### Keywords of the `username` Command\n| Keyword | Meaning and Security Level |\n|---|---|\n| `privilege` | Assigns a privilege level to the user (0-15). 15 is the highest level (full access). |\n| `password` | Stores the password in plaintext. If `service password-encryption` is active, it uses a **Type 7** encryption, which is very weak and easily reversible. **(Low Security)** |\n| `secret` | Stores the password using a non-reversible MD5 hash (**Type 5**). It is much more secure than `password`. **(Medium-High Security)** |\n| `algorithm-type` | Allows specifying a more modern and stronger hashing algorithm than the default MD5. |\n| `scrypt` | Uses the **scrypt** algorithm (**Type 9**) to create the hash. It is the most secure option, designed to resist GPU/ASIC attacks. **(Maximum Security)** |\n| `sha256` | Uses the **SHA-256** algorithm (**Type 8**) to create the hash. It is stronger than MD5. **(High Security)** |"
+    "explanation_es": "El requisito es usar la contraseña **más fuerte** posible. La opción que utiliza `algorithm-type scrypt` configura un hash de **Tipo 9**, que está diseñado para ser computacionalmente intensivo y resistente a los ataques de fuerza bruta modernos, lo que lo convierte en el método más seguro disponible en los `IOS` de Cisco actuales.\n\n### Palabras Clave del Comando `username`\n| Keyword | Significado y Nivel de Seguridad |\n|---|---|\n| `password` | Cifrado **Tipo 7**, muy débil y reversible. **(Baja Seguridad)** |\n| `secret` | Hash `MD5` no reversible (**Tipo 5**). **(Seguridad Media-Alta)** |\n| `algorithm-type scrypt` | Algoritmo **`scrypt`** (**Tipo 9**). Resistente a ataques de GPU/ASIC. **(Máxima Seguridad)** |\n| `algorithm-type sha256` | Algoritmo **`SHA-256`** (**Tipo 8**). Más fuerte que `MD5`. **(Alta Seguridad)** |",
+    "explanation_en": "The requirement is to use the **strongest** possible password. The option using `algorithm-type scrypt` configures a **Type 9** hash, which is designed to be computationally intensive and resistant to modern brute-force attacks, making it the most secure method available on current Cisco `IOS`.\n\n### Keywords of the `username` Command\n| Keyword | Meaning and Security Level |\n|---|---|\n| `password` | **Type 7** encryption, very weak and reversible. **(Low Security)** |\n| `secret` | Non-reversible `MD5` hash (**Type 5**). **(Medium-High Security)** |\n| `algorithm-type scrypt` | **`scrypt`** algorithm (**Type 9**). Resistant to GPU/ASIC attacks. **(Maximum Security)** |\n| `algorithm-type sha256` | **`SHA-256`** algorithm (**Type 8**). Stronger than `MD5`. **(High Security)** |"
   }
 ]
