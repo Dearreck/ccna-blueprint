@@ -660,5 +660,45 @@
     ],
     "explanation_es": "Para crear un `EtherChannel` de Capa 3 con un protocolo de estándar abierto, se deben cumplir dos condiciones:\n1.  El protocolo de negociación debe ser `LACP` (el estándar abierto).\n2.  La interfaz lógica `Port-channel` debe ser configurada como una interfaz enrutada (Capa 3).\n\n### Análisis de los Comandos\n* **Paso 1: Configurar las interfaces físicas.** El protocolo `LACP` se habilita en las interfaces físicas usando los modos `active` o `passive`. El comando `channel-group 10 mode active` configura correctamente la interfaz física para negociar un `EtherChannel` usando `LACP`. **(Opción E es correcta)**\n* **Paso 2: Configurar la interfaz lógica.** Para convertir la interfaz `Port-channel 10` en una interfaz de Capa 3, se debe usar el comando `no switchport`. Después de eso, se le puede asignar una dirección `IP`. **(Opción D es correcta)**\n\n### Opciones Incorrectas\n| Opción | Comando | Razón por la que es Incorrecto |\n|---|---|---|\n| **A** | `mode auto` | `auto` es un modo del protocolo propietario de Cisco, `PAgP`, no del estándar abierto `LACP`. |\n| **B** | `switchport` | Este comando configura la interfaz como una de Capa 2, no de Capa 3. |\n| **C** | `mode on` | Esto crea un `EtherChannel` estático sin un protocolo de negociación, lo cual no cumple con el requisito de usar un protocolo de estándar abierto. |",
     "explanation_en": "To create a Layer 3 `EtherChannel` with an open-standard protocol, two conditions must be met:\n1.  The negotiation protocol must be `LACP` (the open standard).\n2.  The logical `Port-channel` interface must be configured as a routed (Layer 3) interface.\n\n### Command Analysis\n* **Step 1: Configure the physical interfaces.** The `LACP` protocol is enabled on the physical interfaces using either `active` or `passive` mode. The command `channel-group 10 mode active` correctly configures the physical interface to negotiate an `EtherChannel` using `LACP`. **(Option E is correct)**\n* **Step 2: Configure the logical interface.** To make the `Port-channel 10` interface a Layer 3 interface, the `no switchport` command must be used. After that, an `IP` address can be assigned to it. **(Option D is correct)**\n\n### Incorrect Options\n| Option | Command | Reason it is Incorrect |\n|---|---|---|\n| **A** | `mode auto` | `auto` is a mode for the Cisco proprietary protocol, `PAgP`, not the open-standard `LACP`. |\n| **B** | `switchport` | This command configures the interface as a Layer 2 interface, not Layer 3. |\n| **C** | `mode on` | This creates a static `EtherChannel` without a negotiation protocol, which does not meet the requirement of using an open-standard protocol. |"
+  },
+  {
+    "id": "lldp-tlv-port-description-01",
+    "category": "2.0-network-access",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "2.3",
+      "description_es": "Configurar y verificar los protocolos de descubrimiento de Capa 2 (Cisco Discovery Protocol y LLDP)",
+      "description_en": "Configure and verify Layer 2 discovery protocols (Cisco Discovery Protocol and LLDP)",
+      "subtopic_id": "2.3",
+      "subtopic_description": "LLDP Configuration"
+    },
+    "question_es": "Un ingeniero necesita configurar LLDP para enviar el **TLV (Type-Length-Value)** de descripción de puerto. ¿Qué secuencia de comandos debe implementarse?",
+    "question_en": "An engineer needs to configure LLDP to send the **port description type length value (TLV)**. What command sequence must be implemented?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`switch(config)#lldp port-description`",
+        "text_en": "`switch(config)#lldp port-description`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`switch(config-if)#lldp port description`",
+        "text_en": "`switch(config-if)#lldp port description`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`switch(config-line)#lldp port-description`",
+        "text_en": "`switch(config-line)#lldp port-description`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`switch#lldp port-description`",
+        "text_en": "`switch#lldp port-description`",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "### Explicación Detallada\n\nEl protocolo **LLDP (Link Layer Discovery Protocol)** utiliza mensajes llamados **TLV (Type-Length-Value)** para anunciar información sobre sí mismo a los dispositivos vecinos. Para controlar qué TLVs específicos se envían, se utilizan comandos en el modo de configuración global.\n\n#### Opción Correcta\n- **`switch(config)#lldp port-description`**: Este es el comando correcto. Se introduce en el **modo de configuración global** (`config`) y le indica al switch que incluya el TLV de *descripción de puerto* en sus anuncios LLDP. Este es un control a nivel de dispositivo sobre los TLVs que se anuncian.\n\n#### Opciones Incorrectas\n- **`switch(config-if)#lldp port description`**: Esta opción es incorrecta por dos razones. Primero, el comando correcto utiliza un guion (`port-description`), no un espacio. Segundo, aunque algunos comandos de LLDP (como `lldp transmit` o `lldp receive`) se configuran por interfaz (`config-if`), el comando para habilitar o deshabilitar la publicidad de TLVs específicos es un comando **global**.\n\n- **`switch(config-line)#lldp port-description`**: El modo de configuración de línea (`config-line`) se utiliza para configurar las líneas de acceso de la consola (`con 0`) y virtuales (`vty`). **No** tiene ninguna relación con la configuración de protocolos de capa 2 como LLDP.\n\n- **`switch#lldp port-description`**: El prompt `switch#` indica el **modo EXEC privilegiado**. Desde este modo, no se pueden ejecutar comandos de configuración. Para ello, primero se debe entrar en el modo de configuración global usando el comando `configure terminal`.",
+    "explanation_en": "### Detailed Explanation\n\nThe **Link Layer Discovery Protocol (LLDP)** uses messages called **TLVs (Type-Length-Value)** to advertise information about itself to neighboring devices. To control which specific TLVs are sent, commands are used in global configuration mode.\n\n#### Correct Option\n- **`switch(config)#lldp port-description`**: This is the correct command. It is entered in **global configuration mode** (`config`) and instructs the switch to include the *port description* TLV in its LLDP advertisements. This is a device-level control over which TLVs are advertised.\n\n#### Incorrect Options\n- **`switch(config-if)#lldp port description`**: This option is incorrect for two reasons. First, the correct command uses a hyphen (`port-description`), not a space. Second, while some LLDP commands (like `lldp transmit` or `lldp receive`) are configured on a per-interface basis (`config-if`), the command to enable or disable the advertisement of specific TLVs is a **global** command.\n\n- **`switch(config-line)#lldp port-description`**: The line configuration mode (`config-line`) is used to configure console (`con 0`) and virtual terminal (`vty`) access lines. It has **no** relation to the configuration of Layer 2 protocols like LLDP.\n\n- **`switch#lldp port-description`**: The `switch#` prompt indicates **privileged EXEC mode**. Configuration commands cannot be run from this mode. To do so, you must first enter global configuration mode using the `configure terminal` command."
   }
 ]
