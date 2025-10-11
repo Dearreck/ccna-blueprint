@@ -135,7 +135,7 @@
     "image": null,
     "code": null,
     "options": [
-      { "text_es": "Ambos tienen un diámetro de núcleo de **50 micrones**.", "text_en": "Both have a **50 micron** core diameter.", "isCorrect": true },
+      { "text_es": "Ambos tienen un diámetro de núcleo de 50 micrones.", "text_en": "Both have a 50 micron core diameter.", "isCorrect": true },
       { "text_es": "Ambos tienen un diámetro de núcleo de 100 micrones.", "text_en": "Both have a 100 micron core diameter.", "isCorrect": false },
       { "text_es": "Ambos tienen un diámetro de núcleo de 62.5 micrones.", "text_en": "Both have a 62.5 micron core diameter.", "isCorrect": false },
       { "text_es": "Ambos tienen un diámetro de núcleo de 9 micrones.", "text_en": "Both have a 9 micron core diameter.", "isCorrect": false }
