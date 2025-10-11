@@ -615,5 +615,50 @@
     ],
     "explanation_es": "`TACACS+` y `RADIUS` son protocolos `AAA` (Autenticación, Autorización y Contabilidad), pero tienen diferencias operativas clave. La más importante es cómo manejan los componentes de `AAA`.\n\n### Comparación de Características\n| Característica | `TACACS+` | `RADIUS` |\n|---|---|---|\n| **Procesos `AAA`** | **Separa** los 3 componentes. | **Combina** Autenticación y Autorización. |\n| **Transporte** | Usa `TCP` (fiable). | Usa `UDP` (no fiable). |\n| **Cifrado** | Cifra el **cuerpo completo** del paquete. | Cifra **solo la contraseña**. |\n\n### Análisis de las Opciones\n* **A:** Incorrecto. Es al revés; `TACACS+` es conocido por su capacidad superior de registro de comandos.\n* **B:** Incorrecto. Aunque `RADIUS` se originó para el acceso telefónico, ambos se usan ampliamente para la gestión de dispositivos de red en la actualidad.\n* **C:** Incorrecto. Esta afirmación está invertida. `TACACS+` es más seguro porque cifra todo el paquete.\n* **D:** **Correcto**. `TACACS+` trata la autenticación y la autorización como procesos separados, lo que permite mayor flexibilidad. `RADIUS` las combina en un solo paso.",
     "explanation_en": "`TACACS+` and `RADIUS` are both `AAA` (Authentication, Authorization, and Accounting) protocols, but they have key operational differences. The most significant is how they handle the `AAA` components.\n\n### Feature Comparison\n| Feature | `TACACS+` | `RADIUS` |\n|---|---|---|\n| **`AAA` Processes** | **Separates** the 3 components. | **Combines** Authentication and Authorization. |\n| **Transport** | Uses `TCP` (reliable). | Uses `UDP` (unreliable). |\n| **Encryption** | Encrypts the **entire packet body**. | Encrypts **only the password**. |\n\n### Options Analysis\n* **A:** Incorrect. This is reversed; `TACACS+` is known for its superior command logging capabilities.\n* **B:** Incorrect. While `RADIUS` originated for dial-up access, both are widely used for network device management today.\n* **C:** Incorrect. This statement is reversed. `TACACS+` is more secure because it encrypts the entire packet.\n* **D:** **Correct**. `TACACS+` treats authentication and authorization as separate processes, allowing for greater flexibility. `RADIUS` combines them into a single step."
+  },
+  {
+    "id": "ccna-net-access-l3-etherchannel-lacp-q1",
+    "category": "2.0-network-access",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "2.4",
+      "description_es": "Configurar y verificar EtherChannel (Layer 2/Layer 3) (LACP)",
+      "description_en": "Configure and verify (Layer 2/Layer 3) EtherChannel (LACP)",
+      "subtopic_id": "2.4",
+      "subtopic_description": "Layer 3 EtherChannel LACP"
+    },
+    "question_es": "¿Qué **dos** secuencias de comandos se deben configurar en un switch para establecer un `EtherChannel` de Capa 3 con un protocolo de estándar abierto? (Elija dos.)",
+    "question_en": "Which **two** command sequences must be configured on a switch to establish a Layer 3 `EtherChannel` with an open-standard protocol? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`interface GigabitEthernet0/0/1`\n`channel-group 10 mode auto`",
+        "text_en": "`interface GigabitEthernet0/0/1`\n`channel-group 10 mode auto`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`interface port-channel 10`\n`switchport`\n`switchport mode trunk`",
+        "text_en": "`interface port-channel 10`\n`switchport`\n`switchport mode trunk`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`interface GigabitEthernet0/0/1`\n`channel-group 10 mode on`",
+        "text_en": "`interface GigabitEthernet0/0/1`\n`channel-group 10 mode on`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`interface port-channel 10`\n`no switchport`\n`ip address 172.18.0.1 255.255.255.0`",
+        "text_en": "`interface port-channel 10`\n`no switchport`\n`ip address 172.18.0.1 255.255.255.0`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`interface GigabitEthernet0/0/1`\n`channel-group 10 mode active`",
+        "text_en": "`interface GigabitEthernet0/0/1`\n`channel-group 10 mode active`",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "Para crear un `EtherChannel` de Capa 3 con un protocolo de estándar abierto, se deben cumplir dos condiciones:\n1.  El protocolo de negociación debe ser `LACP` (el estándar abierto).\n2.  La interfaz lógica `Port-channel` debe ser configurada como una interfaz enrutada (Capa 3).\n\n### Análisis de los Comandos\n* **Paso 1: Configurar las interfaces físicas.** El protocolo `LACP` se habilita en las interfaces físicas usando los modos `active` o `passive`. El comando `channel-group 10 mode active` configura correctamente la interfaz física para negociar un `EtherChannel` usando `LACP`. **(Opción E es correcta)**\n* **Paso 2: Configurar la interfaz lógica.** Para convertir la interfaz `Port-channel 10` en una interfaz de Capa 3, se debe usar el comando `no switchport`. Después de eso, se le puede asignar una dirección `IP`. **(Opción D es correcta)**\n\n### Opciones Incorrectas\n| Opción | Comando | Razón por la que es Incorrecto |\n|---|---|---|\n| **A** | `mode auto` | `auto` es un modo del protocolo propietario de Cisco, `PAgP`, no del estándar abierto `LACP`. |\n| **B** | `switchport` | Este comando configura la interfaz como una de Capa 2, no de Capa 3. |\n| **C** | `mode on` | Esto crea un `EtherChannel` estático sin un protocolo de negociación, lo cual no cumple con el requisito de usar un protocolo de estándar abierto. |",
+    "explanation_en": "To create a Layer 3 `EtherChannel` with an open-standard protocol, two conditions must be met:\n1.  The negotiation protocol must be `LACP` (the open standard).\n2.  The logical `Port-channel` interface must be configured as a routed (Layer 3) interface.\n\n### Command Analysis\n* **Step 1: Configure the physical interfaces.** The `LACP` protocol is enabled on the physical interfaces using either `active` or `passive` mode. The command `channel-group 10 mode active` correctly configures the physical interface to negotiate an `EtherChannel` using `LACP`. **(Option E is correct)**\n* **Step 2: Configure the logical interface.** To make the `Port-channel 10` interface a Layer 3 interface, the `no switchport` command must be used. After that, an `IP` address can be assigned to it. **(Option D is correct)**\n\n### Incorrect Options\n| Option | Command | Reason it is Incorrect |\n|---|---|---|\n| **A** | `mode auto` | `auto` is a mode for the Cisco proprietary protocol, `PAgP`, not the open-standard `LACP`. |\n| **B** | `switchport` | This command configures the interface as a Layer 2 interface, not Layer 3. |\n| **C** | `mode on` | This creates a static `EtherChannel` without a negotiation protocol, which does not meet the requirement of using an open-standard protocol. |"
   }
 ]
