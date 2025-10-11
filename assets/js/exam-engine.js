@@ -590,7 +590,7 @@ document.addEventListener('DOMContentLoaded', () => {
         skipQuestion() {
             state.currentExamQuestions[state.currentQuestionIndex].userAnswerIndex = 'skipped';
             state.stats.skipped++; //Exam.proceedToNextQuestion
-            this.proceedToNextQuestion();
+            Exam.proceedToNextQuestion();
         },
         
         /**
