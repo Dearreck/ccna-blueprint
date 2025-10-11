@@ -3,16 +3,16 @@
     "id": "services_q1",
     "category": "4.0-ip-services",
     "isMultipleChoice": false,
-    "question_es": "Un usuario escribe 'www.cisco.com' en su navegador. ¿Qué servicio de red es responsable de traducir este nombre de dominio a una dirección IP para que el navegador pueda establecer una conexión?",
-    "question_en": "A user types 'www.cisco.com' into their browser. Which network service is responsible for translating this domain name into an IP address so the browser can establish a connection?",
+    "question_es": "Un usuario escribe `www.cisco.com` en su navegador. ¿Qué servicio de red es responsable de traducir este nombre de dominio a una dirección IP?",
+    "question_en": "A user types `www.cisco.com` into their browser. Which network service is responsible for translating this domain name into an IP address?",
     "options": [
-      { "text_es": "DHCP (Dynamic Host Configuration Protocol)", "text_en": "DHCP (Dynamic Host Configuration Protocol)", "isCorrect": false },
-      { "text_es": "NTP (Network Time Protocol)", "text_en": "NTP (Network Time Protocol)", "isCorrect": false },
-      { "text_es": "SNMP (Simple Network Management Protocol)", "text_en": "SNMP (Simple Network Management Protocol)", "isCorrect": false },
-      { "text_es": "DNS (Domain Name System)", "text_en": "DNS (Domain Name System)", "isCorrect": true }
+      { "text_es": "`DHCP` (Dynamic Host Configuration Protocol)", "text_en": "`DHCP` (Dynamic Host Configuration Protocol)", "isCorrect": false },
+      { "text_es": "`NTP` (Network Time Protocol)", "text_en": "`NTP` (Network Time Protocol)", "isCorrect": false },
+      { "text_es": "`SNMP` (Simple Network Management Protocol)", "text_en": "`SNMP` (Simple Network Management Protocol)", "isCorrect": false },
+      { "text_es": "`DNS` (Domain Name System)", "text_en": "`DNS` (Domain Name System)", "isCorrect": true }
     ],
-    "explanation_es": "El DNS (Domain Name System) funciona como la 'agenda telefónica' de Internet. Su función principal es resolver (traducir) nombres de dominio legibles por humanos (como www.cisco.com) a las direcciones IP numéricas (como 198.133.219.25) que los computadores utilizan para comunicarse entre sí.",
-    "explanation_en": "The DNS (Domain Name System) acts as the 'phonebook' of the Internet. Its primary function is to resolve (translate) human-readable domain names (like www.cisco.com) into the numerical IP addresses (like 198.133.219.25) that computers use to communicate with each other."
+    "explanation_es": "El **`DNS` (Domain Name System)** funciona como la 'agenda telefónica' de Internet. Su función principal es resolver (traducir) nombres de dominio legibles por humanos (como `www.cisco.com`) a las direcciones IP numéricas (como `198.133.219.25`) que los computadores utilizan para comunicarse.",
+    "explanation_en": "The **`DNS` (Domain Name System)** acts as the 'phonebook' of the Internet. Its primary function is to resolve (translate) human-readable domain names (like `www.cisco.com`) into the numerical IP addresses (like `198.133.219.25`) that computers use to communicate."
   },
   {
     "id": "snmpv3_command_q1",
@@ -25,34 +25,18 @@
       "subtopic_id": "4.4",
       "subtopic_description": "SNMP Versions"
     },
-    "question_es": "¿Qué comando implica el uso de SNMPv3?",
-    "question_en": "Which command implies the use of SNMPv3?",
+    "question_es": "¿Qué comando implica el uso de **`SNMPv3`**?",
+    "question_en": "Which command implies the use of **`SNMPv3`**?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "snmp-server user",
-        "text_en": "snmp-server user",
-        "isCorrect": true
-      },
-      {
-        "text_es": "snmp-server enable traps",
-        "text_en": "snmp-server enable traps",
-        "isCorrect": false
-      },
-      {
-        "text_es": "snmp-server host",
-        "text_en": "snmp-server host",
-        "isCorrect": false
-      },
-      {
-        "text_es": "snmp-server community",
-        "text_en": "snmp-server community",
-        "isCorrect": false
-      }
+      { "text_es": "`snmp-server user`", "text_en": "`snmp-server user`", "isCorrect": true },
+      { "text_es": "`snmp-server enable traps`", "text_en": "`snmp-server enable traps`", "isCorrect": false },
+      { "text_es": "`snmp-server host`", "text_en": "`snmp-server host`", "isCorrect": false },
+      { "text_es": "`snmp-server community`", "text_en": "`snmp-server community`", "isCorrect": false }
     ],
-    "explanation_es": "SNMPv3 introdujo un Modelo de Seguridad Basado en el Usuario (USM) para proporcionar autenticación y cifrado. El comando `snmp-server user` es específico para crear estos usuarios y definir sus niveles de seguridad. En contraste, el comando `snmp-server community` se utiliza para las versiones más antiguas e inseguras, SNMPv1 y SNMPv2c, que se basan en 'cadenas de comunidad' en texto plano.",
-    "explanation_en": "SNMPv3 introduced a User-based Security Model (USM) to provide authentication and encryption. The `snmp-server user` command is specific to creating these users and defining their security levels. In contrast, the `snmp-server community` command is used for the older, insecure versions, SNMPv1 and SNMPv2c, which rely on clear-text 'community strings'."
+    "explanation_es": "**`SNMPv3`** introdujo un Modelo de Seguridad Basado en el Usuario (`USM`) para proporcionar autenticación y cifrado. El comando `snmp-server user` es específico para crear estos usuarios. En contraste, el comando `snmp-server community` se utiliza para las versiones más antiguas e inseguras, `SNMPv1` y `SNMPv2c`, que se basan en 'cadenas de comunidad' en texto plano.",
+    "explanation_en": "**`SNMPv3`** introduced a User-based Security Model (`USM`) to provide authentication and encryption. The `snmp-server user` command is specific to creating these users. In contrast, the `snmp-server community` command is used for the older, insecure versions, `SNMPv1` and `SNMPv2c`, which rely on clear-text 'community strings'."
   },
   {
     "id": "ssh_config_q1",
@@ -65,34 +49,18 @@
       "subtopic_id": "4.8",
       "subtopic_description": "SSH Configuration"
     },
-    "question_es": "Un ingeniero está configurando SSH versión 2 exclusivamente en el router R1. ¿Cuál es la configuración mínima requerida para permitir la gestión remota utilizando el protocolo criptográfico?",
-    "question_en": "An engineer is configuring SSH version 2 exclusively on the R1 router. What is the minimum configuration required to permit remote management using the cryptographic protocol?",
+    "question_es": "Un ingeniero está configurando **`SSH versión 2`** exclusivamente en el router `R1`. ¿Cuál es la configuración **mínima** requerida para permitir la gestión remota?",
+    "question_en": "An engineer is configuring **`SSH version 2`** exclusively on the `R1` router. What is the **minimum** configuration required to permit remote management?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "hostname R1\nservice password-encryption\ncrypto key generate rsa general-keys modulus 1024\nusername cisco privilege 15 password 0 cisco123\nip ssh version 2\nline vty 0 15\ntransport input ssh\nlogin local",
-        "text_en": "hostname R1\nservice password-encryption\ncrypto key generate rsa general-keys modulus 1024\nusername cisco privilege 15 password 0 cisco123\nip ssh version 2\nline vty 0 15\ntransport input ssh\nlogin local",
-        "isCorrect": false
-      },
-      {
-        "text_es": "hostname R1\nip domain name cisco\ncrypto key generate rsa general-keys modulus 1024\nusername cisco privilege 15 password 0 cisco123\nip ssh version 2\nline vty 0 15\ntransport input all\nlogin local",
-        "text_en": "hostname R1\nip domain name cisco\ncrypto key generate rsa general-keys modulus 1024\nusername cisco privilege 15 password 0 cisco123\nip ssh version 2\nline vty 0 15\ntransport input all\nlogin local",
-        "isCorrect": false
-      },
-      {
-        "text_es": "hostname R1\ncrypto key generate rsa general-keys modulus 1024\nline vty 0 15\ntransport input all\nlogin local",
-        "text_en": "hostname R1\ncrypto key generate rsa general-keys modulus 1024\nline vty 0 15\ntransport input all\nlogin local",
-        "isCorrect": false
-      },
-      {
-        "text_es": "hostname R1\nip domain name cisco\ncrypto key generate rsa general-keys modulus 1024\nusername cisco privilege 15 password 0 cisco123\nip ssh version 2\nline vty 0 15\ntransport input ssh\nlogin local",
-        "text_en": "hostname R1\nip domain name cisco\ncrypto key generate rsa general-keys modulus 1024\nusername cisco privilege 15 password 0 cisco123\nip ssh version 2\nline vty 0 15\ntransport input ssh\nlogin local",
-        "isCorrect": true
-      }
+      { "text_es": "`hostname R1`\n`service password-encryption`\n`crypto key generate rsa general-keys modulus 1024`\n`username cisco privilege 15 password 0 cisco123`\n`ip ssh version 2`\n`line vty 0 15`\n`transport input ssh`\n`login local`", "text_en": "`hostname R1`\n`service password-encryption`\n`crypto key generate rsa general-keys modulus 1024`\n`username cisco privilege 15 password 0 cisco123`\n`ip ssh version 2`\n`line vty 0 15`\n`transport input ssh`\n`login local`", "isCorrect": false },
+      { "text_es": "`hostname R1`\n`ip domain name cisco`\n`crypto key generate rsa general-keys modulus 1024`\n`username cisco privilege 15 password 0 cisco123`\n`ip ssh version 2`\n`line vty 0 15`\n`transport input all`\n`login local`", "text_en": "`hostname R1`\n`ip domain name cisco`\n`crypto key generate rsa general-keys modulus 1024`\n`username cisco privilege 15 password 0 cisco123`\n`ip ssh version 2`\n`line vty 0 15`\n`transport input all`\n`login local`", "isCorrect": false },
+      { "text_es": "`hostname R1`\n`crypto key generate rsa general-keys modulus 1024`\n`line vty 0 15`\n`transport input all`\n`login local`", "text_en": "`hostname R1`\n`crypto key generate rsa general-keys modulus 1024`\n`line vty 0 15`\n`transport input all`\n`login local`", "isCorrect": false },
+      { "text_es": "`hostname R1`\n`ip domain name cisco`\n`crypto key generate rsa general-keys modulus 1024`\n`username cisco privilege 15 password 0 cisco123`\n`ip ssh version 2`\n`line vty 0 15`\n`transport input ssh`\n`login local`", "text_en": "`hostname R1`\n`ip domain name cisco`\n`crypto key generate rsa general-keys modulus 1024`\n`username cisco privilege 15 password 0 cisco123`\n`ip ssh version 2`\n`line vty 0 15`\n`transport input ssh`\n`login local`", "isCorrect": true }
     ],
-    "explanation_es": "Para una configuración mínima y segura de SSHv2, se requieren varios pasos: \n1. Establecer un `hostname`. \n2. Definir un `ip domain name` para generar las claves criptográficas. \n3. Generar las claves RSA con `crypto key generate rsa`. \n4. Crear un `username` local para la autenticación. \n5. Forzar la versión 2 con `ip ssh version 2`. \n6. En las líneas VTY, permitir solo SSH con `transport input ssh` y usar la base de datos local para la autenticación con `login local`. La opción correcta es la única que cumple todos estos requisitos.",
-    "explanation_en": "For a minimal and secure SSHv2 configuration, several steps are required: \n1. Set a `hostname`. \n2. Define an `ip domain name` to generate cryptographic keys. \n3. Generate RSA keys with `crypto key generate rsa`. \n4. Create a local `username` for authentication. \n5. Force version 2 with `ip ssh version 2`. \n6. On the VTY lines, allow only SSH with `transport input ssh` and use the local database for authentication with `login local`. The correct option is the only one that meets all these requirements."
+    "explanation_es": "Para una configuración mínima y segura de `SSHv2`, se requieren varios pasos:\n1. Establecer un `hostname`.\n2. Definir un `ip domain name`.\n3. Generar las claves `RSA` con `crypto key generate rsa`.\n4. Crear un `username` local.\n5. Forzar la `versión 2`.\n6. En las líneas `VTY`, permitir **solo `SSH`** con `transport input ssh` y usar la base de datos local con `login local`. La opción correcta es la única que cumple todos estos requisitos.",
+    "explanation_en": "For a minimal and secure `SSHv2` configuration, several steps are required:\n1. Set a `hostname`.\n2. Define an `ip domain name`.\n3. Generate `RSA` keys with `crypto key generate rsa`.\n4. Create a local `username`.\n5. Force `version 2`.\n6. On the `VTY` lines, allow **only `SSH`** with `transport input ssh` and use the local database with `login local`. The correct option is the only one that meets all these requirements."
   },
   {
     "id": "nat_overload_q1",
@@ -105,34 +73,18 @@
       "subtopic_id": "4.1",
       "subtopic_description": "NAT Overload (PAT)"
     },
-    "question_es": "¿Qué distingue a NAT con sobrecarga (PAT) de NAT dinámico?",
-    "question_en": "What distinguishes NAT overload (PAT) from dynamic NAT?",
+    "question_es": "¿Qué distingue a **`NAT con sobrecarga (PAT)`** de `NAT dinámico`?",
+    "question_en": "What distinguishes **`NAT overload (PAT)`** from `dynamic NAT`?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "PAT utiliza múltiples direcciones IP públicas para una única dirección IP privada.",
-        "text_en": "PAT uses multiple public IP addresses for a single private IP address.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "PAT utiliza el número de puerto para diferenciar entre múltiples sesiones de hosts internos que comparten una única dirección IP pública.",
-        "text_en": "PAT uses the port number to differentiate between multiple sessions from internal hosts that share a single public IP address.",
-        "isCorrect": true
-      },
-      {
-        "text_es": "PAT solo permite una traducción uno a uno entre direcciones IP privadas y públicas.",
-        "text_en": "PAT only allows a one-to-one translation between private and public IP addresses.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "PAT no requiere una tabla de traducción en el router.",
-        "text_en": "PAT does not require a translation table on the router.",
-        "isCorrect": false
-      }
+      { "text_es": "`PAT` utiliza múltiples direcciones IP públicas para una única dirección IP privada.", "text_en": "`PAT` uses multiple public IP addresses for a single private IP address.", "isCorrect": false },
+      { "text_es": "`PAT` utiliza el **número de puerto** para diferenciar entre múltiples sesiones que comparten una única IP pública.", "text_en": "`PAT` uses the **port number** to differentiate between multiple sessions that share a single public IP address.", "isCorrect": true },
+      { "text_es": "`PAT` solo permite una traducción uno a uno entre IPs.", "text_en": "`PAT` only allows a one-to-one translation between IPs.", "isCorrect": false },
+      { "text_es": "`PAT` no requiere una tabla de traducción en el router.", "text_en": "`PAT` does not require a translation table on the router.", "isCorrect": false }
     ],
-    "explanation_es": "La característica principal de NAT con sobrecarga, o PAT (Port Address Translation), es su capacidad de permitir que múltiples dispositivos en una red privada compartan una única dirección IP pública. Lo logra manteniendo un seguimiento de cada sesión única a través de la combinación de la dirección IP y el número de puerto de origen, asignando un número de puerto único a cada sesión saliente.",
-    "explanation_en": "The main feature of NAT overload, or PAT (Port Address Translation), is its ability to allow multiple devices on a private network to share a single public IP address. It achieves this by keeping track of each unique session through the combination of the source IP address and port number, assigning a unique port number to each outgoing session."
+    "explanation_es": "La característica principal de `NAT con sobrecarga`, o **`PAT` (Port Address Translation)**, es su capacidad de permitir que múltiples dispositivos compartan una única IP pública. Lo logra manteniendo un seguimiento de cada sesión única a través de la combinación de la **dirección IP y el número de puerto de origen**.",
+    "explanation_en": "The main feature of `NAT overload`, or **`PAT` (Port Address Translation)**, is its ability to allow multiple devices to share a single public IP address. It achieves this by keeping track of each unique session through the combination of the **source IP address and port number**."
   },
   {
     "id": "ftp_function_q1",
@@ -145,34 +97,18 @@
       "subtopic_id": "4.9",
       "subtopic_description": "FTP Functions"
     },
-    "question_es": "¿Cuál es una función de FTP?",
-    "question_en": "What is a function of FTP?",
+    "question_es": "¿Cuál es una función de `FTP`?",
+    "question_en": "What is a function of `FTP`?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "se basa en el conocido puerto UDP 69 para la transferencia de datos",
-        "text_en": "relies on the well-known UDP port 69 for data transfer",
-        "isCorrect": false
-      },
-      {
-        "text_es": "utiliza dos conexiones separadas para el tráfico de control y de datos",
-        "text_en": "uses two separate connections for control and data traffic",
-        "isCorrect": true
-      },
-      {
-        "text_es": "utiliza números de bloque para identificar y mitigar errores en la transferencia de datos",
-        "text_en": "uses block numbers to identify and mitigate data-transfer errors",
-        "isCorrect": false
-      },
-      {
-        "text_es": "siempre opera sin validación de la conexión del usuario",
-        "text_en": "always operates without user connection validation",
-        "isCorrect": false
-      }
+      { "text_es": "se basa en el puerto `UDP 69`", "text_en": "relies on `UDP port 69`", "isCorrect": false },
+      { "text_es": "utiliza **dos conexiones separadas** para control y datos", "text_en": "uses **two separate connections** for control and data", "isCorrect": true },
+      { "text_es": "utiliza números de bloque para identificar errores", "text_en": "uses block numbers to identify errors", "isCorrect": false },
+      { "text_es": "opera sin validación de usuario", "text_en": "operates without user validation", "isCorrect": false }
     ],
-    "explanation_es": "Una característica fundamental del Protocolo de Transferencia de Archivos (FTP) es que utiliza dos conexiones TCP distintas: una conexión de control en el puerto 21 para enviar comandos (como usuario, contraseña, listar, etc.) y una conexión de datos separada para la transferencia real de los archivos. El puerto UDP 69 y los números de bloque son característicos de TFTP, no de FTP.",
-    "explanation_en": "A fundamental characteristic of the File Transfer Protocol (FTP) is that it uses two distinct TCP connections: a control connection on port 21 for sending commands (like user, pass, list, etc.) and a separate data connection for the actual file transfer. UDP port 69 and block numbers are characteristic of TFTP, not FTP."
+    "explanation_es": "Una característica fundamental de `FTP` es que utiliza **dos conexiones `TCP` distintas**: una **conexión de control** en el puerto `21` para comandos y una **conexión de datos** separada para la transferencia real de los archivos. El puerto `UDP 69` y los números de bloque son característicos de `TFTP`, no de `FTP`.",
+    "explanation_en": "A fundamental characteristic of `FTP` is that it uses **two distinct `TCP` connections**: a **control connection** on port `21` for commands and a separate **data connection** for the actual file transfer. `UDP port 69` and block numbers are characteristic of `TFTP`, not `FTP`."
   },
   {
     "id": "ssh_unnecessary_commands_q1",
@@ -185,39 +121,19 @@
       "subtopic_id": "4.8",
       "subtopic_description": "SSH Configuration"
     },
-    "question_es": "Consulte la información. Un ingeniero ejecutó el script y añadió comandos que no eran necesarios para SSH y ahora debe eliminarlos. ¿Qué dos comandos deben ejecutarse para corregir la configuración? (Elija dos.)",
-    "question_en": "Refer to the exhibit. An engineer executed the script and added commands that were not necessary for SSH and now must remove the commands. Which two commands must be executed to correct the configuration? (Choose two.)",
+    "question_es": "**Consulte la información.** Un ingeniero ejecutó el script y añadió comandos que **no eran necesarios** para `SSH` y ahora debe eliminarlos. ¿Qué dos comandos deben ejecutarse para corregir la configuración? (Elija dos.)",
+    "question_en": "**Refer to the exhibit.** An engineer executed the script and added commands that were **not necessary** for `SSH` and now must remove them. Which two commands must be executed to correct the configuration? (Choose two.)",
     "image": null,
     "code": "hostname CPE\nservice password-encryption\nip domain name ccna.cisco.com\nip name-server 198.51.100.210\ncrypto key generate rsa modulus 1024\nusername admin privilege 15 secret $om1scr1t\nline vty 0 4\ntransport input ssh\nlogin local",
     "options": [
-      {
-        "text_es": "no service password-encryption",
-        "text_en": "no service password-encryption",
-        "isCorrect": true
-      },
-      {
-        "text_es": "no ip domain name ccna.cisco.com",
-        "text_en": "no ip domain name ccna.cisco.com",
-        "isCorrect": false
-      },
-      {
-        "text_es": "no hostname CPE",
-        "text_en": "no hostname CPE",
-        "isCorrect": false
-      },
-      {
-        "text_es": "no login local",
-        "text_en": "no login local",
-        "isCorrect": false
-      },
-      {
-        "text_es": "no ip name-server 198.51.100.210",
-        "text_en": "no ip name-server 198.51.100.210",
-        "isCorrect": true
-      }
+      { "text_es": "`no service password-encryption`", "text_en": "`no service password-encryption`", "isCorrect": true },
+      { "text_es": "`no ip domain name ccna.cisco.com`", "text_en": "`no ip domain name ccna.cisco.com`", "isCorrect": false },
+      { "text_es": "`no hostname CPE`", "text_en": "`no hostname CPE`", "isCorrect": false },
+      { "text_es": "`no login local`", "text_en": "`no login local`", "isCorrect": false },
+      { "text_es": "`no ip name-server 198.51.100.210`", "text_en": "`no ip name-server 198.51.100.210`", "isCorrect": true }
     ],
-    "explanation_es": "La configuración de SSH requiere un nombre de host, un nombre de dominio, claves criptográficas, un usuario local (si se usa `login local`) y la configuración de las líneas VTY (`transport input ssh` y `login local`). Los comandos `service password-encryption` (que cifra contraseñas locales en texto plano) y `ip name-server` (que configura un servidor DNS para el router) no son requisitos para que el servicio SSH funcione, por lo tanto, son los que se deben eliminar.",
-    "explanation_en": "SSH configuration requires a hostname, a domain name, crypto keys, a local user (if using `login local`), and VTY line configuration (`transport input ssh` and `login local`). The `service password-encryption` command (which encrypts local plaintext passwords) and the `ip name-server` command (which configures a DNS server for the router) are not requirements for the SSH service to function, therefore, they are the ones that should be removed."
+    "explanation_es": "La configuración de `SSH` requiere un `hostname`, `ip domain name`, `crypto key`, un `username` y la configuración de las líneas `VTY`. Los comandos **`service password-encryption`** y **`ip name-server`** (que configura un servidor `DNS`) **no son requisitos** para que el servicio `SSH` funcione, por lo tanto, son los que se deben eliminar.",
+    "explanation_en": "`SSH` configuration requires a `hostname`, `ip domain name`, `crypto key`, a local `username`, and `VTY` line configuration. The **`service password-encryption`** and **`ip name-server`** (which configures a `DNS` server) commands **are not requirements** for the `SSH` service to function, therefore, they are the ones that should be removed."
   },
   {
     "id": "syslog_severity_level_q1",
@@ -230,34 +146,18 @@
       "subtopic_id": "4.5",
       "subtopic_description": "Severity Levels"
     },
-    "question_es": "¿Qué nivel de severidad de syslog se considera el más grave y resulta en que el sistema se considere inutilizable?",
-    "question_en": "Which syslog severity level is considered the most severe and results in the system being considered unusable?",
+    "question_es": "¿Qué nivel de severidad de `syslog` se considera el **más grave** y resulta en que el sistema se considere inutilizable?",
+    "question_en": "Which `syslog` severity level is considered the **most severe** and results in the system being considered unusable?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "Alert (Alerta)",
-        "text_en": "Alert",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Emergency (Emergencia)",
-        "text_en": "Emergency",
-        "isCorrect": true
-      },
-      {
-        "text_es": "Error",
-        "text_en": "Error",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Critical (Crítico)",
-        "text_en": "Critical",
-        "isCorrect": false
-      }
+      { "text_es": "Alert (Alerta)", "text_en": "Alert", "isCorrect": false },
+      { "text_es": "Emergency (Emergencia)", "text_en": "Emergency", "isCorrect": true },
+      { "text_es": "Error", "text_en": "Error", "isCorrect": false },
+      { "text_es": "Critical (Crítico)", "text_en": "Critical", "isCorrect": false }
     ],
-    "explanation_es": "El nivel de severidad de syslog **Emergency (Nivel 0)** es el más alto e indica que el sistema es inoperable. Los niveles van del 0 (más grave) al 7 (menos grave).\n\n### Niveles de Severidad de Syslog\n| Nivel | Palabra Clave | Descripción |\n|---|---|---|\n| 0 | **Emergencies** | El sistema es inutilizable. |\n| 1 | **Alerts** | Se debe actuar de inmediato. |\n| 2 | **Critical** | Condiciones críticas. |\n| 3 | **Errors** | Condiciones de error. |\n| 4 | **Warnings** | Condiciones de advertencia. |\n| 5 | **Notifications**| Condición normal pero significativa. |\n| 6 | **Informational**| Mensajes informativos. |\n| 7 | **Debugging** | Mensajes de depuración. |",
-    "explanation_en": "The syslog severity level **Emergency (Level 0)** is the highest and indicates the system is unusable. The levels range from 0 (most severe) to 7 (least severe).\n\n### Syslog Severity Levels\n| Level | Keyword | Description |\n|---|---|---|\n| 0 | **Emergencies** | System is unusable. |\n| 1 | **Alerts** | Action must be taken immediately. |\n| 2 | **Critical** | Critical conditions. |\n| 3 | **Errors** | Error conditions. |\n| 4 | **Warnings** | Warning conditions. |\n| 5 | **Notifications**| Normal but significant condition. |\n| 6 | **Informational**| Informational messages. |\n| 7 | **Debugging** | Debugging-level messages. |"
+    "explanation_es": "El nivel de severidad de `syslog` **`Emergency` (Nivel 0)** es el más alto e indica que el sistema es inoperable. Los niveles van del 0 (más grave) al 7 (menos grave).\n\n### Niveles de Severidad de Syslog\n| Nivel | Palabra Clave | Descripción |\n|---|---|---|\n| 0 | **`Emergencies`** | El sistema es inutilizable. |\n| 1 | **`Alerts`** | Se debe actuar de inmediato. |\n| 2 | **`Critical`** | Condiciones críticas. |\n| 3 | **`Errors`** | Condiciones de error. |\n| 4 | **`Warnings`** | Condiciones de advertencia. |\n| 5 | **`Notifications`**| Condición normal pero significativa. |\n| 6 | **`Informational`**| Mensajes informativos. |\n| 7 | **`Debugging`** | Mensajes de depuración. |",
+    "explanation_en": "The `syslog` severity level **`Emergency` (Level 0)** is the highest and indicates the system is unusable. The levels range from 0 (most severe) to 7 (least severe).\n\n### Syslog Severity Levels\n| Level | Keyword | Description |\n|---|---|---|\n| 0 | **`Emergencies`** | System is unusable. |\n| 1 | **`Alerts`** | Action must be taken immediately. |\n| 2 | **`Critical`** | Critical conditions. |\n| 3 | **`Errors`** | Error conditions. |\n| 4 | **`Warnings`** | Warning conditions. |\n| 5 | **`Notifications`**| Normal but significant condition. |\n| 6 | **`Informational`**| Informational messages. |\n| 7 | **`Debugging`** | Debugging-level messages. |"
   },
   {
     "id": "ccna-qos-shaping-bw-limit-01",
@@ -270,33 +170,17 @@
       "subtopic_id": "4.7",
       "subtopic_description": "shaping"
     },
-    "question_es": "¿Cuál es un propósito del modelado de tráfico (traffic shaping)?",
-    "question_en": "What is a purpose of traffic shaping?",
+    "question_es": "¿Cuál es un propósito del **modelado de tráfico (`traffic shaping`)**?",
+    "question_en": "What is a purpose of **`traffic shaping`**?",
     "image": null,
     "code": null,
     "options": [
-      {
-        "text_es": "Proporciona un servicio de mejor esfuerzo (best-effort).",
-        "text_en": "It provides best-effort service.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Permite la identificación dinámica de flujos.",
-        "text_en": "It enables dynamic flow identification.",
-        "isCorrect": false
-      },
-      {
-        "text_es": "Limita el uso del ancho de banda.",
-        "text_en": "It limits bandwidth usage.",
-        "isCorrect": true
-      },
-      {
-        "text_es": "Permite el enrutamiento basado en políticas.",
-        "text_en": "It enables policy-based routing.",
-        "isCorrect": false
-      }
+      { "text_es": "Proporciona un servicio de 'mejor esfuerzo' (`best-effort`).", "text_en": "It provides 'best-effort' service.", "isCorrect": false },
+      { "text_es": "Permite la identificación dinámica de flujos.", "text_en": "It enables dynamic flow identification.", "isCorrect": false },
+      { "text_es": "Limita el uso del ancho de banda.", "text_en": "It limits bandwidth usage.", "isCorrect": true },
+      { "text_es": "Permite el enrutamiento basado en políticas.", "text_en": "It enables policy-based routing.", "isCorrect": false }
     ],
-    "explanation_es": "El **modelado de tráfico (traffic shaping)** es una técnica de Calidad de Servicio (QoS) que retrasa el tráfico que excede una tasa de ancho de banda configurada. Los paquetes en exceso no se descartan, sino que se almacenan en un búfer (cola) y se envían más tarde, cuando hay ancho de banda disponible. Esto tiene el efecto de 'suavizar' los picos de tráfico para asegurar que el uso del ancho de banda no exceda el límite definido, lo cual es su propósito principal.\n\n### Análisis de las Opciones:\n* **A. Proporciona un servicio de mejor esfuerzo (best-effort):** Incorrecto. El servicio de 'mejor esfuerzo' es el comportamiento predeterminado de una red IP sin QoS, donde no hay garantías de entrega. El modelado de tráfico es precisamente una herramienta de QoS para ofrecer un servicio *mejor* que el de mejor esfuerzo.\n* **B. Permite la identificación dinámica de flujos:** Incorrecto. La identificación de flujos de tráfico (por ejemplo, reconocer tráfico de video vs. correo electrónico) es tarea de los mecanismos de **clasificación**, como NBAR (Network Based Application Recognition). El modelado actúa *después* de que el tráfico ha sido clasificado.\n* **C. Limita el uso del ancho de banda:** Correcto. Este es el objetivo principal del modelado. Al poner en cola los paquetes excedentes en lugar de descartarlos, se impone un límite máximo a la tasa de datos, previniendo la congestión y cumpliendo con los acuerdos de nivel de servicio (SLA).\n* **D. Permite el enrutamiento basado en políticas:** Incorrecto. El enrutamiento basado en políticas (Policy-Based Routing - PBR) es una técnica que reenvía paquetes basándose en criterios definidos en políticas (como la IP de origen), en lugar de basarse únicamente en la IP de destino. Es una función de enrutamiento, no una técnica de gestión de ancho de banda como el modelado de tráfico.",
-    "explanation_en": "Traffic shaping is a Quality of Service (QoS) technique that delays traffic exceeding a configured bandwidth rate. Excess packets are not dropped but are instead buffered (queued) and sent later when bandwidth is available. This has the effect of 'smoothing out' traffic bursts to ensure that bandwidth usage does not exceed the defined limit, which is its primary purpose.\n\n### Options Analysis:\n* **A. It provides best-effort service:** Incorrect. 'Best-effort' service is the default behavior of an IP network without any QoS, where there are no delivery guarantees. Traffic shaping is precisely a QoS tool to provide a service *better* than best-effort.\n* **B. It enables dynamic flow identification:** Incorrect. The identification of traffic flows (e.g., recognizing video traffic vs. email) is the job of **classification** mechanisms, such as NBAR (Network Based Application Recognition). Shaping acts *after* the traffic has been classified.\n* **C. It limits bandwidth usage:** Correct. This is the main goal of shaping. By queuing excess packets instead of dropping them, it enforces a maximum data rate, preventing congestion and complying with Service Level Agreements (SLAs).\n* **D. It enables policy-based routing:** Incorrect. Policy-Based Routing (PBR) is a technique that forwards packets based on criteria defined in policies (like the source IP), rather than relying solely on the destination IP. It is a routing function, not a bandwidth management technique like traffic shaping."
+    "explanation_es": "El **modelado de tráfico (`traffic shaping`)** es una técnica de `QoS` que **retrasa** el tráfico que excede una tasa configurada. Los paquetes en exceso no se descartan, sino que se almacenan en un búfer (cola) y se envían más tarde. Esto tiene el efecto de 'suavizar' los picos de tráfico para asegurar que el uso del ancho de banda **no exceda el límite definido**.",
+    "explanation_en": "**`Traffic shaping`** is a `QoS` technique that **delays** traffic exceeding a configured rate. Excess packets are not dropped but are buffered (queued) and sent later. This has the effect of 'smoothing out' traffic bursts to ensure that bandwidth usage **does not exceed the defined limit**."
   }
 ]
