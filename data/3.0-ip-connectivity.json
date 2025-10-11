@@ -310,5 +310,85 @@
     ],
     "explanation_es": "La regla de la **'coincidencia de prefijo más larga'** significa que un router elegirá la ruta más específica. Primero, convertimos las máscaras a prefijos:\n1) `/23`\n2) `/26`\n3) `/24`\n4) `/19`\n\nTodas estas redes contienen la IP `192.168.10.5`. Al comparar los prefijos, el más largo (y por tanto, más específico) es **/26**, que corresponde a la **Entrada 2**.",
     "explanation_en": "The **'longest prefix match'** rule means a router will choose the most specific route. First, we convert the masks to prefixes:\n1) `/23`\n2) `/26`\n3) `/24`\n4) `/19`\n\nAll of these networks contain the IP `192.168.10.5`. When comparing the prefixes, the longest (and therefore most specific) is **/26**, which corresponds to **Entry 2**."
+  },
+  {
+    "id": "ccna-ip-conn-floating-static-ad-q1",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "3.3",
+      "description_es": "Configurar y verificar enrutamiento estático IPv4 e IPv6",
+      "description_en": "Configure and verify IPv4 and IPv6 static routing",
+      "subtopic_id": "3.3.d",
+      "subtopic_description": "Floating static"
+    },
+    "question_es": "Un ingeniero debe configurar un router de núcleo con una **ruta estática flotante por defecto** hacia el router de respaldo en `10.200.0.2`. ¿Qué comando cumple con los requisitos?",
+    "question_en": "An engineer must configure a core router with a **floating static default route** to the backup router at `10.200.0.2`. Which command meets the requirements?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`ip route 0.0.0.0 0.0.0.0 10.200.0.2`",
+        "text_en": "`ip route 0.0.0.0 0.0.0.0 10.200.0.2`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`ip route 0.0.0.0 0.0.0.0 10.200.0.2 floating`",
+        "text_en": "`ip route 0.0.0.0 0.0.0.0 10.200.0.2 floating`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`ip route 0.0.0.0 0.0.0.0 10.200.0.2 10`",
+        "text_en": "`ip route 0.0.0.0 0.0.0.0 10.200.0.2 10`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`ip route 0.0.0.0 0.0.0.0 10.200.0.2 1`",
+        "text_en": "`ip route 0.0.0.0 0.0.0.0 10.200.0.2 1`",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Una **ruta estática flotante** es una ruta de respaldo que solo se instala en la tabla de enrutamiento si la ruta principal falla. Esto se logra configurando la ruta estática con una **distancia administrativa (AD)** más alta que la de la ruta principal.\n\n### Análisis del Comando\nLa sintaxis para una ruta estática es `ip route <red> <máscara> <siguiente-salto> [distancia-administrativa]`.\n* La distancia administrativa por defecto para una ruta estática es **1**.\n* Para que la ruta sea \"flotante\" (de respaldo), su AD debe ser mayor que la AD de la ruta principal. Por ejemplo, si la ruta principal se aprende vía `OSPF` (AD de 110), una AD de 111 o más la haría flotante.\n\n### Evaluación de las Opciones\n* **A:** Este comando crea una ruta estática por defecto con una AD de `1`. Sería una ruta principal, no una de respaldo.\n* **B:** El keyword `floating` no es válido en la sintaxis del comando `ip route`.\n* **C:** Este comando configura correctamente una ruta estática por defecto y le asigna una AD de `10`. Este valor es mayor que el `1` por defecto, lo que la convierte en una ruta de respaldo (flotante) ideal contra otra ruta estática.\n* **D:** Este comando explícitamente configura la AD en `1`, que es el valor por defecto. No crea una ruta flotante, sino una ruta estática estándar.",
+    "explanation_en": "A **floating static route** is a backup route that is only installed in the routing table if the primary route fails. This is achieved by configuring the static route with a higher **administrative distance (AD)** than the primary route.\n\n### Command Analysis\nThe syntax for a static route is `ip route <network> <mask> <next-hop> [administrative-distance]`.\n* The default administrative distance for a static route is **1**.\n* For the route to \"float\" (be a backup), its AD must be higher than the primary route's AD. For example, if the primary route is learned via `OSPF` (AD of 110), an AD of 111 or higher would make it a floating route.\n\n### Options Evaluation\n* **A:** This command creates a default static route with an AD of `1`. It would be a primary route, not a backup.\n* **B:** The `floating` keyword is not a valid part of the `ip route` command syntax.\n* **C:** This command correctly configures a default static route and assigns it an AD of `10`. This value is higher than the default of `1`, making it an ideal backup (floating) route against another static route.\n* **D:** This command explicitly sets the AD to `1`, which is the default value. It does not create a floating route but a standard static route."
+  },
+  {
+    "id": "ccna-ip-conn-hsrp-virtual-ip-q1",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "3.5",
+      "description_es": "Describir el propósito, las funciones y los conceptos de los protocolos de redundancia de primer salto",
+      "description_en": "Describe the purpose, functions, and concepts of first hop redundancy protocols",
+      "subtopic_id": "3.5",
+      "subtopic_description": "First Hop Redundancy Protocols"
+    },
+    "question_es": "¿Qué tipo de dirección es compartida por los routers en una implementación de `HSRP` y utilizada por los hosts de la subred como su dirección de gateway por defecto?",
+    "question_en": "Which type of address is shared by routers in a `HSRP` implementation and used by hosts on the subnet as their default gateway address?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "dirección multicast",
+        "text_en": "multicast address",
+        "isCorrect": false
+      },
+      {
+        "text_es": "dirección de broadcast",
+        "text_en": "broadcast address",
+        "isCorrect": false
+      },
+      {
+        "text_es": "dirección IP de loopback",
+        "text_en": "loopback IP address",
+        "isCorrect": false
+      },
+      {
+        "text_es": "dirección IP virtual",
+        "text_en": "virtual IP address",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "En una configuración de `HSRP` (Hot Standby Router Protocol), los routers de un grupo trabajan juntos para presentar la apariencia de un único router virtual a los hosts de la red. Este router virtual tiene su propia **dirección IP virtual** y **dirección MAC virtual**.\n\nLos hosts en la subred se configuran para usar esta **dirección IP virtual** como su gateway por defecto. El router activo del grupo `HSRP` es el responsable de responder a esta dirección.\n\n### Análisis de las Opciones:\n* **A. dirección multicast:** Incorrecto. `HSRP` utiliza una dirección multicast (versión 1 usa `224.0.0.2`, versión 2 usa `224.0.0.102`) para que los routers del grupo se comuniquen entre sí (por ejemplo, para enviar paquetes `hello`), pero esta dirección **no** es la que los hosts utilizan como su gateway.\n* **B. dirección de broadcast:** Incorrecto. Una dirección de broadcast se utiliza para enviar un paquete a todos los dispositivos en el segmento de red local, no funciona como una dirección de gateway.\n* **C. dirección IP de loopback:** Incorrecto. Una dirección de loopback es una interfaz virtual en un **único** dispositivo, usada a menudo para gestión o en procesos de enrutamiento. No es una dirección compartida entre múltiples routers para proporcionar redundancia de gateway.\n* **D. dirección IP virtual:** Correcto. Este es el término preciso para la dirección IP compartida que los hosts utilizan como su gateway por defecto en una configuración `HSRP`.",
+    "explanation_en": "In an `HSRP` (Hot Standby Router Protocol) configuration, routers in a group work together to present the appearance of a single virtual router to the hosts on the network. This virtual router has its own **virtual IP address** and **virtual MAC address**.\n\nHosts on the subnet are configured to use this **virtual IP address** as their default gateway. The active router in the `HSRP` group is responsible for responding to this address.\n\n### Options Analysis:\n* **A. multicast address:** Incorrect. `HSRP` uses a multicast address (version 1 uses `224.0.0.2`, version 2 uses `224.0.0.102`) for the routers in the group to communicate with each other (e.g., to send `hello` packets), but this address is **not** the one used by hosts as their gateway.\n* **B. broadcast address:** Incorrect. A broadcast address is used to send a packet to all devices on the local network segment; it does not function as a gateway address.\n* **C. loopback IP address:** Incorrect. A loopback address is a virtual interface on a **single** device, often used for management or in routing processes. It is not a shared address between multiple routers to provide gateway redundancy.\n* **D. virtual IP address:** Correct. This is the precise term for the shared IP address that hosts use as their default gateway in an `HSRP` setup."
   }
 ]
