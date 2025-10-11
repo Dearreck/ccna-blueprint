@@ -182,5 +182,50 @@
     ],
     "explanation_es": "El **modelado de tráfico (`traffic shaping`)** es una técnica de `QoS` que **retrasa** el tráfico que excede una tasa configurada. Los paquetes en exceso no se descartan, sino que se almacenan en un búfer (cola) y se envían más tarde. Esto tiene el efecto de 'suavizar' los picos de tráfico para asegurar que el uso del ancho de banda **no exceda el límite definido**.",
     "explanation_en": "**`Traffic shaping`** is a `QoS` technique that **delays** traffic exceeding a configured rate. Excess packets are not dropped but are buffered (queued) and sent later. This has the effect of 'smoothing out' traffic bursts to ensure that bandwidth usage **does not exceed the defined limit**."
+  },
+  {
+    "id": "ccna-ip-services-snmpv2-features-q1",
+    "category": "4.0-ip-services",
+    "isMultipleChoice": true,
+    "topic": {
+      "id": "4.4",
+      "description_es": "Explicar la función de SNMP en las operaciones de red",
+      "description_en": "Explain the function of SNMP in network operations",
+      "subtopic_id": "4.4",
+      "subtopic_description": "SNMPv2 Features"
+    },
+    "question_es": "¿Qué **dos** características introducidas en `SNMPv2` proporcionan la capacidad de recuperar grandes cantidades de datos en una sola solicitud y de confirmar una `trap` usando PDUs? (Elija dos.)",
+    "question_en": "Which **two** features introduced in `SNMPv2` provide the ability to retrieve large amounts of data in one request and acknowledge a `trap` using PDUs? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`Get`",
+        "text_en": "`Get`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`Inform`",
+        "text_en": "`Inform`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`Set`",
+        "text_en": "`Set`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`GetBulk`",
+        "text_en": "`GetBulk`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`GetNext`",
+        "text_en": "`GetNext`",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "`SNMPv2` introdujo varias mejoras sobre `SNMPv1`, incluyendo dos nuevos tipos de PDU (Unidad de Datos de Protocolo) que abordan directamente las necesidades mencionadas en la pregunta.\n\n### Tipos de PDU y su Función\n| PDU | Introducido en | Función y Relevancia |\n|---|---|---|\n| **`GetBulk`** | **`SNMPv2`** | **(Correcto)** Permite a un gestor `SNMP` solicitar un **gran bloque de datos** de un agente con una sola solicitud. Es mucho más eficiente que realizar múltiples solicitudes `GetNext`, que era el método en `SNMPv1`. |\n| **`Inform`** | **`SNMPv2`** | **(Correcto)** Es un mensaje enviado desde un agente a un gestor, similar a una `trap`, pero con una diferencia clave: el gestor debe **enviar un acuse de recibo (acknowledgment)**. Esto lo hace más fiable para notificar eventos importantes. |\n| `Get` | `SNMPv1` | **(Incorrecto)** Recupera el valor de una única variable MIB. |\n| `Set` | `SNMPv1` | **(Incorrecto)** Modifica el valor de una variable MIB. |\n| `GetNext` | `SNMPv1` | **(Incorrecto)** Recupera el valor de la siguiente variable MIB en el árbol. No es eficiente para grandes cantidades de datos. |",
+    "explanation_en": "`SNMPv2` introduced several enhancements over `SNMPv1`, including two new PDU (Protocol Data Unit) types that directly address the needs mentioned in the question.\n\n### PDU Types and Their Function\n| PDU | Introduced in | Function and Relevance |\n|---|---|---|\n| **`GetBulk`** | **`SNMPv2`** | **(Correct)** Allows an `SNMP` manager to request a **large block of data** from an agent with a single request. It is much more efficient than making multiple `GetNext` requests, which was the method in `SNMPv1`. |\n| **`Inform`** | **`SNMPv2`** | **(Correct)** It's a message sent from an agent to a manager, similar to a `trap`, but with a key difference: the manager must **send an acknowledgment**. This makes it more reliable for notifying important events. |\n| `Get` | `SNMPv1` | **(Incorrect)** Retrieves the value of a single MIB variable. |\n| `Set` | `SNMPv1` | **(Incorrect)** Modifies the value of a MIB variable. |\n| `GetNext` | `SNMPv1` | **(Incorrect)** Retrieves the value of the next MIB variable in the tree. It is not efficient for large amounts of data. |"
   }
 ]
