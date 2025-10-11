@@ -390,5 +390,45 @@
     ],
     "explanation_es": "En una configuración de `HSRP` (Hot Standby Router Protocol), los routers de un grupo trabajan juntos para presentar la apariencia de un único router virtual a los hosts de la red. Este router virtual tiene su propia **dirección IP virtual** y **dirección MAC virtual**.\n\nLos hosts en la subred se configuran para usar esta **dirección IP virtual** como su gateway por defecto. El router activo del grupo `HSRP` es el responsable de responder a esta dirección.\n\n### Análisis de las Opciones:\n* **A. dirección multicast:** Incorrecto. `HSRP` utiliza una dirección multicast (versión 1 usa `224.0.0.2`, versión 2 usa `224.0.0.102`) para que los routers del grupo se comuniquen entre sí (por ejemplo, para enviar paquetes `hello`), pero esta dirección **no** es la que los hosts utilizan como su gateway.\n* **B. dirección de broadcast:** Incorrecto. Una dirección de broadcast se utiliza para enviar un paquete a todos los dispositivos en el segmento de red local, no funciona como una dirección de gateway.\n* **C. dirección IP de loopback:** Incorrecto. Una dirección de loopback es una interfaz virtual en un **único** dispositivo, usada a menudo para gestión o en procesos de enrutamiento. No es una dirección compartida entre múltiples routers para proporcionar redundancia de gateway.\n* **D. dirección IP virtual:** Correcto. Este es el término preciso para la dirección IP compartida que los hosts utilizan como su gateway por defecto en una configuración `HSRP`.",
     "explanation_en": "In an `HSRP` (Hot Standby Router Protocol) configuration, routers in a group work together to present the appearance of a single virtual router to the hosts on the network. This virtual router has its own **virtual IP address** and **virtual MAC address**.\n\nHosts on the subnet are configured to use this **virtual IP address** as their default gateway. The active router in the `HSRP` group is responsible for responding to this address.\n\n### Options Analysis:\n* **A. multicast address:** Incorrect. `HSRP` uses a multicast address (version 1 uses `224.0.0.2`, version 2 uses `224.0.0.102`) for the routers in the group to communicate with each other (e.g., to send `hello` packets), but this address is **not** the one used by hosts as their gateway.\n* **B. broadcast address:** Incorrect. A broadcast address is used to send a packet to all devices on the local network segment; it does not function as a gateway address.\n* **C. loopback IP address:** Incorrect. A loopback address is a virtual interface on a **single** device, often used for management or in routing processes. It is not a shared address between multiple routers to provide gateway redundancy.\n* **D. virtual IP address:** Correct. This is the precise term for the shared IP address that hosts use as their default gateway in an `HSRP` setup."
+  },
+  {
+    "id": "ccna-ip-conn-ospf-p2p-adjacency-q1",
+    "category": "3.0-ip-connectivity",
+    "isMultipleChoice": false,
+    "topic": {
+      "id": "3.4",
+      "description_es": "Configurar y verificar OSPFv2 de área única",
+      "description_en": "Configure and verify single area OSPFv2",
+      "subtopic_id": "3.4.b",
+      "subtopic_description": "Point-to-point"
+    },
+    "question_es": "Un ingeniero de Cisco observa que dos vecinos `OSPF` están conectados mediante un cable Ethernet cruzado. Los vecinos tardan demasiado en alcanzar la adyacencia completa. ¿Qué comando se debe ejecutar en la configuración de la interfaz de cada router para **reducir el tiempo** necesario para que la adyacencia alcance el estado `FULL`?",
+    "question_en": "A Cisco engineer notices that two `OSPF` neighbors are connected using a crossover Ethernet cable. The neighbors are taking too long to become fully adjacent. Which command must be issued under the interface configuration on each router to **reduce the time** required for the adjacency to reach the `FULL` state?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`ip ospf network broadcast`",
+        "text_en": "`ip ospf network broadcast`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`ip ospf priority 0`",
+        "text_en": "`ip ospf priority 0`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`ip ospf dead-interval 40`",
+        "text_en": "`ip ospf dead-interval 40`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`ip ospf network point-to-point`",
+        "text_en": "`ip ospf network point-to-point`",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "El problema es que las interfaces Ethernet utilizan por defecto el tipo de red `OSPF` **`broadcast`**. En este tipo de red, los routers deben pasar por un proceso de elección de **Router Designado (DR)** y **Router Designado de Respaldo (BDR)**. Este proceso de elección y la espera del `Wait Timer` (que es igual al `Dead Interval`, por defecto 40 segundos) es lo que causa el retraso antes de alcanzar el estado `FULL`.\n\nDado que solo hay dos routers conectados directamente, no es necesario un DR/BDR.\n\n### Análisis de las Opciones:\n* **A. `ip ospf network broadcast`:** Incorrecto. Este es el comportamiento predeterminado que está causando el problema.\n* **B. `ip ospf priority 0`:** Incorrecto. Este comando evitaría que un router participe en la elección de DR/BDR, pero no elimina el proceso de elección en sí, por lo que el retraso persistiría.\n* **C. `ip ospf dead-interval 40`:** Incorrecto. Esto simplemente establece el intervalo muerto al valor predeterminado para Ethernet, lo que no cambiaría (y si se aumentara, empeoraría) el tiempo de espera.\n* **D. `ip ospf network point-to-point`:** Correcto. Al cambiar el tipo de red a `point-to-point`, se **elimina por completo** el proceso de elección de DR/BDR. Los routers formarán una adyacencia completa mucho más rápido, ya que no necesitan esperar el `Wait Timer`.",
+    "explanation_en": "The issue is that Ethernet interfaces default to the `OSPF` network type **`broadcast`**. On this network type, routers must go through a **Designated Router (DR)** and **Backup Designated Router (BDR)** election process. This election process and the wait for the `Wait Timer` (which is equal to the `Dead Interval`, 40 seconds by default) is what causes the delay before reaching the `FULL` state.\n\nSince there are only two routers connected directly, a DR/BDR is unnecessary.\n\n### Options Analysis:\n* **A. `ip ospf network broadcast`:** Incorrect. This is the default behavior that is causing the problem.\n* **B. `ip ospf priority 0`:** Incorrect. This command would prevent a router from participating in the DR/BDR election, but it does not eliminate the election process itself, so the delay would persist.\n* **C. `ip ospf dead-interval 40`:** Incorrect. This simply sets the dead interval to the default value for Ethernet, which would not change (and if increased, would worsen) the wait time.\n* **D. `ip ospf network point-to-point`:** Correct. By changing the network type to `point-to-point`, the DR/BDR election process is **completely bypassed**. The routers will form a full adjacency much faster as they do not need to wait for the `Wait Timer`."
   }
 ]
