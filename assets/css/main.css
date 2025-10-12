@@ -466,29 +466,28 @@ html.dark-mode .question-nav-circle.status-skipped {
 /* --- Estilos para la Nueva Insignia de Pregunta Omitida --- */
 .skipped-question-badge {
   position: absolute;
-  top: -14px;
-  left: 20px;
+  top: -10px; /* Sube la insignia para que se asiente sobre el borde */
+  right: 20px; /* LA MUEVE A LA DERECHA */
   padding: 0.25rem 0.8rem;
   font-size: 0.75rem;
   font-weight: bold;
   border-radius: 0.25rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  z-index: 5; /* Asegura que esté visible pero por debajo de otros elementos si es necesario */
 }
 
 /* --- Colores Tema Claro --- */
 .skipped-question-badge {
-  background-color: #fff3cd; /* Amarillo sutil de Bootstrap */
+  background-color: #fff3cd;
   color: #664d03;
-  border-right: 1px solid #ffecb5;
-  border-bottom: 1px solid #ffecb5;
+  border: 1px solid #ffecb5;
 }
 
 /* --- Colores Tema Oscuro --- */
 html.dark-mode .skipped-question-badge {
   background-color: #664d03;
   color: #fff3cd;
-  border-right: 1px solid #856404;
-  border-bottom: 1px solid #856404;
+  border: 1px solid #856404;
 }
 
 /* Estilos para el bloque de código en preguntas */
