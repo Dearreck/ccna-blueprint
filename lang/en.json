@@ -62,5 +62,11 @@
   "home_tool3_title": "Exam Simulator",
   "home_tool3_desc": "Test yourself with realistic questions, by category, and with study or exam modes.",
   "home_about_title": "What is the CCNA certification?",
-  "home_about_desc": "The Cisco Certified Network Associate (CCNA) is one of the most recognized certifications in the IT industry. It validates your skills and knowledge in network fundamentals, network access, IP connectivity, IP services, security fundamentals, and automation."
+  "home_about_desc": "The Cisco Certified Network Associate (CCNA) is one of the most recognized certifications in the IT industry. It validates your skills and knowledge in network fundamentals, network access, IP connectivity, IP services, security fundamentals, and automation.",
+  "results_performance_analysis": "Performance Analysis by Topic",
+  "results_main_weakness": "Main Area for Improvement",
+  "results_advice": "Advice: Focus your next study session on this topic. Review the questions you missed and make sure you understand the explanations.",
+  "results_congrats": "Congratulations! No significant weak areas were detected in this exam.",
+  "results_detailed_breakdown": "Detailed Breakdown",
+  "results_correct_short": "correct"
 }
