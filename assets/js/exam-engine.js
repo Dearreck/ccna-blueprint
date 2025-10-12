@@ -484,7 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (timerDisplay) {
                 timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }
-        }
+        },
 
         _renderDetailedResults() {
             const container = document.getElementById('detailed-results-container');
