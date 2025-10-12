@@ -245,6 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
              
              document.getElementById('review-exam-btn').onclick = () => { state.currentReviewIndex = 0; this.renderReviewPage(); };
              document.getElementById('restart-exam-btn').onclick = Exam.resetToSetup;
+
+            this._renderDetailedResults();
         },
     
         /**
@@ -483,6 +485,53 @@ document.addEventListener('DOMContentLoaded', () => {
                 timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }
         }
+
+        _renderDetailedResults() {
+            const container = document.getElementById('detailed-results-container');
+            if (!container || !state.detailedPerformance) {
+                if(container) container.innerHTML = '';
+                return;
+            }
+        
+            const lang = i1n.currentLanguage || 'es';
+            
+            // Convertimos el objeto de rendimiento en un array para poder ordenarlo
+            const performanceArray = Object.entries(state.detailedPerformance).map(([key, value]) => ({
+                id: key,
+                ...value,
+                percentage: (value.total > 0) ? Math.round((value.correct / value.total) * 100) : 0
+            }));
+        
+            // Ordenamos los temas de peor a mejor rendimiento
+            performanceArray.sort((a, b) => a.percentage - b.percentage);
+        
+            let html = `<h3 class="text-center mb-4">${i1n.get('results_performance_analysis')}</h3>`;
+            
+            performanceArray.forEach(topic => {
+                let barClass = 'bg-warning'; // Por defecto, rendimiento medio
+                if (topic.percentage >= 80) barClass = 'bg-success'; // Fortalezas
+                else if (topic.percentage < 60) barClass = 'bg-danger'; // Debilidades
+        
+                html += `
+                    <div class="topic-performance-item">
+                        <div class="d-flex justify-content-between">
+                            <span>${topic.id} - ${topic[`description_${lang}`]}</span>
+                            <span class="fw-bold">
+                                ${topic.correct}/${topic.total}
+                            </span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar ${barClass}" role="progressbar" style="width: ${topic.percentage}%" 
+                                 aria-valuenow="${topic.percentage}" aria-valuemin="0" aria-valuemax="100">
+                                 ${topic.percentage}%
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        
+            container.innerHTML = html;
+        },
     };
 
     // =================================================================================
@@ -556,6 +605,46 @@ document.addEventListener('DOMContentLoaded', () => {
                     state.stats.skipped++;
                 }
             }
+
+            // ===== INICIO DE LA NUEVA LÓGICA DE CÁLCULO =====
+            const topicPerformance = {};
+            state.currentExamQuestions.forEach(q => {
+                // Solo procesamos preguntas que fueron respondidas y tienen un subtema definido
+                if (q.userAnswerIndex !== 'skipped' && q.topic && q.topic.subtopic_id) {
+                    const subtopicKey = q.topic.subtopic_id;
+                    
+                    // Si es la primera vez que vemos este subtema, lo inicializamos
+                    if (!topicPerformance[subtopicKey]) {
+                        topicPerformance[subtopicKey] = {
+                            correct: 0,
+                            total: 0,
+                            description_es: q.topic.subtopic_description,
+                            description_en: q.topic.subtopic_description // Se puede localizar si es necesario
+                        };
+                    }
+                    
+                    topicPerformance[subtopicKey].total++;
+                    
+                    // Verificamos si la respuesta fue correcta (funciona para ambos tipos de pregunta)
+                    let isCorrect = false;
+                    if (q.isMultipleChoice) {
+                        const correct = new Set(q.shuffledOptions.map((o, i) => o.isCorrect ? i : -1).filter(i => i !== -1));
+                        const selected = new Set(q.userAnswerIndex);
+                        isCorrect = correct.size === selected.size && [...correct].every(i => selected.has(i));
+                    } else {
+                        isCorrect = q.shuffledOptions[q.userAnswerIndex] && q.shuffledOptions[q.userAnswerIndex].isCorrect;
+                    }
+        
+                    if (isCorrect) {
+                        topicPerformance[subtopicKey].correct++;
+                    }
+                }
+            });
+        
+            // Guardamos el resultado del análisis en el estado global
+            state.detailedPerformance = topicPerformance;
+            // ===== FIN DE LA NUEVA LÓGICA DE CÁLCULO =====
+                    
             Data.saveAttempt();
             UI.displayResults();
         },
