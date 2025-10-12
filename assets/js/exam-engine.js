@@ -495,22 +495,45 @@ document.addEventListener('DOMContentLoaded', () => {
         
             const lang = i1n.currentLanguage || 'es';
             
-            // Convertimos el objeto de rendimiento en un array para poder ordenarlo
             const performanceArray = Object.entries(state.detailedPerformance).map(([key, value]) => ({
                 id: key,
                 ...value,
                 percentage: (value.total > 0) ? Math.round((value.correct / value.total) * 100) : 0
             }));
         
-            // Ordenamos los temas de peor a mejor rendimiento
             performanceArray.sort((a, b) => a.percentage - b.percentage);
         
             let html = `<h3 class="text-center mb-4">${i1n.get('results_performance_analysis')}</h3>`;
+        
+            // ===== INICIO DE LA LÓGICA DE CONSEJOS =====
+            const weaknesses = performanceArray.filter(p => p.percentage < 60);
+            const strengths = performanceArray.filter(p => p.percentage >= 80);
+        
+            if (weaknesses.length > 0) {
+                const mainWeakness = weaknesses[0]; // El tema con el peor rendimiento
+                html += `
+                    <div class="alert alert-warning">
+                        <h5 class="alert-heading">${i1n.get('results_main_weakness')}</h5>
+                        <p class="mb-0">
+                            <strong>${mainWeakness.id} - ${mainWeakness[`description_${lang}`]}</strong> 
+                            (${mainWeakness.percentage}% ${i1n.get('results_correct_short')})
+                        </p>
+                        <hr>
+                        <p class="mb-0">${i1n.get('results_advice')}</p>
+                    </div>
+                `;
+            } else if (strengths.length > 0 && performanceArray.every(p => p.percentage >= 60)) {
+                // Si no hay debilidades y al menos una fortaleza
+                 html += `<div class="alert alert-success">${i1n.get('results_congrats')}</div>`;
+            }
+            // ===== FIN DE LA LÓGICA DE CONSEJOS =====
+        
+            html += `<h4 class="mt-4 mb-3">${i1n.get('results_detailed_breakdown')}</h4>`;
             
             performanceArray.forEach(topic => {
-                let barClass = 'bg-warning'; // Por defecto, rendimiento medio
-                if (topic.percentage >= 80) barClass = 'bg-success'; // Fortalezas
-                else if (topic.percentage < 60) barClass = 'bg-danger'; // Debilidades
+                let barClass = 'bg-warning';
+                if (topic.percentage >= 80) barClass = 'bg-success';
+                else if (topic.percentage < 60) barClass = 'bg-danger';
         
                 html += `
                     <div class="topic-performance-item">
