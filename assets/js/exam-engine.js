@@ -125,6 +125,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // MÓDULO DE UI (MANIPULACIÓN DEL DOM)
     // =================================================================================
     const UI = {
+
+        /**
+         * Calcula un color en HSL que va de rojo a verde según un porcentaje.
+         * @param {number} percentage - Un valor de 0 a 100.
+         * @returns {string} Una cadena de color HSL, ej: 'hsl(120, 80%, 45%)'.
+         */
+        _getProportionalColor(percentage) {
+            // Mapea el porcentaje (0-100) a un matiz (hue) en el círculo de color (0=rojo, 120=verde).
+            const hue = (percentage / 100) * 120;
+            const saturation = 80; // Saturación constante para colores vivos.
+            const lightness = 45;  // Luminosidad constante para un buen contraste.
+            return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        },
+        
         /**
          * Oculta todas las pantallas principales y muestra solo la especificada.
          * @param {string} screenName - El nombre de la pantalla a mostrar ('setup', 'questions', 'results', 'review').
@@ -492,65 +506,60 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (container) container.innerHTML = '';
                 return;
             }
-        
+    
             const lang = i1n.currentLanguage || 'es';
-            const performanceByTopic = state.detailedPerformance;
-        
-            // Agrupar los subtemas por su categoría principal
+            
+            // 1. Agrupar los resultados de subtemas por su categoría principal
             const performanceByCategory = {};
-            state.currentExamQuestions.forEach(q => {
-                if (q.topic && q.topic.subtopic_id) {
-                    const categoryId = q.category;
-                    const subtopicId = q.topic.subtopic_id;
-        
-                    if (performanceByTopic[subtopicId]) {
-                        if (!performanceByCategory[categoryId]) {
-                            performanceByCategory[categoryId] = [];
-                        }
-                        // Evitar duplicados
-                        if (!performanceByCategory[categoryId].find(p => p.id === subtopicId)) {
-                            performanceByCategory[categoryId].push(performanceByTopic[subtopicId]);
-                        }
+            state.detailedPerformance.forEach(subtopicResult => {
+                const question = state.currentExamQuestions.find(q => q.topic && q.topic.subtopic_id === subtopicResult.id);
+                if (question) {
+                    const categoryId = question.category;
+                    if (!performanceByCategory[categoryId]) {
+                        performanceByCategory[categoryId] = [];
                     }
+                    performanceByCategory[categoryId].push(subtopicResult);
                 }
             });
-        
+    
             let accordionHTML = `<h3 class="text-center mb-4">${i1n.get('results_performance_analysis')}</h3>`;
             let categoryIndex = 0;
-        
-            for (const categoryId in performanceByCategory) {
+    
+            // 2. Iterar en el orden definido en CONFIG para asegurar el orden correcto (Cat 1, Cat 2, ...)
+            CONFIG.categories.forEach(categoryConfig => {
+                const categoryId = categoryConfig.id;
+                if (!performanceByCategory[categoryId]) return; // Si no hay preguntas de esta categoría, la saltamos.
+    
                 const subtopics = performanceByCategory[categoryId];
-                if (subtopics.length === 0) continue;
-        
+                if (subtopics.length === 0) return;
+    
                 // Calcular el rendimiento promedio de la categoría
                 const categoryTotal = subtopics.reduce((sum, s) => sum + s.total, 0);
                 const categoryCorrect = subtopics.reduce((sum, s) => sum + s.correct, 0);
                 const categoryPercentage = categoryTotal > 0 ? Math.round((categoryCorrect / categoryTotal) * 100) : 0;
-                const categoryName = i1n.get(CONFIG.categories.find(c => c.id === categoryId)?.i18nKey || categoryId);
-        
-                let barClass = 'bg-warning';
-                if (categoryPercentage >= 80) barClass = 'bg-success';
-                else if (categoryPercentage < 60) barClass = 'bg-danger';
-        
+                const categoryName = i1n.get(categoryConfig.i18nKey || categoryId);
+    
+                // 3. Obtener el color proporcional para el badge de la categoría
+                const badgeColor = this._getProportionalColor(categoryPercentage);
+    
                 accordionHTML += `
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="heading-${categoryIndex}">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${categoryIndex}" aria-expanded="false" aria-controls="collapse-${categoryIndex}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${categoryIndex}">
                                 <div class="w-100 d-flex justify-content-between align-items-center pe-3">
                                     <span>${categoryName}</span>
-                                    <span class="badge ${barClass} rounded-pill">${categoryPercentage}%</span>
+                                    <span class="badge rounded-pill" style="background-color: ${badgeColor}; color: white;">${categoryPercentage}%</span>
                                 </div>
                             </button>
                         </h2>
-                        <div id="collapse-${categoryIndex}" class="accordion-collapse collapse" aria-labelledby="heading-${categoryIndex}" data-bs-parent="#performance-accordion">
+                        <div id="collapse-${categoryIndex}" class="accordion-collapse collapse" data-bs-parent="#performance-accordion">
                             <div class="accordion-body">`;
-        
-                // Añadir las barras de progreso para cada subtema dentro de la categoría
+    
                 subtopics.sort((a,b) => a.percentage - b.percentage).forEach(topic => {
                      let topicBarClass = 'bg-warning';
                      if (topic.percentage >= 80) topicBarClass = 'bg-success';
                      else if (topic.percentage < 60) topicBarClass = 'bg-danger';
-        
+    
                      accordionHTML += `
                         <div class="topic-performance-item">
                             <div class="d-flex justify-content-between">
@@ -558,17 +567,17 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <span class="fw-bold">${topic.correct}/${topic.total}</span>
                             </div>
                             <div class="progress">
-                                <div class="progress-bar ${topicBarClass}" role="progressbar" style="width: ${topic.percentage}%" aria-valuenow="${topic.percentage}" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar ${topicBarClass}" role="progressbar" style="width: ${topic.percentage}%" aria-valuenow="${topic.percentage}">
                                     ${topic.percentage}%
                                 </div>
                             </div>
                         </div>`;
                 });
-        
+    
                 accordionHTML += `</div></div></div>`;
                 categoryIndex++;
-            }
-        
+            });
+    
             container.innerHTML = accordionHTML;
         },
     };
