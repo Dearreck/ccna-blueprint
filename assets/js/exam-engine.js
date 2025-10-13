@@ -487,73 +487,89 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         _renderDetailedResults() {
-            const container = document.getElementById('detailed-results-container');
+            const container = document.getElementById('performance-accordion');
             if (!container || !state.detailedPerformance) {
-                if(container) container.innerHTML = '';
+                if (container) container.innerHTML = '';
                 return;
             }
         
             const lang = i1n.currentLanguage || 'es';
-            
-            const performanceArray = Object.entries(state.detailedPerformance).map(([key, value]) => ({
-                id: key,
-                ...value,
-                percentage: (value.total > 0) ? Math.round((value.correct / value.total) * 100) : 0
-            }));
+            const performanceByTopic = state.detailedPerformance;
         
-            performanceArray.sort((a, b) => a.percentage - b.percentage);
+            // Agrupar los subtemas por su categoría principal
+            const performanceByCategory = {};
+            state.currentExamQuestions.forEach(q => {
+                if (q.topic && q.topic.subtopic_id) {
+                    const categoryId = q.category;
+                    const subtopicId = q.topic.subtopic_id;
         
-            let html = `<h3 class="text-center mb-4">${i1n.get('results_performance_analysis')}</h3>`;
-        
-            // ===== INICIO DE LA LÓGICA DE CONSEJOS =====
-            const weaknesses = performanceArray.filter(p => p.percentage < 60);
-            const strengths = performanceArray.filter(p => p.percentage >= 80);
-        
-            if (weaknesses.length > 0) {
-                const mainWeakness = weaknesses[0]; // El tema con el peor rendimiento
-                html += `
-                    <div class="alert alert-warning">
-                        <h5 class="alert-heading">${i1n.get('results_main_weakness')}</h5>
-                        <p class="mb-0">
-                            <strong>${mainWeakness.id} - ${mainWeakness[`description_${lang}`]}</strong> 
-                            (${mainWeakness.percentage}% ${i1n.get('results_correct_short')})
-                        </p>
-                        <hr>
-                        <p class="mb-0">${i1n.get('results_advice')}</p>
-                    </div>
-                `;
-            } else if (strengths.length > 0 && performanceArray.every(p => p.percentage >= 60)) {
-                // Si no hay debilidades y al menos una fortaleza
-                 html += `<div class="alert alert-success">${i1n.get('results_congrats')}</div>`;
-            }
-            // ===== FIN DE LA LÓGICA DE CONSEJOS =====
-        
-            html += `<h4 class="mt-4 mb-3">${i1n.get('results_detailed_breakdown')}</h4>`;
-            
-            performanceArray.forEach(topic => {
-                let barClass = 'bg-warning';
-                if (topic.percentage >= 80) barClass = 'bg-success';
-                else if (topic.percentage < 60) barClass = 'bg-danger';
-        
-                html += `
-                    <div class="topic-performance-item">
-                        <div class="d-flex justify-content-between">
-                            <span>${topic.id} - ${topic[`description_${lang}`]}</span>
-                            <span class="fw-bold">
-                                ${topic.correct}/${topic.total}
-                            </span>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar ${barClass}" role="progressbar" style="width: ${topic.percentage}%" 
-                                 aria-valuenow="${topic.percentage}" aria-valuemin="0" aria-valuemax="100">
-                                 ${topic.percentage}%
-                            </div>
-                        </div>
-                    </div>
-                `;
+                    if (performanceByTopic[subtopicId]) {
+                        if (!performanceByCategory[categoryId]) {
+                            performanceByCategory[categoryId] = [];
+                        }
+                        // Evitar duplicados
+                        if (!performanceByCategory[categoryId].find(p => p.id === subtopicId)) {
+                            performanceByCategory[categoryId].push(performanceByTopic[subtopicId]);
+                        }
+                    }
+                }
             });
         
-            container.innerHTML = html;
+            let accordionHTML = `<h3 class="text-center mb-4">${i1n.get('results_performance_analysis')}</h3>`;
+            let categoryIndex = 0;
+        
+            for (const categoryId in performanceByCategory) {
+                const subtopics = performanceByCategory[categoryId];
+                if (subtopics.length === 0) continue;
+        
+                // Calcular el rendimiento promedio de la categoría
+                const categoryTotal = subtopics.reduce((sum, s) => sum + s.total, 0);
+                const categoryCorrect = subtopics.reduce((sum, s) => sum + s.correct, 0);
+                const categoryPercentage = categoryTotal > 0 ? Math.round((categoryCorrect / categoryTotal) * 100) : 0;
+                const categoryName = i1n.get(CONFIG.categories.find(c => c.id === categoryId)?.i18nKey || categoryId);
+        
+                let barClass = 'bg-warning';
+                if (categoryPercentage >= 80) barClass = 'bg-success';
+                else if (categoryPercentage < 60) barClass = 'bg-danger';
+        
+                accordionHTML += `
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading-${categoryIndex}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${categoryIndex}" aria-expanded="false" aria-controls="collapse-${categoryIndex}">
+                                <div class="w-100 d-flex justify-content-between align-items-center pe-3">
+                                    <span>${categoryName}</span>
+                                    <span class="badge ${barClass} rounded-pill">${categoryPercentage}%</span>
+                                </div>
+                            </button>
+                        </h2>
+                        <div id="collapse-${categoryIndex}" class="accordion-collapse collapse" aria-labelledby="heading-${categoryIndex}" data-bs-parent="#performance-accordion">
+                            <div class="accordion-body">`;
+        
+                // Añadir las barras de progreso para cada subtema dentro de la categoría
+                subtopics.sort((a,b) => a.percentage - b.percentage).forEach(topic => {
+                     let topicBarClass = 'bg-warning';
+                     if (topic.percentage >= 80) topicBarClass = 'bg-success';
+                     else if (topic.percentage < 60) topicBarClass = 'bg-danger';
+        
+                     accordionHTML += `
+                        <div class="topic-performance-item">
+                            <div class="d-flex justify-content-between">
+                                <span>${topic.id} - ${topic[`description_${lang}`]}</span>
+                                <span class="fw-bold">${topic.correct}/${topic.total}</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar ${topicBarClass}" role="progressbar" style="width: ${topic.percentage}%" aria-valuenow="${topic.percentage}" aria-valuemin="0" aria-valuemax="100">
+                                    ${topic.percentage}%
+                                </div>
+                            </div>
+                        </div>`;
+                });
+        
+                accordionHTML += `</div></div></div>`;
+                categoryIndex++;
+            }
+        
+            container.innerHTML = accordionHTML;
         },
     };
 
