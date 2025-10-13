@@ -690,8 +690,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         
             // Guardamos el resultado del análisis en el estado global
-            state.detailedPerformance = topicPerformance;
-            // ===== FIN DE LA NUEVA LÓGICA DE CÁLCULO =====
+            // Convierte el objeto a un array antes de guardarlo en el estado
+            const performanceArray = Object.entries(topicPerformance).map(([key, value]) => ({
+                id: key,
+                ...value,
+                percentage: (value.total > 0) ? Math.round((value.correct / value.total) * 100) : 0
+            }));
+        
+            state.detailedPerformance = performanceArray;
                     
             Data.saveAttempt();
             UI.displayResults();
