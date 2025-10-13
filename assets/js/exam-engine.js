@@ -589,8 +589,6 @@ document.addEventListener('DOMContentLoaded', () => {
         /**
          * Inicia el examen basándose en la configuración del usuario.
          */
-        // Dentro del Módulo 'const Exam = { ... }'
-
         async start() {
             const selectedMode = document.querySelector('input[name="examMode"]:checked').value;
             const selectedCats = document.querySelectorAll('#category-selection-container input:checked');
@@ -607,8 +605,6 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const allFetchedQuestions = await Data.fetchQuestions(selectedCategoryIds);
                 if (allFetchedQuestions.length === 0) return alert(i1n.get('alert_no_questions'));
-        
-                // --- INICIO DE LA NUEVA LÓGICA PONDERADA ---
         
                 let examPool = [];
                 const categoryWeights = {
@@ -629,32 +625,28 @@ document.addEventListener('DOMContentLoaded', () => {
                         questionsByCategory[id] = Data.shuffleArray(allFetchedQuestions.filter(q => q.category === id));
                     });
         
+                    // --- INICIO DE LA LÓGICA DE DISTRIBUCIÓN MEJORADA ---
                     const questionsToTake = {};
+                    const categoryFractions = {};
                     let assignedQuestions = 0;
                     
-                    // Asigna el número de preguntas por categoría basándose en el peso
+                    // 1. Asigna el número base de preguntas y guarda los decimales
                     selectedCategoryIds.forEach(id => {
-                        const count = Math.round(numQuestions * categoryWeights[id]);
-                        questionsToTake[id] = count;
-                        assignedQuestions += count;
+                        const exactCount = numQuestions * categoryWeights[id];
+                        questionsToTake[id] = Math.floor(exactCount);
+                        categoryFractions[id] = exactCount - Math.floor(exactCount);
+                        assignedQuestions += questionsToTake[id];
                     });
                     
-                    // Ajusta por redondeo para asegurar el total exacto
-                    let diff = numQuestions - assignedQuestions;
-                    let categoryIndex = 0;
-                    while (diff !== 0) {
-                        const catId = selectedCategoryIds[categoryIndex % selectedCategoryIds.length];
-                        if (diff > 0) {
-                            questionsToTake[catId]++;
-                            diff--;
-                        } else {
-                            if (questionsToTake[catId] > 0) {
-                                questionsToTake[catId]--;
-                                diff++;
-                            }
-                        }
-                        categoryIndex++;
+                    // 2. Distribuye las preguntas restantes basándose en la parte decimal más alta
+                    let remaining = numQuestions - assignedQuestions;
+                    const sortedFractions = Object.keys(categoryFractions).sort((a, b) => categoryFractions[b] - categoryFractions[a]);
+        
+                    for (let i = 0; i < remaining; i++) {
+                        const categoryId = sortedFractions[i % sortedFractions.length];
+                        questionsToTake[categoryId]++;
                     }
+                    // --- FIN DE LA LÓGICA DE DISTRIBUCIÓN MEJORADA ---
         
                     // Construye el pool final
                     for (const categoryId in questionsToTake) {
@@ -663,10 +655,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         examPool.push(...availableQuestions.slice(0, takeCount));
                     }
                     
-                    examPool = Data.shuffleArray(examPool); // Baraja el pool final
+                    examPool = Data.shuffleArray(examPool);
                 }
-        
-                // --- FIN DE LA NUEVA LÓGICA PONDERADA ---
         
                 examPool.forEach(q => {
                     q.shuffledOptions = Data.shuffleArray([...q.options]);
@@ -674,7 +664,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 state.currentExamQuestions = examPool;
                 
-                // Comprobación final por si el pool está vacío
                 if (state.currentExamQuestions.length === 0) {
                      return alert(i1n.get('alert_no_questions'));
                 }
@@ -684,7 +673,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 UI.displayQuestion();
         
             } catch (error) {
-                console.error('Error loading questions:', error);
+                console.error('Error starting exam:', error);
                 return alert(i1n.get('alert_load_error'));
             }
         },
