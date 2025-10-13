@@ -656,7 +656,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
     
                     // 1. Obtener el plan de distribución ideal usando el nuevo método
-                    const questionsToTake = this._distributeQuestionsByWeight(numQuestions, selectedCategoryIds);
+                    const questionsToTake = Exam._distributeQuestionsByWeight(numQuestions, selectedCategoryIds);
                     
                     // 2. Construir el pool de preguntas, respetando la disponibilidad
                     for (const categoryId of selectedCategoryIds) {
