@@ -587,6 +587,44 @@ document.addEventListener('DOMContentLoaded', () => {
     // =================================================================================
     const Exam = {
         /**
+         * Método privado que distribuye el número total de preguntas entre las categorías
+         * basándose en sus pesos, utilizando el algoritmo del Resto Mayor.
+         * @param {number} totalQuestions - El número total de preguntas para el examen.
+         * @param {string[]} categoryIds - Un array con los IDs de las categorías seleccionadas.
+         * @returns {Object} Un objeto con la cantidad de preguntas por cada ID de categoría.
+         */
+        _distributeQuestionsByWeight(totalQuestions, categoryIds) {
+            const weights = categoryIds.map(id => CONFIG.categoryWeights[id] || 0);
+            
+            const exactValues = weights.map(w => totalQuestions * w);
+            const baseIntegers = exactValues.map(v => Math.floor(v));
+            
+            const currentSum = baseIntegers.reduce((sum, val) => sum + val, 0);
+            let difference = totalQuestions - currentSum;
+            
+            const remainders = exactValues.map((v, i) => ({
+                index: i,
+                remainder: v - baseIntegers[i]
+            }));
+            
+            // Ordenar por el resto de mayor a menor para dar prioridad
+            remainders.sort((a, b) => b.remainder - a.remainder);
+            
+            // Distribuir la diferencia entre las categorías con los restos más altos
+            for (let i = 0; i < difference; i++) {
+                const categoryIndex = remainders[i].index;
+                baseIntegers[categoryIndex]++;
+            }
+            
+            const distribution = {};
+            categoryIds.forEach((id, index) => {
+                distribution[id] = baseIntegers[index];
+            });
+            
+            return distribution;
+        },
+    
+        /**
          * Inicia el examen basándose en la configuración del usuario.
          */
         async start() {
@@ -597,25 +635,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (selectedCats.length === 0) {
                 return alert(i1n.get('alert_select_category'));
             }
-        
+    
             resetState();
             state.examMode = selectedMode;
             const selectedCategoryIds = Array.from(selectedCats).map(el => el.value);
-        
+    
             try {
                 const allFetchedQuestions = await Data.fetchQuestions(selectedCategoryIds);
                 if (allFetchedQuestions.length === 0) return alert(i1n.get('alert_no_questions'));
-        
+    
                 let examPool = [];
-                const categoryWeights = {
-                    '1.0-network-fundamentals': 0.20,
-                    '2.0-network-access': 0.20,
-                    '3.0-ip-connectivity': 0.25,
-                    '4.0-ip-services': 0.10,
-                    '5.0-security-fundamentals': 0.15,
-                    '6.0-automation-programmability': 0.10
-                };
-        
+    
                 if (totalQuestionCount === 'all') {
                     examPool = Data.shuffleArray(allFetchedQuestions);
                 } else {
@@ -624,61 +654,33 @@ document.addEventListener('DOMContentLoaded', () => {
                     selectedCategoryIds.forEach(id => {
                         questionsByCategory[id] = Data.shuffleArray(allFetchedQuestions.filter(q => q.category === id));
                     });
-        
-                    // --- INICIO DEL NUEVO ALGORITMO DE DISTRIBUCIÓN ---
-                    const questionsToTake = {};
-                    const categoryFractions = [];
-                    let assignedQuestions = 0;
-        
-                    // 1. Calcular asignación base (parte entera) y guardar las fracciones
-                    selectedCategoryIds.forEach(id => {
-                        const exactCount = numQuestions * categoryWeights[id];
-                        questionsToTake[id] = Math.floor(exactCount);
-                        assignedQuestions += questionsToTake[id];
-                        categoryFractions.push({ id: id, fraction: exactCount - questionsToTake[id] });
-                    });
-        
-                    let remaining = numQuestions - assignedQuestions;
-        
-                    // 2. Ordenar categorías por su fracción descendente, con aleatoriedad para empates
-                    categoryFractions.sort((a, b) => {
-                        if (b.fraction > a.fraction) return 1;
-                        if (b.fraction < a.fraction) return -1;
-                        return Math.random() - 0.5; // Aleatorizar si las fracciones son iguales
-                    });
-        
-                    // 3. Distribuir las preguntas restantes a las categorías con mayor prioridad decimal
-                    //    que tengan preguntas disponibles.
-                    let safetyBreak = 0;
-                    while (remaining > 0 && safetyBreak < selectedCategoryIds.length * 2) {
-                        for (const cat of categoryFractions) {
-                            if (remaining <= 0) break;
-        
-                            const canAdd = questionsToTake[cat.id] < questionsByCategory[cat.id].length;
-                            if (canAdd) {
-                                questionsToTake[cat.id]++;
-                                remaining--;
-                            }
-                        }
-                        safetyBreak++;
-                    }
-                    // --- FIN DEL NUEVO ALGORITMO DE DISTRIBUCIÓN ---
-        
-                    // Construir el pool final
-                    for (const categoryId in questionsToTake) {
-                        const takeCount = questionsToTake[categoryId];
-                        const availableQuestions = questionsByCategory[categoryId];
+    
+                    // 1. Obtener el plan de distribución ideal usando el nuevo método
+                    const questionsToTake = this._distributeQuestionsByWeight(numQuestions, selectedCategoryIds);
+                    
+                    // 2. Construir el pool de preguntas, respetando la disponibilidad
+                    for (const categoryId of selectedCategoryIds) {
+                        const idealCount = questionsToTake[categoryId] || 0;
+                        const availableQuestions = questionsByCategory[categoryId] || [];
+                        
+                        // Tomar la cantidad ideal o el máximo disponible si no hay suficientes
+                        const takeCount = Math.min(idealCount, availableQuestions.length);
+                        
                         examPool.push(...availableQuestions.slice(0, takeCount));
                     }
                     
+                    // Re-barajar el pool final para mezclar las categorías
                     examPool = Data.shuffleArray(examPool);
                 }
-        
-                examPool.forEach(q => {
+    
+                // Asignar el pool final al estado
+                state.currentExamQuestions = examPool;
+                
+                // Pre-procesar las preguntas finales
+                state.currentExamQuestions.forEach(q => {
                     q.shuffledOptions = Data.shuffleArray([...q.options]);
                     q.userAnswerIndex = null;
                 });
-                state.currentExamQuestions = examPool;
                 
                 if (state.currentExamQuestions.length === 0) {
                      return alert(i1n.get('alert_no_questions'));
@@ -687,7 +689,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 UI.showScreen('questions');
                 if (state.examMode === 'exam') Timer.start();
                 UI.displayQuestion();
-        
+    
             } catch (error) {
                 console.error('Error starting exam:', error);
                 return alert(i1n.get('alert_load_error'));
