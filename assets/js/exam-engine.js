@@ -625,30 +625,46 @@ document.addEventListener('DOMContentLoaded', () => {
                         questionsByCategory[id] = Data.shuffleArray(allFetchedQuestions.filter(q => q.category === id));
                     });
         
-                    // --- INICIO DE LA LÓGICA DE DISTRIBUCIÓN MEJORADA ---
+                    // --- INICIO DEL NUEVO ALGORITMO DE DISTRIBUCIÓN ---
                     const questionsToTake = {};
-                    const categoryFractions = {};
+                    const categoryFractions = [];
                     let assignedQuestions = 0;
-                    
-                    // 1. Asigna el número base de preguntas y guarda los decimales
+        
+                    // 1. Calcular asignación base (parte entera) y guardar las fracciones
                     selectedCategoryIds.forEach(id => {
                         const exactCount = numQuestions * categoryWeights[id];
                         questionsToTake[id] = Math.floor(exactCount);
-                        categoryFractions[id] = exactCount - Math.floor(exactCount);
                         assignedQuestions += questionsToTake[id];
+                        categoryFractions.push({ id: id, fraction: exactCount - questionsToTake[id] });
                     });
-                    
-                    // 2. Distribuye las preguntas restantes basándose en la parte decimal más alta
+        
                     let remaining = numQuestions - assignedQuestions;
-                    const sortedFractions = Object.keys(categoryFractions).sort((a, b) => categoryFractions[b] - categoryFractions[a]);
         
-                    for (let i = 0; i < remaining; i++) {
-                        const categoryId = sortedFractions[i % sortedFractions.length];
-                        questionsToTake[categoryId]++;
+                    // 2. Ordenar categorías por su fracción descendente, con aleatoriedad para empates
+                    categoryFractions.sort((a, b) => {
+                        if (b.fraction > a.fraction) return 1;
+                        if (b.fraction < a.fraction) return -1;
+                        return Math.random() - 0.5; // Aleatorizar si las fracciones son iguales
+                    });
+        
+                    // 3. Distribuir las preguntas restantes a las categorías con mayor prioridad decimal
+                    //    que tengan preguntas disponibles.
+                    let safetyBreak = 0;
+                    while (remaining > 0 && safetyBreak < selectedCategoryIds.length * 2) {
+                        for (const cat of categoryFractions) {
+                            if (remaining <= 0) break;
+        
+                            const canAdd = questionsToTake[cat.id] < questionsByCategory[cat.id].length;
+                            if (canAdd) {
+                                questionsToTake[cat.id]++;
+                                remaining--;
+                            }
+                        }
+                        safetyBreak++;
                     }
-                    // --- FIN DE LA LÓGICA DE DISTRIBUCIÓN MEJORADA ---
+                    // --- FIN DEL NUEVO ALGORITMO DE DISTRIBUCIÓN ---
         
-                    // Construye el pool final
+                    // Construir el pool final
                     for (const categoryId in questionsToTake) {
                         const takeCount = questionsToTake[categoryId];
                         const availableQuestions = questionsByCategory[categoryId];
