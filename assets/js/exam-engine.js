@@ -643,6 +643,8 @@ document.addEventListener('DOMContentLoaded', () => {
         /**
          * Finaliza el examen, calcula las preguntas omitidas, guarda y muestra los resultados.
          */
+        // Dentro del Módulo 'const Exam = { ... }'
+
         finish() {
             Timer.stop();
             // Marca como omitidas las preguntas restantes no respondidas
@@ -653,52 +655,56 @@ document.addEventListener('DOMContentLoaded', () => {
                     state.stats.skipped++;
                 }
             }
-
-            // ===== INICIO DE LA NUEVA LÓGICA DE CÁLCULO =====
+        
             const topicPerformance = {};
             state.currentExamQuestions.forEach(q => {
-                // Solo procesamos preguntas que fueron respondidas y tienen un subtema definido
-                if (q.userAnswerIndex !== 'skipped' && q.topic && q.topic.subtopic_id) {
+                // ===== INICIO DE LA MODIFICACIÓN =====
+                // Ahora incluimos TODAS las preguntas que tienen un subtema, respondidas u omitidas
+                if (q.topic && q.topic.subtopic_id) {
                     const subtopicKey = q.topic.subtopic_id;
                     
-                    // Si es la primera vez que vemos este subtema, lo inicializamos
                     if (!topicPerformance[subtopicKey]) {
                         topicPerformance[subtopicKey] = {
                             correct: 0,
                             total: 0,
                             description_es: q.topic.subtopic_description,
-                            description_en: q.topic.subtopic_description // Se puede localizar si es necesario
+                            description_en: q.topic.subtopic_description
                         };
                     }
                     
+                    // Cada pregunta cuenta para el total del tema, sin importar si fue respondida u omitida
                     topicPerformance[subtopicKey].total++;
                     
-                    // Verificamos si la respuesta fue correcta (funciona para ambos tipos de pregunta)
-                    let isCorrect = false;
-                    if (q.isMultipleChoice) {
-                        const correct = new Set(q.shuffledOptions.map((o, i) => o.isCorrect ? i : -1).filter(i => i !== -1));
-                        const selected = new Set(q.userAnswerIndex);
-                        isCorrect = correct.size === selected.size && [...correct].every(i => selected.has(i));
-                    } else {
-                        isCorrect = q.shuffledOptions[q.userAnswerIndex] && q.shuffledOptions[q.userAnswerIndex].isCorrect;
-                    }
+                    // Solo si la pregunta fue respondida, verificamos si es correcta
+                    if (q.userAnswerIndex !== 'skipped' && q.userAnswerIndex !== null) {
+                        let isCorrect = false;
+                        if (q.isMultipleChoice) {
+                            const correct = new Set(q.shuffledOptions.map((o, i) => o.isCorrect ? i : -1).filter(i => i !== -1));
+                            const selected = new Set(q.userAnswerIndex);
+                            isCorrect = correct.size === selected.size && [...correct].every(i => selected.has(i));
+                        } else {
+                            isCorrect = q.shuffledOptions[q.userAnswerIndex] && q.shuffledOptions[q.userAnswerIndex].isCorrect;
+                        }
         
-                    if (isCorrect) {
-                        topicPerformance[subtopicKey].correct++;
+                        if (isCorrect) {
+                            topicPerformance[subtopicKey].correct++;
+                        }
                     }
+                    // Si la pregunta fue omitida (skipped), simplemente no se suma 'correct',
+                    // lo que efectivamente la cuenta como un intento incorrecto para el porcentaje.
                 }
+                // ===== FIN DE LA MODIFICACIÓN =====
             });
         
-            // Guardamos el resultado del análisis en el estado global
             // Convierte el objeto a un array antes de guardarlo en el estado
             const performanceArray = Object.entries(topicPerformance).map(([key, value]) => ({
                 id: key,
                 ...value,
                 percentage: (value.total > 0) ? Math.round((value.correct / value.total) * 100) : 0
             }));
-        
+            
             state.detailedPerformance = performanceArray;
-                    
+        
             Data.saveAttempt();
             UI.displayResults();
         },
