@@ -548,7 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${categoryIndex}">
                                 <div class="w-100 d-flex justify-content-between align-items-center pe-3">
                                     <span>${categoryName}</span>
-                                    <span class="badge rounded-pill" style="background-color: ${badgeColor}; color: white;">${categoryPercentage}%</span>
+                                    <span class="badge rounded-pill" style="background-color: ${badgeColor}; color: white;">${categoryCorrect}/${categoryTotal}  -  ${categoryPercentage}%</span>
                                 </div>
                             </button>
                         </h2>
