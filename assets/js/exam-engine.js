@@ -593,7 +593,8 @@ document.addEventListener('DOMContentLoaded', () => {
          * @param {string[]} categoryIds - Un array con los IDs de las categorías seleccionadas.
          * @returns {Object} Un objeto con la cantidad de preguntas por cada ID de categoría.
          */
-        _distributeQuestionsByWeight(totalQuestions, categoryIds) {
+         _distributeQuestionsByWeight(totalQuestions, categoryIds) {-
+            // Se accede a la configuración de pesos que está en el objeto CONFIG
             const weights = categoryIds.map(id => CONFIG.categoryWeights[id] || 0);
             
             const exactValues = weights.map(w => totalQuestions * w);
@@ -607,10 +608,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 remainder: v - baseIntegers[i]
             }));
             
-            // Ordenar por el resto de mayor a menor para dar prioridad
             remainders.sort((a, b) => b.remainder - a.remainder);
             
-            // Distribuir la diferencia entre las categorías con los restos más altos
             for (let i = 0; i < difference; i++) {
                 const categoryIndex = remainders[i].index;
                 baseIntegers[categoryIndex]++;
