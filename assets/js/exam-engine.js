@@ -33,6 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
             '5.0-security-fundamentals': { color: '#dc3545', icon: 'fa-shield-alt' },
             '6.0-automation-programmability': { color: '#0dcaf0', icon: 'fa-code' }
         },
+        categoryWeights: {
+            '1.0-network-fundamentals': 0.20,
+            '2.0-network-access': 0.20,
+            '3.0-ip-connectivity': 0.25,
+            '4.0-ip-services': 0.10,
+            '5.0-security-fundamentals': 0.15,
+            '6.0-automation-programmability': 0.10
+        },
         timePerQuestion: 90 // en segundos
     };
 
