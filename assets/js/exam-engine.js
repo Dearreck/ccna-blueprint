@@ -602,7 +602,6 @@ document.addEventListener('DOMContentLoaded', () => {
          * @returns {Object} Un objeto con la cantidad de preguntas por cada ID de categoría.
          */
          _distributeQuestionsByWeight(totalQuestions, categoryIds) {
-            // Se accede a la configuración de pesos que está en el objeto CONFIG
             const weights = categoryIds.map(id => CONFIG.categoryWeights[id] || 0);
             
             const exactValues = weights.map(w => totalQuestions * w);
@@ -616,11 +615,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 remainder: v - baseIntegers[i]
             }));
             
-            remainders.sort((a, b) => b.remainder - a.remainder);
+            // ✅ Orden estable y determinista
+            remainders.sort((a, b) => {
+                if (b.remainder === a.remainder) return a.index - b.index;
+                return b.remainder - a.remainder;
+            });
             
-            for (let i = 0; i < difference; i++) {
+            // ✅ Ajuste tanto positivo como negativo
+            for (let i = 0; i < Math.abs(difference); i++) {
                 const categoryIndex = remainders[i].index;
-                baseIntegers[categoryIndex]++;
+                baseIntegers[categoryIndex] += difference > 0 ? 1 : -1;
             }
             
             const distribution = {};
@@ -629,8 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             return distribution;
-        },
-    
+        },    
         /**
          * Inicia el examen basándose en la configuración del usuario.
          */
