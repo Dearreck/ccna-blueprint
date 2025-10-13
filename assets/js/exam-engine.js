@@ -601,7 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
          * @param {string[]} categoryIds - Un array con los IDs de las categorías seleccionadas.
          * @returns {Object} Un objeto con la cantidad de preguntas por cada ID de categoría.
          */
-         _distributeQuestionsByWeight(totalQuestions, categoryIds) {-
+         _distributeQuestionsByWeight(totalQuestions, categoryIds) {
             // Se accede a la configuración de pesos que está en el objeto CONFIG
             const weights = categoryIds.map(id => CONFIG.categoryWeights[id] || 0);
             
