@@ -589,43 +589,104 @@ document.addEventListener('DOMContentLoaded', () => {
         /**
          * Inicia el examen basándose en la configuración del usuario.
          */
+        // Dentro del Módulo 'const Exam = { ... }'
+
         async start() {
             const selectedMode = document.querySelector('input[name="examMode"]:checked').value;
             const selectedCats = document.querySelectorAll('#category-selection-container input:checked');
-            const questionCount = DOM.questionCountSelect.value;
+            const totalQuestionCount = DOM.questionCountSelect.value;
             
             if (selectedCats.length === 0) {
                 return alert(i1n.get('alert_select_category'));
             }
-    
-            resetState(); // Prepara un nuevo estado limpio para el examen
+        
+            resetState();
             state.examMode = selectedMode;
             const selectedCategoryIds = Array.from(selectedCats).map(el => el.value);
-    
+        
             try {
-                const questions = await Data.fetchQuestions(selectedCategoryIds);
-                if (questions.length === 0) return alert(i1n.get('alert_no_questions'));
-                state.allQuestions = questions;
+                const allFetchedQuestions = await Data.fetchQuestions(selectedCategoryIds);
+                if (allFetchedQuestions.length === 0) return alert(i1n.get('alert_no_questions'));
+        
+                // --- INICIO DE LA NUEVA LÓGICA PONDERADA ---
+        
+                let examPool = [];
+                const categoryWeights = {
+                    '1.0-network-fundamentals': 0.20,
+                    '2.0-network-access': 0.20,
+                    '3.0-ip-connectivity': 0.25,
+                    '4.0-ip-services': 0.10,
+                    '5.0-security-fundamentals': 0.15,
+                    '6.0-automation-programmability': 0.10
+                };
+        
+                if (totalQuestionCount === 'all') {
+                    examPool = Data.shuffleArray(allFetchedQuestions);
+                } else {
+                    const numQuestions = parseInt(totalQuestionCount, 10);
+                    const questionsByCategory = {};
+                    selectedCategoryIds.forEach(id => {
+                        questionsByCategory[id] = Data.shuffleArray(allFetchedQuestions.filter(q => q.category === id));
+                    });
+        
+                    const questionsToTake = {};
+                    let assignedQuestions = 0;
+                    
+                    // Asigna el número de preguntas por categoría basándose en el peso
+                    selectedCategoryIds.forEach(id => {
+                        const count = Math.round(numQuestions * categoryWeights[id]);
+                        questionsToTake[id] = count;
+                        assignedQuestions += count;
+                    });
+                    
+                    // Ajusta por redondeo para asegurar el total exacto
+                    let diff = numQuestions - assignedQuestions;
+                    let categoryIndex = 0;
+                    while (diff !== 0) {
+                        const catId = selectedCategoryIds[categoryIndex % selectedCategoryIds.length];
+                        if (diff > 0) {
+                            questionsToTake[catId]++;
+                            diff--;
+                        } else {
+                            if (questionsToTake[catId] > 0) {
+                                questionsToTake[catId]--;
+                                diff++;
+                            }
+                        }
+                        categoryIndex++;
+                    }
+        
+                    // Construye el pool final
+                    for (const categoryId in questionsToTake) {
+                        const takeCount = questionsToTake[categoryId];
+                        const availableQuestions = questionsByCategory[categoryId];
+                        examPool.push(...availableQuestions.slice(0, takeCount));
+                    }
+                    
+                    examPool = Data.shuffleArray(examPool); // Baraja el pool final
+                }
+        
+                // --- FIN DE LA NUEVA LÓGICA PONDERADA ---
+        
+                examPool.forEach(q => {
+                    q.shuffledOptions = Data.shuffleArray([...q.options]);
+                    q.userAnswerIndex = null;
+                });
+                state.currentExamQuestions = examPool;
+                
+                // Comprobación final por si el pool está vacío
+                if (state.currentExamQuestions.length === 0) {
+                     return alert(i1n.get('alert_no_questions'));
+                }
+                
+                UI.showScreen('questions');
+                if (state.examMode === 'exam') Timer.start();
+                UI.displayQuestion();
+        
             } catch (error) {
                 console.error('Error loading questions:', error);
                 return alert(i1n.get('alert_load_error'));
             }
-    
-            let examPool = Data.shuffleArray([...state.allQuestions]);
-            if (questionCount !== 'all') {
-                examPool = examPool.slice(0, parseInt(questionCount));
-            }
-            
-            // Pre-procesa todas las preguntas para asegurar que tengan lo necesario
-            examPool.forEach(q => {
-                q.shuffledOptions = Data.shuffleArray([...q.options]);
-                q.userAnswerIndex = null;
-            });
-            state.currentExamQuestions = examPool;
-            
-            UI.showScreen('questions');
-            if (state.examMode === 'exam') Timer.start();
-            UI.displayQuestion();
         },
     
         /**
