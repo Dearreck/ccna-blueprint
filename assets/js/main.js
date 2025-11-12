@@ -1,4 +1,4 @@
-import { BitWorkshop } from './components/bit-workshop/bit-workshop.js';
+import { BitWorkshop } from '/ccna-blueprint/components/bit-workshop/bit-workshop.js';
 
 let globalTooltipElements = [];
 
@@ -191,3 +191,4 @@ document.addEventListener('DOMContentLoaded', () => {
     init(); // Llama a la función principal
 
 });
+
