@@ -1,0 +1,558 @@
+/*
+ * Archivo: /tools/subnetting-gen/subnetting-gen.css
+ * Hoja de estilos específica para la calculadora de subneteo.
+ * (Los estilos de .nav-tabs y .form-check-input se han movido a theme.css)
+ */
+
+/* --- Estilos Formularios Específicos --- */
+
+/* Ajuste para el botón de eliminar requisito VLSM */
+.vlsm-requirement-item .btn-outline-danger {
+    padding: 0.375rem 0.75rem;
+}
+
+/* Deshabilitar flechas en inputs de tipo number */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    /* Firefox */
+}
+
+/* --- Estilos de Resultados --- */
+
+#results-container {
+    min-height: 100px;
+    padding-top: 1rem;
+}
+
+.subnet-results-table {
+    width: 100%;
+    margin-top: 1.5rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.9rem;
+    overflow: hidden;
+    border-radius: 0.375rem;
+    border: 1px solid var(--bs-border-color-translucent);
+}
+
+.subnet-results-table th,
+.subnet-results-table td {
+    padding: 0.75rem;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--bs-border-color-translucent);
+}
+
+.subnet-results-table th {
+    background-color: var(--bs-tertiary-bg);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.subnet-results-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.subnet-results-table tbody tr:hover {
+    background-color: var(--bs-secondary-bg-subtle);
+}
+
+.table-responsive-wrapper {
+    overflow-x: auto;
+}
+
+/* Asegura que el texto del encabezado sea legible en tema claro */
+.subnet-results-table thead.table-dark th {
+    color: var(--bs-emphasis-color);
+    /* Un color oscuro estándar para texto enfatizado */
+}
+
+/* Colores diferenciados (requisito) */
+.subnet-row-assigned {
+    background-color: var(--bs-success-bg-subtle) !important;
+}
+
+.subnet-row-unused {
+    background-color: var(--bs-warning-bg-subtle) !important;
+    color: var(--bs-warning-text-emphasis);
+}
+
+.subnet-row-error {
+    background-color: var(--bs-danger-bg-subtle) !important;
+    color: var(--bs-danger-text-emphasis);
+}
+
+/* Fila para subredes reservadas (Zero/All-Ones) - Estilo base */
+.subnet-row-reserved {
+    background-color: var(--bs-warning-bg-subtle) !important;
+    color: var(--bs-warning-text-emphasis) !important;
+    font-style: italic;
+}
+
+/* Estilo Base y Tema Claro Explícito */
+.subnet-results-table>tbody>tr.subnet-row-reserved {
+    /* Fondo amarillo pálido explícito para tema claro */
+    background-color: #fff3cd !important;
+    /* Equivalente directo de --bs-warning-bg-subtle light */
+    /* Texto oscuro asociado para tema claro */
+    color: #664d03 !important;
+    /* Equivalente directo de --bs-warning-text-emphasis light */
+    font-style: italic;
+}
+
+/* Tema Oscuro (Ya corregido anteriormente, asegúrate que se vea así) */
+html[data-bs-theme='dark'] .subnet-results-table>tbody>tr.subnet-row-reserved {
+    /* Fondo amarillo más visible en oscuro */
+    background-color: rgba(var(--bs-warning-rgb), 0.15) !important;
+    /* Texto amarillo oscuro para contraste */
+    color: var(--bs-warning-text-emphasis) !important;
+    font-style: italic;
+    /* Mantenemos cursiva si quieres */
+}
+
+/* Leyenda para Zero/All-Ones subnet */
+.subnet-legend {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0.8;
+    font-style: normal;
+    /* Sobrescribe el itálico de la fila */
+}
+
+/* Estilo para el icono de info (ahora .text-warning) */
+.fa-circle-info.text-warning {
+    cursor: help;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+}
+
+/* Efecto glow para el icono */
+.fa-circle-info.text-warning:hover {
+    opacity: 1;
+    /* Efecto glow naranja/amarillo usando el color warning de Bootstrap */
+    text-shadow: 0 0 12px rgba(var(--bs-warning-rgb), 0.7);
+}
+
+/* Estilo para el icono de info del tooltip */
+[data-bs-toggle="tooltip"] i {
+    cursor: help;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+[data-bs-toggle="tooltip"] i:hover {
+    opacity: 1;
+}
+
+
+/* Estilos para Tooltips (requisito) */
+[data-bs-toggle="tooltip"] {
+    cursor: help;
+    border-bottom: 1px dotted var(--bs-secondary);
+}
+
+.info-tooltip-icon i {
+    color: var(--info-highlight-color-light);
+    cursor: help;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+/* Color para tema oscuro */
+html[data-bs-theme='dark'] .info-tooltip-icon i {
+    color: var(--info-highlight-color-dark);
+}
+
+.info-tooltip-icon:hover i {
+    opacity: 1;
+    text-shadow: 0 0 8px currentColor;
+}
+
+/* --- Definición de la Animación de Pulsación --- */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.2);
+        /* Crece un 20% */
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
+/* --- Estilos para Diagrama Visual (Placeholder) --- */
+.network-diagram-container {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: var(--bs-tertiary-bg);
+    border-radius: 0.375rem;
+    border: 1px solid var(--bs-border-color-translucent);
+}
+
+.network-diagram-title {
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.network-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 5px;
+    border: 1px solid var(--bs-secondary-bg-subtle);
+    border-radius: 0.25rem;
+}
+
+.subnet-block {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--bs-dark-text-emphasis);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.subnet-block:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Barras de Eficiencia (Placeholder) --- */
+.efficiency-bar-container {
+    width: 100%;
+    height: 18px;
+    /* Aumentamos altura para que quepa el texto */
+    background-color: var(--bs-secondary-bg);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.efficiency-bar {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out;
+
+    /* 1. Estilos para el texto del porcentaje */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* --- 2. Lógica de Color Eficiente (Tema Claro) --- */
+.efficiency-bar.bar-efficient {
+    background-color: var(--primary-color-light);
+    color: var(--card-bg-light);
+    /* Texto blanco/claro */
+}
+
+/* --- 2. Lógica de Color Eficiente (Tema Oscuro) --- */
+html[data-bs-theme='dark'] .efficiency-bar.bar-efficient {
+    background-color: var(--primary-color-dark);
+    color: var(--bg-color-dark);
+    /* Texto oscuro (para el Volt) */
+}
+
+/* --- 2. Lógica de Color Ineficiente (Ambos Temas) --- */
+/* Se aplica a tema claro y oscuro */
+.efficiency-bar.bar-inefficient {
+    background-color: var(--accent-color-light);
+    /* Naranja (F97316) */
+    color: var(--card-bg-light);
+    /* Texto blanco/claro */
+}
+
+/* --- Estilos del Toggle Práctica/Desafío --- */
+
+/* 1. Estilos de las etiquetas (Label) */
+#label-practice-mode,
+#label-challenge-mode {
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+/* 2. Estilo del switch (input) */
+.form-check-lg .form-check-input {
+    height: 1.8em;
+    width: 3.5em;
+    margin-top: 0.1em;
+}
+
+/* 3. Forzar el color de nuestra MARCA en el toggle (ya definido en theme.css, pero reforzamos) */
+.form-check-lg .form-check-input:checked {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+}
+
+html[data-bs-theme='dark'] .form-check-lg .form-check-input:checked {
+    background-color: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+}
+
+/* 4. Contenedores de Modo */
+#exercises-pane.challenge-mode-active #practice-config-container {
+    display: none;
+}
+
+#exercises-pane.challenge-mode-active #challenge-start-container {
+    display: block;
+}
+
+#exercises-pane.practice-mode-active #challenge-start-container {
+    display: none;
+}
+
+#exercises-pane.practice-mode-active #practice-config-container {
+    display: block;
+}
+
+
+
+/* --- Estilos para el Panel de Feedback Detallado (v2 - Corregido) --- */
+
+/* El contenedor principal del feedback */
+.feedback-container {
+    /* Fondo y borde que coinciden con las tarjetas (modo claro) */
+    background-color: var(--card-bg-light);
+    border: 1px solid var(--border-color-light);
+    border-radius: 0.75rem;
+    /* Coincide con .card */
+    padding: 1.5rem 1.75rem;
+    font-family: var(--font-body);
+    /* Fuente principal del body */
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    /* Sombra de tarjeta */
+}
+
+/* Modo Oscuro: usa los colores de fondo de tarjeta y borde oscuros */
+html[data-bs-theme='dark'] .feedback-container {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-color-dark);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Título "Solución Detallada" */
+.feedback-container .alert-heading {
+    font-family: var(--font-heading);
+    /* Aplicar fuente Poppins */
+    font-weight: 600;
+    color: var(--text-color-light);
+}
+
+html[data-bs-theme='dark'] .feedback-container .alert-heading {
+    color: var(--text-color-dark);
+}
+
+/* Separador <hr> */
+.feedback-container hr {
+    border-top: 1px solid var(--border-color-light);
+    opacity: 0.5;
+}
+
+html[data-bs-theme='dark'] .feedback-container hr {
+    border-top-color: var(--border-color-dark);
+}
+
+/* Lista de pasos */
+.feedback-step-list {
+    background-color: transparent !important;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 0.9rem;
+}
+
+/* Cada item (paso) de la lista */
+.feedback-step {
+    background-color: transparent;
+    border-bottom: 1px solid var(--border-color-light) !important;
+    padding: 1.25rem 0;
+    /* Más espaciado vertical */
+}
+
+html[data-bs-theme='dark'] .feedback-step {
+    border-bottom: 1px solid var(--border-color-dark) !important;
+}
+
+.feedback-step-list .list-group-item:last-child {
+    border-bottom: none !important;
+    padding-bottom: 0;
+}
+
+.feedback-step-list .list-group-item:first-child {
+    padding-top: 0.5rem;
+}
+
+/* Título del paso (ej. "1. Calcular Máscara CIDR") */
+.feedback-step .fb-title {
+    color: var(--primary-color-light);
+    font-family: var(--font-heading);
+    /* Aplicar fuente Poppins */
+    font-weight: 600;
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 0.35rem;
+}
+
+html[data-bs-theme='dark'] .feedback-step .fb-title {
+    color: var(--primary-color-dark);
+}
+
+/* Descripción del paso (el texto de explicación) */
+.feedback-step .fb-desc {
+    font-family: var(--font-body);
+    /* Aplicar fuente Inter */
+    color: var(--text-color-light);
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+html[data-bs-theme='dark'] .feedback-step .fb-desc {
+    color: var(--text-color-dark);
+}
+
+/* Estilo para los bloques de cálculo <pre> (ASEGÚRATE DE QUE ESTÉ ASÍ) */
+.feedback-calc {
+    font-family: Consolas, 'Courier New', monospace;
+    /* FUENTE MONOESPACIADA */
+    font-size: 0.9rem;
+    /* Un poco más grande para legibilidad */
+    padding: 0.75rem;
+    margin: 0.75rem 0;
+    border-radius: 0.375rem;
+    background-color: var(--bg-color-light);
+    border: 1px solid var(--border-color-light);
+    color: var(--text-color-light);
+    white-space: pre;
+    /* MUY IMPORTANTE: respeta los espacios */
+    line-height: 1.5;
+    /* Espaciado entre líneas */
+}
+
+html[data-bs-theme='dark'] .feedback-calc {
+    background-color: var(--bg-color-dark);
+    border-color: var(--border-color-dark);
+    color: var(--text-color-dark);
+}
+
+/* Estilo para <code> inline */
+.feedback-step code {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--accent-color-light);
+    /* Color naranja para <code> */
+    background-color: rgba(249, 115, 22, 0.1);
+    /* Fondo naranja sutil */
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+}
+
+html[data-bs-theme='dark'] .feedback-step code {
+    color: var(--accent-color-light);
+    /* Mantenemos el naranja */
+    background-color: rgba(249, 115, 22, 0.15);
+}
+
+/* Color primario para binarios (para que destaquen sobre el naranja) */
+.feedback-step .text-primary {
+    color: var(--primary-color-light) !important;
+}
+
+html[data-bs-theme='dark'] .feedback-step .text-primary {
+    color: var(--primary-color-dark) !important;
+}
+
+/* Estilo para <ul> dentro del feedback */
+.feedback-step ul {
+    margin-top: 0.5rem;
+    padding-left: 1.25rem;
+}
+
+/* Estilo para etiquetas dentro de <pre> para alineación */
+.feedback-calc .fb-label {
+    display: inline-block;
+    width: 10ch;
+    /* <-- CAMBIO: Aumentado de 9ch a 10ch */
+    text-align: right;
+    margin-right: 1ch;
+    font-weight: bold;
+    color: var(--text-color-light);
+    opacity: 0.7;
+}
+
+html[data-bs-theme='dark'] .feedback-calc .fb-label {
+    color: var(--text-color-dark);
+}
+
+/* --- Estilos para el feedback de sumarización --- */
+.feedback-calc .bit-sep-char {
+    color: var(--info-highlight-color-light);
+    font-weight: bold;
+    /* Evita que sea seleccionado con el texto */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+html[data-bs-theme='dark'] .feedback-calc .bit-sep-char {
+    color: var(--info-highlight-color-dark);
+}
+
+/* --- Responsividad --- */
+@media (max-width: 767.98px) {
+    .subnet-results-table {
+        min-width: 700px;
+    }
+
+    .nav-tabs.nav-fill .nav-item {
+        flex-basis: 0;
+        flex-grow: 1;
+    }
+
+    .vlsm-requirement-item {
+        flex-wrap: nowrap;
+    }
+
+    .vlsm-requirement-item input[type="number"] {
+        flex-basis: 100px;
+        flex-grow: 0;
+    }
+
+    .vlsm-requirement-item input[type="text"] {
+        flex-grow: 1;
+    }
+
+    #calculator-pane .btn-group.flex-column > .btn {
+        /* Restaura el radio de borde que .btn-group elimina */
+        border-radius: var(--bs-btn-border-radius) !important;
+    }
+
+    /* Opcional: Añade un pequeño margen entre los botones apilados */
+    #calculator-pane .btn-group.flex-column > .btn:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }
+}

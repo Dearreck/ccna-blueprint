@@ -1,0 +1,61 @@
+<template id="ex-mode-6-feedback-template">
+    <h5 class="alert-heading" data-i18n="fb_detailed_solution">Solución Detallada</h5>
+    <hr>
+    <p class="fb-desc">
+        <span data-i18n="fb_mode6_intro">Analicemos la subred</span>
+        <code><strong id="fb-m6-intro-net"></strong></code>.
+    </p>
+
+    <ol class="list-group list-group-flush feedback-step-list">
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode6_step1_title">1. Identificar Octeto Interesante</strong>
+            <p class="fb-desc">
+                <span data-i18n="fb_mode6_step1_desc_1">Un prefijo</span>
+                <strong><span id="fb-m6-s1-prefix"></span></strong>
+                <span data-i18n="fb_mode6_step1_desc_2">nos indica que el 'octeto interesante' (donde ocurren los
+                    saltos) es el</span>
+                <strong><span id="fb-m6-s1-octet"></span></strong>º.
+            </p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode6_step2_title">2. Encontrar el 'Número Mágico' (Salto)</strong>
+            <p class="fb-desc">
+                <span data-i18n="fb_mode6_step2_desc_1">Convertimos el prefijo</span>
+                <strong><span id="fb-m6-s2-prefix"></span></strong>
+                <span data-i18n="fb_mode6_step2_desc_2">a su máscara DDN:</span>
+                <strong><span id="fb-m6-s2-mask"></span></strong>.<br>
+
+                <span data-i18n="fb_mode6_step2_desc_3">El valor en el</span>
+                <strong><span id="fb-m6-s2-octet"></span></strong>º
+                <span data-i18n="fb_mode6_step2_desc_4">octeto es</span>
+                <strong><span id="fb-m6-s2-octetval"></span></strong>.<br>
+
+                <span data-i18n="fb_mode6_step2_desc_5">Calculamos el Número Mágico (salto): 256 -</span>
+                <span id="fb-m6-s2-octetval-2"></span> =
+                <strong><span id="fb-m6-s2-magic"></span></strong>.
+            </p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode6_step3_title">3. Calcular Siguiente Salto</strong>
+            <p class="fb-desc">
+                <span data-i18n="fb_mode6_step3_desc_1">La red actual está en</span>
+                <strong><span id="fb-m6-s3-netoctet"></span></strong>.
+                <span data-i18n="fb_mode6_step3_desc_2">El siguiente salto es</span>
+                <span id="fb-m6-s3-netoctet-2"></span> +
+                <span id="fb-m6-s3-magic"></span> =
+                <strong><span id="fb-m6-s3-nextoctet"></span></strong>.
+            </p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode6_step4_title">4. Definir Siguiente Red</strong>
+            <p class="fb-desc">
+                <span data-i18n="fb_mode6_step4_desc_1">La dirección de la siguiente red es</span>
+                <strong><code><span id="fb-m6-s4-nextnet"></span></code></strong>.
+            </p>
+        </li>
+    </ol>
+</template>

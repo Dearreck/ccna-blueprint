@@ -1,0 +1,37 @@
+<template id="question-card-template">
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-transparent border-0 pt-4 px-4">
+        </div>
+        <div class="card-body p-4 p-md-5">
+            <p class="question-text lead"></p>
+            <div class="question-image-container text-center my-3" style="display: none;">
+                <img src="" class="img-fluid rounded border question-image">
+            </div>
+            <div class="question-code-container" style="display: none;">
+                <pre class="code-block"><code></code></pre>
+            </div>
+            <div class="options-container mt-4">
+            </div>
+            <div class="explanation-container alert alert-info mt-4 explanation-box" style="display: none;">
+                <strong><span data-i18n="explanation_label">Explicación</span>:</strong>
+                <span class="explanation-content"></span>
+            </div>
+        </div>
+        <div
+            class="card-footer bg-transparent border-0 pb-4 px-4 d-flex flex-column flex-md-row justify-content-md-between align-items-stretch align-items-md-center gap-2">
+
+            <div class="order-3 order-md-1 d-grid">
+                <button class="btn btn-sm btn-outline-danger end-exam-btn w-100 w-md-auto"
+                    data-i18n="btn_end_exam">Finalizar Examen</button>
+            </div>
+
+            <div class="order-1 order-md-2 d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-primary check-answer-btn order-1 order-md-2 w-100 w-md-auto"
+                    data-i18n="btn_verify">Verificar Respuesta</button>
+                <button class="btn btn-outline-danger skip-question-btn order-2 order-md-1 w-100 w-md-auto me-md-2"
+                    data-i18n="btn_skip">Omitir Pregunta</button>
+            </div>
+
+        </div>
+    </div>
+</template>

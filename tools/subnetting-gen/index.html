@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="subnet_gen_page_title">Generador Subneteo - CCNA Blueprint</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script src="../../assets/js/theme-loader.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/theme.css">
+
+    <link rel="stylesheet" href="subnetting-gen.css">
+
+</head>
+
+<body data-title="subnet_gen_page_title">
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-12 col-lg-10 offset-lg-1">
+
+                <h1 class="text-center mb-4" data-i18n="subnet_gen_main_title">Herramienta de Subneteo IPv4</h1>
+
+                <ul class="nav nav-tabs nav-fill mb-4" id="subnetGenTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="calculator-tab-btn" data-bs-toggle="tab"
+                            data-bs-target="#calculator-pane" type="button" role="tab"
+                            data-i18n="subnet_gen_tab_calculator">Calculadora</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="exercises-tab-btn" data-bs-toggle="tab"
+                            data-bs-target="#exercises-pane" type="button" role="tab"
+                            data-i18n="subnet_gen_tab_exercises">Ejercicios</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="subnetGenTabContent">
+
+                    <div class="tab-pane fade show active" id="calculator-pane" role="tabpanel">
+                        <div class="card shadow-sm border-0 mb-4">
+                            <div class="card-body p-4 p-md-5">
+                                <h2 class="card-title text-center mb-4" data-i18n="subnet_gen_calculator_title">Modo:
+                                    Calculadora de Subneteo</h2>
+
+                                <fieldset class="mb-4 text-center">
+                                    <legend class="visually-hidden" data-i18n="subnet_gen_calc_type_legend">Tipo de
+                                        Cálculo</legend>
+                                    <div class="btn-group d-flex flex-column flex-md-row" role="group" style="width: 100%;">
+                                        <input type="radio" class="btn-check" name="calculationType"
+                                            id="calcTypeClassful" value="classful" checked>
+                                        <label class="btn btn-outline-primary flex-fill" for="calcTypeClassful"
+                                            data-i18n="subnet_gen_calc_type_classful">Classful</label>
+
+                                        <input type="radio" class="btn-check" name="calculationType" id="calcTypeVlsm"
+                                            value="vlsm">
+                                        <label class="btn btn-outline-primary flex-fill" for="calcTypeVlsm"
+                                            data-i18n="subnet_gen_calc_type_vlsm">Classless (VLSM)</label>
+
+                                        <input type="radio" class="btn-check" name="calculationType"
+                                            id="calcTypeSummary" value="summary">
+                                        <label class="btn btn-outline-primary flex-fill" for="calcTypeSummary"
+                                            data-i18n="subnet_gen_calc_type_summary">Sumarización</label>
+                                    </div>
+                                </fieldset>
+
+                                <form id="classful-form">
+                                    <h3 class="h5 mb-3 text-center">
+                                        <span data-i18n="subnet_gen_classful_subtitle">Subneteo Classful</span> <span
+                                            class="ms-2 info-tooltip-icon" data-bs-toggle="tooltip"
+                                            data-bs-placement="right" data-bs-html="true"
+                                            data-i18n-title="subnet_gen_classful_tooltip_html">
+                                            <i class="fas fa-circle-info"></i>
+                                        </span>
+                                    </h3>
+                                    <div class="mb-3">
+                                        <label for="classful-ip" class="form-label"
+                                            data-i18n="subnet_gen_network_ip_label">Dirección IP de Red:</label>
+                                        <input type="text" class="form-control" id="classful-ip" required
+                                            data-i18n-placeholder="subnet_gen_ip_placeholder_classful"
+                                            placeholder="Ej: 192.168.1.0">
+                                        <div class="invalid-feedback" data-i18n="subnet_gen_error_invalid_ip">
+                                            Formato de
+                                            IP inválido.</div>
+                                    </div>
+                                    <fieldset class="mb-3">
+                                        <legend class="form-label" data-i18n="subnet_gen_requirement_legend">
+                                            Requisito
+                                            (elige uno):</legend>
+                                        <div class="input-group">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0" type="radio"
+                                                    name="classfulRequirementType" value="subnets" id="reqSubnets"
+                                                    checked>
+                                            </div>
+                                            <label for="reqSubnets" class="input-group-text "
+                                                data-i18n="subnet_gen_req_subnets">Número de Subredes</label>
+                                            <input type="number" class="form-control" id="classful-subnets" min="2"
+                                                placeholder="Mín 2" aria-label="Número de Subredes Utilizables"
+                                                data-i18n-placeholder="subnet_gen_req_placeholder_min2">
+
+                                        </div>
+                                        <div class="input-group mt-2">
+                                            <div class="input-group-text">
+                                                <input class="form-check-input mt-0" type="radio"
+                                                    name="classfulRequirementType" value="hosts" id="reqHosts">
+                                            </div>
+                                            <label for="reqHosts" class="input-group-text "
+                                                data-i18n="subnet_gen_req_hosts">Mínimo Hosts</label>
+                                            <input type="number" class="form-control" id="classful-hosts" min="2"
+                                                placeholder="Mín 2" aria-label="Mínimo de Hosts Utilizables por Subred"
+                                                data-i18n-placeholder="subnet_gen_req_placeholder_min2">
+                                        </div>
+                                    </fieldset>
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-calculator me-2"></i><span
+                                                data-i18n="subnet_gen_button_calculate">Calcular</span>
+                                        </button>
+                                        <button type="reset" class="btn btn-outline-primary">
+                                            <i class="fas fa-eraser me-2"></i><span
+                                                data-i18n="subnet_gen_button_clear">Limpiar</span>
+                                        </button>
+                                    </div>
+                                </form>
+
+                                <form id="vlsm-form" class="d-none">
+                                    <h3 class="h5 mb-3 text-center" data-i18n="subnet_gen_vlsm_subtitle">Subneteo
+                                        Classless (VLSM)</h3>
+                                    <div class="mb-3">
+                                        <label for="vlsm-cidr" class="form-label"
+                                            data-i18n="subnet_gen_network_prefix_label">Dirección IP de
+                                            Red/Prefijo:</label>
+                                        <input type="text" class="form-control" id="vlsm-cidr" required
+                                            data-i18n-placeholder="subnet_gen_ip_placeholder_vlsm"
+                                            placeholder="Ej: 172.16.0.0/22">
+                                        <div class="invalid-feedback" data-i18n="subnet_gen_error_invalid_cidr">Formato
+                                            CIDR inválido.</div>
+                                    </div>
+                                    <fieldset class="mb-3">
+                                        <legend class="form-label" data-i18n="subnet_gen_vlsm_req_label">Requisitos de
+                                            Hosts por Subred:</legend>
+                                        <div id="vlsm-requirements-list">
+                                            <div class="input-group mb-2 vlsm-requirement-item">
+                                                <input type="number" class="form-control" min="1" required
+                                                    aria-label="Número de hosts"
+                                                    data-i18n-placeholder="subnet_gen_vlsm_hosts_placeholder"
+                                                    placeholder="Hosts">
+                                                <input type="text" class="form-control"
+                                                    aria-label="Nombre opcional de subred"
+                                                    data-i18n-placeholder="subnet_gen_vlsm_name_placeholder"
+                                                    placeholder="Nombre (Opcional)">
+                                                <button type="button" class="btn btn-outline-danger remove-vlsm-req-btn"
+                                                    aria-label="Eliminar requisito"><i
+                                                        class="fas fa-times"></i></button>
+                                            </div>
+                                        </div>
+                                        <button type="button" id="add-vlsm-req-btn"
+                                            class="btn btn-sm btn-outline-primary mt-2"> <i
+                                                class="fas fa-plus me-1"></i><span
+                                                data-i1N="subnet_gen_vlsm_add_req_button">Añadir Requisito</span>
+                                        </button>
+                                    </fieldset>
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-cogs me-2"></i><span
+                                                data-i18n="subnet_gen_button_calculate_vlsm">Calcular VLSM</span>
+                                        </button>
+                                        <button type="reset" class="btn btn-outline-primary">
+                                            <i class="fas fa-eraser me-2"></i><span
+                                                data-i18n="subnet_gen_button_clear">Limpiar</span>
+                                        </button>
+                                    </div>
+                                </form>
+
+                                <form id="summary-form" class="d-none">
+                                    <h3 class="h5 mb-3 text-center" data-i18n="ex_type_summarization">Sumarización de
+                                        Rutas</h3>
+                                    <div class="mb-3">
+                                        <label for="summary-ip-list" class="form-label">Lista de Direcciones de Red (una
+                                            por línea):</label>
+                                        <textarea class="form-control" id="summary-ip-list" rows="5"
+                                            placeholder="192.168.1.0&#10;192.168.2.0&#10;192.168.3.0"></textarea>
+                                        <div class="invalid-feedback">Introduce al menos dos direcciones IP válidas.
+                                        </div>
+                                    </div>
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-sitemap me-2"></i>Calcular Resumen
+                                        </button>
+                                        <button type="reset" class="btn btn-outline-primary">
+                                            <i class="fas fa-eraser me-2"></i>Limpiar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="card shadow-sm border-0" id="results-card">
+                            <div class="card-body p-4 p-md-5">
+                                <h2 class="card-title text-center mb-4" data-i18n="subnet_gen_results_title">Resultados
+                                    del Cálculo:</h2>
+                                <div id="results-container" class="text-center">
+                                    <p class="text-muted" data-i18n="subnet_gen_results_placeholder">Introduce los datos
+                                        y haz clic en calcular.</p>
+                                </div>
+                                <div id="results-summary" class="mt-3 small text-muted text-center"></div>
+                                <div class="text-center mt-3 d-none" id="copy-results-area">
+                                    <button type="button" id="copy-results-btn" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-copy me-1"></i><span data-i18n="subnet_gen_button_copy">Copiar
+                                            Tabla</span>
+                                    </button>
+                                    <span id="copy-feedback" class="ms-2 text-primary small" style="display: none;"
+                                        data-i18n="subnet_gen_copy_feedback">¡Copiado!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="exercises-pane" role="tabpanel">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4 p-md-5">
+                                <h2 class="card-title text-center mb-4" data-i18n="ex_mode_title">Modo:
+                                    Generador de Ejercicios</h2>
+
+                                <div class="d-flex justify-content-center align-items-center mb-4">
+                                    <label id="label-practice-mode" class="form-check-label me-3" for="ex-mode-toggle"
+                                        data-i18n="ex_practice_mode">Modo Práctica</label>
+                                    <div class="form-check form-switch form-check-lg">
+                                        <input class="form-check-input" type="checkbox" role="switch"
+                                            id="ex-mode-toggle">
+                                        <label class="form-check-label visually-hidden" for="ex-mode-toggle">Toggle
+                                            Mode</label>
+                                    </div>
+                                    <label id="label-challenge-mode" class="form-check-label ms-3 text-muted"
+                                        for="ex-mode-toggle" data-i18n="ex_challenge_mode">Modo Desafío ⚔️</label>
+                                </div>
+
+                                <div id="practice-config-container">
+                                    <form id="exercise-generator-form">
+                                        <h3 class="h5 text-center mb-3" data-i18n="ex_config_title">Configurar
+                                            Ejercicio</h3>
+                                        <div class="row g-3 mb-3 justify-content-center">
+                                            <div class="col-md-5">
+                                                <label for="ex-type" class="form-label"
+                                                    data-i18n="ex_problem_type">Problem Type:</label>
+
+                                                <select id="ex-type" class="form-select form-select-themed">
+
+                                                    <option value="identify-network"
+                                                        data-i18n="ex_type_identify_network">
+                                                        Network Analysis (ID, Range, etc.)
+                                                    </option>
+
+                                                    <option value="calculate-mask" data-i18n="ex_type_calculate_mask">
+                                                        Calculate Mask (Reverse Eng.)
+                                                    </option>
+
+                                                    <option value="next-network" data-i18n="ex_type_next_network">
+                                                        Identify Next Network (Hop)
+                                                    </option>
+
+                                                    <option value="classful-legacy" data-i18n="ex_type_classful_legacy">
+                                                        Classful Subnetting (Legacy)
+                                                    </option>
+
+                                                    <option value="vlsm-scenario" data-i18n="ex_type_vlsm_scenario">
+                                                        VLSM Design (Scenario)
+                                                    </option>
+
+                                                    <option value="summarization" data-i18n="ex_type_summarization">
+                                                        Route Summarization (Supernetting)
+                                                    </option>
+
+                                                </select>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <label class="form-label d-block"
+                                                    data-i18n="ex_difficulty">Dificultad:</label>
+                                                <div class="btn-group w-100" role="group"
+                                                    aria-label="Selector de dificultad">
+                                                    <input type="radio" class="btn-check" name="ex-difficulty"
+                                                        id="ex-diff-easy" value="easy" checked>
+                                                    <label class="btn btn-outline-primary" for="ex-diff-easy"
+                                                        data-i18n="ex_difficulty_easy">Fácil</label>
+                                                    <input type="radio" class="btn-check" name="ex-difficulty"
+                                                        id="ex-diff-medium" value="medium">
+                                                    <label class="btn btn-outline-primary" for="ex-diff-medium"
+                                                        data-i18n="ex_difficulty_medium">Medio</label>
+                                                    <input type="radio" class="btn-check" name="ex-difficulty"
+                                                        id="ex-diff-hard" value="hard">
+                                                    <label class="btn btn-outline-primary" for="ex-diff-hard"
+                                                        data-i18n="ex_difficulty_hard">Difícil</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center mt-4">
+                                            <button type="submit" class="btn btn-primary btn-lg"
+                                                data-i18n="ex_generate_new">
+                                                <i class="fas fa-dice me-2"></i>Generar Nuevo Ejercicio
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div id="challenge-start-container" class="d-none">
+                                    <div class="text-center mt-4">
+                                        <button type="button" id="start-challenge-btn" class="btn btn-primary btn-lg">
+                                            <i class="fas fa-rocket me-2"></i><span
+                                                data-i18n="ex_start_challenge_btn">¡Comenzar Desafío!</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4 my-md-5">
+
+                                <div id="exercise-display-area" class="d-none">
+
+                                    <h4 id="ex-challenge-counter" class="text-center text-primary fw-bold mb-3"></h4>
+
+                                    <div class="problem-statement mb-4">
+                                        <h4 data-i18n="ex_problem_title">Problema:</h4>
+                                        <p id="problem-text" class="lead bg-body-tertiary p-3 rounded"></p>
+                                    </div>
+
+                                    <form id="exercise-answer-form">
+                                        <h4 data-i18n="ex_answer_title">Tu Solución:</h4>
+
+                                        <div id="answer-inputs-container" class="mb-3">
+                                        </div>
+
+                                        <div class="d-flex gap-2 justify-content-center flex-wrap">
+                                            <button type="submit" class="btn btn-primary" id="ex-submit-btn"
+                                                data-i18n="ex_check_btn">
+                                                <i class="fas fa-check me-2"></i>Revisar Respuesta
+                                            </button>
+                                            <button type="button" id="show-answer-btn" class="btn btn-outline-primary"
+                                                data-i18n="ex_show_solution">
+                                                <i class="fas fa-eye me-2"></i>Mostrar Solución
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                    <div id="exercise-feedback" class_="mt-4">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <div id="modal-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/i18n.js"></script>
+    <script type="module" src="../../assets/js/main.js"></script>
+    <script type="module" src="../../components/confirm-modal/confirmModal.js"></script>
+
+    <script type="module" src="subnetting-gen.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<template id="ex-mode-2-identify-network-template">
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-network" class="col-form-label" data-i18n="ex_label_network_address">Dirección de
+                Red</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-network" class="form-control" data-i18n-placeholder="ex_ph_ip_network"
+                aria-label="Dirección de Red">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-mask-ddn" class="col-form-label" data-i18n="ex_label_mask_ddn" id="label-mask-ddn">Máscara
+                (DDN)</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-mask-ddn" class="form-control" data-i18n-placeholder="ex_ph_ip_mask"
+                aria-label="Máscara (DDN)">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-mask-cidr" class="col-form-label" data-i18n="ex_label_mask_cidr"
+                id="label-mask-cidr">Máscara (CIDR)</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-mask-cidr" class="form-control" data-i18n-placeholder="ex_ph_cidr"
+                aria-label="Máscara (CIDR)">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-wildcard" class="col-form-label" data-i18n="ex_label_wildcard_mask">Máscara Wildcard</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-wildcard" class="form-control" data-i18n-placeholder="ex_ph_wildcard"
+                aria-label="Máscara Wildcard">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-broadcast" class="col-form-label" data-i18n="ex_label_broadcast_address">Dirección de
+                Broadcast</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-broadcast" class="form-control" data-i18n-placeholder="ex_ph_ip_broadcast"
+                aria-label="Dirección de Broadcast">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-firsthost" class="col-form-label" data-i18n="ex_label_first_usable_host">Primer Host
+                Usable</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-firsthost" class="form-control" data-i18n-placeholder="ex_ph_ip_first"
+                aria-label="Primer Host Usable">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-lasthost" class="col-form-label" data-i18n="ex_label_last_usable_host">Último Host
+                Usable</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-lasthost" class="form-control" data-i18n-placeholder="ex_ph_ip_last"
+                aria-label="Último Host Usable">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+</template>

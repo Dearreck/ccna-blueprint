@@ -1,0 +1,745 @@
+/* ==========================================================================
+   Estilos Específicos del Simulador de Examen (Versión Refactorizada)
+   ========================================================================== */
+
+/* ---
+   1. PANTALLA DE CONFIGURACIÓN (SETUP)
+--- */
+
+/* Insignia de Conteo Total de Preguntas */
+.total-questions-badge {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background-color: var(--primary-color-light);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.375rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+html[data-bs-theme='dark'] .total-questions-badge {
+    background-color: var(--primary-color-dark);
+    color: var(--bg-color-dark);
+}
+
+/* Pestañas de Contenido (Por Categoría / Por Tema) */
+#exam-setup-container #content-selection-tabs .nav-link {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--text-color-light);
+    opacity: 0.7;
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--border-color-light);
+    border-radius: 0.375rem 0.375rem 0 0;
+}
+
+#exam-setup-container #content-selection-tabs .nav-link.active {
+    color: var(--primary-color-light);
+    border-color: var(--border-color-light);
+    border-bottom-color: var(--card-bg-light);
+    background-color: var(--card-bg-light);
+    opacity: 1;
+    margin-bottom: -1px;
+}
+
+html[data-bs-theme='dark'] #exam-setup-container #content-selection-tabs .nav-link {
+    color: var(--text-color-dark);
+    border-bottom-color: var(--border-color-dark);
+}
+
+html[data-bs-theme='dark'] #exam-setup-container #content-selection-tabs .nav-link.active {
+    color: var(--primary-color-dark);
+    border-color: var(--border-color-dark);
+    border-bottom-color: var(--card-bg-dark);
+    background-color: var(--card-bg-dark);
+}
+
+/* Contenedor de "Por Categoría" (Checkboxes de Setup) */
+#category-selection-container .form-check-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border-color-light);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    color: var(--text-color-light);
+    white-space: pre-wrap;
+    /* Fix para saltos de línea */
+}
+
+#category-selection-container .form-check-label:hover {
+    background-color: var(--bg-color-light);
+    border-color: var(--primary-color-light);
+}
+
+html[data-bs-theme='dark'] #category-selection-container .form-check-label {
+    border: 1px solid var(--border-color-dark);
+    color: #FFFFFF;
+}
+
+html[data-bs-theme='dark'] #category-selection-container .form-check-label:hover {
+    background-color: rgba(190, 242, 100, 0.1);
+    border-color: var(--primary-color-dark);
+}
+
+/* Acordeón de "Por Tema" */
+#topic-accordion .accordion-item {
+    background-color: var(--bg-color-light);
+    border: 1px solid var(--border-color-light);
+}
+
+#topic-accordion .accordion-button {
+    font-weight: 600;
+}
+
+#topic-accordion .accordion-button:not(.collapsed) {
+    background-color: var(--card-bg-light);
+    color: var(--primary-color-light);
+    box-shadow: none;
+}
+
+html[data-bs-theme='dark'] #topic-accordion .accordion-item {
+    background-color: var(--card-bg-dark);
+    border: 1px solid var(--border-color-dark);
+}
+
+html[data-bs-theme='dark'] #topic-accordion .accordion-button:not(.collapsed) {
+    background-color: var(--bg-color-dark);
+    color: var(--primary-color-dark);
+}
+
+#topic-accordion .accordion-body {
+    padding: 1rem 1.25rem;
+}
+
+#topic-accordion .topic-item {
+    min-height: 1.5rem;
+    align-items: center;
+}
+
+#topic-accordion .topic-item .topic-checkbox {
+    margin-top: 0;
+    flex-shrink: 0;
+}
+
+#topic-accordion .topic-item .topic-id {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+#topic-accordion .topic-item .topic-description {
+    line-height: 1.3;
+    text-align: left;
+}
+
+#topic-accordion .subtopic-item {
+    margin-left: 1.5rem;
+}
+
+/* Badges de conteo en el Acordeón */
+.category-accordion-title .category-topic-count,
+.topic-description .topic-subtopic-count {
+    font-size: 0.8em;
+    vertical-align: middle;
+}
+
+/* ---
+   2. PANTALLA DE PREGUNTAS (EN EXAMEN)
+--- */
+
+/* 1. Oculta el círculo del radio/checkbox. El <label> será nuestro botón. */
+.exam-questions-container .form-check-input {
+    display: none;
+}
+
+/* 2. Estiliza el <label> para que sea el "botón" */
+.exam-questions-container .form-check-label {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0.5rem;
+    /* Espacio entre opciones */
+    border: 1px solid var(--border-color-light);
+    border-radius: 0.375rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-color-light);
+    white-space: pre-wrap;
+    /* ¡EL FIX DE FORMATO! */
+}
+
+/* 3. Estiliza 'code' DENTRO del label (para heredar el pre-wrap) */
+.exam-questions-container .form-check-label code {
+    white-space: pre-wrap;
+}
+
+/* 4. Estado Hover (Modo Claro) */
+.exam-questions-container .form-check-label:hover {
+    border-color: var(--primary-color-light);
+    background-color: #e7f1ff;
+    /* Azul muy claro */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+/* 5. Estado SELECCIONADO (Modo Claro) */
+.exam-questions-container .form-check-input:checked+.form-check-label {
+    border-color: var(--primary-color-light);
+    background-color: var(--primary-color-light);
+    color: var(--card-bg-light);
+    /* Texto blanco */
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+/* 6. FIX de Contraste para 'code' DENTRO de un label seleccionado (Modo Claro) */
+.exam-questions-container .form-check-input:checked+.form-check-label code {
+    color: var(--card-bg-light) !important;
+    /* Texto blanco */
+    background-color: transparent !important;
+    /* Sin fondo extra */
+}
+
+
+/* --- TEMA OSCURO --- */
+html[data-bs-theme='dark'] .exam-questions-container .form-check-label {
+    border-color: var(--border-color-dark);
+    color: #FFFFFF;
+    /* Texto blanco alto contraste */
+}
+
+/* Hover (Modo Oscuro) */
+html[data-bs-theme='dark'] .exam-questions-container .form-check-label:hover {
+    border-color: var(--primary-color-dark);
+    background-color: rgba(190, 242, 100, 0.1);
+    /* Volt 10% */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* SELECCIONADO (Modo Oscuro) */
+html[data-bs-theme='dark'] .exam-questions-container .form-check-input:checked+.form-check-label {
+    border-color: var(--primary-color-dark);
+    background-color: var(--primary-color-dark);
+    color: var(--bg-color-dark);
+    /* Texto oscuro */
+}
+
+/* FIX de Contraste para 'code' DENTRO de un label seleccionado (Modo Oscuro) */
+html[data-bs-theme='dark'] .exam-questions-container .form-check-input:checked+.form-check-label code {
+    color: var(--bg-color-dark) !important;
+    /* Texto oscuro */
+    background-color: transparent !important;
+    /* Sin fondo extra */
+}
+
+
+/* Botones de Acción (Finalizar / Omitir) */
+.end-exam-btn,
+.skip-question-btn {
+    --bs-btn-color: var(--accent-color-light);
+    --bs-btn-border-color: var(--accent-color-light);
+    --bs-btn-hover-color: #ffffff;
+    --bs-btn-hover-bg: var(--accent-color-light);
+    --bs-btn-hover-border-color: var(--accent-color-light);
+    --bs-btn-focus-shadow-rgb: 249, 115, 22;
+    --bs-btn-active-color: #ffffff;
+    --bs-btn-active-bg: var(--accent-color-light);
+    --bs-btn-active-border-color: var(--accent-color-light);
+    --bs-btn-disabled-color: var(--accent-color-light);
+    --bs-btn-disabled-border-color: var(--accent-color-light);
+}
+
+html[data-bs-theme='dark'] .end-exam-btn,
+html[data-bs-theme='dark'] .skip-question-btn {
+    --bs-btn-color: var(--accent-color-light);
+    --bs-btn-border-color: var(--accent-color-light);
+    --bs-btn-hover-color: #ffffff;
+    --bs-btn-hover-bg: var(--accent-color-light);
+    --bs-btn-hover-border-color: var(--accent-color-light);
+    --bs-btn-focus-shadow-rgb: 249, 115, 22;
+    --bs-btn-active-color: #ffffff;
+    --bs-btn-active-bg: var(--accent-color-light);
+    --bs-btn-active-border-color: var(--accent-color-light);
+    --bs-btn-disabled-color: var(--accent-color-light);
+    --bs-btn-disabled-border-color: var(--accent-color-light);
+}
+
+/* ---
+   3. ESTILOS DE FEEDBACK (MODO ESTUDIO Y REVISIÓN)
+--- */
+
+/* Feedback en Modo Estudio (Opciones) */
+.form-check-label.correct {
+    color: var(--card-bg-light);
+    background-color: var(--primary-color-light);
+    border: 1px solid var(--primary-color-light);
+}
+
+.form-check-label.incorrect {
+    color: var(--card-bg-light);
+    background-color: var(--accent-color-light);
+    border: 1px solid var(--accent-color-light);
+}
+
+html[data-bs-theme='dark'] .form-check-label.correct {
+    color: var(--bg-color-dark) !important;
+    background-color: var(--primary-color-dark);
+    border: 1px solid var(--primary-color-dark);
+}
+
+html[data-bs-theme='dark'] .form-check-label.incorrect {
+    color: var(--card-bg-light) !important;
+    background-color: var(--accent-color-light);
+    border: 1px solid var(--accent-color-light);
+}
+
+/* Feedback en Modo Revisión (Opciones) */
+.review-option.correct-answer {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    color: var(--card-bg-light);
+    opacity: 1;
+    font-weight: bold;
+}
+
+.review-option.incorrect-answer {
+    background-color: var(--accent-color-light);
+    border-color: var(--accent-color-light);
+    color: var(--card-bg-light);
+    opacity: 1;
+    text-decoration: line-through;
+}
+
+html[data-bs-theme='dark'] .review-option.correct-answer {
+    background-color: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+    color: var(--bg-color-dark);
+}
+
+html[data-bs-theme='dark'] .review-option.incorrect-answer {
+    background-color: var(--accent-color-light);
+    border-color: var(--accent-color-light);
+    color: var(--card-bg-light);
+}
+
+/* FIX: Contraste para 'code' DENTRO de respuestas marcadas */
+#exam-questions-container .form-check-label.correct code,
+#exam-questions-container .form-check-label.incorrect code,
+#exam-review-container .review-option.correct-answer code,
+#exam-review-container .review-option.incorrect-answer code {
+    color: var(--card-bg-light) !important;
+    background-color: transparent !important;
+}
+
+html[data-bs-theme='dark'] #exam-questions-container .form-check-label.correct code,
+html[data-bs-theme='dark'] #exam-review-container .review-option.correct-answer code {
+    color: var(--bg-color-dark) !important;
+    background-color: transparent !important;
+}
+
+html[data-bs-theme='dark'] #exam-questions-container .form-check-label.incorrect code,
+html[data-bs-theme='dark'] #exam-review-container .review-option.incorrect-answer code {
+    color: var(--card-bg-light) !important;
+    background-color: transparent !important;
+}
+
+/* ---
+   4. PANTALLA DE RESULTADOS
+--- */
+
+/* Color del Puntaje (Naranja en vez de Rojo) */
+#exam-results-container #results-score.text-danger {
+    color: var(--accent-color-light) !important;
+}
+
+/* Tarjetas de Estadísticas (Correctas, Incorrectas, Omitidas) */
+#exam-results-container .stat-box {
+    border: none;
+}
+
+html[data-bs-theme='light'] #exam-results-container .stat-box.bg-success-subtle {
+    background-color: var(--primary-color-light) !important;
+}
+
+html[data-bs-theme='light'] #exam-results-container .stat-box.bg-danger-subtle {
+    background-color: var(--accent-color-light) !important;
+}
+
+html[data-bs-theme='light'] #exam-results-container .stat-box.bg-secondary-subtle {
+    background-color: #6c757d !important;
+}
+
+/* Forzar color de texto (Claro) - Todos blancos */
+#exam-results-container .stat-box.bg-success-subtle h5,
+#exam-results-container .stat-box.bg-success-subtle small,
+#exam-results-container .stat-box.bg-danger-subtle h5,
+#exam-results-container .stat-box.bg-danger-subtle small,
+#exam-results-container .stat-box.bg-secondary-subtle h5,
+#exam-results-container .stat-box.bg-secondary-subtle small {
+    color: #FFFFFF !important;
+}
+
+/* Tema Oscuro para tarjetas de estadísticas */
+html[data-bs-theme='dark'] #exam-results-container .stat-box.bg-success-subtle {
+    background-color: var(--primary-color-dark) !important;
+}
+
+html[data-bs-theme='dark'] #exam-results-container .stat-box.bg-danger-subtle {
+    background-color: var(--accent-color-light) !important;
+}
+
+html[data-bs-theme='dark'] #exam-results-container .stat-box.bg-secondary-subtle {
+    background-color: var(--border-color-dark) !important;
+}
+
+/* Forzar color de texto (Oscuro) */
+html[data-bs-theme='dark'] #exam-results-container .stat-box.bg-success-subtle h5,
+html[data-bs-theme='dark'] #exam-results-container .stat-box.bg-success-subtle small {
+    color: var(--bg-color-dark) !important;
+}
+
+html[data-bs-theme='dark'] #exam-results-container .stat-box.bg-danger-subtle h5,
+html[data-bs-theme='dark'] #exam-results-container .stat-box.bg-danger-subtle small {
+    color: #FFFFFF !important;
+}
+
+html[data-bs-theme='dark'] #exam-results-container .stat-box.bg-secondary-subtle h5,
+html[data-bs-theme='dark'] #exam-results-container .stat-box.bg-secondary-subtle small {
+    color: var(--text-color-dark) !important;
+}
+
+/* ---
+   4.1. Análisis de Rendimiento (Resultados)
+--- */
+
+#performance-accordion {
+    background-color: var(--card-bg-light);
+    border: 1px solid var(--border-color-light);
+    border-radius: 0.5rem;
+    padding: 1.5rem 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+html[data-bs-theme='dark'] #performance-accordion {
+    background-color: var(--card-bg-dark);
+    border: 1px solid var(--border-color-dark);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#performance-accordion h3 {
+    border-bottom: 1px solid var(--border-color-light);
+    padding-bottom: 0.75rem;
+}
+
+html[data-bs-theme='dark'] #performance-accordion h3 {
+    border-bottom: 1px solid var(--border-color-dark);
+}
+
+.topic-performance-item {
+    margin-bottom: 1.25rem;
+    transition: transform 0.2s ease-in-out;
+}
+
+.topic-performance-item:hover {
+    transform: scale(1.015);
+}
+
+.topic-performance-item .progress {
+    height: 22px;
+    font-size: 0.8rem;
+    border-radius: 0.375rem;
+    background-color: var(--bg-color-light);
+}
+
+html[data-bs-theme='dark'] .topic-performance-item .progress {
+    background-color: var(--bg-color-dark);
+}
+
+/* --- ¡NUEVO! Barras de Progreso por Tema con Colores del Tema --- */
+.topic-performance-item .progress-bar {
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    transition: width 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Barra 100% (Primario) */
+.topic-performance-bar.bg-primary {
+    background-color: var(--primary-color-light) !important;
+}
+
+html[data-bs-theme='dark'] .topic-performance-bar.bg-primary {
+    background-color: var(--primary-color-dark) !important;
+    color: var(--bg-color-dark) !important;
+    /* Texto oscuro sobre Volt */
+}
+
+/* Barra 0% (Acento) */
+.topic-performance-bar.bg-accent {
+    background-color: var(--accent-color-light) !important;
+    color: white !important;
+    /* Texto blanco sobre Naranja */
+}
+
+html[data-bs-theme='dark'] .topic-performance-bar.bg-accent {
+    background-color: var(--accent-color-light) !important;
+    color: white !important;
+}
+
+/* Barra 1-99% (Warning) - Mantenemos amarillo para "en progreso" */
+.topic-performance-bar.bg-warning {
+    background-color: #ffc107 !important;
+    /* Amarillo de Bootstrap */
+    color: #000 !important;
+    /* Texto negro sobre amarillo */
+}
+
+html[data-bs-theme='dark'] .topic-performance-bar.bg-warning {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+
+.topic-performance-item .d-flex span:first-child {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 1rem;
+}
+
+/* ---
+   5. PANTALLA DE REVISIÓN
+--- */
+
+/* Tarjeta de Pregunta de Revisión */
+.review-question-card {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+/* Opciones en Modo Revisión */
+.review-option {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border-color-light);
+    border-radius: 0.375rem;
+    opacity: 0.7;
+    transition: all 0.2s ease-in-out;
+    white-space: pre-wrap;
+}
+
+html[data-bs-theme='dark'] .review-option {
+    border: 1px solid var(--border-color-dark);
+}
+
+/* Navegación por Círculos */
+.question-nav-container {
+    border-bottom: 1px solid var(--border-color-light);
+    padding-bottom: 1.25rem;
+}
+
+html[data-bs-theme='dark'] .question-nav-container {
+    border-bottom: 1px solid var(--border-color-dark);
+}
+
+.question-nav-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.question-nav-circle:hover {
+    transform: translateY(-2px);
+}
+
+.question-nav-circle.active {
+    border-color: var(--primary-color-light);
+    box-shadow: 0 0 8px var(--primary-color-light);
+}
+
+html[data-bs-theme='dark'] .question-nav-circle.active {
+    border-color: var(--primary-color-dark);
+    box-shadow: 0 0 8px var(--primary-color-dark);
+}
+
+/* Colores de Círculos (Bootstrap por defecto) */
+.question-nav-circle.status-correct {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.question-nav-circle.status-incorrect {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.question-nav-circle.status-skipped {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+html[data-bs-theme='dark'] .question-nav-circle.status-correct {
+    background-color: #0f5132;
+    color: #d1e7dd;
+}
+
+html[data-bs-theme='dark'] .question-nav-circle.status-incorrect {
+    background-color: #842029;
+    color: #f8d7da;
+}
+
+html[data-bs-theme='dark'] .question-nav-circle.status-skipped {
+    background-color: #343a40;
+    color: #adb5bd;
+}
+
+/* Insignia de Pregunta Omitida */
+.skipped-question-badge {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    padding: 0.25rem 0.8rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    z-index: 5;
+    background-color: #fff3cd;
+    color: #664d03;
+    border: 1px solid #ffecb5;
+}
+
+html[data-bs-theme='dark'] .skipped-question-badge {
+    background-color: #664d03;
+    color: #fff3cd;
+    border: 1px solid #856404;
+}
+
+/* ---
+   6. COMPONENTES Y FIXES GLOBALES
+--- */
+
+/* Insignia de Categoría (Círculo) */
+.category-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-right: 0.75rem;
+}
+
+/* Bloque de Código (<pre>) */
+.code-block {
+    background-color: #282c34;
+    color: #abb2bf;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    white-space: pre-wrap;
+    /* Respeta saltos de línea */
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Caja de Explicación (Azul) */
+.explanation-box {
+    background-color: var(--bs-info-bg-subtle);
+    border-color: var(--bs-info-border-subtle);
+    color: var(--bs-info-text-emphasis);
+}
+
+html[data-bs-theme='dark'] .explanation-box {
+    color: var(--text-color-dark);
+    background-color: #0a2d3f;
+    border-color: #0d3d56;
+}
+
+/* Estilos de Markdown dentro de la Explicación */
+.explanation-box h1,
+.explanation-box h2,
+.explanation-box h3,
+.explanation-box h4 {
+    font-family: inherit;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.explanation-box table {
+    width: 100%;
+    margin-top: 0.5rem;
+    border-collapse: collapse;
+}
+
+.explanation-box th,
+.explanation-box td {
+    border: 1px solid var(--border-color-light);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+}
+
+.explanation-box th {
+    font-weight: bold;
+}
+
+html[data-bs-theme='dark'] .explanation-box th,
+html[data-bs-theme='dark'] .explanation-box td {
+    border: 1px solid var(--border-color-dark);
+}
+
+/* Estilo Base para 'code' inline (Preguntas, Opciones, Explicación) */
+.question-text code,
+.form-check-label code,
+.correct-answer-text code,
+.explanation-content code,
+.review-option code,
+.explanation-box code {
+    /* Añadido .explanation-box code */
+    color: var(--primary-color-light);
+    background-color: rgba(79, 70, 229, 0.1);
+    font-size: 0.875em;
+    font-weight: 600;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    /* Respeta saltos de línea */
+}
+
+/* 'code' inline (Tema Oscuro) */
+html[data-bs-theme='dark'] .question-text code,
+html[data-bs-theme='dark'] .form-check-label code,
+html[data-bs-theme='dark'] .correct-answer-text code,
+html[data-bs-theme='dark'] .explanation-content code,
+html[data-bs-theme='dark'] .review-option code,
+html[data-bs-theme='dark'] .explanation-box code {
+    color: var(--primary-color-dark);
+    background-color: rgba(190, 242, 100, 0.1);
+}

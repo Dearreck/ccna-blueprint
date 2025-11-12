@@ -1,0 +1,114 @@
+<template id="ex-mode-3-feedback-template">
+    <h5 class="alert-heading" data-i18n="fb_detailed_solution">Solución Detallada</h5>
+    <hr>
+    <ol class="list-group list-group-flush feedback-step-list">
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode3_step1_title">1. Identificar Clase y Máscara por
+                Defecto</strong>
+            <p class="fb-desc">
+                <span data-i18n="fb_mode3_step1_desc_1"></span>
+                <code><strong id="fb-m3-base-net"></strong></code>
+                <span data-i18n="fb_mode3_step1_desc_2"></span>
+                <strong id="fb-m3-first-octet"></strong>
+                <span data-i18n="fb_mode3_step1_desc_3"></span>
+                <strong>Clase <span id="fb-m3-class"></span></strong>.
+                <br>
+                <span data-i18n="fb_mode3_step1_desc_4"></span>
+                <span id="fb-m3-class-2"></span>
+                <span data-i18n="fb_mode3_step1_desc_5"></span>
+                <code><strong id="fb-m3-default-mask"></strong></code>
+                <span data-i18n="fb_mode3_step1_desc_6"></span>
+                <code><strong id="fb-m3-default-cidr"></strong></code>
+                <span data-i18n="fb_mode3_step1_desc_7"></span>
+                <strong id="fb-m3-default-host-bits"></strong>
+                <span data-i18n="fb_mode3_step1_desc_8"></span>
+            </p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode3_step2_title">2. Calcular Bits Necesarios</strong>
+            <p class="fb-desc">
+                <span id="fb-m3-step2-hosts" class="d-none">
+                    <span data-i18n="fb_mode3_step2_desc_hosts_1"></span>
+                    <strong><span id="fb-m3-hosts-req"></span></strong>
+                    <span data-i18n="fb_mode3_step2_desc_hosts_2"></span>
+                    <code>
+                        <span data-i18n="fb_mode3_formula_base">2</span><sup><span data-i18n="fb_mode3_formula_exponent_host">H</span></sup>
+                        <span data-i18n="fb_mode3_step2_desc_hosts_2b"> - 2 </span> <span data-i18n="fb_mode3_formula_operator">>=</span>
+                        <span data-i18n="fb_mode3_formula_variable">N</span><sub><span data-i18n="fb_mode3_formula_subscript_host">hosts</span></sub>
+                    </code>
+                    <span data-i18n="fb_mode3_step2_desc_hosts_3"></span>
+                    <br>
+                    <code>2<sup><span id="fb-m3-h-bits"></span></sup> - 2 = <span id="fb-m3-h-calc"></span></code>
+                    <span data-i18n="fb_mode3_step2_desc_hosts_4"></span>
+                    <strong><span id="fb-m3-h-bits-2"></span> bits</strong>
+                    <span data-i18n="fb_mode3_step2_desc_hosts_5"></span>
+                </span>
+                <span id="fb-m3-step2-subnets" class="d-none">
+                    <span data-i18n="fb_mode3_step2_desc_subnets_1"></span>
+                    <strong><span id="fb-m3-subnets-req"></span></strong>
+                    <span data-i18n="fb_mode3_step2_desc_subnets_2"></span>
+                    <code>
+                        <span data-i18n="fb_mode3_formula_base">2</span><sup><span data-i18n="fb_mode3_formula_exponent_subnet">nBits</span></sup>
+                        <span data-i18n="fb_mode3_formula_operator">>=</span>
+                        <span data-i18n="fb_mode3_formula_variable">nBits</span><sub><span data-i18n="fb_mode3_formula_subscript_subnet">subredes</span></sub>
+                    </code>
+                    <span data-i18n="fb_mode3_step2_desc_subnets_3"></span>
+                    <br>
+                    <code>2<sup><span id="fb-m3-s-bits"></span></sup> = <span id="fb-m3-s-calc"></span></code>
+                    <span data-i18n="fb_mode3_step2_desc_subnets_4"></span>
+                    <strong><span id="fb-m3-s-bits-2"></span> bits</strong>
+                    <span data-i18n="fb_mode3_step2_desc_subnets_5"></span>
+                </span>
+            </p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode3_step3_title">3. Calcular Nueva Máscara</strong>
+            <p class="fb-desc">
+                <span id="fb-m3-step3-hosts" class="d-none">
+                    <span data-i18n="fb_mode3_step3_desc_hosts_1"></span>
+                    <span id="fb-m3-h-bits-3"></span>
+                    <span data-i18n="fb_mode3_step3_desc_hosts_2"></span>
+                    <strong><span id="fb-m3-new-prefix"></span></strong>
+                    <span data-i18n="fb_mode3_step3_desc_hosts_3"></span>
+                </span>
+                <span id="fb-m3-step3-subnets" class="d-none">
+                    <span data-i18n="fb_mode3_step3_desc_subnets_1"></span>
+                    <code><strong id="fb-m3-default-cidr-2"></strong></code>
+                    <span data-i18n="fb_mode3_step3_desc_subnets_2"></span>
+                    <span id="fb-m3-s-bits-3"></span>
+                    <span data-i18n="fb_mode3_step3_desc_subnets_3"></span>
+                    <strong><span id="fb-m3-new-prefix-2"></span></strong>
+                    <span data-i18n="fb_mode3_step3_desc_subnets_4"></span>
+                </span>
+                <br>
+                <span data-i18n="fb_mode3_step3_desc_common_1"></span>
+                <code><strong id="fb-m3-new-cidr-3"></strong></code>
+                <span data-i18n="fb_mode3_step3_desc_common_2"></span>
+                <code><strong id="fb-m3-new-mask-ddn"></strong></code>.
+            </p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode3_step4_title">4. Calcular Totales Resultantes</strong>
+
+            <p class="fb-desc" data-i18n="fb_mode3_step4_desc_subnets_calc_text"></p>
+            <pre
+                class="feedback-calc"><code><span id="fb-m3-calc-s-cidr"></span> - <span id="fb-m3-calc-s-default"></span> = <strong id="fb-m3-calc-s-bits"></strong> bits</code></pre>
+            <p class="fb-desc" data-i18n="ex_label_total_subnets"></p>
+            <pre
+                class="feedback-calc"><code>2<sup><span id="fb-m3-calc-s-bits-2"></span></sup> = <strong id="fb-m3-total-subnets"></strong></code></pre>
+
+            <p class="fb-desc mt-3" data-i18n="fb_mode3_step4_desc_hosts_calc_text"></p>
+            <pre
+                class="feedback-calc"><code>/32 - <span id="fb-m3-calc-h-cidr"></span> = <strong id="fb-m3-calc-h-bits"></strong> bits</code></pre>
+            <p class="fb-desc" data-i18n="ex_label_usable_hosts_per_subnet"></p>
+            <pre
+                class="feedback-calc"><code>2<sup><span id="fb-m3-calc-h-bits-2"></span></sup> - 2 = <strong id="fb-m3-usable-hosts"></strong></code></pre>
+
+            <p class="fb-desc mt-2 fst-italic" data-i18n="fb_mode3_step4_desc_minus_two"></p>
+        </li>
+    </ol>
+</template>

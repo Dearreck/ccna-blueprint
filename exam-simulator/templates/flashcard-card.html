@@ -1,0 +1,45 @@
+<template id="flashcard-card-template">
+    <div class="card flashcard-card shadow-sm border-0 mb-4">
+        <div class="card-header bg-transparent border-0 pt-4 px-4 flashcard-header">
+        </div>
+
+        <div class="card-body p-4 p-md-5">
+
+            <div class="flashcard-question-area">
+                <p class="question-text lead">Texto de la pregunta...</p>
+                <div class="question-image-container text-center my-3" style="display: none;">
+                    <img src="" class="img-fluid rounded border question-image">
+                </div>
+                <div class="question-code-container" style="display: none;">
+                    <pre class="code-block"><code></code></pre>
+                </div>
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary btn-flip-card" data-i18n="btn_show_answer">Mostrar
+                        Respuesta</button>
+                </div>
+            </div>
+
+            <div class="flashcard-answer-area mt-4 d-none">
+                <h5 data-i18n="flashcard_answer_label">Respuesta Correcta:</h5>
+                <div class="alert alert-success correct-answer-text">
+                </div>
+
+                <div class="explanation-box explanation-container mt-3">
+                    <strong><span data-i18n="explanation_label">Explicación</span>:</strong>
+                    <span class="explanation-content"></span>
+                </div>
+
+                <div class="text-center mt-3">
+                    <button class="btn btn-sm btn-outline-secondary btn-hide-answer" data-i18n="btn_hide_answer">Ocultar
+                        Respuesta</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer bg-transparent border-0 pb-4 px-4 d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-secondary btn-prev-flashcard" disabled data-i18n="btn_previous">&laquo;
+                Anterior</button>
+            <button class="btn btn-primary btn-next-flashcard" data-i18n="btn_next">Siguiente &raquo;</button>
+        </div>
+    </div>
+</template>

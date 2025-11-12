@@ -1,0 +1,71 @@
+<template id="ex-mode-3-calculate-mask-template">
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-class" class="col-form-label" data-i18n="ex_label_network_class">Clase de Red</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-class" class="form-control" data-i18n-placeholder="ex_ph_class"
+                aria-label="Clase de Red" placeholder="Ej: C">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-default-mask" class="col-form-label" data-i18n="ex_label_default_mask">Máscara por Defecto
+                (CIDR)</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-default-mask" class="form-control" data-i18n-placeholder="ex_ph_cidr"
+                aria-label="Máscara por Defecto (CIDR)" placeholder="Ej: /24">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-new-mask-cidr" class="col-form-label" data-i18n="ex_label_new_mask_cidr">Nueva Máscara
+                (CIDR)</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-new-mask-cidr" class="form-control" data-i18n-placeholder="ex_ph_cidr"
+                aria-label="Nueva Máscara (Formato CIDR)" placeholder="Ej: /26">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-new-mask-ddn" class="col-form-label" data-i18n="ex_label_new_mask_ddn">Nueva Máscara
+                (DDN)</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-new-mask-ddn" class="form-control" data-i18n-placeholder="ex_ph_ip_mask"
+                aria-label="Nueva Máscara (DDN)" placeholder="Ej: 255.255.255.192">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-total-subnets" class="col-form-label" data-i18n="ex_label_total_subnets">Subredes Totales
+                Creadas</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="number" id="ans-total-subnets" class="form-control" data-i18n-placeholder="ex_ph_number"
+                aria-label="Subredes Totales Creadas" placeholder="Ej: 4">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-usable-hosts" class="col-form-label" data-i18n="ex_label_usable_hosts_per_subnet">Hosts
+                Usables por Subred</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="number" id="ans-usable-hosts" class="form-control" data-i18n-placeholder="ex_ph_number"
+                aria-label="Hosts Usables por Subred" placeholder="Ej: 62">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+</template>

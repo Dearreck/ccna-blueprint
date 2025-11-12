@@ -1,0 +1,637 @@
+/* ==========================================================================
+   Identidad Visual y Temas de CCNA Blueprint
+   ========================================================================== */
+
+/* --- 1. Definición de Fuentes y Paleta de Colores --- */
+:root {
+    /* --- Fuentes --- */
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* --- Paleta TEMA CLARO (Modern SaaS) --- */
+    --bg-color-light: #F8F9FA;
+    --text-color-light: #212529;
+    --card-bg-light: #FFFFFF;
+    --border-color-light: #DEE2E6;
+    --primary-color-light: #4F46E5;
+    --accent-color-light: #F97316;
+    --info-highlight-color-light: var(--accent-color-light);
+
+    /* --- Paleta TEMA OSCURO (Slate & Volt) --- */
+    --bg-color-dark: #1E293B;
+    --text-color-dark: #E2E8F0;
+    --card-bg-dark: #334155;
+    --border-color-dark: #475569;
+    --primary-color-dark: #BEF264;
+    --info-highlight-color-dark: #66d9ef;
+}
+
+/* --- 2. Aplicación Global de Estilos (Color) --- */
+body {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+}
+
+/* --- 3. Definición de Temas --- */
+
+/* Tema Oscuro */
+html[data-bs-theme='dark'] body {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+    /* Fondo de "blueprint" muy sutil */
+    background-image: linear-gradient(rgba(190, 242, 100, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(190, 242, 100, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* --- 4. Personalización de Componentes de Bootstrap (Color) --- */
+
+/* Tarjetas */
+.card {
+    background-color: var(--card-bg-light);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+}
+
+html[data-bs-theme='dark'] .card {
+    background-color: var(--card-bg-dark);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Botones */
+.btn:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+}
+
+/* --- Sobrescribir btn-outline-success para usar el color primario del tema --- */
+
+/* Tema Claro */
+.text-primary {
+    color: var(--primary-color-light) !important;
+}
+
+/* Tema Oscuro */
+html[data-bs-theme='dark'] .text-primary {
+    color: var(--primary-color-dark) !important;
+}
+
+/* Tema Claro */
+.btn-outline-success {
+    --bs-btn-color: var(--primary-color-light);
+    /* Texto normal */
+    --bs-btn-border-color: var(--primary-color-light);
+    /* Borde normal */
+    --bs-btn-hover-color: var(--card-bg-light);
+    /* Texto al pasar ratón (blanco/claro) */
+    --bs-btn-hover-bg: var(--primary-color-light);
+    /* Fondo al pasar ratón */
+    --bs-btn-hover-border-color: var(--primary-color-light);
+    /* Borde al pasar ratón */
+    --bs-btn-active-color: var(--card-bg-light);
+    /* Texto al hacer clic */
+    --bs-btn-active-bg: var(--primary-color-light);
+    /* Fondo al hacer clic */
+    --bs-btn-active-border-color: var(--primary-color-light);
+    /* Borde al hacer clic */
+    --bs-btn-disabled-color: var(--primary-color-light);
+    /* Texto deshabilitado */
+    --bs-btn-disabled-border-color: var(--primary-color-light);
+    /* Borde deshabilitado */
+    /* Ajuste para el 'glow' o sombra en estado focus/activo si lo deseas */
+    --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+    /* Usa la sombra del botón primario */
+}
+
+/* Tema Oscuro */
+html[data-bs-theme='dark'] .btn-outline-success {
+    --bs-btn-color: var(--primary-color-dark);
+    /* Texto normal */
+    --bs-btn-border-color: var(--primary-color-dark);
+    /* Borde normal */
+    --bs-btn-hover-color: var(--bg-color-dark);
+    /* Texto al pasar ratón (oscuro) */
+    --bs-btn-hover-bg: var(--primary-color-dark);
+    /* Fondo al pasar ratón */
+    --bs-btn-hover-border-color: var(--primary-color-dark);
+    /* Borde al pasar ratón */
+    --bs-btn-active-color: var(--bg-color-dark);
+    /* Texto al hacer clic */
+    --bs-btn-active-bg: var(--primary-color-dark);
+    /* Fondo al hacer clic */
+    --bs-btn-active-border-color: var(--primary-color-dark);
+    /* Borde al hacer clic */
+    --bs-btn-disabled-color: var(--primary-color-dark);
+    /* Texto deshabilitado */
+    --bs-btn-disabled-border-color: var(--primary-color-dark);
+    /* Borde deshabilitado */
+    /* Ajuste para el 'glow' o sombra en estado focus/activo */
+    --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+    /* Usa la sombra del botón primario del tema oscuro */
+}
+
+html[data-bs-theme='dark'] .btn-primary {
+    background-color: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+    color: var(--bg-color-dark);
+}
+
+html[data-bs-theme='dark'] .btn-primary:hover {
+    filter: brightness(1.1);
+}
+
+/* Barra de Navegación */
+.navbar {
+    background-color: var(--bg-color-light);
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+html[data-bs-theme='dark'] .navbar {
+    background-color: var(--card-bg-dark) !important;
+    border-bottom: 1px solid var(--border-color-dark);
+}
+
+/* Submenús */
+.navbar .dropdown-menu .dropdown-divider {
+    border-top-color: var(--border-color-light);
+    /* Corregido (antes era dark) */
+}
+
+.navbar .dropdown-menu .dropdown-item:hover,
+.navbar .dropdown-menu .dropdown-item:focus {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-color-dark);
+}
+
+/* Flecha del desplegable */
+.navbar .nav-link.dropdown-toggle::after {
+    filter: brightness(0) invert(1);
+}
+
+/* Anulaciones Tema Claro */
+html[data-bs-theme='light'] .navbar .nav-link.dropdown-toggle::after {
+    filter: none;
+}
+
+html[data-bs-theme='light'] .navbar .dropdown-menu .dropdown-item:hover,
+html[data-bs-theme='light'] .navbar .dropdown-menu .dropdown-item:focus {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--text-color-light);
+}
+
+html[data-bs-theme='light'] .navbar .dropdown-menu .dropdown-divider {
+    border-top-color: var(--border-color-light);
+}
+
+/* Responsive (Color) */
+@media (max-width: 991.98px) {
+    #navbar-actions-wrapper {
+        border-top: 1px solid var(--border-color-light);
+    }
+
+    html[data-bs-theme='dark'] #navbar-actions-wrapper {
+        border-top-color: var(--border-color-dark);
+    }
+}
+
+/* Formularios */
+.form-control,
+.form-select {
+    border-color: var(--border-color-light);
+    background-color: var(--card-bg-light);
+}
+
+html[data-bs-theme='dark'] .form-control,
+html[data-bs-theme='dark'] .form-select {
+    border-color: var(--border-color-dark);
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color-light);
+    box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25);
+}
+
+html[data-bs-theme='dark'] .form-control:focus,
+html[data-bs-theme='dark'] .form-select:focus {
+    border-color: var(--primary-color-dark);
+    box-shadow: 0 0 0 0.25rem rgba(190, 242, 100, 0.25);
+}
+
+
+/* --- 5. Micro-interacciones (Color) --- */
+.bootcamp-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+html[data-bs-theme='dark'] .bootcamp-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* --- 7. Estilos Personalizados para el Campo de Búsqueda (Color) --- */
+
+.form-control-search {
+    background-color: var(--card-bg-light);
+    border: 1px solid var(--border-color-light);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-control-search::placeholder {
+    color: #6c757d;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    opacity: 1;
+}
+
+.form-control-search:focus {
+    background-color: var(--card-bg-light);
+    border-color: var(--primary-color-light);
+    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.15);
+}
+
+/* Tema Oscuro */
+html[data-bs-theme='dark'] .form-control-search {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-color-dark);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+}
+
+html[data-bs-theme='dark'] .form-control-search::placeholder {
+    color: #b8bdc4;
+}
+
+html[data-bs-theme='dark'] .form-control-search:focus {
+    background-color: var(--card-bg-dark);
+    border-color: var(--primary-color-dark);
+    box-shadow: 0 0 0 0.2rem rgba(190, 242, 100, 0.15);
+}
+
+/* --- 9. Estilos del Footer --- */
+
+.main-footer {
+    background-color: var(--card-bg-light);
+    border-top: 1px solid var(--border-color-light);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.main-footer h5 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--text-color-light);
+}
+
+.footer-link {
+    color: var(--text-color-light);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: var(--primary-color-light);
+    text-decoration: underline;
+}
+
+.footer-social-icon {
+    font-size: 1.25rem;
+    color: var(--text-color-light);
+    opacity: 0.7;
+    transition: all 0.2s ease;
+}
+
+.footer-social-icon:hover {
+    opacity: 1;
+    color: var(--primary-color-light);
+    transform: translateY(-2px);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--border-color-light);
+    transition: border-color 0.3s ease;
+}
+
+/* --- Estilos del Footer (Tema Oscuro) --- */
+html[data-bs-theme='dark'] .main-footer {
+    background-color: var(--card-bg-dark);
+    border-top-color: var(--border-color-dark);
+}
+
+html[data-bs-theme='dark'] .main-footer h5 {
+    color: var(--text-color-dark);
+}
+
+html[data-bs-theme='dark'] .footer-link {
+    color: var(--text-color-dark);
+}
+
+html[data-bs-theme='dark'] .footer-link:hover {
+    color: var(--primary-color-dark);
+}
+
+html[data-bs-theme='dark'] .footer-social-icon {
+    color: var(--text-color-dark);
+}
+
+html[data-bs-theme='dark'] .footer-social-icon:hover {
+    color: var(--primary-color-dark);
+}
+
+html[data-bs-theme='dark'] .footer-bottom {
+    border-top-color: var(--border-color-dark);
+}
+
+/* --- 10. Estilos del Modal de Confirmación --- */
+
+#confirmationModal .modal-content {
+    background-color: var(--card-bg-light);
+    /* Fondo según tema */
+    /* Puedes añadir sombras o bordes si quieres un look más específico */
+}
+
+html[data-bs-theme='dark'] #confirmationModal .modal-content {
+    background-color: var(--card-bg-dark);
+}
+
+#confirmationModal .modal-title {
+    font-family: var(--font-heading);
+    /* Fuente de encabezado */
+    font-weight: 600;
+}
+
+#confirmationModal .modal-body {
+    color: var(--text-color-light);
+    /* Color de texto según tema */
+}
+
+html[data-bs-theme='dark'] #confirmationModal .modal-body {
+    color: var(--text-color-dark);
+}
+
+/* --- Sobrescritura Específica para Botones de Radio (btn-check) --- */
+
+/* Estilo del botón SELECCIONADO (cuando el input está :checked) */
+.btn-check:checked+.btn-outline-primary {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    color: var(--card-bg-light);
+
+    /* ¡EFECTO GLOW AÑADIDO! (para tema claro) */
+    box-shadow: 0 0 15px 2px rgba(79, 70, 229, 0.4);
+}
+
+/* Estilo del botón NO SELECCIONADO (estado :hover) */
+.btn-check:not(:checked)+.btn-outline-primary:hover {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    color: var(--card-bg-light);
+}
+
+/* --- TEMA OSCURO --- */
+html[data-bs-theme='dark'] .btn-check:checked+.btn-outline-primary {
+    background-color: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+    color: var(--bg-color-dark);
+
+    /* ¡EFECTO GLOW AÑADIDO! (para tema oscuro - verde voltio) */
+    box-shadow: 0 0 15px 2px rgba(190, 242, 100, 0.5);
+}
+
+html[data-bs-theme='dark'] .btn-check:not(:checked)+.btn-outline-primary:hover {
+    background-color: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+    color: var(--bg-color-dark);
+}
+
+/* Estilo del botón NO SELECCIONADO (estado normal) - Asegura que use el color de texto del tema */
+.btn-outline-primary {
+    color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    color: var(--card-bg-light);
+    /* Texto claro sobre fondo primario */
+}
+
+html[data-bs-theme='dark'] .btn-outline-primary {
+    color: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+}
+
+html[data-bs-theme='dark'] .btn-outline-primary:hover,
+html[data-bs-theme='dark'] .btn-outline-primary:focus {
+    background-color: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+    color: var(--bg-color-dark);
+    /* Texto oscuro sobre fondo primario (Volt) */
+}
+
+/* --- 11. Personalización de Pestañas (Tabs) --- */
+
+.nav-tabs .nav-link {
+    color: var(--primary-color-light);
+    border-bottom-width: 2px;
+}
+
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus {
+    border-color: var(--primary-color-light);
+    background-color: rgba(var(--bs-primary-rgb), 0.05);
+    /* Usa el RGB del primario */
+}
+
+.nav-tabs .nav-link.active {
+    background-color: var(--primary-color-light);
+    color: #FFFFFF;
+    /* Texto blanco para contraste con azul */
+    border-color: var(--primary-color-light);
+    font-weight: 600;
+}
+
+/* --- Pestañas (Tema Oscuro) --- */
+html[data-bs-theme='dark'] .nav-tabs .nav-link {
+    color: var(--primary-color-dark);
+}
+
+html[data-bs-theme='dark'] .nav-tabs .nav-link:hover,
+html[data-bs-theme='dark'] .nav-tabs .nav-link:focus {
+    border-color: var(--primary-color-dark);
+    background-color: rgba(var(--bs-primary-rgb), 0.1);
+}
+
+html[data-bs-theme='dark'] .nav-tabs .nav-link.active {
+    background-color: var(--primary-color-dark);
+    color: var(--bg-color-dark);
+    /* Texto oscuro para contraste con volt */
+    border-color: var(--primary-color-dark);
+}
+
+/* ==========================================================================
+   12. Personalización de Forms (Radios/Checks Estándar)
+   ========================================================================== */
+
+/* --- TEMA CLARO --- */
+
+/* * Regla para el switch "APAGADO" (unchecked) en TEMA CLARO.
+ * Se añade [data-bs-theme='light'] para especificidad.
+ * Se sobrescribe la variable CSS '--bs-form-switch-bg' de Bootstrap.
+ */
+html[data-bs-theme='light'] .form-check-switch .form-check-input {
+    background-color: var(--card-bg-light);
+    /* Fondo blanco del riel */
+    border-color: var(--border-color-light);
+    /* Borde gris del riel */
+
+    /* Sobrescribe la variable de Bootstrap para la pelotita (thumb) */
+    --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%234F46E5'/%3e%3c/svg%3e");
+
+    background-image: var(--bs-form-switch-bg);
+}
+
+/* * Regla para CUALQUIER check/radio "ENCENDIDO" (checked) en TEMA CLARO.
+ * Esto aplica el color primario al fondo.
+ */
+.form-check-input:checked {
+    background-color: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+}
+
+/* * Regla específica para el switch "ENCENDIDO" (checked) en TEMA CLARO.
+ * Se asegura de que la pelotita sea blanca sobre el fondo primario.
+ */
+.form-check-switch .form-check-input:checked {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+}
+
+/* Regla de foco (Light) */
+.form-check-input:focus {
+    border-color: var(--primary-color-light);
+    box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25);
+}
+
+/* * Asegura que el foco en el switch apagado mantenga la pelotita púrpura.
+ */
+html[data-bs-theme='light'] .form-check-switch .form-check-input:not(:checked):focus {
+    --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%234F46E5'/%3e%3c/svg%3e");
+    background-image: var(--bs-form-switch-bg);
+}
+
+
+/* --- Radios/Checks (Tema Oscuro) --- */
+
+/* * ¡CORRECCIÓN CLAVE!
+ * La regla genérica .form-check-input se elimina de aquí
+ * para no afectar a los radio buttons.
+ */
+
+/* * Regla para el switch "APAGADO" (unchecked) en TEMA OSCURO.
+ * Es específica para .form-check-switch.
+ */
+html[data-bs-theme='dark'] .form-check-switch .form-check-input {
+    /* SVG (dark), pelotita volt (#BEF264) */
+    --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23BEF264'/%3e%3c/svg%3e");
+    background-image: var(--bs-form-switch-bg);
+    /* Fondo y borde del riel apagado */
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-color-dark);
+}
+
+/* * Regla para CUALQUIER check/radio "ENCENDIDO" (checked) en TEMA OSCURO.
+ */
+html[data-bs-theme='dark'] .form-check-input:checked {
+    background-color: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+}
+
+/* * Regla específica para el switch "ENCENDIDO" (checked) en TEMA OSCURO.
+ * El riel (track) se vuelve volt, la pelotita se vuelve oscura.
+ */
+html[data-bs-theme='dark'] .form-check-switch .form-check-input:checked {
+    /* SVG (dark), pelotita oscura sobre fondo volt */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%231E293B'/%3e%3c/svg%3e");
+}
+
+/* Regla de foco (Dark) */
+html[data-bs-theme='dark'] .form-check-input:focus {
+    border-color: var(--primary-color-dark);
+    box-shadow: 0 0 0 0.25rem rgba(190, 242, 100, 0.25);
+}
+
+/* * Asegura que el foco en el switch apagado mantenga la pelotita volt.
+ */
+html[data-bs-theme='dark'] .form-check-switch .form-check-input:not(:checked):focus {
+    --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23BEF264'/%3e%3c/svg%3e");
+    background-image: var(--bs-form-switch-bg);
+}
+
+
+/* ==========================================================================
+   13. Estilos Personalizados para Select (Dropdowns)
+   ========================================================================== */
+/* * Usamos esta clase para aplicar el look-n-feel a cualquier <select>
+ * que queramos personalizar, sin romper los select por defecto.
+ */
+
+.form-select-themed {
+    /* --- Apariencia --- */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* --- Tipografía (igual que tus botones) --- */
+    font-family: var(--font-heading);
+    font-weight: 600;
+
+    /* --- Dimensiones (igual que tus botones) --- */
+    padding: 0.75rem 1.5rem;
+    padding-right: 3.5rem;
+    /* Espacio para la flecha */
+    border-radius: 0.5rem;
+    height: auto;
+    line-height: 1.5;
+
+    /* --- Flecha Personalizada (Tema Claro) --- */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%234F46E5' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1.5rem center;
+    background-size: 16px 12px;
+
+    /* * Los colores de borde, fondo y foco los hereda
+     * de las reglas .form-select que ya tienes en theme.css
+     */
+}
+
+/* --- Flecha Personalizada (Tema Oscuro) --- */
+html[data-bs-theme='dark'] .form-select-themed {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23BEF264' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+/* --- Opciones del Dropdown (Tema Oscuro) --- */
+/* Esto corrige el fondo blanco en modo oscuro de tu imagen */
+html[data-bs-theme='dark'] .form-select-themed option {
+    background-color: var(--card-bg-dark);
+    color: var(--text-color-dark);
+}
+
+/* --- (NUEVO) Hover de Opciones (Tema Claro) --- */
+/* Esto soluciona tu petición del hover */
+.form-select-themed option:hover {
+    background-color: var(--primary-color-light);
+    color: var(--card-bg-light);
+}
+
+/* --- (NUEVO) Hover de Opciones (Tema Oscuro) --- */
+html[data-bs-theme='dark'] .form-select-themed option:hover {
+    background-color: var(--primary-color-dark);
+    color: var(--bg-color-dark);
+    /* Texto oscuro para el fondo Volt */
+}

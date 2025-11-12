@@ -1,0 +1,151 @@
+/* ==========================================================================
+   Estructura Principal de CCNA Blueprint
+   ========================================================================== */
+
+/* --- 2. Aplicación Global de Estilos --- */
+
+body {
+    font-family: var(--font-body);
+    padding-top: 40px;
+
+    display: flex;          /* 1. Convierte el body en un contenedor flex */
+    flex-direction: column; /* 2. Apila los hijos (nav, main, footer) verticalmente */
+    min-height: 100vh;      /* 3. Asegura que el body ocupe al menos toda la altura de la ventana */
+
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+body.loaded {
+    visibility: visible;
+    opacity: 1;
+}
+
+main {
+    /* ... tus estilos existentes como container, my-5, etc. ... */
+    flex-grow: 1; /* 4. Hace que el <main> crezca para ocupar el espacio disponible */
+}
+
+/* Opcional: Asegura que header/footer no se encojan */
+#navbar-placeholder,
+#footer-placeholder,
+.main-footer { /* Puedes apuntar a la clase específica del footer también */
+    flex-shrink: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.card-title,
+.navbar-brand {
+    font-family: var(--font-heading);
+    font-weight: 700;
+}
+
+/* --- 4. Personalización de Componentes de Bootstrap (Estructura) --- */
+
+/* Tarjetas */
+.card {
+    border: none;
+    border-radius: 0.75rem;
+    transition: all 0.2s ease-in-out;
+    /* background-color y box-shadow se mueven a theme.css */
+}
+
+/* Botones */
+.btn {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    /* box-shadow se mueve a theme.css */
+}
+
+/* Barra de Navegación */
+.navbar .navbar-brand,
+.navbar .nav-link {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Ajuste para los submenús de la barra de navegación */
+.navbar .dropdown-menu .dropdown-item {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 0.875rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+/* Estilo para los iconos dentro del submenú */
+.navbar .dropdown-menu .dropdown-item i.fa-fw {
+    margin-right: 0.75rem !important;
+}
+
+/* Estilos para la vista móvil (cuando el menú está colapsado) */
+@media (max-width: 991.98px) {
+    #navbar-actions-wrapper {
+        width: 100%;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        /* border-top se mueve a theme.css */
+    }
+}
+
+/* Formularios */
+.form-control,
+.form-select {
+    border-radius: 0.5rem;
+    /* Colores se mueven a theme.css */
+}
+
+/* --- 5. Micro-interacciones y Efectos --- */
+
+/* Efecto hover para tarjetas interactivas */
+.bootcamp-card:hover {
+    transform: translateY(-5px);
+    /* box-shadow se mueve a theme.css */
+}
+
+/* Animación de carga para barras de progreso */
+.progress-bar {
+    transition: width 0.6s ease-in-out;
+}
+
+/* Animación de entrada para tarjetas */
+.card,
+.bootcamp-card {
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- 7. Estilos Personalizados para el Campo de Búsqueda (Estructura) --- */
+
+.form-control-search {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    /* Colores y transición se mueven a theme.css */
+}

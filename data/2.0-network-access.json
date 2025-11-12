@@ -1,0 +1,744 @@
+[
+  {
+    "id": "ap_modes_q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.6",
+      "description_es": "Describir las arquitecturas inalámbricas de Cisco y los modos de AP",
+      "description_en": "Describe Cisco Wireless Architectures and AP modes",
+      "subtopic_id": "2.6",
+      "subtopic_description": "AP Modes"
+    },
+    "question_es": "¿Qué modo de punto de acceso depende de un **controlador centralizado** para la gestión, el roaming y la configuración del SSID?",
+    "question_en": "Which access point mode relies on a **centralized controller** for management, roaming, and SSID configuration?",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "Modo Bridge", "text_en": "Bridge mode", "isCorrect": false },
+      { "text_es": "Modo Repetidor", "text_en": "Repeater mode", "isCorrect": false },
+      { "text_es": "Modo Autónomo (`Autonomous`)", "text_en": "Autonomous mode", "isCorrect": false },
+      { "text_es": "Modo Ligero (`Lightweight`)", "text_en": "Lightweight mode", "isCorrect": true }
+    ],
+    "explanation_es": "Los puntos de acceso en modo **Ligero (`Lightweight`)** están diseñados para ser gestionados por un **Controlador de LAN Inalámbrica (`WLC`)**. El `WLC` centraliza la configuración, la gestión y las decisiones de roaming, lo que simplifica la administración de redes Wi-Fi a gran escala. En contraste, los AP en modo **Autónomo** se configuran y gestionan individualmente.",
+    "explanation_en": "**Lightweight** mode access points are designed to be managed by a **Wireless LAN Controller (`WLC`)**. The `WLC` centralizes configuration, management, and roaming decisions, which simplifies the administration of large-scale Wi-Fi networks. In contrast, **Autonomous** mode APs are configured and managed individually."
+  },
+  {
+    "id": "lldp_config_q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.3",
+      "description_es": "Configurar y verificar protocolos de descubrimiento de Capa 2 (CDP y LLDP)",
+      "description_en": "Configure and verify Layer 2 discovery protocols (Cisco Discovery Protocol and LLDP)",
+      "subtopic_id": "2.3",
+      "subtopic_description": "LLDP Configuration"
+    },
+    "question_es": "**Consulte la información.** Un ingeniero de redes debe actualizar la configuración en `Switch2` para que envíe paquetes `LLDP` cada **minuto** y la información enviada se considere válida durante **3 minutos**. ¿Qué configuración debe aplicar el ingeniero?",
+    "question_en": "**Refer to the exhibit.** A network engineer must update the configuration on `Switch2` so that it sends `LLDP` packets every **minute** and the information sent is considered valid for **3 minutes**. Which configuration must the engineer apply?",
+    "image": null,
+    "code": "Switch2# show lldp\n\nGlobal LLDP Information:\nStatus: ACTIVE\nLLDP advertisements are sent every 30 seconds\nLLDP hold time advertised is 120 seconds\nLLDP interface reinitialization delay is 2 seconds",
+    "options": [
+      { "text_es": "`Switch2(config)# lldp timer 1`\n`Switch2(config)# lldp holdtime 3`", "text_en": "`Switch2(config)# lldp timer 1`\n`Switch2(config)# lldp holdtime 3`", "isCorrect": false },
+      { "text_es": "`Switch2(config)# lldp timer 60`\n`Switch2(config)# lldp tlv-select 180`", "text_en": "`Switch2(config)# lldp timer 60`\n`Switch2(config)# lldp tlv-select 180`", "isCorrect": false },
+      { "text_es": "`Switch2(config)# lldp timer 60`\n`Switch2(config)# lldp holdtime 180`", "text_en": "`Switch2(config)# lldp timer 60`\n`Switch2(config)# lldp holdtime 180`", "isCorrect": true },
+      { "text_es": "`Switch2(config)# lldp timer 1`\n`Switch2(config)# lldp tlv-select 3`", "text_en": "`Switch2(config)# lldp timer 1`\n`Switch2(config)# lldp tlv-select 3`", "isCorrect": false }
+    ],
+    "explanation_es": "El comando `lldp timer` establece la frecuencia de envío de los anuncios `LLDP` en segundos. Para enviar paquetes cada minuto, el valor debe ser **60**. El comando `lldp holdtime` establece el tiempo (en segundos) que un dispositivo receptor debe mantener la información `LLDP` antes de descartarla. Para 3 minutos, el valor es **180** segundos.",
+    "explanation_en": "The `lldp timer` command sets the transmission frequency of `LLDP` advertisements in seconds. To send packets every minute, the value must be **60**. The `lldp holdtime` command sets the time (in seconds) that a receiving device should keep `LLDP` information before discarding it. For 3 minutes, the value is **180** seconds."
+  },
+  {
+    "id": "stp_portfast_states_q1",
+    "category": "2.0-network-access",
+    "questionType": "multiple-choice",
+    "topic": {
+      "id": "2.5",
+      "description_es": "Interpretar operaciones básicas de Rapid PVST+ Spanning Tree Protocol",
+      "description_en": "Interpret basic operations of Rapid PVST+ Spanning Tree Protocol",
+      "subtopic_id": "2.5.c",
+      "subtopic_description": "PortFast"
+    },
+    "question_es": "¿Qué dos estados de `spanning-tree` se omiten en una interfaz que ejecuta `PortFast`? (Elija dos.)",
+    "question_en": "Which two `spanning-tree` states are bypassed on an interface running `PortFast`? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "`blocking` (bloqueo)", "text_en": "`blocking`", "isCorrect": false },
+      { "text_es": "`disabled` (deshabilitado)", "text_en": "`disabled`", "isCorrect": false },
+      { "text_es": "`learning` (aprendizaje)", "text_en": "`learning`", "isCorrect": true },
+      { "text_es": "`listening` (escucha)", "text_en": "`listening`", "isCorrect": true },
+      { "text_es": "`forwarding` (reenvío)", "text_en": "`forwarding`", "isCorrect": false }
+    ],
+    "explanation_es": "La función `PortFast` está diseñada para puertos de acceso conectados a dispositivos finales (como PCs). Permite que el puerto pase inmediatamente del estado de `blocking` al de `forwarding`, omitiendo los estados de **`listening`** y **`learning`**, que normalmente durarían 30 segundos en total. Esto acelera la convergencia y evita problemas de `DHCP` en los hosts.",
+    "explanation_en": "The `PortFast` feature is designed for access ports connected to end devices (like PCs). It allows the port to transition immediately from the `blocking` state to the `forwarding` state, bypassing the **`listening`** and **`learning`** states, which would normally take a total of 30 seconds. This speeds up convergence and prevents `DHCP` issues on hosts."
+  },
+  {
+    "id": "wlc_aaa_override_q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.9",
+      "description_es": "Interpretar la configuración de la GUI de la LAN inalámbrica para la conectividad del cliente, como la creación de WLAN, configuraciones de seguridad y ajustes avanzados",
+      "description_en": "Interpret the wireless LAN GUI configuration for client connectivity, such as WLAN creation, security settings, and advanced settings",
+      "subtopic_id": "2.9",
+      "subtopic_description": "WLAN Advanced Settings"
+    },
+    "question_es": "Después de instalar un nuevo servidor `Cisco ISE`, ¿qué tarea debe realizar el ingeniero en el `Cisco WLC` para conectar clientes inalámbricos a una `VLAN` específica basándose en sus credenciales?",
+    "question_en": "After installing a new `Cisco ISE` server, which task must the engineer perform on the `Cisco WLC` to connect wireless clients on a specific `VLAN` based on their credentials?",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "Deshabilitar el Modo `LAG` en el Próximo Reinicio", "text_en": "Disable the `LAG` Mode on Next Reboot", "isCorrect": false },
+      { "text_es": "Habilitar la Autorización de APs `MIC` contra auth-list o `AAA`", "text_en": "Enable the Authorize `MIC` APs against auth-list or `AAA`", "isCorrect": false },
+      { "text_es": "Habilitar el `RRM` Dirigido por Eventos", "text_en": "Enable the Event Driven `RRM`", "isCorrect": false },
+      { "text_es": "Habilitar la Sobrescritura de `AAA` (`Allow AAA Override`)", "text_en": "Enable the `Allow AAA Override`", "isCorrect": true }
+    ],
+    "explanation_es": "Para que un `WLC` asigne dinámicamente a un cliente a una `VLAN` específica basada en las credenciales verificadas por un servidor `RADIUS` (como `Cisco ISE`), la función **`Allow AAA Override`** debe estar habilitada en la configuración de la `WLAN` (SSID). Esta opción permite que los atributos `RADIUS` enviados por el servidor `ISE` (como el ID de la `VLAN`, `ACLs` o perfiles de `QoS`) sobrescriban la configuración por defecto de la `WLAN`.",
+    "explanation_en": "For a `WLC` to dynamically assign a client to a specific `VLAN` based on credentials verified by a `RADIUS` server (like `Cisco ISE`), the **`Allow AAA Override`** feature must be enabled in the `WLAN` (SSID) configuration. This option allows the `RADIUS` attributes sent from the `ISE` server (such as `VLAN` ID, `ACLs`, or `QoS` profiles) to override the default settings of the `WLAN`."
+  },
+  {
+    "id": "wlc_lag_reboot_q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.7",
+      "description_es": "Describir las conexiones de infraestructura física de los componentes de WLAN (AP, WLC, puertos de acceso/troncales y LAG)",
+      "description_en": "Describe physical infrastructure connections of WLAN components (AP, WLC, access/trunk ports, and LAG)",
+      "subtopic_id": "2.7",
+      "subtopic_description": "LAG on WLC"
+    },
+    "question_es": "¿Cuál es un requisito al configurar o eliminar `LAG` en un `WLC`?",
+    "question_en": "What is a requirement when configuring or removing `LAG` on a `WLC`?",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "El controlador debe ser **reiniciado** después de habilitar o reconfigurar `LAG`.", "text_en": "The controller must be **rebooted** after enabling or reconfiguring `LAG`.", "isCorrect": true },
+      { "text_es": "La interfaz de gestión debe ser reasignada si `LAG` es deshabilitado.", "text_en": "The management interface must be reassigned if `LAG` is disabled.", "isCorrect": false },
+      { "text_es": "Los puertos de entrada y salida para el flujo de tráfico deben especificarse si `LAG` está habilitado.", "text_en": "The incoming and outgoing ports for traffic flow must be specified if `LAG` is enabled.", "isCorrect": false },
+      { "text_es": "Se deben admitir múltiples interfaces sin etiquetar en el mismo puerto.", "text_en": "Multiple untagged interfaces on the same port must be supported.", "isCorrect": false }
+    ],
+    "explanation_es": "La habilitación o deshabilitación de **Link Aggregation (`LAG`)** en un `Cisco Wireless LAN Controller (WLC)` es un cambio fundamental en cómo el sistema maneja sus puertos físicos. Debido a la naturaleza de este cambio a nivel de sistema, el `WLC` **requiere un reinicio** para que la nueva configuración de `LAG` tenga efecto.",
+    "explanation_en": "Enabling or disabling **Link Aggregation (`LAG`)** on a `Cisco Wireless LAN Controller (WLC)` is a fundamental change to how the system handles its physical ports. Due to the system-level nature of this change, the `WLC` **requires a reboot** for the new `LAG` configuration to take effect."
+  },
+  {
+    "id": "rstp_states_q1",
+    "category": "2.0-network-access",
+    "questionType": "multiple-choice",
+    "topic": {
+      "id": "2.5",
+      "description_es": "Interpretar operaciones básicas de Rapid PVST+ Spanning Tree Protocol",
+      "description_en": "Interpret basic operations of Rapid PVST+ Spanning Tree Protocol",
+      "subtopic_id": "2.5.b",
+      "subtopic_description": "Port states and roles"
+    },
+    "question_es": "Además de `discarding` (descartando), ¿a través de qué dos estados transita el puerto de un switch mientras usa `RSTP` (`802.1w`)? (Elija dos.)",
+    "question_en": "Aside from `discarding`, which two states does the switch port transition through while using `RSTP` (`802.1w`)? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "`listening` (escucha)", "text_en": "`listening`", "isCorrect": false },
+      { "text_es": "`speaking` (hablando)", "text_en": "`speaking`", "isCorrect": false },
+      { "text_es": "`blocking` (bloqueo)", "text_en": "`blocking`", "isCorrect": false },
+      { "text_es": "`forwarding` (reenvío)", "text_en": "`forwarding`", "isCorrect": true },
+      { "text_es": "`learning` (aprendizaje)", "text_en": "`learning`", "isCorrect": true }
+    ],
+    "explanation_es": "`RSTP` (`802.1w`) optimiza `STP` (`802.1D`) consolidando los cinco estados originales en tres. Los estados de `STP` 'disabled', 'blocking' y 'listening' se combinan en un único estado `RSTP` llamado **`discarding`**. Por lo tanto, un puerto en `RSTP` transita de `discarding` a **`learning`** y finalmente a **`forwarding`**.",
+    "explanation_en": "`RSTP` (`802.1w`) streamlines `STP` (`802.1D`) by consolidating the original five states into three. The `STP` states of 'disabled', 'blocking', and 'listening' are all combined into a single `RSTP` state called **`discarding`**. Therefore, a port in `RSTP` transitions from `discarding` to **`learning`** and finally to **`forwarding`**."
+  },
+  {
+    "id": "wlc_lag_reason_q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.7",
+      "description_es": "Describir las conexiones de infraestructura física de los componentes de WLAN (AP, WLC, puertos de acceso/troncales y LAG)",
+      "description_en": "Describe physical infrastructure connections of WLAN components (AP, WLC, access/trunk ports, and LAG)",
+      "subtopic_id": "2.7",
+      "subtopic_description": "LAG on WLC"
+    },
+    "question_es": "¿Cuál es una razón para implementar `LAG` en un `Cisco WLC`?",
+    "question_en": "What is a reason to implement `LAG` on a `Cisco WLC`?",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "Aumentar el rendimiento disponible en el enlace.", "text_en": "Increase the available throughput on the link.", "isCorrect": true },
+      { "text_es": "Permitir la conmutación por error con estado (`stateful failover`) entre WLCs.", "text_en": "Allow for stateful failover between WLCs.", "isCorrect": false },
+      { "text_es": "Aumentar la seguridad cifrando las tramas de gestión.", "text_en": "Increase security by encrypting management frames.", "isCorrect": false },
+      { "text_es": "Habilitar que los puertos del switch conectado usen diferentes configuraciones de Capa 2.", "text_en": "Enable the connected switch ports to use different Layer 2 configurations.", "isCorrect": false }
+    ],
+    "explanation_es": "**Link Aggregation (`LAG`)** agrupa múltiples puertos físicos en un único enlace lógico (`EtherChannel`). Sus dos beneficios principales son:\n1. **Aumento del rendimiento (`throughput`)** al sumar el ancho de banda de los enlaces individuales.\n2. **Redundancia**, ya que si un enlace falla, el tráfico se redistribuye automáticamente por los enlaces restantes.",
+    "explanation_en": "**Link Aggregation (`LAG`)** bundles multiple physical ports into a single logical link (`EtherChannel`). Its two main benefits are:\n1. **Increased throughput** by summing the bandwidth of the individual links.\n2. **Redundancy**, because if one link fails, traffic is automatically redistributed over the remaining links."
+  },
+  {
+    "id": "lacp_passive_mode_q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.4",
+      "description_es": "Configurar y verificar EtherChannel (LACP) (Capa 2/Capa 3)",
+      "description_en": "Configure and verify (Layer 2/Layer 3) EtherChannel (LACP)",
+      "subtopic_id": "2.4",
+      "subtopic_description": "LACP Negotiation"
+    },
+    "question_es": "**Consulte la información.** ¿Qué cambio en la configuración de `Switch2` permite que los dos switches establezcan un `EtherChannel`?",
+    "question_en": "**Refer to the exhibit.** Which change to the configuration on `Switch2` allows the two switches to establish an `EtherChannel`?",
+    "image": null,
+    "code": "Switch1#show etherchannel summary\nFlags:  D - down        P - in port-channel\n        I - stand-alone s - suspended\n        H - Hot-standby (LACP only)\n        R - Layer3      S - Layer2\n        U - in use      f - failed to allocate aggregator\n\nNumber of channel-groups in use: 1\nNumber of aggregators:           1\n\nGroup  Port-channel  Protocol    Ports\n------+-------------+-----------+-----------------------------------------------\n1      Po1(SD)         LACP        Fa0/2(I) Fa0/1(I)\n\nSwitch1#show run\n!\ninterface FastEthernet0/1\n channel-group 1 mode passive\n!\ninterface FastEthernet0/2\n channel-group 1 mode passive\n!\n\nSwitch2#show run\n!\ninterface FastEthernet0/1\n channel-group 1 mode passive\n!\ninterface FastEthernet0/2\n channel-group 1 mode passive\n!",
+    "options": [
+      { "text_es": "Cambiar el protocolo a `PAgP` y usar el modo `auto`.", "text_en": "Change the protocol to `PAgP` and use `auto` mode.", "isCorrect": false },
+      { "text_es": "Cambiar el protocolo a `EtherChannel on`.", "text_en": "Change the protocol to `EtherChannel on`.", "isCorrect": false },
+      { "text_es": "Cambiar el modo `LACP` a `desirable`.", "text_en": "Change the `LACP` mode to `desirable`.", "isCorrect": false },
+      { "text_es": "Cambiar el modo `LACP` a `active`.", "text_en": "Change the `LACP` mode to `active`.", "isCorrect": true }
+    ],
+    "explanation_es": "`LACP` (Link Aggregation Control Protocol) tiene dos modos: **`active`** (activo) y **`passive`** (pasivo). Un puerto en modo `active` intenta activamente formar un `EtherChannel`, mientras que un puerto en modo `passive` solo responde a las solicitudes. Para que se forme un `EtherChannel`, **al menos un lado debe estar en modo `active`**. En la configuración mostrada, ambos switches están en modo `passive`, por lo que ninguno inicia la negociación. Cambiar `Switch2` a `active` permitirá que se establezca el canal.",
+    "explanation_en": "`LACP` (Link Aggregation Control Protocol) has two modes: **`active`** and **`passive`**. A port in `active` mode actively tries to form an `EtherChannel`, while a port in `passive` mode only responds to requests. For an `EtherChannel` to form, **at least one side must be in `active` mode**. In the configuration shown, both switches are in `passive` mode, so neither initiates the negotiation. Changing `Switch2` to `active` will allow the channel to be established."
+  },
+  {
+    "id": "vlan_tagging_q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.2",
+      "description_es": "Configurar y verificar la conectividad entre switches",
+      "description_en": "Configure and verify interswitch connectivity",
+      "subtopic_id": "2.2.b",
+      "subtopic_description": "802.1Q"
+    },
+    "question_es": "¿Qué función de un switch de Capa 2 encapsula paquetes para diferentes `VLANs` de modo que los paquetes atraviesen el mismo puerto y mantengan la separación de tráfico entre las `VLANs`?",
+    "question_en": "Which Layer 2 switch function encapsulates packets for different `VLANs` so that the packets traverse the same port and maintain traffic separation between the `VLANs`?",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "Marcado de `VLAN` (`VLAN marking`)", "text_en": "`VLAN` marking", "isCorrect": false },
+      { "text_es": "Numeración de `VLAN` (`VLAN numbering`)", "text_en": "`VLAN` numbering", "isCorrect": false },
+      { "text_es": "`DSCP` de `VLAN` (`VLAN DSCP`)", "text_en": "`VLAN DSCP`", "isCorrect": false },
+      { "text_es": "Etiquetado de `VLAN` (`VLAN tagging`)", "text_en": "`VLAN` tagging", "isCorrect": true }
+    ],
+    "explanation_es": "El **'etiquetado de VLAN' (`VLAN tagging`)** es el proceso mediante el cual se añade una etiqueta (`tag`) a una trama de Ethernet. Esta etiqueta, definida por el estándar **`802.1Q`**, contiene el `ID` de la `VLAN` a la que pertenece la trama. Esto permite que los **enlaces troncales (`trunk links`)** transporten tráfico de múltiples `VLANs` a través de un único puerto, manteniendo cada `VLAN` lógicamente separada.",
+    "explanation_en": "**`VLAN tagging`** is the process by which a tag is added to an Ethernet frame. This tag, defined by the **`802.1Q`** standard, contains the `VLAN ID` to which the frame belongs. This allows **`trunk links`** to carry traffic for multiple `VLANs` across a single port while keeping each `VLAN` logically separate."
+  },
+  {
+    "id": "wlc_rogue_ap_friendly_q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.9",
+      "description_es": "Interpretar la configuración de la GUI de la LAN inalámbrica para la conectividad del cliente",
+      "description_en": "Interpret the wireless LAN GUI configuration for client connectivity",
+      "subtopic_id": "2.9",
+      "subtopic_description": "Rogue AP Management"
+    },
+    "question_es": "Un `WLC` envía alarmas sobre un AP **'rogue'** (intruso), y el administrador de red verifica que las alarmas son causadas por un AP autónomo legítimo. ¿Cómo se deben detener las alarmas para la dirección `MAC` de este AP?",
+    "question_en": "A `WLC` sends alarms about a **'rogue'** AP, and the network administrator verifies that the alarms are caused by a legitimate autonomous AP. How must the alarms be stopped for the `MAC` address of the AP?",
+    "image": null,
+    "code": null,
+    "options": [
+      { "text_es": "Establecer el Tipo de Clase del AP a **'Amistoso' (`Friendly`)**.", "text_en": "Set the AP Class Type to **`Friendly`**.", "isCorrect": true },
+      { "text_es": "Eliminar manualmente el AP del estado 'Pendiente' (`Pending`).", "text_en": "Manually remove the AP from `Pending` state.", "isCorrect": false },
+      { "text_es": "Colocar el AP en contención manual.", "text_en": "Place the AP into manual containment.", "isCorrect": false },
+      { "text_es": "Eliminar el AP de la gestión del `WLC`.", "text_en": "Remove the AP from `WLC` management.", "isCorrect": false }
+    ],
+    "explanation_es": "Cuando un `WLC` detecta un AP que no gestiona, lo clasifica como **'rogue'**. Si un administrador determina que este AP es legítimo (por ejemplo, un AP de una red vecina), debe clasificarlo como **'Amistoso' (`Friendly`)**. Esto le indica al `WLC` que confíe en el AP y deje de generar alarmas sobre él.",
+    "explanation_en": "When a `WLC` detects an AP that it does not manage, it classifies it as a **'rogue'**. If an administrator determines this AP is legitimate (e.g., an AP from a neighboring network), they must classify it as **`Friendly`**. This tells the `WLC` to trust the AP and stop generating alarms for it."
+  },
+  {
+    "id": "ccna-ap-admin-auth-protocols-q1",
+    "category": "2.0-network-access",
+    "questionType": "multiple-choice",
+    "topic": {
+      "id": "2.8",
+      "description_es": "Describir el acceso de gestión de dispositivos de red (Telnet, SSH, HTTP, HTTPS, consola, TACACS+/RADIUS y gestión en la nube)",
+      "description_en": "Describe network device management access (Telnet, SSH, HTTP, HTTPS, console, TACACS+/RADIUS, and cloud managed)",
+      "subtopic_id": "2.8",
+      "subtopic_description": "TACACS+/RADIUS"
+    },
+    "question_es": "¿Qué **dos** protocolos utiliza un administrador para la **autenticación y configuración** en puntos de acceso? (Elija dos.)",
+    "question_en": "Which **two** protocols are used by an administrator for **authentication and configuration** on access points? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`RADIUS`",
+        "text_en": "`RADIUS`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`802.1Q`",
+        "text_en": "`802.1Q`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`Kerberos`",
+        "text_en": "`Kerberos`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`802.1X`",
+        "text_en": "`802.1X`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`TACACS+`",
+        "text_en": "`TACACS+`",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "La pregunta se refiere a los protocolos para la **gestión de dispositivos** por parte de un administrador, no para la autenticación de clientes que se conectan a la red. Los protocolos estándar para **Autenticación, Autorización y Contabilidad (AAA)** de administradores de red son `RADIUS` y `TACACS+`.\n\n### Comparación de Protocolos Relevantes\n| Protocolo | Propósito Principal y Razón |\n|---|---|\n| **`RADIUS`** | **(Correcto)** Es un protocolo AAA que se utiliza para centralizar la autenticación de administradores que intentan acceder a dispositivos de red como routers, switches y puntos de acceso para configurarlos. |\n| **`TACACS+`** | **(Correcto)** Es un protocolo AAA propietario de Cisco que ofrece más flexibilidad y seguridad que `RADIUS`. Separa la Autenticación, Autorización y Contabilidad, y cifra el paquete completo. Es una opción común para la gestión de dispositivos. |\n| `802.1Q` | **(Incorrecto)** Este es el estándar para el **etiquetado de VLANs** en redes Ethernet. No tiene ninguna función de autenticación. |\n| `802.1X` | **(Incorrecto)** Este es un estándar para el **control de acceso a la red basado en puertos (PNAC)**. Se usa para autenticar a los **clientes** (ej. un portátil) que intentan conectarse a la red a través de un switch o un punto de acceso, no para autenticar al **administrador** que gestiona el dispositivo. |\n| `Kerberos` | **(Incorrecto)** Aunque es un protocolo de autenticación robusto, es más común en entornos de dominio de Windows y no es el estándar principal para la gestión de dispositivos de red en el contexto de Cisco, donde `RADIUS` y `TACACS+` son los preferidos. |",
+    "explanation_en": "The question asks for protocols for **device management** by an administrator, not for authenticating clients connecting to the network. The standard protocols for administrator **Authentication, Authorization, and Accounting (AAA)** are `RADIUS` and `TACACS+`.\n\n### Comparison of Relevant Protocols\n| Protocol | Main Purpose and Rationale |\n|---|---|\n| **`RADIUS`** | **(Correct)** It's an AAA protocol used to centralize the authentication of administrators trying to access network devices like routers, switches, and access points for configuration. |\n| **`TACACS+`** | **(Correct)** It's a Cisco-proprietary AAA protocol that offers more flexibility and security than `RADIUS`. It separates Authentication, Authorization, and Accounting, and encrypts the entire packet. It's a common choice for device management. |\n| `802.1Q` | **(Incorrect)** This is the standard for **VLAN tagging** on Ethernet networks. It has no authentication function. |\n| `802.1X` | **(Incorrect)** This is a standard for **Port-Based Network Access Control (PNAC)**. It is used to authenticate **clients** (e.g., a laptop) trying to connect to the network through a switch or an access point, not to authenticate the **administrator** managing the device. |\n| `Kerberos` | **(Incorrect)** While it is a robust authentication protocol, it is more common in Windows domain environments and is not the primary standard for network device management in a Cisco context, where `RADIUS` and `TACACS+` are preferred. |"
+  },
+  {
+    "id": "ccna-net-access-lightweight-ap-q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.6",
+      "description_es": "Describir las arquitecturas inalámbricas de Cisco y los modos de AP",
+      "description_en": "Describe Cisco Wireless Architectures and AP modes",
+      "subtopic_id": "2.6",
+      "subtopic_description": "AP modes"
+    },
+    "question_es": "Se necesita un punto de acceso inalámbrico que debe cumplir estos requisitos:\n1. Despliegue **\"zero-touch\"** y gestionado por un `WLC`\n2. Procesar **únicamente** la funcionalidad `MAC` en tiempo real\n3. Utilizado en una arquitectura **split-MAC**\n\n¿Qué tipo de punto de acceso se debe utilizar?",
+    "question_en": "A wireless access point is needed and must meet these requirements:\n1. **\"zero-touch\"** deployed and managed by a `WLC`\n2. process **only** real-time `MAC` functionality\n3. used in a **split-MAC** architecture\n\nWhich access point type must be used?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "autónomo (autonomous)",
+        "text_en": "autonomous",
+        "isCorrect": false
+      },
+      {
+        "text_es": "basado en la nube (cloud-based)",
+        "text_en": "cloud-based",
+        "isCorrect": false
+      },
+      {
+        "text_es": "ligero (lightweight)",
+        "text_en": "lightweight",
+        "isCorrect": true
+      },
+      {
+        "text_es": "malla (mesh)",
+        "text_en": "mesh",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Un punto de acceso **ligero (lightweight)** es el único tipo que cumple con todos los requisitos, ya que está diseñado para funcionar en una arquitectura centralizada controlada por un `WLC` (Wireless LAN Controller).\n\n### Arquitectura Split-MAC\nEsta es la clave de la pregunta. La arquitectura `split-MAC` divide las funciones de la capa `MAC` entre el `AP` ligero y el `WLC`:\n| Dispositivo | Funciones MAC | Descripción |\n|---|---|---|\n| **`Lightweight AP`** | **Tiempo real** | Gestiona tareas sensibles al tiempo como el envío de balizas (beacons), sondeo de clientes y acuses de recibo de tramas. Esto cumple el **requisito 2**. |\n| **`WLC`** | **Gestión** | Maneja funciones complejas y no tan urgentes como la autenticación de usuarios, la asociación de clientes y el roaming. |\n\n### Cumplimiento de los Requisitos\n1.  **\"Zero-touch\" y gestionado por WLC:** Los APs ligeros se conectan a la red, descubren el `WLC` y descargan toda su configuración de él. Esto cumple el **requisito 1**.\n2.  **Solo funcionalidad MAC en tiempo real:** Como se ve en la tabla, esta es la función principal del AP ligero en una arquitectura `split-MAC`, cumpliendo el **requisito 2 y 3**.\n\n### Opciones Incorrectas\n* **Autónomo:** Es un AP independiente que se gestiona individualmente y realiza todas las funciones `MAC`. No usa `WLC` ni `split-MAC`.\n* **Mesh:** Describe una topología para extender la cobertura, no el modo de operación fundamental del AP con un controlador.\n* **Basado en la nube:** Aunque es una forma de gestión centralizada, \"ligero\" es el término técnico específico para la arquitectura `WLC` / `split-MAC` descrita.",
+    "explanation_en": "A **lightweight** access point is the only type that meets all requirements, as it is designed to operate in a centralized architecture controlled by a `WLC` (Wireless LAN Controller).\n\n### Split-MAC Architecture\nThis is the key to the question. The `split-MAC` architecture divides the `MAC` layer functions between the lightweight `AP` and the `WLC`:\n| Device | MAC Functions | Description |\n|---|---|---|\n| **`Lightweight AP`** | **Real-time** | Manages time-sensitive tasks like sending beacons, probing clients, and acknowledging frames. This meets **requirement 2**. |\n| **`WLC`** | **Management** | Handles complex, non-urgent functions like user authentication, client association, and roaming. |\n\n### Meeting the Requirements\n1.  **\"Zero-touch\" & WLC Managed:** Lightweight APs connect to the network, discover the `WLC`, and download their entire configuration from it. This meets **requirement 1**.\n2.  **Only real-time MAC functionality:** As seen in the table, this is the primary role of the lightweight AP in a `split-MAC` architecture, fulfilling **requirements 2 and 3**.\n\n### Incorrect Options\n* **Autonomous:** A standalone AP that is managed individually and performs all `MAC` functions. It does not use a `WLC` or `split-MAC`.\n* **Mesh:** Describes a topology for extending coverage, not the AP's fundamental operating mode with a controller.\n* **Cloud-based:** While a form of centralized management, \"lightweight\" is the specific technical term for the `WLC` / `split-MAC` architecture described."
+  },
+  {
+    "id": "ccna-net-access-wlc-lag-load-balancing-q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.7",
+      "description_es": "Describir las conexiones de infraestructura física de los componentes WLAN (AP, WLC, puertos de acceso/troncales y LAG)",
+      "description_en": "Describe physical infrastructure connections of WLAN components (AP, WLC, access/trunk ports, and LAG)",
+      "subtopic_id": "2.7",
+      "subtopic_description": "LAG"
+    },
+    "question_es": "¿Cuál es el modo de balanceo de carga recomendado en el switch para los `WLCs` de Cisco?",
+    "question_en": "What is the recommended switch load-balancing mode for Cisco `WLCs`?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "dirección `MAC` de destino",
+        "text_en": "destination `MAC` address",
+        "isCorrect": false
+      },
+      {
+        "text_es": "dirección `IP` de origen-destino",
+        "text_en": "source-destination `IP` address",
+        "isCorrect": true
+      },
+      {
+        "text_es": "dirección `MAC` de origen-destino",
+        "text_en": "source-destination `MAC` address",
+        "isCorrect": false
+      },
+      {
+        "text_es": "dirección `IP` de destino",
+        "text_en": "destination `IP` address",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Cuando se conecta un `WLC` (Wireless LAN Controller) a un switch usando un `LAG` (`Link Aggregation Group` o `EtherChannel`) para redundancia y mayor ancho de banda, es crucial configurar el método de balanceo de carga correcto en el switch.\n\nLa recomendación de Cisco es usar **`source-destination IP address`**. \n\n### ¿Por qué este método?\n* El tráfico que pasa a través del `WLC` es típicamente de muchos clientes inalámbricos (`source IPs`) a muchos destinos diferentes en la red (`destination IPs`).\n* Si se usara un balanceo basado en direcciones `MAC`, no sería efectivo. Todo el tráfico originado desde el `WLC` tendría la misma dirección `MAC` de origen, y el tráfico destinado al `WLC` tendría la misma `MAC` de destino. Esto causaría que la mayoría del tráfico utilizara un único enlace del `EtherChannel`, anulando el propósito del balanceo de carga.\n* Al usar las direcciones `IP` de origen y destino, el switch crea un hash basado en los endpoints reales de la comunicación (el cliente y el servidor). Esto asegura una distribución mucho más granular y uniforme del tráfico a través de todos los enlaces físicos en el `LAG`.",
+    "explanation_en": "When connecting a `WLC` (Wireless LAN Controller) to a switch using a `LAG` (`Link Aggregation Group` or `EtherChannel`) for redundancy and increased bandwidth, it's crucial to configure the correct load-balancing method on the switch.\n\nCisco's recommendation is to use **`source-destination IP address`**.\n\n### Why this method?\n* Traffic passing through the `WLC` is typically from many wireless clients (`source IPs`) to many different destinations on the network (`destination IPs`).\n* If `MAC` address-based balancing were used, it would be ineffective. All traffic originating from the `WLC` would have the same source `MAC` address, and traffic destined for the `WLC` would have the same destination `MAC`. This would cause most of the traffic to use a single link in the `EtherChannel`, defeating the purpose of load balancing.\n* By using the source and destination `IP` addresses, the switch creates a hash based on the actual communication endpoints (the client and the server). This ensures a much more granular and even distribution of traffic across all the physical links in the `LAG`."
+  },
+  {
+    "id": "ccna-net-access-lwap-local-mode-port-q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.7",
+      "description_es": "Describir las conexiones de infraestructura física de los componentes WLAN (AP, WLC, puertos de acceso/troncales y LAG)",
+      "description_en": "Describe physical infrastructure connections of WLAN components (AP, WLC, access/trunk ports, and LAG)",
+      "subtopic_id": "2.7",
+      "subtopic_description": "access/trunk ports"
+    },
+    "question_es": "¿Qué tipo de puerto utiliza un `AP` ligero para conectarse a la red cableada cuando está configurado en **modo local**?",
+    "question_en": "Which port type does a lightweight `AP` use to connect to the wired network when it is configured in **local mode**?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Troncal (Trunk)",
+        "text_en": "Trunk",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`EtherChannel`",
+        "text_en": "EtherChannel",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Acceso (Access)",
+        "text_en": "Access",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`LAG`",
+        "text_en": "LAG",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "En el **modo local**, que es el modo de operación por defecto, un `AP` ligero establece un túnel `CAPWAP` con su `WLC` (Wireless LAN Controller). Todo el tráfico de los clientes inalámbricos, así como el tráfico de gestión del `AP`, se encapsula y se envía a través de este túnel hacia el `WLC`.\n\n### Razonamiento\n* Como todo el tráfico está dentro del túnel `CAPWAP` en una única `VLAN` (la `VLAN` de gestión), el `AP` no necesita distinguir entre diferentes `VLANs` de clientes en su puerto físico.\n* Por lo tanto, el puerto del switch al que se conecta el `AP` solo necesita pertenecer a esa `VLAN` de gestión única.\n* El tipo de puerto que asigna un puerto de switch a una **única `VLAN`** es un puerto de **acceso (access)**.\n\n### Análisis de Opciones Incorrectas\n* **Troncal (Trunk):** Se usaría en modos más avanzados como `FlexConnect` con conmutación local, donde el `AP` necesita enviar tráfico de diferentes `WLANs` a diferentes `VLANs` directamente en la red local. No es el caso del modo local estándar.\n* **`EtherChannel` / `LAG`:** Estos son términos para la agregación de enlaces (bundling de múltiples puertos físicos). Un `AP` estándar se conecta con un solo cable, por lo que esto no aplica.",
+    "explanation_en": "In **local mode**, which is the default mode of operation, a lightweight `AP` establishes a `CAPWAP` tunnel with its `WLC` (Wireless LAN Controller). All wireless client traffic, as well as the AP's management traffic, is encapsulated and sent through this tunnel to the `WLC`.\n\n### Rationale\n* Since all traffic is inside the `CAPWAP` tunnel on a single `VLAN` (the management `VLAN`), the `AP` does not need to distinguish between different client `VLANs` on its physical port.\n* Therefore, the switch port to which the `AP` connects only needs to belong to that single management `VLAN`.\n* The port type that assigns a switch port to a **single `VLAN`** is an **access** port.\n\n### Incorrect Options Analysis\n* **Trunk:** This would be used in more advanced modes like `FlexConnect` with local switching, where the `AP` needs to send traffic from different `WLANs` to different `VLANs` directly on the local network. This is not the case for standard local mode.\n* **`EtherChannel` / `LAG`:** These are terms for link aggregation (bundling multiple physical ports). A standard `AP` connects with a single cable, so this does not apply."
+  },
+  {
+    "id": "ccna-net-access-autonomous-ap-trunk-q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.7",
+      "description_es": "Describir las conexiones de infraestructura física de los componentes WLAN (AP, WLC, puertos de acceso/troncales y LAG)",
+      "description_en": "Describe physical infrastructure connections of WLAN components (AP, WLC, access/trunk ports, and LAG)",
+      "subtopic_id": "2.7",
+      "subtopic_description": "access/trunk ports"
+    },
+    "question_es": "¿Qué tipo de puerto se utiliza para conectar a la red cableada cuando un `AP autónomo` mapea dos `VLANs` a sus `WLANs`?",
+    "question_en": "Which type of port is used to connect to the wired network when an `autonomous AP` maps two `VLANs` to its `WLANs`?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Troncal (Trunk)",
+        "text_en": "Trunk",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`LAG`",
+        "text_en": "LAG",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`EtherChannel`",
+        "text_en": "EtherChannel",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Acceso (Access)",
+        "text_en": "Access",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Un `AP autónomo` gestiona todas sus funciones localmente, incluyendo el mapeo de `WLANs` (redes inalámbricas) a `VLANs` (redes cableadas). Cuando un `AP` necesita soportar múltiples `WLANs`, y cada una debe estar en una `VLAN` diferente, el puerto del switch al que se conecta debe ser capaz de manejar tráfico de múltiples `VLANs`.\n\n### Análisis de Tipos de Puerto\n| Tipo de Puerto | Función | Aplicabilidad |\n|---|---|---|\n| **Troncal (Trunk)** | Está diseñado para transportar tráfico de **múltiples `VLANs`** entre dispositivos de red. Utiliza el etiquetado `802.1Q` para identificar a qué `VLAN` pertenece cada trama. | **Correcto**. Esta es la configuración necesaria para que el `AP` pueda enviar y recibir tráfico etiquetado para las dos `VLANs` diferentes. |\n| **Acceso (Access)** | Asigna el puerto a una **única `VLAN`**. El tráfico que pasa por este puerto no está etiquetado. | **Incorrecto**. Un puerto de acceso solo podría manejar una de las dos `VLANs` requeridas. |\n| `LAG` / `EtherChannel`| Son tecnologías de agregación de enlaces que agrupan múltiples puertos físicos en uno lógico. | **Incorrecto**. Estos términos describen cómo se agrupan los puertos, no cómo manejan las `VLANs`. Un `EtherChannel` puede ser configurado como troncal o de acceso, pero la función fundamental requerida aquí es la de troncal. |",
+    "explanation_en": "An `autonomous AP` manages all its functions locally, including mapping `WLANs` (wireless networks) to `VLANs` (wired networks). When an `AP` needs to support multiple `WLANs`, and each must be on a different `VLAN`, the switch port it connects to must be able to handle traffic from multiple `VLANs`.\n\n### Port Type Analysis\n| Port Type | Function | Applicability |\n|---|---|---|\n| **Trunk** | Designed to carry traffic for **multiple `VLANs`** between network devices. It uses `802.1Q` tagging to identify which `VLAN` each frame belongs to. | **Correct**. This is the necessary configuration for the `AP` to send and receive tagged traffic for the two different `VLANs`. |\n| **Access** | Assigns the port to a **single `VLAN`**. Traffic passing through this port is untagged. | **Incorrect**. An access port could only handle one of the two required `VLANs`. |\n| `LAG` / `EtherChannel`| These are link aggregation technologies that bundle multiple physical ports into a single logical one. | **Incorrect**. These terms describe how ports are grouped, not how they handle `VLANs`. An `EtherChannel` can be configured as either a trunk or an access port, but the fundamental function required here is trunking. |"
+  },
+  {
+    "id": "ccna-net-access-flexconnect-wlc-fail-q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.6",
+      "description_es": "Describir las arquitecturas inalámbricas de Cisco y los modos de AP",
+      "description_en": "Describe Cisco Wireless Architectures and AP modes",
+      "subtopic_id": "2.6",
+      "subtopic_description": "AP modes"
+    },
+    "question_es": "¿Qué modo de punto de acceso unificado continúa sirviendo a los clientes inalámbricos después de perder la conectividad con el `Cisco Wireless LAN Controller`?",
+    "question_en": "Which unified access point mode continues to serve wireless clients after losing connectivity to the `Cisco Wireless LAN Controller`?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "sniffer",
+        "text_en": "sniffer",
+        "isCorrect": false
+      },
+      {
+        "text_es": "malla (mesh)",
+        "text_en": "mesh",
+        "isCorrect": false
+      },
+      {
+        "text_es": "flexconnect",
+        "text_en": "flexconnect",
+        "isCorrect": true
+      },
+      {
+        "text_es": "local",
+        "text_en": "local",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "El modo **`FlexConnect`** está diseñado específicamente para sucursales o ubicaciones remotas donde la conexión `WAN` con el `WLC` (Wireless LAN Controller) podría no ser completamente estable. Su característica principal es la capacidad de operar de forma independiente si se pierde la conexión con el controlador.\n\n### Modos de Operación de AP\n| Modo | Comportamiento sin `WLC` | Descripción |\n|---|---|---|\n| **`FlexConnect`** | **Sigue funcionando (Correcto)** | En estado `standalone` (autónomo), puede continuar conmutando el tráfico de los clientes ya conectados directamente a la red local y autenticar nuevos clientes (dependiendo de la configuración de seguridad). Proporciona supervivencia de la red inalámbrica. |\n| `Local` | Deja de funcionar | Este es el modo por defecto. Todo el tráfico (gestión y datos) se envía a través de un túnel `CAPWAP` al `WLC`. Si el túnel se cae, el `AP` deja de servir a los clientes. |\n| `Sniffer` | No aplica | En este modo, el `AP` no sirve a clientes. Su única función es capturar tráfico `802.11` para su análisis. |\n| `Mesh` | Depende del Root AP | Este modo se utiliza para formar un backhaul inalámbrico. Si el `Root Access Point (RAP)` pierde la conexión con el `WLC`, todo el árbol de la malla que depende de él también pierde la conectividad de servicio. |",
+    "explanation_en": "**`FlexConnect`** mode is specifically designed for branch or remote locations where the `WAN` connection to the `WLC` (Wireless LAN Controller) might not be completely stable. Its key feature is the ability to operate independently if the connection to the controller is lost.\n\n### AP Modes of Operation\n| Mode | Behavior without `WLC` | Description |\n|---|---|---|\n| **`FlexConnect`** | **Continues to function (Correct)** | In `standalone` state, it can continue to switch traffic for already connected clients directly onto the local network and authenticate new clients (depending on the security configuration). It provides wireless network survivability. |\n| `Local` | Stops functioning | This is the default mode. All traffic (management and data) is sent through a `CAPWAP` tunnel to the `WLC`. If the tunnel goes down, the `AP` stops serving clients. |\n| `Sniffer` | Not applicable | In this mode, the `AP` does not serve clients. Its sole function is to capture `802.11` traffic for analysis. |\n| `Mesh` | Depends on the Root AP | This mode is used to form a wireless backhaul. If the `Root Access Point (RAP)` loses its connection to the `WLC`, the entire mesh tree depending on it also loses service connectivity. |"
+  },
+  {
+    "id": "ccna-net-access-rstp-root-port-q1",
+    "category": "2.0-network-access",
+    "questionType": "multiple-choice",
+    "topic": {
+      "id": "2.5",
+      "description_es": "Interpretar las operaciones básicas de Rapid PVST+ Spanning Tree Protocol",
+      "description_en": "Interpret basic operations of Rapid PVST+ Spanning Tree Protocol",
+      "subtopic_id": "2.5.a",
+      "subtopic_description": "Root port, root bridge (primary/secondary), and other port names"
+    },
+    "question_es": "Consulte la imagen. ¿Qué **dos** conclusiones se deben sacar sobre esta configuración? (Elija dos.)",
+    "question_en": "Refer to the exhibit. What **two** conclusions should be made about this configuration? (Choose two.)",
+    "image": null,
+    "code": "SW1#show spanning-tree vlan 30\n\nVLAN0030\n  Spanning-tree enabled protocol rstp\n  Root ID    Priority    2798\n             Address     0025.63e9.c800\n             Cost        19\n             Port        1 (FastEthernet 2/1)\n             Hello Time   2 sec\n             Max Age     20 sec\n             Forward Delay 20 sec\n\n  [Output suppressed]",
+    "options": [
+      {
+        "text_es": "El modo de spanning-tree es `Rapid PVST+`.",
+        "text_en": "The spanning-tree mode is `Rapid PVST+`.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "Este es un `root bridge`.",
+        "text_en": "This is a `root bridge`.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "El puerto designado es `FastEthernet 2/1`.",
+        "text_en": "The designated port is `FastEthernet 2/1`.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "El puerto raíz es `FastEthernet 2/1`.",
+        "text_en": "The root port is `FastEthernet 2/1`.",
+        "isCorrect": true
+      },
+      {
+        "text_es": "El modo de spanning-tree es `PVST+`.",
+        "text_en": "The spanning-tree mode is `PVST+`.",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "Analizando la salida del comando, podemos sacar dos conclusiones claras:\n\n1.  **El Puerto Raíz es `FastEthernet 2/1`**: La salida del comando indica explícitamente `Root ID ... Port 1 (FastEthernet 2/1)`. En la sección de ID de Raíz, el campo `Port` indica el puerto raíz del switch local, que es el puerto con la ruta de menor costo hacia el `root bridge`.\n2.  **El Modo es `Rapid PVST+`**: La línea `Spanning-tree enabled protocol rstp` indica que el protocolo en uso es `RSTP` (Rapid Spanning Tree Protocol). Dado que el comando es específico para una `VLAN` (`show spanning-tree vlan 30`), se trata de la implementación por `VLAN` de `RSTP` de Cisco, que es `Rapid PVST+`.\n\n### Análisis de Opciones Incorrectas\n* **No es un `root bridge`**: Un switch es el `root bridge` si su `Bridge ID` es el mismo que el `Root ID`. Aunque el `Bridge ID` de `SW1` está suprimido en la salida, el hecho de que tenga un **puerto raíz** (`Root Port`) confirma que **no** es el `root bridge`. El `root bridge` nunca tiene puertos raíz.\n* **`FastEthernet 2/1` no es un puerto designado**: El resultado identifica este puerto como el puerto raíz. Un puerto no puede ser a la vez raíz y designado.\n* **No es `PVST+`**: El protocolo es `rstp`, que es la versión rápida, no el `PVST+` original basado en el estándar `802.1D`.",
+    "explanation_en": "Analyzing the command output, we can draw two clear conclusions:\n\n1.  **The Root Port is `FastEthernet 2/1`**: The command output explicitly states `Root ID ... Port 1 (FastEthernet 2/1)`. In the Root ID section, the `Port` field indicates the local switch's root port, which is the port with the lowest cost path to the `root bridge`.\n2.  **The Mode is `Rapid PVST+`**: The line `Spanning-tree enabled protocol rstp` indicates that the protocol in use is `RSTP` (Rapid Spanning Tree Protocol). Since the command is `VLAN`-specific (`show spanning-tree vlan 30`), this is Cisco's per-`VLAN` implementation of `RSTP`, which is `Rapid PVST+`.\n\n### Incorrect Options Analysis\n* **It is not a `root bridge`**: A switch is the `root bridge` if its `Bridge ID` is the same as the `Root ID`. Although `SW1`'s `Bridge ID` is suppressed in the output, the fact that it has a **root port** confirms that it is **not** the `root bridge`. The `root bridge` never has root ports.\n* **`FastEthernet 2/1` is not a designated port**: The output identifies this port as the root port. A port cannot be both a root and a designated port.\n* **It is not `PVST+`**: The protocol is `rstp`, which is the rapid version, not the original `PVST+` based on the `802.1D` standard."
+  },
+  {
+    "id": "ccna-net-access-lacp-modes-q1",
+    "category": "2.0-network-access",
+    "questionType": "multiple-choice",
+    "topic": {
+      "id": "2.4",
+      "description_es": "Configurar y verificar EtherChannel (Layer 2/Layer 3) (LACP)",
+      "description_en": "Configure and verify (Layer 2/Layer 3) EtherChannel (LACP)",
+      "subtopic_id": "2.4",
+      "subtopic_description": "LACP"
+    },
+    "question_es": "Consulte la imagen. ¿Qué dos configuraciones de comandos crearían el `port channel 10`? (Elija dos.)",
+    "question_en": "Refer to the exhibit. Which two commands when used together create port channel 10? (Choose two.)",
+    "image": null,
+    "code": "Switch#show etherchannel summary\n[output omitted]\nGroup  Port-channel  Protocol    Ports\n------+-------------+-----------+-----------------------------------------------\n10     Po10(SU)      LACP        Gi0/0(P)   Gi0/1(P)\n20     Po20(SU)      LACP        Gi0/2(P)   Gi0/3(P)",
+    "options": [
+      {
+        "text_es": "`int range g0/0-1`\n`channel-group 10 mode auto`",
+        "text_en": "`int range g0/0-1`\n`channel-group 10 mode auto`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`int range g0/0-1`\n`channel-group 10 mode passive`",
+        "text_en": "`int range g0/0-1`\n`channel-group 10 mode passive`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`int range g0/0-1`\n`channel-group 10 mode on`",
+        "text_en": "`int range g0/0-1`\n`channel-group 10 mode on`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`int range g0/0-1`\n`channel-group 10 mode active`",
+        "text_en": "`int range g0/0-1`\n`channel-group 10 mode active`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`int range g0/0-1`\n`channel-group 10 mode desirable`",
+        "text_en": "`int range g0/0-1`\n`channel-group 10 mode desirable`",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "La salida del comando `show etherchannel summary` muestra claramente que el **protocolo** utilizado para el `Port-channel 10` es **`LACP`**. Por lo tanto, debemos seleccionar los modos de configuración que habilitan `LACP`.\n\n### Modos de Negociación de EtherChannel\n| Protocolo | Modo Activo (Inicia) | Modo Pasivo (Escucha) |\n|---|---|---|\n| **`LACP`** | **`active`** | **`passive`** |\n| `PAgP` | `desirable` | `auto` |\n\n* El modo **`on`** fuerza la creación del canal sin ningún protocolo de negociación (canal estático).\n\n### Análisis de las Opciones\n* **`auto`:** Incorrecto. Este modo habilita `PAgP`, no `LACP`.\n* **`passive`:** Correcto. Este es el modo pasivo de `LACP`. Formará un canal si el otro extremo está en modo `active`.\n* **`on`:** Incorrecto. Esto crea un canal estático sin protocolo, lo cual contradice la salida que muestra `LACP`.\n* **`active`:** Correcto. Este es el modo activo de `LACP`. Inicia activamente la negociación y formará un canal con un par en modo `active` o `passive`.\n* **`desirable`:** Incorrecto. Este modo habilita `PAgP`, no `LACP`.",
+    "explanation_en": "The output of the `show etherchannel summary` command clearly shows that the **protocol** used for `Port-channel 10` is **`LACP`**. Therefore, we must select the configuration modes that enable `LACP`.\n\n### EtherChannel Negotiation Modes\n| Protocol | Active Mode (Initiates) | Passive Mode (Listens) |\n|---|---|---|\n| **`LACP`** | **`active`** | **`passive`** |\n| `PAgP` | `desirable` | `auto` |\n\n* The **`on`** mode forces the channel creation without any negotiation protocol (static channel).\n\n### Options Analysis\n* **`auto`:** Incorrect. This mode enables `PAgP`, not `LACP`.\n* **`passive`:** Correct. This is the passive mode for `LACP`. It will form a channel if the other side is in `active` mode.\n* **`on`:** Incorrect. This creates a static channel with no protocol, which contradicts the output showing `LACP`.\n* **`active`:** Correct. This is the active mode for `LACP`. It actively initiates negotiation and will form a channel with a peer in either `active` or `passive` mode.\n* **`desirable`:** Incorrect. This mode enables `PAgP`, not `LACP`."
+  },
+  {
+    "id": "ccna-net-access-radius-vs-tacacs-q1",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.8",
+      "description_es": "Describir el acceso de gestión de dispositivos de red (Telnet, SSH, HTTP, HTTPS, consola, TACACS+/RADIUS y gestión en la nube)",
+      "description_en": "Describe network device management access (Telnet, SSH, HTTP, HTTPS, console, TACACS+/RADIUS, and cloud managed)",
+      "subtopic_id": "2.8",
+      "subtopic_description": "TACACS+/RADIUS"
+    },
+    "question_es": "¿Cuál es una diferencia entre `RADIUS` y `TACACS+`?",
+    "question_en": "What is a difference between `RADIUS` and `TACACS+`?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`RADIUS` registra todos los comandos que introduce el administrador, pero `TACACS+` solo registra los comandos de inicio, parada e intermedios.",
+        "text_en": "`RADIUS` logs all commands that are entered by the administrator, but `TACACS+` logs only start, stop, and interim commands.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`RADIUS` es más apropiado para la autenticación por marcación (dial-up), pero `TACACS+` puede usarse para múltiples tipos de autenticación.",
+        "text_en": "`RADIUS` is most appropriate for dial authentication, but `TACACS+` can be used for multiple types of authentication.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`TACACS+` cifra solo la información de la contraseña, y `RADIUS` cifra toda la carga útil (payload).",
+        "text_en": "`TACACS+` encrypts only password information, and `RADIUS` encrypts the entire payload.",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`TACACS+` separa la autenticación y la autorización, y `RADIUS` las fusiona.",
+        "text_en": "`TACACS+` separates authentication and authorization, and `RADIUS` merges them.",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "`TACACS+` y `RADIUS` son protocolos `AAA` (Autenticación, Autorización y Contabilidad), pero tienen diferencias operativas clave. La más importante es cómo manejan los componentes de `AAA`.\n\n### Comparación de Características\n| Característica | `TACACS+` | `RADIUS` |\n|---|---|---|\n| **Procesos `AAA`** | **Separa** los 3 componentes. | **Combina** Autenticación y Autorización. |\n| **Transporte** | Usa `TCP` (fiable). | Usa `UDP` (no fiable). |\n| **Cifrado** | Cifra el **cuerpo completo** del paquete. | Cifra **solo la contraseña**. |\n\n### Análisis de las Opciones\n* `TACACS+` es conocido por su capacidad superior de registro de comandos.\n* Aunque `RADIUS` se originó para el acceso telefónico, ambos se usan ampliamente para la gestión de dispositivos de red en la actualidad.\n* Esta afirmación está invertida. `TACACS+` es más seguro porque cifra todo el paquete.\n* **Correcto**. `TACACS+` trata la autenticación y la autorización como procesos separados, lo que permite mayor flexibilidad. `RADIUS` las combina en un solo paso.",
+    "explanation_en": "`TACACS+` and `RADIUS` are both `AAA` (Authentication, Authorization, and Accounting) protocols, but they have key operational differences. The most significant is how they handle the `AAA` components.\n\n### Feature Comparison\n| Feature | `TACACS+` | `RADIUS` |\n|---|---|---|\n| **`AAA` Processes** | **Separates** the 3 components. | **Combines** Authentication and Authorization. |\n| **Transport** | Uses `TCP` (reliable). | Uses `UDP` (unreliable). |\n| **Encryption** | Encrypts the **entire packet body**. | Encrypts **only the password**. |\n\n### Options Analysis\n* `TACACS+` is known for its superior command logging capabilities.\n* While `RADIUS` originated for dial-up access, both are widely used for network device management today.\n* This statement is reversed. `TACACS+` is more secure because it encrypts the entire packet.\n* **Correct**. `TACACS+` treats authentication and authorization as separate processes, allowing for greater flexibility. `RADIUS` combines them into a single step."
+  },
+  {
+    "id": "ccna-net-access-l3-etherchannel-lacp-q1",
+    "category": "2.0-network-access",
+    "questionType": "multiple-choice",
+    "topic": {
+      "id": "2.4",
+      "description_es": "Configurar y verificar EtherChannel (Layer 2/Layer 3) (LACP)",
+      "description_en": "Configure and verify (Layer 2/Layer 3) EtherChannel (LACP)",
+      "subtopic_id": "2.4",
+      "subtopic_description": "Layer 3 EtherChannel LACP"
+    },
+    "question_es": "¿Qué **dos** secuencias de comandos se deben configurar en un switch para establecer un `EtherChannel` de Capa 3 con un protocolo de estándar abierto? (Elija dos.)",
+    "question_en": "Which **two** command sequences must be configured on a switch to establish a Layer 3 `EtherChannel` with an open-standard protocol? (Choose two.)",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`interface GigabitEthernet0/0/1`\n`channel-group 10 mode auto`",
+        "text_en": "`interface GigabitEthernet0/0/1`\n`channel-group 10 mode auto`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`interface port-channel 10`\n`switchport`\n`switchport mode trunk`",
+        "text_en": "`interface port-channel 10`\n`switchport`\n`switchport mode trunk`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`interface GigabitEthernet0/0/1`\n`channel-group 10 mode on`",
+        "text_en": "`interface GigabitEthernet0/0/1`\n`channel-group 10 mode on`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`interface port-channel 10`\n`no switchport`\n`ip address 172.18.0.1 255.255.255.0`",
+        "text_en": "`interface port-channel 10`\n`no switchport`\n`ip address 172.18.0.1 255.255.255.0`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`interface GigabitEthernet0/0/1`\n`channel-group 10 mode active`",
+        "text_en": "`interface GigabitEthernet0/0/1`\n`channel-group 10 mode active`",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "Para crear un `EtherChannel` de Capa 3 con un protocolo de estándar abierto, se deben cumplir dos condiciones:\n1.  El protocolo de negociación debe ser `LACP` (el estándar abierto).\n2.  La interfaz lógica `Port-channel` debe ser configurada como una interfaz enrutada (Capa 3).\n\n### Análisis de los Comandos\n* **Paso 1: Configurar las interfaces físicas.** El protocolo `LACP` se habilita en las interfaces físicas usando los modos `active` o `passive`. El comando `channel-group 10 mode active` configura correctamente la interfaz física para negociar un `EtherChannel` usando `LACP`. **(Opción E es correcta)**\n* **Paso 2: Configurar la interfaz lógica.** Para convertir la interfaz `Port-channel 10` en una interfaz de Capa 3, se debe usar el comando `no switchport`. Después de eso, se le puede asignar una dirección `IP`. **(Opción D es correcta)**\n\n### Opciones Incorrectas\n| Opción | Comando | Razón por la que es Incorrecto |\n|---|---|---|\n| **A** | `mode auto` | `auto` es un modo del protocolo propietario de Cisco, `PAgP`, no del estándar abierto `LACP`. |\n| **B** | `switchport` | Este comando configura la interfaz como una de Capa 2, no de Capa 3. |\n| **C** | `mode on` | Esto crea un `EtherChannel` estático sin un protocolo de negociación, lo cual no cumple con el requisito de usar un protocolo de estándar abierto. |",
+    "explanation_en": "To create a Layer 3 `EtherChannel` with an open-standard protocol, two conditions must be met:\n1.  The negotiation protocol must be `LACP` (the open standard).\n2.  The logical `Port-channel` interface must be configured as a routed (Layer 3) interface.\n\n### Command Analysis\n* **Step 1: Configure the physical interfaces.** The `LACP` protocol is enabled on the physical interfaces using either `active` or `passive` mode. The command `channel-group 10 mode active` correctly configures the physical interface to negotiate an `EtherChannel` using `LACP`. **(Option E is correct)**\n* **Step 2: Configure the logical interface.** To make the `Port-channel 10` interface a Layer 3 interface, the `no switchport` command must be used. After that, an `IP` address can be assigned to it. **(Option D is correct)**\n\n### Incorrect Options\n| Option | Command | Reason it is Incorrect |\n|---|---|---|\n| **A** | `mode auto` | `auto` is a mode for the Cisco proprietary protocol, `PAgP`, not the open-standard `LACP`. |\n| **B** | `switchport` | This command configures the interface as a Layer 2 interface, not Layer 3. |\n| **C** | `mode on` | This creates a static `EtherChannel` without a negotiation protocol, which does not meet the requirement of using an open-standard protocol. |"
+  },
+  {
+    "id": "lldp-tlv-port-description-01",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.3",
+      "description_es": "Configurar y verificar los protocolos de descubrimiento de Capa 2 (Cisco Discovery Protocol y LLDP)",
+      "description_en": "Configure and verify Layer 2 discovery protocols (Cisco Discovery Protocol and LLDP)",
+      "subtopic_id": "2.3",
+      "subtopic_description": "LLDP Configuration"
+    },
+    "question_es": "Un ingeniero necesita configurar LLDP para enviar el **TLV (Type-Length-Value)** de descripción de puerto. ¿Qué secuencia de comandos debe implementarse?",
+    "question_en": "An engineer needs to configure LLDP to send the **port description type length value (TLV)**. What command sequence must be implemented?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "`switch(config)#lldp port-description`",
+        "text_en": "`switch(config)#lldp port-description`",
+        "isCorrect": true
+      },
+      {
+        "text_es": "`switch(config-if)#lldp port description`",
+        "text_en": "`switch(config-if)#lldp port description`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`switch(config-line)#lldp port-description`",
+        "text_en": "`switch(config-line)#lldp port-description`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "`switch#lldp port-description`",
+        "text_en": "`switch#lldp port-description`",
+        "isCorrect": false
+      }
+    ],
+    "explanation_es": "El protocolo **LLDP (Link Layer Discovery Protocol)** utiliza mensajes llamados **TLV (Type-Length-Value)** para anunciar información sobre sí mismo a los dispositivos vecinos. Para controlar qué TLVs específicos se envían, se utilizan comandos en el modo de configuración global.\n\n#### Opción Correcta\n- **`switch(config)#lldp port-description`**: Este es el comando correcto. Se introduce en el **modo de configuración global** (`config`) y le indica al switch que incluya el TLV de *descripción de puerto* en sus anuncios LLDP. Este es un control a nivel de dispositivo sobre los TLVs que se anuncian.\n\n#### Opciones Incorrectas\n- **`switch(config-if)#lldp port description`**: Esta opción es incorrecta por dos razones. Primero, el comando correcto utiliza un guion (`port-description`), no un espacio. Segundo, aunque algunos comandos de LLDP (como `lldp transmit` o `lldp receive`) se configuran por interfaz (`config-if`), el comando para habilitar o deshabilitar la publicidad de TLVs específicos es un comando **global**.\n\n- **`switch(config-line)#lldp port-description`**: El modo de configuración de línea (`config-line`) se utiliza para configurar las líneas de acceso de la consola (`con 0`) y virtuales (`vty`). **No** tiene ninguna relación con la configuración de protocolos de capa 2 como LLDP.\n\n- **`switch#lldp port-description`**: El prompt `switch#` indica el **modo EXEC privilegiado**. Desde este modo, no se pueden ejecutar comandos de configuración. Para ello, primero se debe entrar en el modo de configuración global usando el comando `configure terminal`.",
+    "explanation_en": "The **Link Layer Discovery Protocol (LLDP)** uses messages called **TLVs (Type-Length-Value)** to advertise information about itself to neighboring devices. To control which specific TLVs are sent, commands are used in global configuration mode.\n\n#### Correct Option\n- **`switch(config)#lldp port-description`**: This is the correct command. It is entered in **global configuration mode** (`config`) and instructs the switch to include the *port description* TLV in its LLDP advertisements. This is a device-level control over which TLVs are advertised.\n\n#### Incorrect Options\n- **`switch(config-if)#lldp port description`**: This option is incorrect for two reasons. First, the correct command uses a hyphen (`port-description`), not a space. Second, while some LLDP commands (like `lldp transmit` or `lldp receive`) are configured on a per-interface basis (`config-if`), the command to enable or disable the advertisement of specific TLVs is a **global** command.\n\n- **`switch(config-line)#lldp port-description`**: The line configuration mode (`config-line`) is used to configure console (`con 0`) and virtual terminal (`vty`) access lines. It has **no** relation to the configuration of Layer 2 protocols like LLDP.\n\n- **`switch#lldp port-description`**: The `switch#` prompt indicates **privileged EXEC mode**. Configuration commands cannot be run from this mode. To do so, you must first enter global configuration mode using the `configure terminal` command."
+  },
+  {
+    "id": "cisco-ccna-wlan-band-select-01",
+    "category": "2.0-network-access",
+    "questionType": "single-choice",
+    "topic": {
+      "id": "2.9",
+      "description_es": "Interpretar la configuración de la GUI de la LAN inalámbrica para la conectividad del cliente, como la creación de WLAN, la configuración de seguridad, los perfiles de QoS y la configuración avanzada.",
+      "description_en": "Interpret the wireless LAN GUI configuration for client connectivity, such as WLAN creation, security settings, QoS profiles, and advanced settings.",
+      "subtopic_id": "2.9",
+      "subtopic_description": "Wireless LAN GUI configuration for client connectivity"
+    },
+    "question_es": "Un administrador inalámbrico ha configurado una WLAN; sin embargo, los clientes necesitan acceso a una red de **5 GHz** menos congestionada para su calidad de voz. ¿Qué medida debe tomarse para cumplir este requisito?",
+    "question_en": "A wireless administrator has configured a WLAN, however, the clients need access to a less congested **5-GHz** network for their voice quality. What action must be taken to meet the requirement?",
+    "image": null,
+    "code": null,
+    "options": [
+      {
+        "text_es": "Habilitar la anulación de `AAA`",
+        "text_en": "enable `AAA` override",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Habilitar `DTM`",
+        "text_en": "enable `DTM`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Habilitar `RX-SOP`",
+        "text_en": "enable `RX-SOP`",
+        "isCorrect": false
+      },
+      {
+        "text_es": "Habilitar `Band Select`",
+        "text_en": "enable `Band Select`",
+        "isCorrect": true
+      }
+    ],
+    "explanation_es": "La pregunta busca una solución para dirigir a los clientes a la banda de **5 GHz**, que generalmente está menos congestionada y ofrece un mejor rendimiento para aplicaciones sensibles a la latencia como la voz sobre IP (VoIP).\n\n### Opción Correcta\n\n* **Habilitar `Band Select`**: Esta es la respuesta correcta. `Band Select` es una función en los puntos de acceso (APs) de Cisco que anima activamente a los clientes con capacidad de doble banda (2.4 GHz y 5 GHz) a conectarse a la red de 5 GHz. El AP logra esto retrasando las respuestas a las solicitudes de sondeo (probe requests) de los clientes en la banda de 2.4 GHz, haciendo que la banda de 5 GHz parezca una opción más atractiva y rápida para el cliente.\n\n### Opciones Incorrectas\n\n* **Habilitar la anulación de `AAA`**: La anulación de `AAA` (Authentication, Authorization, and Accounting) es una función que permite asignar políticas específicas a un cliente (como una `VLAN` o una lista de control de acceso) después de una autenticación exitosa a través de un servidor `RADIUS`. No tiene relación con la selección de la banda de frecuencia del cliente.\n\n* **Habilitar `DTM`**: `DTM` significa `Dynamic Transmit Power Management`. Es una función que ajusta dinámicamente la potencia de transmisión de la radio de un AP. Se utiliza para optimizar la cobertura y minimizar la interferencia, pero no influye directamente en la banda que un cliente elige para conectarse.\n\n* **Habilitar `RX-SOP`**: `RX-SOP` son las siglas de `Receiver Start of Packet Detection Threshold`. Esta configuración ajusta la sensibilidad de la radio del AP. Al aumentar el umbral, se le indica al AP que ignore las señales de bajo nivel, lo que ayuda a reducir el impacto de la interferencia de celdas coexistentes (co-channel interference) y a mejorar el rendimiento en entornos de alta densidad. Sin embargo, no dirige a los clientes a una banda específica.",
+    "explanation_en": "The question asks for a solution to steer clients to the **5 GHz** band, which is generally less congested and provides better performance for latency-sensitive applications like Voice over IP (VoIP).\n\n### Correct Option\n\n* **Enable `Band Select`**: This is the correct answer. `Band Select` is a feature on Cisco Access Points (APs) that actively encourages dual-band capable clients (2.4 GHz and 5 GHz) to connect to the 5 GHz network. The AP achieves this by delaying responses to client probe requests on the 2.4 GHz band, making the 5 GHz band appear as a more attractive and faster option for the client.\n\n### Incorrect Options\n\n* **Enable `AAA` override**: `AAA` (Authentication, Authorization, and Accounting) override is a feature that allows for specific policies (like a `VLAN` or an access control list) to be assigned to a client after successful authentication via a `RADIUS` server. It is not related to the client's frequency band selection.\n\n* **Enable `DTM`**: `DTM` stands for `Dynamic Transmit Power Management`. This is a feature that dynamically adjusts an AP's radio transmit power. It is used to optimize coverage and minimize interference, but it does not directly influence which band a client chooses to connect to.\n\n* **Enable `RX-SOP`**: `RX-SOP` stands for `Receiver Start of Packet Detection Threshold`. This setting adjusts the sensitivity of the AP's radio. By increasing the threshold, you tell the AP to ignore low-level signals, which helps reduce the impact of co-channel interference and improve performance in high-density environments. However, it does not steer clients to a specific band."
+  }
+]

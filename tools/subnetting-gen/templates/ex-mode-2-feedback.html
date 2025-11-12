@@ -1,0 +1,148 @@
+<template id="ex-mode-2-feedback-template">
+    <h5 class="alert-heading" data-i18n="fb_detailed_solution">Solución Detallada</h5>
+    <hr>
+    <ol class="list-group list-group-flush feedback-step-list">
+
+        <li class="list-group-item feedback-step" id="fb-m2-step1-from-ddn">
+            <strong class="fb-title" data-i18n="fb_mode2_step1_title_from_ddn">1. Calcular Máscara CIDR (dado
+                DDN)</strong>
+            <p class="fb-desc">
+                <span data-i18n="fb_mode2_step1_desc_from_ddn_1">Convertimos la máscara DDN</span>
+                <code><strong id="fb-m2-ddn-1-mask"></strong></code> <span data-i18n="fb_mode2_step1_desc_from_ddn_1b">a
+                    binario:</span>
+
+            <pre
+                class="feedback-calc"><span class="fb-label" data-i18n="fb_label_ddn">DDN:</span><span id="fb-m2-ddn-1-ddn"></span>
+<span class="fb-label" data-i18n="fb_label_binario">BINARIO:</span><code class="text-primary" id="fb-m2-ddn-1-bin"></code></pre>
+
+            <span data-i18n="fb_mode2_step1_desc_from_ddn_2">Contamos los bits '1' de izquierda a derecha.</span>
+            (<code class="text-primary" id="fb-m2-ddn-1-bin-count"></code>)
+            <span data-i18n="fb_mode2_step1_desc_from_ddn_3">El total es</span> <strong><span
+                    id="fb-m2-ddn-1-prefix"></span></strong>. <span
+                data-i18n="fb_mode2_step1_desc_from_ddn_3b">Respuesta:</span>
+            <strong><code><span id="fb-m2-ddn-1-cidr-ans"></span></code></strong>
+            </p>
+        </li>
+
+        <li class="list-group-item feedback-step d-none" id="fb-m2-step1-from-cidr">
+            <strong class="fb-title" data-i18n="fb_mode2_step1_title_from_cidr">1. Calcular Máscara DDN (dado
+                CIDR)</strong>
+            <p class="fb-desc">
+                <span data-i18n="fb_mode2_step1_desc_from_cidr_1">Convertimos la máscara CIDR</span>
+                <code><strong id="fb-m2-cidr-1-cidr-in"></strong></code> <span
+                    data-i18n="fb_mode2_step1_desc_from_cidr_1b">a binario (total</span> <strong><span
+                        id="fb-m2-cidr-1-prefix"></span></strong> <span
+                    data-i18n="fb_mode2_step1_desc_from_cidr_1c">bits '1'):</span>
+
+            <pre
+                class="feedback-calc"><span class="fb-label" data-i18n="fb_label_cidr">CIDR:</span><span id="fb-m2-cidr-1-cidr"></span>
+<span class="fb-label" data-i18n="fb_label_binario">BINARIO:</span><code class="text-primary" id="fb-m2-cidr-1-bin"></code></pre>
+
+            <span data-i18n="fb_mode2_step1_desc_from_cidr_2">Convertimos el binario a decimal, octeto por
+                octeto:</span>
+            <pre class="feedback-calc"><span class="fb-label" data-i18n="fb_label_binario">BINARIO:</span><code class="text-primary" id="fb-m2-cidr-1-bin-2"></code>
+<span class="fb-label" data-i18n="fb_label_ddn">DDN:</span><strong id="fb-m2-cidr-1-ddn"></strong></pre>
+            </p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode2_step2_title_wildcard">2. Calcular Máscara Wildcard</strong>
+            <p class="fb-desc">
+                <strong data-i18n="fb_mode2_step2_method_a">Método A (Decimal):</strong>
+                <span data-i18n="fb_mode2_step2_method_a_desc"></span>
+            <pre class="feedback-calc"
+                id="fb-m2-wildcard-calc-decimal"><span class="fb-label" data-i18n="fb_label_all_255">Todos 255:</span> <span id="fb-m2-wildcard-all255"></span>
+<span class="fb-label" data-i18n="fb_label_mask_minus">- Máscara:</span> <span id="fb-m2-wildcard-mask-ddn"></span>
+---------------------------------------------------
+<span class="fb-label" data-i18n="fb_label_wildcard">Wildcard:</span> <strong><span id="fb-m2-wildcard-result-ddn"></span></strong></pre>
+
+            <strong class="mt-2 d-block" data-i18n="fb_mode2_step2_method_b">Método B (Binario):</strong>
+            <span data-i18n="fb_mode2_step2_method_b_desc"></span>
+            <pre class="feedback-calc"
+                id="fb-m2-wildcard-calc-binary"><span class="fb-label" data-i18n="fb_label_mask">Máscara:</span> <code class="text-primary" id="fb-m2-wildcard-mask-bin"></code>
+<span class="fb-label" data-i18n="fb_label_inverted">Invertido:</span> <code class="text-primary" id="fb-m2-wildcard-inverted-bin"></code>
+<span class="fb-label" data-i18n="fb_label_wildcard">Wildcard:</span> <strong><span id="fb-m2-wildcard-result-ddn-2"></span></strong></pre>
+            </p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode2_step3_title_netid">3. Calcular Dirección de Red (Network
+                ID)</strong>
+            <p class="fb-desc">
+                <span id="fb-m2-step3-desc" data-i18n="fb_mode2_step3_desc_netid">Realizamos una operación
+                    <strong>AND</strong> bit a bit...</span>
+
+            <pre
+                class="feedback-calc"><span class="fb-label" data-i18n="fb_label_ip">IP:</span> <code class="text-primary" id="fb-m2-netid-ip-bin"></code> (<span id="fb-m2-netid-ip-ddn"></span>)
+<span class="fb-label" data-i18n="fb_label_and_op">& (AND):</span>
+<span class="fb-label" data-i18n="fb_label_mask">Máscara:</span> <code class="text-primary" id="fb-m2-netid-mask-bin"></code> (<span id="fb-m2-netid-mask-ddn"></span>)
+---------------------------------------------------
+<span class="fb-label" data-i18n="fb_label_red">Red:</span> <strong><code class="text-primary" id="fb-m2-netid-net-bin"></code> (<span id="fb-m2-netid-net-ddn"></span>)</strong></pre>
+            </p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode2_step4_title_broadcast">4. Calcular Dirección de
+                Broadcast</strong>
+            <p class="fb-desc">
+                <strong data-i18n="fb_mode2_step4_desc_broadcast">Método A (Wildcard):</strong>
+            <pre class="feedback-calc"
+                id="fb-m2-broadcast-calc-wildcard"><span class="fb-label" data-i18n="fb_label_red">Red:</span> <span id="fb-m2-broadcast-net-ddn"></span>
+<span class="fb-label" data-i18n="fb_label_wildcard_add">+ Wildcard:</span> <span id="fb-m2-broadcast-wild-ddn"></span>
+---------------------------------------------------
+<span class="fb-label" data-i18n="fb_label_broadcast">Broadcast:</span> <strong><span id="fb-m2-broadcast-result-ddn"></span></strong></pre>
+
+            <strong data-i18n="fb_mode2_step4_desc_broadcast_magic" class="mt-2 d-block">Método B (Magic
+                Number):</strong>
+            <ul class="feedback-magic-list list-unstyled ps-3">
+                <li>
+                    <span data-i18n="fb_mode2_step4_magic_1_a">El 'octeto interesante' es el</span>
+                    <strong><span id="fb-m2-s4-m1-octet"></span>º</strong>
+                    (<span data-i18n="fb_mode2_step4_magic_1_b">valor</span> <strong><span
+                            id="fb-m2-s4-m1-value"></span></strong>).
+                </li>
+                <li>
+                    <span data-i18n="fb_mode2_step4_magic_2_a">El 'Número Mágico' es 256 -</span>
+                    <span id="fb-m2-s4-m2-octetval"></span> =
+                    <strong><span id="fb-m2-s4-m2-magic"></span></strong>.
+                </li>
+                <li>
+                    <span data-i18n="fb_mode2_step4_magic_3_a">Los saltos de red son 0,</span>
+                    <span id="fb-m2-s4-m3-magic"></span>,
+                    <span id="fb-m2-s4-m3-magic2x"></span>,
+                    <span data-i18n="fb_mode2_step4_magic_3_b">etc. Nuestra red</span>
+                    (<strong><span id="fb-m2-s4-m3-netoctet"></span></strong>)
+                    <span data-i18n="fb_mode2_step4_magic_3_c">es la primera.</span>
+                </li>
+                <li>
+                    <span data-i18n="fb_mode2_step4_magic_4_a">La Broadcast es (Salto Siguiente - 1). El siguiente salto
+                        es</span>
+                    <strong><span id="fb-m2-s4-m4-magic"></span></strong>.
+                </li>
+                <li>
+                    <span data-i18n="fb_mode2_step4_magic_5_a">El broadcast es</span>
+                    <strong><span id="fb-m2-s4-m5-broadcast"></span></strong>.
+                </li>
+            </ul>
+            </p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode2_step5_title_range">5. Calcular Rango Utilizable</strong>
+            <p class="fb-desc">
+                <span data-i18n="fb_mode2_step5_desc_range">El rango va desde la (ID de Red + 1) hasta la (Broadcast -
+                    1).</span>
+            <div id="fb-m2-range-calc-first" class="mt-2">
+                <strong data-i18n="fb_mode2_step5_desc_range_first_a">Primera IP:</strong>
+                <code><span id="fb-m2-s5-r1-net"></span> + 1</code> =
+                <strong><code><span id="fb-m2-s5-r1-first"></span></code></strong>
+            </div>
+            <div id="fb-m2-range-calc-last">
+                <strong data-i18n="fb_mode2_step5_desc_range_last_a">Última IP:</strong>
+                <code><span id="fb-m2-s5-r2-bcast"></span> - 1</code> =
+                <strong><code><span id="fb-m2-s5-r2-last"></span></code></strong>
+            </div>
+            </p>
+        </li>
+    </ol>
+</template>

@@ -1,0 +1,16 @@
+{
+    "bits_workshop_title": "💡 Bit Workshop",
+    "nav_bit_workshop": "Bit Workshop",
+    "bits_workshop_ip": "IP Address",
+    "bits_workshop_cidr": "CIDR",
+    "bits_workshop_mask": "DDN Mask",
+    "bits_workshop_breakdown": "Binary Breakdown",
+    "bits_workshop_network": "Network",
+    "bits_workshop_host": "Host",
+    "bits_workshop_results": "Results (AND Operation)",
+    "bits_workshop_net_id": "Network ID",
+    "bits_workshop_broadcast": "Broadcast",
+    "bits_workshop_summary": "Summary",
+    "bits_workshop_wildcard": "Wildcard",
+    "bits_workshop_hosts_calc": "Host Calculation"
+}

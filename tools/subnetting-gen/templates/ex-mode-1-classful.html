@@ -1,0 +1,68 @@
+<template id="ex-mode-1-classful-template">
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-cidr" class="col-form-label" data-i18n="ex_label_new_mask_cidr">Nueva Máscara (Formato
+                CIDR)</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-cidr" class="form-control" data-i18n-placeholder="ex_ph_cidr"
+                aria-label="Nueva Máscara (Formato CIDR)">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-totalsubnets" class="col-form-label" data-i18n="ex_label_total_subnets">Subredes Totales
+                Generadas</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="number" id="ans-totalsubnets" class="form-control" data-i18n-placeholder="ex_ph_number"
+                aria-label="Subredes Totales Generadas">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-usablesubnets" class="col-form-label" data-i18n="ex_label_usable_subnets">Subredes
+                Utilizables (-2)</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="number" id="ans-usablesubnets" class="form-control" data-i18n-placeholder="ex_ph_number"
+                aria-label="Subredes Utilizables (-2)">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-usablehosts" class="col-form-label" data-i18n="ex_label_usable_hosts_per_subnet">Hosts
+                Usables por Subred</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="number" id="ans-usablehosts" class="form-control" data-i18n-placeholder="ex_ph_number"
+                aria-label="Hosts Usables por Subred">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-targetnet" class="col-form-label" data-i18n="ex_label_nth_subnet_network"
+                id="label-targetnet">Dirección de Red de la N-ésima Subred</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-targetnet" class="form-control" data-i18n-placeholder="ex_ph_ip_network"
+                aria-label="Dirección de Red de la N-ésima Subred">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center mb-2">
+        <div class="col-sm-5">
+            <label for="ans-targetrange" class="col-form-label" data-i18n="ex_label_nth_subnet_host_range"
+                id="label-targetrange">Rango de Hosts de la N-ésima Subred</label>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" id="ans-targetrange" class="form-control" data-i18n-placeholder="ex_ph_ip_range"
+                aria-label="Rango de Hosts de la N-ésima Subred">
+            <div class="invalid-feedback" data-i18n="ex_feedback_incorrect">Respuesta incorrecta.</div>
+        </div>
+    </div>
+</template>

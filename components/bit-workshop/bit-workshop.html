@@ -1,0 +1,83 @@
+<!--
+  Plantilla HTML para el Panel "Taller de Bits" (Offcanvas de Bootstrap)
+-->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="bitWorkshopPanel" aria-labelledby="bitWorkshopPanelLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="bitWorkshopPanelLabel" data-i18n="bits_workshop_title">💡 Taller de Bits</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+
+        <!-- Sección de Inputs (para modo standalone) -->
+        <div class="mb-3">
+            <label for="workshop-ip" class="form-label" data-i18n="bits_workshop_ip">Dirección IP</label>
+            <input type="text" class="form-control" id="workshop-ip" placeholder="Ej: 172.20.100.5">
+        </div>
+        <div class="row g-2 mb-3">
+            <div class="col">
+                <label for="workshop-cidr" class="form-label" data-i18n="bits_workshop_cidr">CIDR</label>
+                <input type="number" class="form-control" id="workshop-cidr" placeholder="Ej: 22" min="0" max="32">
+            </div>
+            <div class="col">
+                <label for="workshop-mask" class="form-label" data-i18n="bits_workshop_mask">Máscara DDN</label>
+                <input type="text" class="form-control" id="workshop-mask" placeholder="Ej: 255.255.252.0">
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Sección de Desglose Binario -->
+        <h6 data-i18n="bits_workshop_breakdown">Desglose Binario</h6>
+        <div class="binary-legend">
+            <span class="bit-network-dot" data-i18n="bits_workshop_network">Red</span>
+            <span class="bit-host-dot" data-i18n="bits_workshop_host">Host</span>
+        </div>
+
+        <div class="bit-workshop-code">
+            <div class="binary-row">
+                <span data-i18n="bits_workshop_ip">IP</span>
+                <div id="workshop-binary-ip" class="bit-grid"></div>
+            </div>
+            <div class="binary-row">
+                <span data-i18n="bits_workshop_mask">Máscara</span>
+                <div id="workshop-binary-mask" class="bit-grid"></div>
+            </div>
+        </div>
+
+        <!-- Sección de Resultados -->
+        <h6 class="mt-4" data-i18n="bits_workshop_results">Resultados (Operación AND)</h6>
+
+        <div class="bit-workshop-code">
+            <div class="binary-row">
+                <span data-i18n="bits_workshop_net_id">ID de Red</span>
+                <div id="workshop-binary-network" class="bit-grid"></div>
+            </div>
+            <div class="binary-row">
+                <span data-i18n="bits_workshop_broadcast">Broadcast</span>
+                <div id="workshop-binary-broadcast" class="bit-grid"></div>
+            </div>
+        </div>
+
+        <!-- Sección de Resumen Decimal -->
+        <h6 class="mt-4" data-i18n="bits_workshop_summary">Resumen</h6>
+        <ul class="list-group list-group-flush" id="workshop-summary-list">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span data-i18n="bits_workshop_net_id">ID de Red</span>
+                <strong id="workshop-summary-network">N/A</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span data-i18n="bits_workshop_broadcast">Broadcast</span>
+                <strong id="workshop-summary-broadcast">N/A</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span data-i18n="bits_workshop_wildcard">Wildcard</span>
+                <strong id="workshop-summary-wildcard">N/A</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span data-i18n="bits_workshop_hosts_calc">Cálculo de Hosts</span>
+                <strong id="workshop-summary-hosts">N/A</strong>
+            </li>
+        </ul>
+
+    </div>
+</div>

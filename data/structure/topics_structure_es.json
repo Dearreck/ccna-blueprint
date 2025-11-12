@@ -1,0 +1,543 @@
+[
+    {
+        "categoryId": "1.0-network-fundamentals",
+        "topics": [
+            {
+                "id": "1.1",
+                "description": "Explicar el rol y la función de los componentes de la red",
+                "subtopics": [
+                    {
+                        "id": "1.1.a",
+                        "description": "Routers"
+                    },
+                    {
+                        "id": "1.1.b",
+                        "description": "Switches de Capa 2 y Capa 3"
+                    },
+                    {
+                        "id": "1.1.c",
+                        "description": "Firewalls de próxima generación e IPS"
+                    },
+                    {
+                        "id": "1.1.d",
+                        "description": "Puntos de acceso"
+                    },
+                    {
+                        "id": "1.1.e",
+                        "description": "Controladores"
+                    },
+                    {
+                        "id": "1.1.f",
+                        "description": "Endpoints"
+                    },
+                    {
+                        "id": "1.1.g",
+                        "description": "Servidores"
+                    },
+                    {
+                        "id": "1.1.h",
+                        "description": "POE"
+                    }
+                ]
+            },
+            {
+                "id": "1.2",
+                "description": "Describir características de las arquitecturas de topología de red",
+                "subtopics": [
+                    {
+                        "id": "1.2.a",
+                        "description": "Dos niveles (Two-tier)"
+                    },
+                    {
+                        "id": "1.2.b",
+                        "description": "Tres niveles (Three-tier)"
+                    },
+                    {
+                        "id": "1.2.c",
+                        "description": "Spine-leaf"
+                    },
+                    {
+                        "id": "1.2.d",
+                        "description": "WAN"
+                    },
+                    {
+                        "id": "1.2.e",
+                        "description": "Oficina pequeña/oficina en casa (SOHO)"
+                    },
+                    {
+                        "id": "1.2.f",
+                        "description": "On-premises y nube"
+                    }
+                ]
+            },
+            {
+                "id": "1.3",
+                "description": "Comparar tipos de interfaces físicas y cableado",
+                "subtopics": [
+                    {
+                        "id": "1.3.a",
+                        "description": "Fibra monomodo, fibra multimodo, cobre"
+                    },
+                    {
+                        "id": "1.3.b",
+                        "description": "Conexiones (Medios compartidos Ethernet y punto a punto)"
+                    }
+                ]
+            },
+            {
+                "id": "1.4",
+                "description": "Identificar problemas de interfaz y cable (colisiones, errores, dúplex/velocidad no coincidentes)",
+                "subtopics": []
+            },
+            {
+                "id": "1.5",
+                "description": "Comparar TCP con UDP",
+                "subtopics": []
+            },
+            {
+                "id": "1.6",
+                "description": "Configurar y verificar direccionamiento y subnetting IPv4",
+                "subtopics": []
+            },
+            {
+                "id": "1.7",
+                "description": "Describir direccionamiento IPv4 privado",
+                "subtopics": []
+            },
+            {
+                "id": "1.8",
+                "description": "Configurar y verificar direccionamiento y prefijo IPv6",
+                "subtopics": []
+            },
+            {
+                "id": "1.9",
+                "description": "Describir tipos de direcciones IPv6",
+                "subtopics": [
+                    {
+                        "id": "1.9.a",
+                        "description": "Unicast (global, local única y link-local)"
+                    },
+                    {
+                        "id": "1.9.b",
+                        "description": "Anycast"
+                    },
+                    {
+                        "id": "1.9.c",
+                        "description": "Multicast"
+                    },
+                    {
+                        "id": "1.9.d",
+                        "description": "EUI-64 Modificado"
+                    }
+                ]
+            },
+            {
+                "id": "1.10",
+                "description": "Verificar parámetros IP para SO cliente (Windows, Mac OS, Linux)",
+                "subtopics": []
+            },
+            {
+                "id": "1.11",
+                "description": "Describir principios inalámbricos",
+                "subtopics": [
+                    {
+                        "id": "1.11.a",
+                        "description": "Canales Wi-Fi no superpuestos"
+                    },
+                    {
+                        "id": "1.11.b",
+                        "description": "SSID"
+                    },
+                    {
+                        "id": "1.11.c",
+                        "description": "RF"
+                    },
+                    {
+                        "id": "1.11.d",
+                        "description": "Cifrado"
+                    }
+                ]
+            },
+            {
+                "id": "1.12",
+                "description": "Explicar fundamentos de virtualización (virtualización de servidores, contenedores y VRFs)",
+                "subtopics": []
+            },
+            {
+                "id": "1.13",
+                "description": "Describir conceptos de conmutación",
+                "subtopics": [
+                    {
+                        "id": "1.13.a",
+                        "description": "Aprendizaje y envejecimiento de MAC"
+                    },
+                    {
+                        "id": "1.13.b",
+                        "description": "Conmutación de tramas"
+                    },
+                    {
+                        "id": "1.13.c",
+                        "description": "Inundación de tramas"
+                    },
+                    {
+                        "id": "1.13.d",
+                        "description": "Tabla de direcciones MAC"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "categoryId": "2.0-network-access",
+        "topics": [
+            {
+                "id": "2.1",
+                "description": "Configurar y verificar VLANs (rango normal) extendiéndose por múltiples switches",
+                "subtopics": [
+                    {
+                        "id": "2.1.a",
+                        "description": "Puertos de acceso (datos y voz)"
+                    },
+                    {
+                        "id": "2.1.b",
+                        "description": "VLAN por defecto"
+                    },
+                    {
+                        "id": "2.1.c",
+                        "description": "Conectividad InterVLAN"
+                    },
+                    {
+                        "id": "2.1.d",
+                        "description": "Puertos troncales"
+                    }
+                ]
+            },
+            {
+                "id": "2.2",
+                "description": "Configurar y verificar conectividad entre switches",
+                "subtopics": [
+                    {
+                        "id": "2.2.a",
+                        "description": "802.1Q"
+                    },
+                    {
+                        "id": "2.2.b",
+                        "description": "VLAN Nativa"
+                    }
+                ]
+            },
+            {
+                "id": "2.3",
+                "description": "Configurar y verificar protocolos de descubrimiento de Capa 2 (CDP y LLDP)",
+                "subtopics": []
+            },
+            {
+                "id": "2.4",
+                "description": "Configurar y verificar EtherChannel (Capa 2/Capa 3) (LACP)",
+                "subtopics": []
+            },
+            {
+                "id": "2.5",
+                "description": "Interpretar operaciones básicas de Rapid PVST+ Spanning Tree Protocol",
+                "subtopics": [
+                    {
+                        "id": "2.5.a",
+                        "description": "Puerto raíz, puente raíz (primario/secundario) y otros nombres de puerto"
+                    },
+                    {
+                        "id": "2.5.b",
+                        "description": "Estados y roles de puerto"
+                    },
+                    {
+                        "id": "2.5.c",
+                        "description": "PortFast"
+                    },
+                    {
+                        "id": "2.5.d",
+                        "description": "Root guard, loop guard, BPDU filter y BPDU guard"
+                    }
+                ]
+            },
+            {
+                "id": "2.6",
+                "description": "Describir arquitecturas inalámbricas de Cisco y modos de AP",
+                "subtopics": []
+            },
+            {
+                "id": "2.7",
+                "description": "Describir conexiones de infraestructura física de componentes WLAN (AP, WLC, puertos acceso/troncal y LAG)",
+                "subtopics": []
+            },
+            {
+                "id": "2.8",
+                "description": "Describir acceso de gestión de dispositivos de red (Telnet, SSH, HTTP, HTTPS, consola, TACACS+/RADIUS y gestión en nube)",
+                "subtopics": []
+            },
+            {
+                "id": "2.9",
+                "description": "Interpretar configuración GUI de LAN inalámbrica para conectividad de cliente (creación WLAN, seguridad, QoS, ajustes avanzados)",
+                "subtopics": []
+            }
+        ]
+    },
+    {
+        "categoryId": "3.0-ip-connectivity",
+        "topics": [
+            {
+                "id": "3.1",
+                "description": "Interpretar los componentes de la tabla de enrutamiento",
+                "subtopics": [
+                    {
+                        "id": "3.1.a",
+                        "description": "Código de protocolo de enrutamiento"
+                    },
+                    {
+                        "id": "3.1.b",
+                        "description": "Prefijo"
+                    },
+                    {
+                        "id": "3.1.c",
+                        "description": "Máscara de red"
+                    },
+                    {
+                        "id": "3.1.d",
+                        "description": "Siguiente salto"
+                    },
+                    {
+                        "id": "3.1.e",
+                        "description": "Distancia administrativa"
+                    },
+                    {
+                        "id": "3.1.f",
+                        "description": "Métrica"
+                    },
+                    {
+                        "id": "3.1.g",
+                        "description": "Gateway de último recurso"
+                    }
+                ]
+            },
+            {
+                "id": "3.2",
+                "description": "Determinar cómo un router toma una decisión de reenvío por defecto",
+                "subtopics": [
+                    {
+                        "id": "3.2.a",
+                        "description": "Coincidencia de prefijo más larga"
+                    },
+                    {
+                        "id": "3.2.b",
+                        "description": "Distancia administrativa"
+                    },
+                    {
+                        "id": "3.2.c",
+                        "description": "Métrica de protocolo de enrutamiento"
+                    }
+                ]
+            },
+            {
+                "id": "3.3",
+                "description": "Configurar y verificar enrutamiento estático IPv4 e IPv6",
+                "subtopics": [
+                    {
+                        "id": "3.3.a",
+                        "description": "Ruta por defecto"
+                    },
+                    {
+                        "id": "3.3.b",
+                        "description": "Ruta de red"
+                    },
+                    {
+                        "id": "3.3.c",
+                        "description": "Ruta de host"
+                    },
+                    {
+                        "id": "3.3.d",
+                        "description": "Estática flotante"
+                    }
+                ]
+            },
+            {
+                "id": "3.4",
+                "description": "Configurar y verificar OSPFv2 de área única",
+                "subtopics": [
+                    {
+                        "id": "3.4.a",
+                        "description": "Adyacencias de vecinos"
+                    },
+                    {
+                        "id": "3.4.b",
+                        "description": "Punto a punto"
+                    },
+                    {
+                        "id": "3.4.c",
+                        "description": "Broadcast (selección DR/BDR)"
+                    },
+                    {
+                        "id": "3.4.d",
+                        "description": "Router ID"
+                    }
+                ]
+            },
+            {
+                "id": "3.5",
+                "description": "Describir el propósito, funciones y conceptos de protocolos de redundancia de primer salto",
+                "subtopics": []
+            }
+        ]
+    },
+    {
+        "categoryId": "4.0-ip-services",
+        "topics": [
+            {
+                "id": "4.1",
+                "description": "Configurar y verificar NAT de origen interno usando estática y pools",
+                "subtopics": []
+            },
+            {
+                "id": "4.2",
+                "description": "Configurar y verificar NTP operando en modo cliente y servidor",
+                "subtopics": []
+            },
+            {
+                "id": "4.3",
+                "description": "Explicar el rol de DHCP y DNS dentro de la red",
+                "subtopics": []
+            },
+            {
+                "id": "4.4",
+                "description": "Explicar la función de SNMP en operaciones de red",
+                "subtopics": []
+            },
+            {
+                "id": "4.5",
+                "description": "Describir el uso de características syslog, incluyendo 'facilities' y niveles de severidad",
+                "subtopics": []
+            },
+            {
+                "id": "4.6",
+                "description": "Configurar y verificar cliente y relay DHCP",
+                "subtopics": []
+            },
+            {
+                "id": "4.7",
+                "description": "Explicar el comportamiento de reenvío por salto (PHB) para QoS (clasificación, marcado, colas, congestión, policing, shaping)",
+                "subtopics": []
+            },
+            {
+                "id": "4.8",
+                "description": "Configurar dispositivos de red para acceso remoto usando SSH",
+                "subtopics": []
+            },
+            {
+                "id": "4.9",
+                "description": "Describir las capacidades y funciones de TFTP/FTP en la red",
+                "subtopics": []
+            }
+        ]
+    },
+    {
+        "categoryId": "5.0-security-fundamentals",
+        "topics": [
+            {
+                "id": "5.1",
+                "description": "Definir conceptos clave de seguridad (amenazas, vulnerabilidades, exploits, técnicas de mitigación)",
+                "subtopics": []
+            },
+            {
+                "id": "5.2",
+                "description": "Describir elementos del programa de seguridad (concienciación usuario, formación, control acceso físico)",
+                "subtopics": []
+            },
+            {
+                "id": "5.3",
+                "description": "Configurar y verificar control de acceso a dispositivos usando contraseñas locales",
+                "subtopics": []
+            },
+            {
+                "id": "5.4",
+                "description": "Describir elementos de políticas de contraseñas (gestión, complejidad, alternativas: MFA, certificados, biometría)",
+                "subtopics": []
+            },
+            {
+                "id": "5.5",
+                "description": "Describir VPNs IPsec de acceso remoto y sitio a sitio",
+                "subtopics": []
+            },
+            {
+                "id": "5.6",
+                "description": "Configurar y verificar listas de control de acceso",
+                "subtopics": []
+            },
+            {
+                "id": "5.7",
+                "description": "Configurar y verificar características de seguridad Capa 2 (DHCP snooping, DAI, port security)",
+                "subtopics": []
+            },
+            {
+                "id": "5.8",
+                "description": "Comparar conceptos de autenticación, autorización y contabilidad (AAA)",
+                "subtopics": []
+            },
+            {
+                "id": "5.9",
+                "description": "Describir protocolos de seguridad inalámbrica (WPA, WPA2, WPA3)",
+                "subtopics": []
+            },
+            {
+                "id": "5.10",
+                "description": "Configurar y verificar WLAN en GUI usando WPA2 PSK",
+                "subtopics": []
+            }
+        ]
+    },
+    {
+        "categoryId": "6.0-automation-programmability",
+        "topics": [
+            {
+                "id": "6.1",
+                "description": "Explicar cómo la automatización impacta la gestión de redes",
+                "subtopics": []
+            },
+            {
+                "id": "6.2",
+                "description": "Comparar redes tradicionales con redes basadas en controladores",
+                "subtopics": []
+            },
+            {
+                "id": "6.3",
+                "description": "Describir arquitectura definida por software basada en controlador (overlay, underlay, fabric)",
+                "subtopics": [
+                    {
+                        "id": "6.3.a",
+                        "description": "Separación plano de control y plano de datos"
+                    },
+                    {
+                        "id": "6.3.b",
+                        "description": "APIs Northbound y Southbound"
+                    }
+                ]
+            },
+            {
+                "id": "6.4",
+                "description": "Explicar IA (generativa y predictiva) y aprendizaje automático en operaciones de red",
+                "subtopics": []
+            },
+            {
+                "id": "6.5",
+                "description": "Describir características de APIs basadas en REST (autenticación, CRUD, verbos HTTP, codificación datos)",
+                "subtopics": []
+            },
+            {
+                "id": "6.6",
+                "description": "Reconocer capacidades de mecanismos de gestión de configuración (Ansible, Terraform)",
+                "subtopics": []
+            },
+            {
+                "id": "6.7",
+                "description": "Reconocer componentes de datos codificados en JSON",
+                "subtopics": []
+            }
+        ]
+    }
+]

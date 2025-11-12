@@ -1,0 +1,100 @@
+<template id="ex-mode-1-feedback-template">
+    <h5 class="alert-heading" data-i18n="fb_detailed_solution">Solución Detallada</h5>
+    <hr>
+    <ol class="list-group list-group-flush feedback-step-list">
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode1_step1_title"></strong>
+
+            <div id="fb-m1-s1-subnets" class="d-none">
+                <p class="fb-desc">
+                    <span data-i18n="fb_mode1_step1_desc_subnets_1"></span>
+                    <strong><span id="fb-m1-s1-subnets-req"></span></strong>
+                    <span data-i18n="fb_mode1_step1_desc_subnets_2"></span>
+                </p>
+                <p class="fb-desc" data-i18n="fb_mode1_step1_desc_subnets_3"></p>
+                <pre
+                    class="feedback-calc"><code><span id="fb-m1-s1-subnets-req-2"></span> + 2 = <strong id="fb-m1-s1-subnets-total"></strong></code></pre>
+            </div>
+
+            <div id="fb-m1-s1-hosts" class="d-none">
+                <p class="fb-desc">
+                    <span data-i18n="fb_mode1_step1_desc_hosts_1"></span>
+                    <strong><span id="fb-m1-s1-hosts-req"></span></strong>
+                    <span data-i18n="fb_mode1_step1_desc_hosts_2"></span>
+                </p>
+            </div>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode1_step2_title"></strong>
+
+            <div id="fb-m1-s2-subnets" class="d-none">
+                <p class="fb-desc">
+                    <span data-i18n="fb_mode1_step2_desc_subnets_1"></span>
+                    <code><span id="fb-m1-s2-subnets-formula"></span> >= <span id="fb-m1-s2-subnets-total"></span></code>
+                    <span data-i18n="fb_mode1_step2_desc_subnets_2"></span>
+                </p>
+                <pre class="feedback-calc"><code><span id="fb-m1-s2-subnets-result"></span></code></pre>
+                <p class="fb-desc">
+                    <span data-i18n="fb_mode1_step2_desc_subnets_3"></span>
+                    <strong><span id="fb-m1-s2-subnets-bits"></span></strong>
+                    <span data-i18n="fb_mode1_step2_desc_subnets_4"></span>
+                </p>
+            </div>
+
+            <div id="fb-m1-s2-hosts" class="d-none">
+                <p class="fb-desc">
+                    <span data-i18n="fb_mode1_step2_desc_hosts_1"></span>
+                    <code><span id="fb-m1-s2-hosts-formula"></span> >= <span id="fb-m1-s2-hosts-req"></span></code>
+                    <span data-i18n="fb_mode1_step2_desc_hosts_2"></span>
+                </p>
+                <pre class="feedback-calc"><code><span id="fb-m1-s2-hosts-result"></span></code></pre>
+                <p class="fb-desc">
+                    <span data-i18n="fb_mode1_step2_desc_hosts_3"></span>
+                    <strong><span id="fb-m1-s2-hosts-bits-H"></span></strong>
+                    <span data-i18n="fb_mode1_step2_desc_hosts_4"></span>
+                </p>
+                <pre
+                    class="feedback-calc"><code><span id="fb-m1-s2-hosts-defaulthost"></span> (default) - <span id="fb-m1-s2-hosts-bits-H-2"></span> (reservados) = <strong id="fb-m1-s2-hosts-bits-n"></strong> bits de subred</code></pre>
+            </div>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode1_step3_title"></strong>
+            <p class="fb-desc">
+                <span data-i18n="fb_mode1_step3_desc_1"></span>
+                <code>/<span id="fb-m1-s3-defaultcidr"></span></code>.
+                <span data-i18n="fb_mode1_step3_desc_2"></span>
+            </p>
+            <pre
+                class="feedback-calc"><code><span id="fb-m1-s3-defaultcidr-2"></span> + <span id="fb-m1-s3-bitsneeded"></span> = <strong id="fb-m1-s3-newcidr"></strong></code></pre>
+            <p class="fb-desc">
+                <span data-i18n="fb_mode1_step3_desc_3"></span>
+                <strong><span id="fb-m1-s3-newcidr-2"></span></strong>
+                <span data-i18n="fb_mode1_step3_desc_4"></span>
+                <strong><span id="fb-m1-s3-newmaskddn"></span></strong>).
+            </p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode1_step4_title"></strong>
+            <p class="fb-desc" data-i18n="fb_mode1_step4_desc_1"></p>
+            <pre
+                class="feedback-calc"><code>2^<span id="fb-m1-s4-bitsneeded"></span> = <strong id="fb-m1-s4-totalsubnets"></strong></code></pre>
+
+            <p class="fb-desc" data-i18n="fb_mode1_step4_desc_2"></p>
+            <pre
+                class="feedback-calc"><code><span id="fb-m1-s4-totalsubnets-2"></span> - 2 = <strong id="fb-m1-s4-usablesubnets"></strong></code></pre>
+
+            <p class="fb-desc" data-i18n="fb_mode1_step4_desc_3"></p>
+            <pre
+                class="feedback-calc"><code>32 - <span id="fb-m1-s4-newcidr"></span> = <strong id="fb-m1-s4-hostbits"></strong></code></pre>
+
+            <p class="fb-desc" data-i18n="fb_mode1_step4_desc_4"></p>
+            <pre
+                class="feedback-calc"><code>2^<span id="fb-m1-s4-hostbits-2"></span> - 2 = <strong id="fb-m1-s4-usablehosts"></strong></code></pre>
+            <p class="fb-desc fst-italic"><small data-i18n="fb_mode1_step4_desc_5"></small></p>
+        </li>
+    </ol>
+</template>

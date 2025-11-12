@@ -1,0 +1,127 @@
+<nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="/">
+            <i class="fas fa-graduation-cap fa-lg me-2"></i>
+            <span>CCNA Blueprint</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavContent"
+            aria-controls="navbarNavContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" data-i18n="nav_exam">
+                        <i class="fas fa-file-alt fa-fw me-2"></i>Simulador Examen
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="/exam-simulator/" data-i18n="nav_custom_exam">
+                                <i class="fas fa-sliders-h fa-fw me-2"></i>Simulador Personalizado
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/exam-simulator/?mode=study&count=25&categories=all"
+                                data-i18n="nav_quick_exam">
+                                <i class="fas fa-rocket fa-fw me-2"></i>Examen Rápido
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="/exam-simulator/?initialMode=flashcard"
+                                data-i18n="nav_flashcards">
+                                <i class="fas fa-layer-group fa-fw me-2"></i>Modo Flashcard <small>(Próx.)</small>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" data-i18n="nav_practice">
+                        <i class="fas fa-tools fa-fw me-2"></i>Centro de Práctica
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/tools/subnetting-sprint/"><i
+                                    class="fas fa-shipping-fast fa-fw me-2"></i><span data-i18n="sprint_title">Sprint de
+                                    Subnetting</span></a></li>
+                        <li><a class="dropdown-item" href="/tools/subnetting-gen/"><i
+                                    class="fas fa-calculator fa-fw me-2"></i><span data-i18n="nav_subnetting">Generador
+                                    Subneteo</span></a></li>
+                        <li><a class="dropdown-item" href="#" id="standalone-workshop-trigger">
+                                <i class="fas fa-microscope fa-fw me-2"></i>
+                                <span data-i18n="nav_bit_workshop">Taller de Bits</span>
+                            </a></li>
+                        <li><a class="dropdown-item" href="/tools/password-cracker/"><i
+                                    class="fas fa-key fa-fw me-2"></i><span data-i18n="nav_password">Descifrador
+                                    Contraseña</span></a></li>
+                        <li>
+                            <hr class="d-lg-none w-100">
+                        </li>
+                        <li><a class="dropdown-item disabled" href="#"><i class="fas fa-terminal fa-fw me-2"></i><span
+                                    data-i18n="cli_simulator_title">Simulador CLI</span> <small>(Próx.)</small></a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" data-i18n="nav_library">
+                        <i class="fas fa-book fa-fw me-2"></i>Biblioteca
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item disabled" href="#"><i class="fas fa-book-open fa-fw me-2"></i><span
+                                    data-i18n="concepts_library_title">Conceptos Clave</span> <small>(Próx.)</small></a>
+                        </li>
+                        <li><a class="dropdown-item disabled" href="#"><i class="fas fa-file-alt fa-fw me-2"></i><span
+                                    data-i18n="cheatsheets_title">Guías Rápidas</span> <small>(Próx.)</small></a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="/glossary/"><i
+                                    class="fas fa-spell-check fa-fw me-2"></i><span
+                                    data-i18n="nav_glossary">Glosario</span></a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/" data-i18n="nav_blog"><i
+                            class="fas fa-blog fa-fw me-2"></i>Blog</a>
+                </li>
+            </ul>
+
+            <div class="d-flex flex-column flex-lg-row align-items-center ms-lg-auto" id="navbar-actions-wrapper">
+                <form class="d-flex w-100 w-lg-auto my-3 my-lg-0 me-lg-3">
+                    <input class="form-control form-control-sm form-control-search" type="search"
+                        placeholder="Buscar..." aria-label="Search" data-i18n-placeholder="search_placeholder">
+                </form>
+
+                <hr class="d-lg-none w-100">
+
+                <div class="d-flex flex-row align-items-center">
+                    <a href="#" class="nav-link" id="theme-toggle-button" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </a>
+                    <a href="#" class="nav-link ms-3" id="language-toggle-button" aria-label="Toggle language">
+                        <i class="fas fa-globe me-1"></i>
+                        <span id="language-toggle-text"></span>
+                    </a>
+                    <div class="nav-item dropdown ms-3">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" aria-label="User menu">
+                            <i class="fas fa-user-circle fa-lg"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item disabled" href="#"><i
+                                        class="fas fa-chart-line fa-fw me-2"></i><span data-i18n="user_progress">Mi
+                                        Progreso</span></a></li>
+                            <li><a class="dropdown-item disabled" href="#"><i class="fas fa-trophy fa-fw me-2"></i><span
+                                        data-i18n="user_achievements">Mis Logros</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

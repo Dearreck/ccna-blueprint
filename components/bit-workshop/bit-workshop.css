@@ -1,0 +1,192 @@
+/*
+ * Estilos para el Taller de Bits (MODO "TABLA 32 COLUMNAS" v2)
+ * Implementa la visión del usuario de celdas fijas, nibbles y octetos.
+ */
+
+.offcanvas {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+    border-left: 1px solid var(--border-color-light);
+    box-shadow: -0.25rem 0 1rem rgba(0, 0, 0, 0.1);
+    width: 500px;
+    max-width: 90vw;
+    overflow: auto;
+}
+
+.offcanvas-header {
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+.offcanvas-body .form-label {
+    font-weight: 600;
+    font-family: var(--font-heading);
+}
+
+.offcanvas-body .list-group-item {
+    background-color: transparent;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Petición 1: Espaciado vertical reducido */
+.bit-workshop-code {
+    background-color: var(--text-color-dark);
+    /* Tu fondo personalizado */
+    border: 1px solid var(--border-color-light);
+    border-radius: 0.5rem;
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 0.85rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0.25rem 0.75rem;
+}
+
+.binary-row {
+    display: flex;
+    align-items: flex-start;
+    /* Petición 1: Espaciado vertical (en medio) reducido */
+    margin-bottom: 0.25rem;
+    padding: 0.75rem;
+}
+
+.binary-row:last-child {
+    margin-bottom: 0;
+}
+
+/* Petición 4: Etiquetas alineadas */
+.binary-row>span:first-child {
+    display: inline-block;
+    width: 90px;
+    /* Tu ancho fijo */
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 600;
+    flex-shrink: 0;
+    margin-right: 0.5rem;
+    color: var(--text-color-light);
+}
+
+/* --- Lógica de Fila de Bits (reemplaza Grid) --- */
+
+.bit-grid {
+    display: flex;
+    /* Usamos flexbox, es más simple que grid aquí */
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+/* Petición 1: Alineación fija (columna de 12px) */
+.bit-cell {
+    display: inline-block;
+    width: 12px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    font-weight: 600;
+    font-family: 'Courier New', Consolas, monospace;
+}
+
+/* Petición 2: Separador de Nibble (espacio) */
+.nibble-spacer {
+    display: inline-block;
+    width: 4px;
+    /* Tu "columna" de espacio en blanco */
+}
+
+/* Petición 2: Separador de Octeto (punto) */
+.octet-spacer {
+    display: inline-block;
+    width: 6px;
+    text-align: center;
+    color: var(--text-color-light);
+    opacity: 0.7;
+}
+
+/* Petición 3: Separador de Red/Host (Cyan) */
+.bit-separator {
+    border-right: 2px solid var(--info-highlight-color-light);
+    /* Cyan (light) */
+}
+
+/* --- FIN Lógica de Fila de Bits --- */
+
+.binary-legend {
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding: 0 0.25rem;
+}
+
+.binary-legend span {
+    display: flex;
+    align-items: center;
+}
+
+.bit-network-dot::before,
+.bit-host-dot::before {
+    content: '●';
+    margin-right: 0.5rem;
+}
+
+/* Colores para bits (Tema Claro) */
+.bit-network {
+    color: var(--primary-color-light);
+}
+
+.bit-host {
+    color: var(--accent-color-light);
+}
+
+.bit-network-dot::before {
+    color: var(--primary-color-light);
+}
+
+.bit-host-dot::before {
+    color: var(--accent-color-light);
+}
+
+/* --- Tema oscuro --- */
+html[data-bs-theme='dark'] .offcanvas {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+    border-left: 1px solid var(--border-color-dark);
+    box-shadow: -0.25rem 0 1rem rgba(0, 0, 0, 0.3);
+}
+
+html[data-bs-theme='dark'] .bit-workshop-code {
+    background-color: var(--bs-body-bg);
+    border-color: var(--border-color-dark);
+}
+
+html[data-bs-theme='dark'] .binary-row>span:first-child {
+    color: var(--text-color-dark);
+}
+
+html[data-bs-theme='dark'] .octet-spacer {
+    color: var(--primary-color-dark);
+}
+
+/* Colores de bits (Tema Oscuro) */
+html[data-bs-theme='dark'] .bit-network {
+    color: var(--primary-color-dark);
+}
+
+html[data-bs-theme='dark'] .bit-host {
+    color: var(--bs-orange);
+}
+
+/* Petición 3: Separador (Cyan) - Tema Oscuro */
+html[data-bs-theme='dark'] .bit-separator {
+    border-right-color: var(--info-highlight-color-dark);
+}
+
+/* Leyenda (Tema Oscuro) */
+html[data-bs-theme='dark'] .bit-network-dot::before {
+    color: var(--primary-color-dark);
+}
+
+html[data-bs-theme='dark'] .bit-host-dot::before {
+    color: var(--bs-orange);
+}

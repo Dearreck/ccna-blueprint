@@ -1,0 +1,21 @@
+<template id="setup-topic-accordion-item-template">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading-category-X">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapse-category-X" aria-expanded="false" aria-controls="collapse-category-X">
+                <div class="d-flex w-100 align-items-center">
+                    <input class="form-check-input me-2 category-master-checkbox" type="checkbox" value=""
+                        id="master-check-category-X" data-category-id="">
+                    <label class="form-check-label flex-grow-1 category-accordion-title" for="master-check-category-X">
+                        Category Name (X%)
+                    </label>
+                </div>
+            </button>
+        </h2>
+        <div id="collapse-category-X" class="accordion-collapse collapse" aria-labelledby="heading-category-X"
+            data-bs-parent="#topic-accordion">
+            <div class="accordion-body topic-list-container">
+            </div>
+        </div>
+    </div>
+</template>

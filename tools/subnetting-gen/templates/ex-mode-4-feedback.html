@@ -1,0 +1,85 @@
+<template id="ex-mode-4-feedback-template">
+    <h5 class="alert-heading" data-i18n="fb_detailed_solution">Solución Detallada</h5>
+    <hr>
+
+    <ol class="list-group list-group-flush feedback-step-list">
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode4_step1_title"></strong>
+            <p class="fb-desc">
+                <span data-i18n="fb_mode4_step1_desc_1"></span>
+                <strong><span id="fb-m4-s1-fixedoctets"></span></strong>
+                <span data-i18n="fb_mode4_step1_desc_2"></span>
+            </p>
+            <pre class="feedback-calc" id="fb-m4-list-networks"></pre>
+            <p class="fb-desc" id="fb-m4-s1-desc-3"></p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode4_step2_title"></strong>
+            <p class="fb-desc" data-i18n="fb_mode4_step2_desc_1"></p>
+            <pre class="feedback-calc" id="fb-m4-binary-table"></pre>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode4_step3_title"></strong>
+            <p class="fb-desc" id="fb-m4-s3-desc-2"></p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode4_step4_title"></strong>
+
+            <p class="fb-desc mb-0" id="fb-m4-s4-desc-1"></p>
+            <pre class="feedback-calc py-2"><code><strong id="fb-m4-s4-basebits"></strong> bits</code></pre>
+
+            <p class="fb-desc mb-0" id="fb-m4-s4-desc-2"></p>
+            <pre class="feedback-calc py-2"><code><strong id="fb-m4-s4-commonbits"></strong> bits</code></pre>
+
+            <p class="fb-desc" data-i18n="fb_mode4_step4_desc_3"></p>
+            <pre
+                class="feedback-calc"><code><span id="fb-m4-s4-calc-base"></span> + <span id="fb-m4-s4-calc-common"></span> = <strong id="fb-m4-s4-newprefix"></strong></code></pre>
+
+            <p class="fb-desc" id="fb-m4-s4-desc-4"></p>
+        </li>
+
+        <li class="list-group-item feedback-step">
+            <strong class="fb-title" data-i18n="fb_mode4_step5_title"></strong>
+            <p class="fb-desc" data-i18n="fb_mode4_step5_desc_1"></p>
+            <p class="fb-desc" id="fb-m4-s5-desc-2"></p>
+        </li>
+    </ol>
+
+    <hr>
+    <div class="feedback-step pt-2">
+        <strong class="fb-title" data-i18n="fb_mode4_verify_title"></strong>
+        <p class="fb-desc" id="fb-m4-verify-desc-1"></p>
+        <p class="fb-desc" data-i18n="fb_mode4_verify_desc_2"></p>
+        <ul id="fb-m4-verify-list" class="fb-desc">
+        </ul>
+    </div>
+
+    <div class="feedback-step pt-3 mt-3">
+        <strong class="fb-title" data-i18n="fb_mode4_design_note_title"></strong>
+
+        <p class="fb-desc">
+            <strong><span data-i18n="subnet_gen_header_efficiency">Eficiencia</span>:
+                <span id="fb-m4-eff-percentage"></span>%
+                (<span id="fb-m4-eff-category" class="fw-bold"></span>)
+            </strong>
+        </p>
+
+        <div id="fb-m4-design-perfect" class="d-none">
+            <p class="fb-desc" data-i18n="fb_mode4_design_note_perfect_1"></p>
+            <p class="fb-desc" id="fb-m4-design-desc-perfect-2"></p>
+            <p class="fb-desc" data-i18n="fb_mode4_design_note_perfect_3"></p>
+        </div>
+
+        <div id="fb-m4-design-inefficient" class="d-none">
+            <p class="fb-desc" id="fb-m4-design-desc-inefficient-2"></p>
+            <p class="fb-desc" data-i18n="fb_mode4_design_note_inefficient_3"></p>
+            <ul id="fb-m4-design-holes-list" class="fb-desc">
+            </ul>
+            <p class="fb-desc fst-italic" data-i18n="fb_mode4_design_note_inefficient_4"></p>
+        </div>
+    </div>
+</template>

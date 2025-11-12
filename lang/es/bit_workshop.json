@@ -1,0 +1,16 @@
+{
+    "bits_workshop_title": "💡 Taller de Bits",
+    "nav_bit_workshop": "Taller de Bits",
+    "bits_workshop_ip": "Dirección IP",
+    "bits_workshop_cidr": "CIDR",
+    "bits_workshop_mask": "Máscara DDN",
+    "bits_workshop_breakdown": "Desglose Binario",
+    "bits_workshop_network": "Red",
+    "bits_workshop_host": "Host",
+    "bits_workshop_results": "Resultados (Operación AND)",
+    "bits_workshop_net_id": "ID de Red",
+    "bits_workshop_broadcast": "Broadcast",
+    "bits_workshop_summary": "Resumen",
+    "bits_workshop_wildcard": "Wildcard",
+    "bits_workshop_hosts_calc": "Cálculo de Hosts"
+}
