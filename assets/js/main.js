@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // o usa Promise.all si son independientes)
             await loadComponent('#footer-placeholder', `${basePath}/components/footer.html`);
 
-            
+            console.error(`${basePath}/components/footer.html`);
 
             // Carga el componente del Taller de Bits en segundo plano
             await BitWorkshop.load();
@@ -193,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     init(); // Llama a la función principal
 
 });
+
 
 
 
