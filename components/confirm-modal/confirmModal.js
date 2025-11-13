@@ -2,6 +2,12 @@
 let confirmationModalInstance = null;
 let modalElement = null; // Guardamos referencia al elemento
 
+// Calculamos la raíz basándonos en la ubicación de este script
+const scriptUrl = new URL(import.meta.url);
+// confirmModal.js está en /components/confirm-modal/, así que subimos 2 niveles
+const ROOT_PATH = new URL('../../', scriptUrl).pathname.replace(/\/$/, '');
+// -------------------------------
+
 /**
  * Carga el HTML del modal y lo inicializa.
  * Se puede llamar una vez al inicio de la aplicación.
@@ -25,7 +31,7 @@ export async function initializeConfirmationModal() {
     }
 
     try {
-        const response = await fetch('/components/confirm-modal/confirm-modal.html'); // Ruta raíz
+        const response = await fetch(`${ROOT_PATH}/components/confirm-modal/confirm-modal.html`);
         if (!response.ok) throw new Error('Failed to load confirm modal HTML');
         const modalHTML = await response.text();
         document.body.insertAdjacentHTML('beforeend', modalHTML);
@@ -149,4 +155,5 @@ export function showAlertModal(titleKey, messageKey, okBtnKey = 'btn_ok') { // <
     }, { once: true }); // { once: true } es buena práctica aquí
 
     confirmationModalInstance.show();
+
 }
