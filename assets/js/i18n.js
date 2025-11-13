@@ -1,4 +1,11 @@
-// assets/js/i18n.js (Versión SPA Refactorizada)
+// Añade esta función auxiliar fuera del objeto i1n o dentro de init
+    function getBasePath() {
+        const path = window.location.pathname;
+        // Si la URL contiene el nombre de tu repo, úsalo como base.
+        // Reemplaza 'ccna-blueprint' si tu repo se llama diferente.
+        const repoName = '/ccna-blueprint'; 
+        return path.includes(repoName) ? repoName : '';
+    },
 
 const i1n = {
     currentLanguage: 'es',
@@ -41,15 +48,6 @@ const i1n = {
         // 2. Resuelve la promesa maestra. ¡i18n está listo!
         this.initResolve();
         // -----------------------------------------
-    },
-
-    // Añade esta función auxiliar fuera del objeto i1n o dentro de init
-    function getBasePath() {
-        const path = window.location.pathname;
-        // Si la URL contiene el nombre de tu repo, úsalo como base.
-        // Reemplaza 'ccna-blueprint' si tu repo se llama diferente.
-        const repoName = '/ccna-blueprint'; 
-        return path.includes(repoName) ? repoName : '';
     },
 
     /**
@@ -215,5 +213,6 @@ const i1n = {
         }
     }
 };
+
 
 
