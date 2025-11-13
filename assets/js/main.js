@@ -130,12 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
      * Función principal de inicialización de la página.
      */
     const init = async () => {
-        // Usa rutas relativas a la raíz (empiezan con /)
-        //const basePath = ''; // Ya no necesitamos calcular la profundidad
-
-        // --- CAMBIO 1: Calcular la ruta raíz dinámicamente ---
-        // "import.meta.url" nos da la URL completa de main.js.
-        // "new URL('../../', ...)" sube dos niveles (sale de 'js' y sale de 'assets') para llegar a la raíz.
         const scriptUrl = new URL(import.meta.url);
         const basePath = new URL('../../', scriptUrl).pathname.replace(/\/$/, '');
         // Resultado local: ""
@@ -143,8 +137,18 @@ document.addEventListener('DOMContentLoaded', () => {
         // -----------------------------------------------------
 
         try {
-            // --- PASO 1: Carga el Navbar PRIMERO y ESPERA ---
+            // 1. Cargar Navbar
             await loadComponent('#navbar-placeholder', `${basePath}/components/nav.html`);
+
+            // Si estamos en GitHub (basePath tiene contenido), buscamos todos los enlaces que empiezan por "/"
+            // y les añadimos el nombre del repositorio al principio.
+            if (basePath) {
+                document.querySelectorAll('#navbar-placeholder a[href^="/"]').forEach(link => {
+                    const currentHref = link.getAttribute('href');
+                    link.setAttribute('href', basePath + currentHref);
+                });
+            }
+            // --------------------------------------------------
 
             // --- PASO 2: Ahora que el Navbar está en el DOM, inicializa sus controles ---
             initializeThemeToggle();
@@ -155,9 +159,13 @@ document.addEventListener('DOMContentLoaded', () => {
             initializeBitWorkshopTrigger(); // Inicializa el Taller de Bits
 
             // --- PASO 3: Carga el Footer (puede ser en paralelo ahora) ---
-            // (Si tienes más componentes, cárgalos aquí con await si dependen unos de otros,
-            // o usa Promise.all si son independientes)
-            await loadComponent('#footer-placeholder', `${basePath}/components/footer.html`);
+            if (basePath) {
+                document.querySelectorAll('#footer-placeholder a[href^="/"]').forEach(link => {
+                    const currentHref = link.getAttribute('href');
+                    link.setAttribute('href', basePath + currentHref);
+                });
+            }
+            // --------------------------------------------------
 
             // Carga el componente del Taller de Bits en segundo plano
             await BitWorkshop.load();
@@ -199,4 +207,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     init(); // Llama a la función principal
 });
+
 
