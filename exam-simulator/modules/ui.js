@@ -10,11 +10,14 @@ import { showAlertModal } from '../../components/confirm-modal/confirmModal.js';
 
 // --- FIN IMPORTACIONES ---
 
+const scriptUrl = new URL(import.meta.url);
+const ROOT_PATH = new URL('../../', scriptUrl).pathname.replace(/\/$/, '');
+
 // =========================================================================
 // 3. UI MODULE (DOM Manipulation)
 // =========================================================================
-export const UI = { // <<<--- AÑADIDO 'export'
-    // --- Caché para Plantillas HTML ---
+export const UI = {
+    
     _templateCache: {},
 
     // --- Bandera para evitar ejecuciones concurrentes ---
@@ -69,7 +72,8 @@ export const UI = { // <<<--- AÑADIDO 'export'
 
         // 2. Si no está en caché, intenta cargarla desde el archivo
         try {
-            const response = await fetch(`/exam-simulator/templates/${templateName}.html`);
+            const response = await fetch(`${ROOT_PATH}/exam-simulator/templates/${templateName}.html`);
+            // const response = await fetch(`/exam-simulator/templates/${templateName}.html`);
             if (!response.ok) {
                 throw new Error(`Error ${response.status} al cargar ${templateName}.html`);
             }
@@ -1578,5 +1582,6 @@ export const UI = { // <<<--- AÑADIDO 'export'
             console.warn(`Could not find radio button for mode: ${modeValue}`);
         }
     },
+
 
 }; // Fin del objeto UI
