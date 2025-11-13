@@ -7,6 +7,11 @@
 // Importa las utilidades de red
 import * as NetUtils from '../../tools/subnetting-gen/modules/net-utils.js';
 
+// Calculamos la raíz basándonos en la ubicación de este archivo script
+const scriptUrl = new URL(import.meta.url);
+// bit-workshop.js está en /components/bit-workshop/, así que subimos 2 niveles
+const ROOT_PATH = new URL('../../', scriptUrl).pathname.replace(/\/$/, '');
+
 // Estado del módulo
 let bsOffcanvas = null; // Instancia de Bootstrap Offcanvas
 let elements = {}; // Caché de elementos del DOM
@@ -30,7 +35,7 @@ async function load() {
         // ------------------------------
 
         // --- Cargar el CSS dinámicamente ---
-        const cssPath = '/components/bit-workshop/bit-workshop.css';
+        const cssPath = '${ROOT_PATH}/components/bit-workshop/bit-workshop.css';
         // Comprobar si ya está cargado para evitar duplicados
         if (!document.querySelector(`link[href="${cssPath}"]`)) {
             const link = document.createElement('link');
@@ -42,7 +47,7 @@ async function load() {
         // ------------------------------------------------
 
         // 2. Cargar el HTML
-        const response = await fetch('/components/bit-workshop/bit-workshop.html'); //
+        const response = await fetch('${ROOT_PATH}/components/bit-workshop/bit-workshop.html'); //
         if (!response.ok) throw new Error('No se pudo cargar bit-workshop.html');
         const html = await response.text();
 
@@ -256,4 +261,5 @@ function clearDisplay() {
 export const BitWorkshop = {
     load,
     open
+
 };
