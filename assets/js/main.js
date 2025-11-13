@@ -132,44 +132,50 @@ document.addEventListener('DOMContentLoaded', () => {
     const init = async () => {
         const scriptUrl = new URL(import.meta.url);
         const basePath = new URL('../../', scriptUrl).pathname.replace(/\/$/, '');
-        // Resultado local: ""
-        // Resultado GitHub: "/ccna-blueprint"
-        // -----------------------------------------------------
+        
+
+        // --- FUNCIÓN AUXILIAR NUEVA ---
+        // Busca cualquier enlace que empiece por "/" y le añade la base del repo
+        const fixLinks = (container) => {
+            if (!basePath) return; // No hacer nada en localhost
+            
+            // Buscamos enlaces dentro del contenedor que empiecen con /
+            container.querySelectorAll('a[href^="/"]').forEach(link => {
+                const currentHref = link.getAttribute('href');
+                // Evitamos corregir enlaces que ya tengan la base
+                if (!currentHref.startsWith(basePath)) {
+                    link.setAttribute('href', basePath + currentHref);
+                }
+            });
+        };
+        // -----------------------------
 
         try {
             // 1. Cargar Navbar
             await loadComponent('#navbar-placeholder', `${basePath}/components/nav.html`);
-
-            // Si estamos en GitHub (basePath tiene contenido), buscamos todos los enlaces que empiezan por "/"
-            // y les añadimos el nombre del repositorio al principio.
-            if (basePath) {
-                document.querySelectorAll('#navbar-placeholder a[href^="/"]').forEach(link => {
-                    const currentHref = link.getAttribute('href');
-                    link.setAttribute('href', basePath + currentHref);
-                });
-            }
-            // --------------------------------------------------
-
-            // --- PASO 2: Ahora que el Navbar está en el DOM, inicializa sus controles ---
+            
+            // Arreglar enlaces del Navbar
+            fixLinks(document.getElementById('navbar-placeholder'));
+    
+            // --- ¡ESTA ES LA CLAVE! ---
+            // Arreglar también los enlaces estáticos del cuerpo de la página (Dashboard, botones, etc.)
+            fixLinks(document.querySelector('main')); 
+            // --------------------------
+    
             initializeThemeToggle();
-            // ¡Importante! Inicializa i18n AHORA, ANTES de cargar el footer y ANTES de mostrar el body
-            await i1n.init(); // Espera a que cargue idioma y traduzca inicialmente
-            initializeLanguageSelector(); // Inicializa el selector de idioma después de i1n
-
-            initializeBitWorkshopTrigger(); // Inicializa el Taller de Bits
-
-            // --- PASO 3: Carga el Footer (puede ser en paralelo ahora) ---
-            if (basePath) {
-                document.querySelectorAll('#footer-placeholder a[href^="/"]').forEach(link => {
-                    const currentHref = link.getAttribute('href');
-                    link.setAttribute('href', basePath + currentHref);
-                });
-            }
-            // --------------------------------------------------
-
-            // Carga el componente del Taller de Bits en segundo plano
+            await i1n.init();
+            initializeLanguageSelector();
+            initializeBitWorkshopTrigger();
+    
+            // 2. Cargar Footer
+            await loadComponent('#footer-placeholder', `${basePath}/components/footer.html`);
+            
+            // Arreglar enlaces del Footer
+            fixLinks(document.getElementById('footer-placeholder'));
+    
+            // Cargar Bit Workshop
             await BitWorkshop.load();
-
+    
         } catch (error) {
             console.error('Fallo al cargar componentes o inicializar i18n:', error);
             // Aunque falle, mostramos el body para no dejar la página en blanco
@@ -207,5 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     init(); // Llama a la función principal
 });
+
 
 
