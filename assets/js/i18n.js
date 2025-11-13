@@ -50,7 +50,7 @@ const i1n = {
         // Reemplaza 'ccna-blueprint' si tu repo se llama diferente.
         const repoName = '/ccna-blueprint'; 
         return path.includes(repoName) ? repoName : '';
-    }
+    },
 
     /**
      * Carga uno o más archivos de idioma (namespaces) y los FUSIONA.
@@ -215,4 +215,5 @@ const i1n = {
         }
     }
 };
+
 
