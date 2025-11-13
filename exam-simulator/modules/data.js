@@ -1,3 +1,4 @@
+// Al principio del archivo:
 const scriptUrl = new URL(import.meta.url);
 const ROOT_PATH = new URL('../../', scriptUrl).pathname.replace(/\/$/, '');
 
@@ -11,11 +12,11 @@ export const Data = { // <<<--- AÑADIDO 'export'
         // Determina qué categorías faltan en el caché
         const categoriesToFetch = uniqueCategoryIds.filter(id => !this._questionCache[id]);
 
-        if (categoriesToFetch.length > 0) {               
+        if (categoriesToFetch.length > 0) {
+            console.log("Fetching categories:", categoriesToFetch);
             const fetchPromises = categoriesToFetch.map(id =>
-                fetch(`${ROOT_PATH}/data/${id}.json`)
                 // Usa ruta relativa a la raíz del sitio
-                //fetch(`/data/${id}.json`)
+                fetch(`${ROOT_PATH}/data/${id}.json`)
                     .then(response => {
                         if (!response.ok) throw new Error(`Failed to load: ${id} (${response.status})`);
                         // Maneja archivos potencialmente vacíos
@@ -111,5 +112,4 @@ export const Data = { // <<<--- AÑADIDO 'export'
             return null; // Devuelve null en caso de error
         }
     },
-
 };
