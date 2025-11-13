@@ -10,14 +10,16 @@ import { showAlertModal } from '../../components/confirm-modal/confirmModal.js';
 
 // --- FIN IMPORTACIONES ---
 
+// Al principio del archivo, después de los imports:
 const scriptUrl = new URL(import.meta.url);
+// ui.js está en /exam-simulator/modules/, así que subimos 2 niveles para ir a la raíz
 const ROOT_PATH = new URL('../../', scriptUrl).pathname.replace(/\/$/, '');
 
 // =========================================================================
 // 3. UI MODULE (DOM Manipulation)
 // =========================================================================
-export const UI = {
-    
+export const UI = { // <<<--- AÑADIDO 'export'
+    // --- Caché para Plantillas HTML ---
     _templateCache: {},
 
     // --- Bandera para evitar ejecuciones concurrentes ---
@@ -73,7 +75,6 @@ export const UI = {
         // 2. Si no está en caché, intenta cargarla desde el archivo
         try {
             const response = await fetch(`${ROOT_PATH}/exam-simulator/templates/${templateName}.html`);
-            // const response = await fetch(`/exam-simulator/templates/${templateName}.html`);
             if (!response.ok) {
                 throw new Error(`Error ${response.status} al cargar ${templateName}.html`);
             }
@@ -1582,6 +1583,5 @@ export const UI = {
             console.warn(`Could not find radio button for mode: ${modeValue}`);
         }
     },
-
 
 }; // Fin del objeto UI
