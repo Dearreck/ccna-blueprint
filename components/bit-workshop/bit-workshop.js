@@ -35,7 +35,7 @@ async function load() {
         // ------------------------------
 
         // --- Cargar el CSS dinámicamente ---
-        const cssPath = '${ROOT_PATH}/components/bit-workshop/bit-workshop.css';
+        const cssPath = `${ROOT_PATH}/components/bit-workshop/bit-workshop.css`;
         // Comprobar si ya está cargado para evitar duplicados
         if (!document.querySelector(`link[href="${cssPath}"]`)) {
             const link = document.createElement('link');
@@ -47,7 +47,7 @@ async function load() {
         // ------------------------------------------------
 
         // 2. Cargar el HTML
-        const response = await fetch('${ROOT_PATH}/components/bit-workshop/bit-workshop.html'); //
+        const response = await fetch(`${ROOT_PATH}/components/bit-workshop/bit-workshop.html`); //
         if (!response.ok) throw new Error('No se pudo cargar bit-workshop.html');
         const html = await response.text();
 
@@ -263,3 +263,4 @@ export const BitWorkshop = {
     open
 
 };
+
