@@ -43,6 +43,15 @@ const i1n = {
         // -----------------------------------------
     },
 
+    // Añade esta función auxiliar fuera del objeto i1n o dentro de init
+    function getBasePath() {
+        const path = window.location.pathname;
+        // Si la URL contiene el nombre de tu repo, úsalo como base.
+        // Reemplaza 'ccna-blueprint' si tu repo se llama diferente.
+        const repoName = '/ccna-blueprint'; 
+        return path.includes(repoName) ? repoName : '';
+    }
+
     /**
      * Carga uno o más archivos de idioma (namespaces) y los FUSIONA.
      * @param {string[]} namespaces - Array de nombres de módulos (ej. ['exam', 'pw_cracker'])
@@ -60,6 +69,7 @@ const i1n = {
         try {
             const fetchPromises = [];
             const namespacesToLoad = namespaces.filter(ns => !this.loadedNamespaces.has(ns));
+            const basePath = getBasePath();
 
             if (namespacesToLoad.length === 0) {
                 // Si no hay nada que cargar, pero SÍ queremos forzar un re-renderizado
@@ -72,7 +82,9 @@ const i1n = {
             }
 
             for (const ns of namespacesToLoad) {
-                const url = `/lang/${this.currentLanguage}/${ns}.json`;
+                //const url = `/lang/${this.currentLanguage}/${ns}.json`;
+                const url = `${basePath}/lang/${this.currentLanguage}/${ns}.json`;
+
                 fetchPromises.push(
                     fetch(url).then(response => {
                         if (!response.ok) {
@@ -203,3 +215,4 @@ const i1n = {
         }
     }
 };
+
