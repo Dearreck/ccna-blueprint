@@ -5,7 +5,7 @@
         // Reemplaza 'ccna-blueprint' si tu repo se llama diferente.
         const repoName = '/ccna-blueprint'; 
         return path.includes(repoName) ? repoName : '';
-    },
+    }
 
 const i1n = {
     currentLanguage: 'es',
@@ -213,6 +213,7 @@ const i1n = {
         }
     }
 };
+
 
 
 
