@@ -1,4 +1,5 @@
-// exam-simulator/modules/data.js
+const scriptUrl = new URL(import.meta.url);
+const ROOT_PATH = new URL('../../', scriptUrl).pathname.replace(/\/$/, '');
 
 export const Data = { // <<<--- AÑADIDO 'export'
     // Cache for fetched questions to avoid refetching same category
@@ -10,11 +11,11 @@ export const Data = { // <<<--- AÑADIDO 'export'
         // Determina qué categorías faltan en el caché
         const categoriesToFetch = uniqueCategoryIds.filter(id => !this._questionCache[id]);
 
-        if (categoriesToFetch.length > 0) {
-            console.log("Fetching categories:", categoriesToFetch);
+        if (categoriesToFetch.length > 0) {               
             const fetchPromises = categoriesToFetch.map(id =>
+                fetch(`${ROOT_PATH}/data/${id}.json`)
                 // Usa ruta relativa a la raíz del sitio
-                fetch(`/data/${id}.json`)
+                //fetch(`/data/${id}.json`)
                     .then(response => {
                         if (!response.ok) throw new Error(`Failed to load: ${id} (${response.status})`);
                         // Maneja archivos potencialmente vacíos
@@ -93,7 +94,7 @@ export const Data = { // <<<--- AÑADIDO 'export'
         }
 
         // Si no, carga desde archivo
-        const filePath = `/data/structure/topics_structure_${lang}.json`;
+        const filePath = `${ROOT_PATH}/data/structure/topics_structure_${lang}.json`;
         console.log(`Cargando estructura de temas desde: ${filePath}`);
 
         try {
@@ -110,4 +111,5 @@ export const Data = { // <<<--- AÑADIDO 'export'
             return null; // Devuelve null en caso de error
         }
     },
+
 };
