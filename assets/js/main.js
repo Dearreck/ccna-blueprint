@@ -1,4 +1,4 @@
-import { BitWorkshop } from '/ccna-blueprint/components/bit-workshop/bit-workshop.js';
+import { BitWorkshop } from '/components/bit-workshop/bit-workshop.js';
 
 let globalTooltipElements = [];
 
@@ -29,7 +29,7 @@ window.initializeOrReinitializeTooltips = () => {
     globalTooltipElements.forEach(tooltipTriggerEl => {
         new bootstrap.Tooltip(tooltipTriggerEl);
     });
-    // console.log(`ialized/Reialized ${globalTooltipElements.length} global tooltips.`);
+    // console.log(`Initialized/Reinitialized ${globalTooltipElements.length} global tooltips.`);
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Inicializa el botón de cambio de tema.
      */
-    const ializeThemeToggle = () => {
+    const initializeThemeToggle = () => {
         const themeToggleButton = document.getElementById('theme-toggle-button');
         if (!themeToggleButton) return;
         const themeIcon = themeToggleButton.querySelector('i');
@@ -130,10 +130,17 @@ document.addEventListener('DOMContentLoaded', () => {
      * Función principal de inicialización de la página.
      */
     const init = async () => {
-        // Calculamos la ruta raíz basándonos en la ubicación de este script (main.js está en assets/js)
-    // Esto sube 2 niveles desde 'assets/js/' para encontrar la raíz del proyecto.
-    const scriptUrl = new URL(import.meta.url);
-    const basePath = new URL('../../', scriptUrl).pathname.replace(/\/$/, '');
+        // Usa rutas relativas a la raíz (empiezan con /)
+        //const basePath = ''; // Ya no necesitamos calcular la profundidad
+
+        // --- CAMBIO 1: Calcular la ruta raíz dinámicamente ---
+        // "import.meta.url" nos da la URL completa de main.js.
+        // "new URL('../../', ...)" sube dos niveles (sale de 'js' y sale de 'assets') para llegar a la raíz.
+        const scriptUrl = new URL(import.meta.url);
+        const basePath = new URL('../../', scriptUrl).pathname.replace(/\/$/, '');
+        // Resultado local: ""
+        // Resultado GitHub: "/ccna-blueprint"
+        // -----------------------------------------------------
 
         try {
             // --- PASO 1: Carga el Navbar PRIMERO y ESPERA ---
@@ -151,8 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // (Si tienes más componentes, cárgalos aquí con await si dependen unos de otros,
             // o usa Promise.all si son independientes)
             await loadComponent('#footer-placeholder', `${basePath}/components/footer.html`);
-
-            console.error(`${basePath}/components/footer.html`);
 
             // Carga el componente del Taller de Bits en segundo plano
             await BitWorkshop.load();
@@ -193,10 +198,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // body.loaded { opacity: 1; }
 
     init(); // Llama a la función principal
-
 });
-
-
-
-
-
