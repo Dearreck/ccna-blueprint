@@ -29,7 +29,7 @@ window.initializeOrReinitializeTooltips = () => {
     globalTooltipElements.forEach(tooltipTriggerEl => {
         new bootstrap.Tooltip(tooltipTriggerEl);
     });
-    // console.log(`Initialized/Reinitialized ${globalTooltipElements.length} global tooltips.`);
+    // console.log(`ialized/Reialized ${globalTooltipElements.length} global tooltips.`);
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Inicializa el botón de cambio de tema.
      */
-    const initializeThemeToggle = () => {
+    const ializeThemeToggle = () => {
         const themeToggleButton = document.getElementById('theme-toggle-button');
         if (!themeToggleButton) return;
         const themeIcon = themeToggleButton.querySelector('i');
@@ -130,8 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
      * Función principal de inicialización de la página.
      */
     const init = async () => {
-        // Usa rutas relativas a la raíz (empiezan con /)
-        const basePath = ''; // Ya no necesitamos calcular la profundidad
+        // Calculamos la ruta raíz basándonos en la ubicación de este script (main.js está en assets/js)
+    // Esto sube 2 niveles desde 'assets/js/' para encontrar la raíz del proyecto.
+    const scriptUrl = new URL(import.meta.url);
+    const basePath = new URL('../../', scriptUrl).pathname.replace(/\/$/, '');
 
         try {
             // --- PASO 1: Carga el Navbar PRIMERO y ESPERA ---
@@ -193,6 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     init(); // Llama a la función principal
 
 });
+
 
 
 
