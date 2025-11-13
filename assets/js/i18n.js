@@ -1,11 +1,9 @@
-// Añade esta función auxiliar fuera del objeto i1n o dentro de init
-    function getBasePath() {
-        const path = window.location.pathname;
-        // Si la URL contiene el nombre de tu repo, úsalo como base.
-        // Reemplaza 'ccna-blueprint' si tu repo se llama diferente.
-        const repoName = '/ccna-blueprint'; 
-        return path.includes(repoName) ? repoName : '';
-    }
+// Función auxiliar para detectar si estamos en GitHub Pages
+function getBasePath() {
+    const path = window.location.pathname;
+    const repoName = '/ccna-blueprint'; // El nombre exacto de tu repo en GitHub
+    return path.includes(repoName) ? repoName : '';
+}
 
 const i1n = {
     currentLanguage: 'es',
@@ -80,9 +78,7 @@ const i1n = {
             }
 
             for (const ns of namespacesToLoad) {
-                //const url = `/lang/${this.currentLanguage}/${ns}.json`;
                 const url = `${basePath}/lang/${this.currentLanguage}/${ns}.json`;
-
                 fetchPromises.push(
                     fetch(url).then(response => {
                         if (!response.ok) {
@@ -213,7 +209,3 @@ const i1n = {
         }
     }
 };
-
-
-
-
